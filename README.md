@@ -7,11 +7,11 @@ The Finjin exporter plug-ins for 3DS Max and Maya generate 3D assets for use wit
 * More...
 
 ## Project Dependencies
-* finjin-common
-* finjin-engine
+* [finjin-common](https://github.com/finjin/finjin-common)
+* [finjin-engine](https://github.com/finjin/finjin-engine)
 
 ## Documentation
-* finjin-documentation
+* [finjin-documentation](https://github.com/finjin/finjin-documentation)
 
 ## Repository Structure
 ```
