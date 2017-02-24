@@ -1,0 +1,66 @@
+
+source "FinjinFunctions.mel";
+
+//Custom icon procedures-----------------------------------
+global proc AEFinjinUseCustomIconCommand(string $attributeName)
+{
+    string $nodeName = FinjinGetAttributeNodeName($attributeName);
+    FinjinCustomDummyChooseCustomIcon($nodeName);
+}
+
+global proc AEFinjinUseCustomIconNew(string $attributeName)
+{
+    rowLayout -nc 1 -columnWidth1 385 customIconLayout;
+        button -height 24 -label "   Use Custom Icon   " useCustomIconButton;
+        setParent ..;
+    AEFinjinUseCustomIconEdit($attributeName);    
+}
+
+global proc AEFinjinUseCustomIconEdit(string $attributeName)
+{
+    button -edit -command ("AEFinjinUseCustomIconCommand \"" + $attributeName + "\"") useCustomIconButton;
+}
+
+
+//Default icon procedures-----------------------------------
+global proc AEFinjinUseDefaultIconCommand(string $attributeName)
+{
+    string $nodeName = FinjinGetAttributeNodeName($attributeName);
+    FinjinCustomDummyUseDefaultIcon($nodeName);
+}
+
+global proc AEFinjinUseDefaultIconNew(string $attributeName)
+{
+    rowLayout -nc 1 -columnWidth1 385 defaultIconLayout;
+        button -height 24 -label "   Use Default Icon   " useDefaultIconButton;
+        setParent ..;    
+    AEFinjinUseDefaultIconEdit($attributeName);    
+}
+
+global proc AEFinjinUseDefaultIconEdit(string $attributeName)
+{
+    button -edit -command ("AEFinjinUseDefaultIconCommand \"" + $attributeName + "\"") useDefaultIconButton;
+}
+
+
+//Entry point---------------------------------------------
+global proc AEFinjinCustomDummyTemplate(string $nodeName)
+{
+    editorTemplate -beginScrollLayout;
+        
+        editorTemplate -beginLayout "Custom Dummy Attributes" -collapse false;
+            editorTemplate -beginNoOptimize;
+                editorTemplate -addControl "IconSize";
+                editorTemplate -callCustom "AEFinjinUseCustomIconNew" "AEFinjinUseCustomIconEdit" "UseCustomIcon";
+                editorTemplate -callCustom "AEFinjinUseDefaultIconNew" "AEFinjinUseDefaultIconEdit" "UseDefaultIcon";
+                editorTemplate -addControl "AlwaysFaceView";
+                editorTemplate -addControl "Text";
+                editorTemplate -addSeparator;
+                editorTemplate -addControl "IconColor";
+            editorTemplate -endNoOptimize;                
+        editorTemplate -endLayout;
+
+        editorTemplate -addExtraControls;
+
+    editorTemplate -endScrollLayout;
+}

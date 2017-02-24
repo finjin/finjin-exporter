@@ -1,0 +1,23 @@
+[enum]
+{
+    name=Occupation
+    type=string
+    [enum-items]
+    {
+        [enum-value]
+        {
+            name=Student
+            value=student
+        }
+        [enum-value]
+        {
+            name=Truck Driver
+            value=truck-driver
+        }
+        [enum-value]
+        {
+            name=Skydiver
+            value=skydiver
+        }
+    }    
+}

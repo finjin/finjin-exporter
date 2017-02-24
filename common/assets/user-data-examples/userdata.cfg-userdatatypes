@@ -1,0 +1,263 @@
+[include]
+{
+	file=fruit
+	file=occupations
+}
+
+[enum]
+{
+    name=WeekDay
+    type=string
+    [enum-items]
+    {
+        [enum-value]
+        {
+            name=Monday
+            value=mon
+        }
+        [enum-value]
+        {
+            name=Tuesday
+            value=tues
+        }
+        [enum-value]
+        {
+            name=Wednesday
+            value=wed
+        }
+        [enum-value]
+        {
+            name=Thursday
+            value=thu
+        }
+        [enum-value]
+        {
+            name=Friday
+            value=fri
+        }
+    }    
+}
+
+[enum]
+{
+    name=WeekendDay
+    type=string
+    [enum-items]
+    {
+        [enum-value]
+        {
+            name=Saturday
+            value=sat
+        }
+        [enum-value]
+        {
+            name=Sunday
+            value=sun
+        }
+    }
+}
+
+[enum]
+{
+    name=Day
+    type=string
+    super=WeekDay WeekendDay
+    [enum-items]
+    {
+        [enum-value]
+        {
+            name=Wednesday
+            value=wed
+        }
+        [enum-value]
+        {
+            name=Thursday
+            value=thu
+        }
+    }
+}
+
+[class]
+{
+    name=LivingThing
+    display-name=Living Thing
+    usage=private
+    [properties]
+    {
+        [property]
+        {
+            name=alive
+            display-name=Alive?
+            type=bool
+            default-value=true
+        }
+        [property]
+        {
+            name=age
+			display-name=Age
+            type=int
+            default-value=0
+            min-value=0
+            max-value=100
+            increment=1
+            visibility-parent-name=alive
+        }
+        [property]
+        {
+            name=position-in-scene
+            display-name=Position In Scene
+            type=float3
+            min-value=-100000
+            max-value=100000
+            increment=.01
+            visibility-parent-name=alive
+        }
+    }
+}
+
+[class]
+{
+    name=Human
+    super=LivingThing
+    usage=object
+    [properties]
+    {
+        [property]
+        {
+            name=first-name
+            display-name=First Name
+            group-name=Name
+            type=string
+        }
+        [property]
+        {
+            name=last-name
+            display-name=Last Name
+            group-name=Name
+            type=string
+        }
+        [property]
+        {
+            name=eye-color
+            display-name=Eye Color
+            group-name=Colors
+            type=rgb
+        }
+        [property]
+        {
+            name=favorite-color-with-alpha
+            display-name=Favorite Color With Alpha
+            group-name=Colors
+            type=rgba
+            default-value=1 1 1 1
+        }
+        [property]
+        {
+            name=biography
+			display-name=Biography
+            type=string
+            group-name=Stuff
+            edit-width=200
+            edit-height=100
+        }
+        [property]
+        {
+            name=interests
+			display-name=Interests
+            type=string
+            group-name=Stuff
+            edit-width=200
+            edit-height=100
+        }
+        [property]
+        {
+            name=favorite-day
+            display-name=Favorite Day
+            type=Day
+            default-value=sat
+        }
+    }    
+}
+
+[class]
+{
+    name=Dog
+    usage=object
+    [properties]
+    {
+        [property]
+        {
+            name=fur-color
+            display-name=Fur Color
+            type=rgb
+        }
+    }
+}
+
+[class]
+{
+    name=DogHuman
+    display-name=Dog And Human
+    super=Dog Human
+    usage=object
+    [properties]
+    {
+        [property]
+        {
+            name=two-numbers
+            display-name=Two Numbers
+            type=float2
+            controlType=edit
+        }
+    }
+}
+
+[class]
+{
+    name=SceneSettings
+    display-name=Scene Settings
+    usage=scene
+    [properties]
+    {
+        [property]
+        {
+            name=introduction
+			display-name=Introduction
+            type=string
+            edit-width=200
+            edit-height=100
+        }
+        [property]
+        {
+            name=conclusion
+			display-name=Conclusion
+            type=string
+            edit-width=200
+            edit-height=100
+        }
+    }
+}
+
+[class]
+{
+    name=MaterialSettings
+    display-name=Material Settings
+    usage=material
+    [properties]
+    {
+        [property]
+        {
+            name=sound
+			display-name=Sound
+            type=string
+        }
+        [property]
+        {
+            name=friction
+			display-name=Friction
+            type=float
+            min-value=0
+            max-value=100
+        }
+    }
+}

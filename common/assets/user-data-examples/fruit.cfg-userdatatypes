@@ -1,0 +1,23 @@
+[enum]
+{
+    name=Fruit
+    type=string
+    [enum-items]
+    {
+        [enum-value]
+        {
+            name=Apple
+            value=apple
+        }
+        [enum-value]
+        {
+            name=Pear
+            value=pear
+        }
+        [enum-value]
+        {
+            name=Grape
+            value=grape
+        }
+    }    
+}

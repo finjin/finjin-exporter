@@ -1,0 +1,1256 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_ABOUT_LOGO          BITMAP                  "..\\..\\..\\..\\common\\assets\\images\\about-logo.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_CONVERT_TO_FRAMES_DIALOG DIALOGEX 0, 0, 248, 209
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Convert to Frames"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Source File",IDC_SOURCE_FILE_FRAME,5,5,235,45
+    LTEXT           "The video file to be converted to frames.",IDC_STATIC,11,17,132,8
+    EDITTEXT        IDC_SOURCE_FILE_EDIT,11,30,171,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_SOURCE_FILE_BUTTON,185,28,50,14
+    GROUPBOX        "Destination Directory",IDC_DESTINATION_DIRECTORY_FRAME,5,53,235,48
+    LTEXT           "The directory that will contain the generated frames. Leave empty to use the source file directory.",IDC_STATIC,11,64,225,17
+    EDITTEXT        IDC_DESTINATION_DIRECTORY_EDIT,11,84,171,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_DESTINATION_DIRECTORY_BUTTON,185,82,50,14
+    GROUPBOX        "Destination Base File Name",IDC_DESTINATION_BASE_FILE_NAME_FRAME,5,104,235,42
+    LTEXT           "The base file name of the generated frames. For example: 'frame.jpg'",IDC_STATIC,11,115,225,10
+    EDITTEXT        IDC_DESTINATION_BASE_FILE_NAME_EDIT,11,127,130,12,ES_AUTOHSCROLL
+    GROUPBOX        "Size",IDC_RESIZING_FRAME,5,149,235,40
+    CONTROL         "Original",IDC_ORIGINAL_SIZE_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,14,160,40,10
+    CONTROL         "Custom",IDC_CUSTOM_SIZE_RADIO,"Button",BS_AUTORADIOBUTTON,14,172,40,10
+    CONTROL         "",IDC_WIDTH_EDIT,"CustEdit",WS_TABSTOP,56,172,30,10
+    CONTROL         "0,255,0",IDC_WIDTH_SPIN,"SpinnerControl",0x0,86,172,11,10
+    LTEXT           "X",IDC_STATIC,99,173,8,8
+    CONTROL         "",IDC_HEIGHT_EDIT,"CustEdit",WS_TABSTOP,107,172,30,10
+    CONTROL         "0,255,0",IDC_HEIGHT_SPIN,"SpinnerControl",0x0,137,172,11,10
+    DEFPUSHBUTTON   "&OK",IDOK,135,192,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,187,192,50,14
+END
+
+IDD_RENDER_TERRAIN_MAP_DIALOG DIALOGEX 0, 0, 253, 103
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Render Map"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "The height map will be rendered with all world objects.",IDC_SELECTED_OBJECTS_INFORMATION_TEXT,7,6,244,10
+    LTEXT           "Dimensions",IDC_DIMENSIONS_TEXT,8,23,36,8
+    CONTROL         "",IDC_WIDTH_EDIT,"CustEdit",WS_TABSTOP,60,23,30,10
+    CONTROL         "0,255,0",IDC_WIDTH_SPIN,"SpinnerControl",0x0,90,23,11,10
+    LTEXT           "X",IDC_DIMENSIONS_X_TEXT,104,23,8,8
+    CONTROL         "",IDC_HEIGHT_EDIT,"CustEdit",WS_TABSTOP,113,23,30,10
+    CONTROL         "0,255,0",IDC_HEIGHT_SPIN,"SpinnerControl",0x0,143,23,11,10
+    CONTROL         "Square",IDC_SQUARE_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,161,23,39,10
+    CONTROL         "Rotate 90 Degrees Clockwise",IDC_ROTATE_90_DEGREES_COUNTERCLOCKWISE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,8,39,109,10
+    LTEXT           "Bytes Per Pixel",IDC_BYTES_PER_PIXEL_TEXT,126,40,48,8
+    CONTROL         "",IDC_BYTES_PER_PIXEL_EDIT,"CustEdit",WS_TABSTOP,178,40,30,10
+    CONTROL         "0,255,0",IDC_BYTES_PER_PIXEL_SPIN,"SpinnerControl",0x0,208,40,11,10
+    LTEXT           "Destination File",IDC_STATIC,9,55,50,8
+    EDITTEXT        IDC_DESTINATION_FILE_EDIT,9,66,183,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_DESTINATION_FILE_BUTTON,195,64,50,14
+    DEFPUSHBUTTON   "&OK",IDOK,143,84,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,195,84,50,14
+END
+
+IDD_RENDER_CUBE_MAP_DIALOG DIALOGEX 0, 0, 258, 191
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Render Cube Map"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "The cube map will be rendered from a camera at the world origin.",IDC_CENTER_INFORMATION_TEXT,7,6,244,10
+    LTEXT           "Cube Face Width/Height",IDC_STATIC,8,22,79,8
+    CONTROL         "",IDC_DIMENSIONS_EDIT,"CustEdit",WS_TABSTOP,90,21,30,10
+    CONTROL         "0,255,0",IDC_DIMENSIONS_SPIN,"SpinnerControl",0x0,120,21,11,10
+    CONTROL         "Separate Files",IDC_SEPARATE_FILES_RADIO,"Button",BS_AUTORADIOBUTTON | WS_GROUP,8,37,61,10
+    CONTROL         "DDS File",IDC_DDS_FILE_RADIO,"Button",BS_AUTORADIOBUTTON,8,142,42,10
+    GROUPBOX        "Destination Directory",IDC_DESTINATION_DIRECTORY_FRAME,15,50,235,41
+    LTEXT           "The directory that will contain the generated cube map images.",IDC_STATIC,21,60,225,10
+    EDITTEXT        IDC_DESTINATION_DIRECTORY_EDIT,21,72,171,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_DESTINATION_DIRECTORY_BUTTON,195,70,50,14
+    GROUPBOX        "Destination Base File Name",IDC_DESTINATION_BASE_FILE_NAME_FRAME,15,95,235,42
+    LTEXT           "The base file name of the generated images. For example: 'sky.jpg'",IDC_STATIC,21,106,225,10
+    EDITTEXT        IDC_DESTINATION_BASE_FILE_NAME_EDIT,21,118,130,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DESTINATION_FILE_EDIT,21,154,171,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Browse...",IDC_DESTINATION_FILE_BUTTON,195,152,50,14
+    DEFPUSHBUTTON   "OK",IDOK,144,171,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,196,171,50,14
+END
+
+IDD_CUBE_MAP_HELPER_ROLLUP DIALOGEX 0, 0, 108, 120
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Icon Size",IDC_DIMENSIONS_TEXT,10,7,30,8
+    CONTROL         "",IDC_SIZE_EDIT,"CustEdit",WS_TABSTOP,42,7,43,10
+    CONTROL         "0,255,0",IDC_SIZE_SPIN,"SpinnerControl",0x0,85,7,11,10
+    CONTROL         "Render on Export",IDC_RENDER_ON_EXPORT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,20,73,10
+    CONTROL         "Render Now",IDC_RENDER_NOW_BUTTON,"CustButton",WS_TABSTOP,18,33,68,10
+    LTEXT           "Cube Face Size",IDC_DIMENSIONS_TEXT2,6,48,50,8
+    CONTROL         "",IDC_CUBE_FACE_SIZE_EDIT,"CustEdit",WS_TABSTOP,57,48,35,10
+    CONTROL         "0,255,0",IDC_CUBE_FACE_SIZE_SPIN,"SpinnerControl",0x0,92,48,11,10
+    LTEXT           "File Type",IDC_TEXT2,4,60,30,8
+    CONTROL         "Separate Files",IDC_SEPARATE_FILES_RADIO,"Button",BS_AUTORADIOBUTTON,11,71,61,10
+    CONTROL         "DDS File",IDC_DDS_FILE_RADIO,"Button",BS_AUTORADIOBUTTON,11,82,42,10
+    LTEXT           "Base File Name",IDC_TEXT,4,95,49,8
+    CONTROL         "",IDC_BASE_FILE_NAME_EDIT,"CustEdit",WS_TABSTOP,3,105,102,10
+END
+
+IDD_ZONE_ROLLUP DIALOGEX 0, 0, 108, 131
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Width",IDC_WIDTH_TEXT,10,7,20,8
+    CONTROL         "",IDC_WIDTH_EDIT,"CustEdit",WS_TABSTOP,42,7,43,10
+    CONTROL         "0,255,0",IDC_WIDTH_SPIN,"SpinnerControl",0x0,85,7,11,10
+    LTEXT           "Length",IDC_LENGTH_TEXT,10,19,23,8
+    CONTROL         "",IDC_LENGTH_EDIT,"CustEdit",WS_TABSTOP,42,19,43,10
+    CONTROL         "0,255,0",IDC_LENGTH_SPIN,"SpinnerControl",0x0,85,19,11,10
+    LTEXT           "Height",IDC_HEIGHT_TEXT,10,31,22,8
+    CONTROL         "",IDC_HEIGHT_EDIT,"CustEdit",WS_TABSTOP,42,31,43,10
+    CONTROL         "0,255,0",IDC_HEIGHT_SPIN,"SpinnerControl",0x0,85,31,11,10
+    GROUPBOX        "Type",IDC_STATIC,3,43,49,44
+    CONTROL         "Default",IDC_ZONE_TYPE_DEFAULT_RADIO,"Button",BS_AUTORADIOBUTTON,9,53,39,10
+    CONTROL         "Octree",IDC_ZONE_TYPE_OCTREE_RADIO,"Button",BS_AUTORADIOBUTTON,9,64,38,10
+    CONTROL         "Terrain",IDC_ZONE_TYPE_TERRAIN_RADIO,"Button",BS_AUTORADIOBUTTON,9,75,39,10
+    GROUPBOX        "Auto Portal",IDC_STATIC,55,43,49,44
+    CONTROL         "None",IDC_AUTO_PORTAL_TYPE_NONE_RADIO,"Button",BS_AUTORADIOBUTTON,60,53,33,10
+    CONTROL         "Box",IDC_AUTO_PORTAL_TYPE_BOX_RADIO,"Button",BS_AUTORADIOBUTTON,60,64,28,10
+    CONTROL         "Sphere",IDC_AUTO_PORTAL_TYPE_SPHERE_RADIO,"Button",BS_AUTORADIOBUTTON,60,75,39,10
+    GROUPBOX        "Note",IDC_STATIC,4,88,100,38
+    LTEXT           "Note",IDC_NOTE_TEXT,12,97,85,28
+END
+
+IDD_QUAD_PORTAL_ROLLUP DIALOGEX 0, 0, 108, 108
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Width",IDC_WIDTH_TEXT,3,7,20,8
+    CONTROL         "",IDC_WIDTH_EDIT,"CustEdit",WS_TABSTOP,53,7,43,10
+    CONTROL         "0,255,0",IDC_WIDTH_SPIN,"SpinnerControl",0x0,96,7,11,10
+    LTEXT           "Length",IDC_LENGTH_TEXT,3,19,23,8
+    CONTROL         "",IDC_LENGTH_EDIT,"CustEdit",WS_TABSTOP,53,19,43,10
+    CONTROL         "0,255,0",IDC_LENGTH_SPIN,"SpinnerControl",0x0,96,19,11,10
+    LTEXT           "Normal Length",IDC_LENGTH_TEXT2,3,31,47,8
+    CONTROL         "",IDC_NORMAL_LENGTH_EDIT,"CustEdit",WS_TABSTOP,53,31,43,10
+    CONTROL         "0,255,0",IDC_NORMAL_LENGTH_SPIN,"SpinnerControl",0x0,96,31,11,10
+    LTEXT           "Target Portal",IDC_TARGET_PORTAL_TEXT,4,44,43,8
+    CONTROL         "",IDC_TARGET_PORTAL_BUTTON,"CustButton",WS_TABSTOP,4,54,100,10
+    GROUPBOX        "Note",IDC_STATIC,4,66,100,38
+    LTEXT           "To associate this portal with a zone, attach it to the zone as a child node.",IDC_STATIC,12,75,85,28
+END
+
+IDD_INSTANCED_GEOMETRY_ROLLUP DIALOGEX 0, 0, 108, 112
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Width",IDC_WIDTH_TEXT,10,7,20,8
+    CONTROL         "",IDC_WIDTH_EDIT,"CustEdit",WS_TABSTOP,42,7,43,10
+    CONTROL         "0,255,0",IDC_WIDTH_SPIN,"SpinnerControl",0x0,85,7,11,10
+    LTEXT           "Length",IDC_LENGTH_TEXT,10,19,23,8
+    CONTROL         "",IDC_LENGTH_EDIT,"CustEdit",WS_TABSTOP,42,19,43,10
+    CONTROL         "0,255,0",IDC_LENGTH_SPIN,"SpinnerControl",0x0,85,19,11,10
+    LTEXT           "Height",IDC_HEIGHT_TEXT2,10,31,22,8
+    CONTROL         "",IDC_HEIGHT_EDIT,"CustEdit",WS_TABSTOP,42,31,43,10
+    CONTROL         "0,255,0",IDC_HEIGHT_SPIN,"SpinnerControl",0x0,85,31,11,10
+    CONTROL         "Cast Shadows",IDC_CAST_SHADOWS_SCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,58,61,10
+    LTEXT           "Batches",IDC_HEIGHT_TEXT3,10,43,26,8
+    CONTROL         "",IDC_BATCH_COUNT_EDIT,"CustEdit",WS_TABSTOP,42,43,43,10
+    CONTROL         "0,255,0",IDC_BATCH_COUNT_SPIN,"SpinnerControl",0x0,85,43,11,10
+    GROUPBOX        "Note",IDC_STATIC,4,69,100,38
+    LTEXT           "To associate entities with this instance, attach the entities as child nodes.",IDC_NOTE_TEXT,12,78,85,28
+END
+
+IDD_STATIC_GEOMETRY_ROLLUP DIALOGEX 0, 0, 108, 102
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Width",IDC_WIDTH_TEXT,10,7,20,8
+    CONTROL         "",IDC_WIDTH_EDIT,"CustEdit",WS_TABSTOP,42,7,43,10
+    CONTROL         "0,255,0",IDC_WIDTH_SPIN,"SpinnerControl",0x0,85,7,11,10
+    LTEXT           "Length",IDC_LENGTH_TEXT,10,19,23,8
+    CONTROL         "",IDC_LENGTH_EDIT,"CustEdit",WS_TABSTOP,42,19,43,10
+    CONTROL         "0,255,0",IDC_LENGTH_SPIN,"SpinnerControl",0x0,85,19,11,10
+    LTEXT           "Height",IDC_HEIGHT_TEXT2,10,31,22,8
+    CONTROL         "",IDC_HEIGHT_EDIT,"CustEdit",WS_TABSTOP,42,31,43,10
+    CONTROL         "0,255,0",IDC_HEIGHT_SPIN,"SpinnerControl",0x0,85,31,11,10
+    CONTROL         "Cast Shadows",IDC_CAST_SHADOWS_SCHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,10,46,61,10
+    GROUPBOX        "Note",IDC_STATIC,4,59,100,38
+    LTEXT           "To associate entities with this instance, attach the entities as child nodes.",IDC_NOTE_TEXT,12,68,85,28
+END
+
+IDD_CUSTOM_DUMMY_ROLLUP DIALOGEX 0, 0, 108, 85
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Icon Size",IDC_DIMENSIONS_TEXT,10,7,30,8
+    CONTROL         "",IDC_SIZE_EDIT,"CustEdit",WS_TABSTOP,42,7,43,10
+    CONTROL         "0,255,0",IDC_SIZE_SPIN,"SpinnerControl",0x0,85,7,11,10
+    CONTROL         "Use Custom Icon",IDC_USE_CUSTOM_ICON_BUTTON,"CustButton",WS_TABSTOP,18,21,68,10
+    CONTROL         "Use Default Icon",IDC_USE_DEFAULT_ICON_BUTTON,
+                    "CustButton",WS_TABSTOP,18,34,68,10
+    CONTROL         "Always Face View",IDC_ALWAYS_FACE_VIEW_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,48,73,10
+    LTEXT           "Text",IDC_TEXT,4,60,16,8
+    CONTROL         "",IDC_TEXT_EDIT,"CustEdit",WS_TABSTOP,3,70,102,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_CONVERT_TO_FRAMES_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 241
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 202
+    END
+
+    IDD_RENDER_TERRAIN_MAP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 246
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 96
+    END
+
+    IDD_RENDER_CUBE_MAP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 251
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 184
+    END
+
+    IDD_CUBE_MAP_HELPER_ROLLUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 101
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_ZONE_ROLLUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 101
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 106
+    END
+
+    IDD_QUAD_PORTAL_ROLLUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 101
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+
+    IDD_INSTANCED_GEOMETRY_ROLLUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 101
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 87
+    END
+
+    IDD_STATIC_GEOMETRY_ROLLUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 101
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 77
+    END
+
+    IDD_CUSTOM_DUMMY_ROLLUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 101
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 78
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_FINJIN              ICON                    "..\\..\\..\\..\\common\\assets\\images\\application.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_LIBRARY_DESCRIPTION "Finjin Exporter Plugin"
+    IDS_EXPORTER_CLASS_NAME "Finjin Exporter"
+    IDS_EXPORTER_LONG_DESCRIPTION "Finjin Exporter."
+    IDS_EXPORTER_SHORT_DESCRIPTION "Finjin Scene"
+    IDS_IS_PREFAB_INSTANCE  "Is Prefab Instance"
+    IDS_EXPORT_ERROR_CAPTION "Finjin Scene Export Error"
+    IDS_ABOUT_CAPTION       "About Finjin"
+    IDS_UNEXPECTED_EXPORT_ERROR 
+                            "An unexpected error has occurred while trying to export, aborting"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_GLOBAL_UTILITIES_CLASS_NAME "FinjinGlobalUtilities"
+    IDS_EXPORT_ERROR_DUPLICATE_NODE_NAME 
+                            "There is more than one object named %s\nExporting objects with the same name may cause problems when you load the scene in your own program.\n\nAre you sure you want to export this object?\n\nPress 'Yes' to automatically rename and export object\nPress 'No' to skip object and its children\nPress 'Cancel' to stop export"
+    IDS_SCENE_SETTINGS_ACTION_DESCRIPTION "Edit Scene Settings"
+    IDS_SCENE_SETTINGS_MENU_TEXT "Scene Settings..."
+    IDS_OBJECT_SETTINGS_ACTION_DESCRIPTION "Edit Object Settings"
+    IDS_EXPORT_SCENE_ACTION_DESCRIPTION "Export Scene"
+    IDS_EXPORT_SCENE_SELECTION_ACTION_DESCRIPTION "Export Selected Objects"
+    IDS_PLUGINS_CATEGORY    "Finjin"
+    IDS_EXPORT_SCENE_MENU_TEXT "Export Scene..."
+    IDS_EXPORT_SCENE_SELECTION_MENU_TEXT "Export Selected Objects..."
+    IDS_MENU_NAME           "Finjin"
+    IDS_EXPORT_DIALOG_TITLE "Select Export File"
+    IDS_OBJECT_SETTINGS_MENU_TEXT "Object Settings..."
+    IDS_ABOUT_ACTION_DESCRIPTION "About"
+    IDS_ABOUT_MENU_TEXT     "About Finjin..."
+    IDS_EXPLICIT_VERTEX_COLOR "Explicit Vertex Color"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_HELP_ACTION_DESCRIPTION "Help"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SETTINGS_USER_DATA_TAB "User Data"
+    IDS_UNEXPECTED_EXPORT_ERROR_FORMAT 
+                            "An unexpected error has occurred while trying to export:\n\n%s"
+    IDS_OBJECT_SETTINGS_ERROR_NO_SELECTED_NODE 
+                            "No object is currently selected.\n\nYou must select an object before editing its settings."
+    IDS_LOOPED              "Looped"
+    IDS_VIEW_WINDOW_NAME    "Finjin Viewport"
+    IDS_NO_RENDER_SYSTEMS   "There are no render systems present. \nYou should check the Plugins.cfg file in the 3DS Max directory to ensure that it's correct."
+    IDS_ERROR_INITIALIZING_VIEW_WINDOW "Error Initializing Finjin View Window"
+    IDS_LOD_DISTANCE        "LOD Distance"
+    IDS_PARAMETER_CHANGE    "Parameter Change"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_NONE                "None"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_OBJECT_SETTINGS_ERROR_CAPTION "Finjin Object Settings Error"
+    IDS_GENERIC             "Generic"
+    IDS_ACTIVE              "Active"
+    IDS_PARAMETERS          "Parameters"
+    IDS_AMBIENT             "Ambient"
+    IDS_DIFFUSE             "Diffuse"
+    IDS_SPECULAR            "Specular"
+    IDS_GLOSSINESS          "Glossiness"
+    IDS_SPHERE              "Sphere"
+    IDS_EMISSIVE            "Emissive"
+    IDS_SOURCE_BLEND        "Source Blend"
+    IDS_DESTINATION_BLEND   "Destination Blend"
+    IDS_SHADING             "Shading"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ENABLE_DEPTH_CHECK  "Enable Depth Check"
+    IDS_ENABLE_DEPTH_WRITE  "Enable Depth Write"
+    IDS_DEPTH_FUNCTION      "Depth Function"
+    IDS_DEPTH_BIAS          "Depth Bias"
+    IDS_ALPHA_REJECTION_FUNCTION "Alpha Rejection Function"
+    IDS_ALPHA_REJECTION_VALUE "Alpha Rejection Value"
+    IDS_ENABLE_LIGHTING     "Enable Lighting"
+    IDS_ENABLE_COLOR_WRITE  "Enable Color Write"
+    IDS_MAX_LIGHTS          "Maximum Lights"
+    IDS_SUPPORTED_LIGHT_TYPE "Supported Light Type"
+    IDS_HARDWARE_CULL       "Hardware Cull"
+    IDS_SOFTWARE_CULL       "Software Cull"
+    IDS_FOG_FUNCTION        "Fog Function"
+    IDS_FOG_COLOR           "Fog Color"
+    IDS_FOG_START           "Fog Start"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_FOG_END             "Fog End"
+    IDS_FOG_DENSITY         "Fog Density"
+    IDS_TEXTURE_TYPE        "Texture Type"
+    IDS_TEXTURE_COORDINATE_SET "Texture Coordinate Set"
+    IDS_ALPHA_BLEND_FUNCTION "Alpha Blend Function"
+    IDS_ALPHA_BLEND_SOURCE1 "Alpha Blend Source 1"
+    IDS_ALPHA_BLEND_SOURCE2 "Alpha Blend Source 2"
+    IDS_ALPHA_BLEND_ALPHA   "Alpha Blend Alpha"
+    IDS_ALPHA_BLEND_MANUAL_ALPHA1 "Alpha Blend Manual Alpha 1"
+    IDS_ALPHA_BLEND_MANUAL_ALPHA2 "Alpha Blend Manual Alpha 2"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LAYER_BLEND_FALLBACK_SOURCE "Layer Blend Fallback Source"
+    IDS_LAYER_BLEND_FALLBACK_DESTINATION "Layer Blend Fallback Destination"
+    IDS_FRAMES_DURATION     "Frames Duration"
+    IDS_ENVIRONMENT_MAPPING "Environment Mapping"
+    IDS_ADDRESSING_MODE_U   "Addressing Mode U"
+    IDS_FILTERING_MODE      "Filtering Mode"
+    IDS_MAX_ANISOTROPY      "Maximum Anisotropy"
+    IDS_TRANSFORM_SCROLL_U  "Transform Scroll U"
+    IDS_TRANSFORM_SCROLL_V  "Transform Scroll V"
+    IDS_TRANSFORM_SCALE_U   "Transform Scale U"
+    IDS_TRANSFORM_SCALE_V   "Transform Scale V"
+    IDS_TRANSFORM_ROTATE    "Transform Rotate"
+    IDS_TRANSFORM_ANIMATION_SCROLL_U "Transform Animation Scroll U"
+    IDS_TRANSFORM_ANIMATION_SCROLL_V "Transform Animation Scroll V"
+    IDS_TRANSFORM_ANIMATION_ROTATE "Transform Animation Rotate"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SELECT_BITMAP_FILE  "Select A Bitmap File"
+    IDS_NOTES               "Notes"
+    IDS_EXPORT_NOTES        "Export Notes"
+    IDS_UPDATE_VIEWPORT     "Update Viewport..."
+    IDS_REDRAW_VIEWPORT     "Redraw Viewport..."
+    IDS_METERS              "Meters"
+    IDS_KILOMETERS          "Kilometers"
+    IDS_FEET                "Feet"
+    IDS_MILES               "Miles"
+    IDS_STANDARD            "Standard"
+    IDS_EXTERIOR_CLOSE      "Exterior Close"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_EXTERIOR_FAR        "Exterior Far"
+    IDS_EXTERIOR_REAL_FAR   "Exterior Real Far"
+    IDS_DIRECT3D            "Direct3D"
+    IDS_VERTEX              "Vertex"
+    IDS_PERCENT             "Percent"
+    IDS_NATIVE              "Native"
+    IDS_STENCIL_MODULATIVE  "Stencil Modulative"
+    IDS_STENCIL_ADDITIVE    "Stencil Additive"
+    IDS_TEXTURE_MODULATIVE  "Texture Modulative"
+    IDS_TEXTURE_ADDITIVE    "Texture Additive"
+    IDS_TEXTURE_MODULATIVE_INTEGRATED "Texture Modulative Integrated"
+    IDS_TEXTURE_ADDITIVE_INTEGRATED "Texture Additive Integrated"
+    IDS_UNIFORM             "Uniform"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_UNIFORM_FOCUSED     "Uniform Focused"
+    IDS_PLANE_OPTIMAL       "Plane Optimal"
+    IDS_DEFAULT             "Default"
+    IDS_IGNORE              "Ignore"
+    IDS_EMPTY               "Empty"
+    IDS_MODEL_INSTANCE      "Prefab Instance"
+    IDS_REFRESH_SKIES_IN_VIEWPORTS_ACTION_DESCRIPTION 
+                            "Refresh Skies in Finjin Viewports"
+    IDS_LIGHT               "Light"
+    IDS_CAMERA              "Camera"
+    IDS_EXTERNAL            "External"
+    IDS_TERRAIN_FILE        "Terrain File"
+    IDS_SKY_BOX             "Sky Box"
+    IDS_SKY_DOME            "Sky Dome"
+    IDS_SKY_PLANE           "Sky Plane"
+    IDS_PARTICLE_SYSTEM_FILE "Particle System File"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_PLANE               "Plane"
+    IDS_VISIBLE             "Visible"
+    IDS_HIDDEN              "Hidden"
+    IDS_TREE_VISIBLE        "Tree Visible"
+    IDS_TREE_HIDDEN         "Tree Hidden"
+    IDS_BACKGROUND          "Background"
+    IDS_SKIES_EARLY         "Skies Early"
+    IDS_QUEUE1              "Queue 1"
+    IDS_QUEUE2              "Queue 2"
+    IDS_WORLD_GEOMETRY1     "World Geometry 1"
+    IDS_QUEUE3              "Queue 3"
+    IDS_QUEUE4              "Queue 4"
+    IDS_MAIN                "Main"
+    IDS_QUEUE6              "Queue 6"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_QUEUE7              "Queue 7"
+    IDS_WORLD_GEOMETRY2     "World Geometry 2"
+    IDS_QUEUE8              "Queue 8"
+    IDS_QUEUE9              "Queue 9"
+    IDS_SKIES_LATE          "Skies Late"
+    IDS_OVERLAY             "Overlay"
+    IDS_MAX                 "Max"
+    IDS_NAME                "Name"
+    IDS_ID                  "ID"
+    IDS_ID_NUMBER           "ID Number"
+    IDS_CHILD_ORDER         "Child Order"
+    IDS_POINT               "Point"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TEX_COORD           "Tex Coord"
+    IDS_MORPH               "Morph"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_MORPH_ONLY          "Morph Only"
+    IDS_SECONDS_BETWEEN_SAMPLES "Seconds Between Samples"
+    IDS_SAMPLES_PER_SECOND  "Samples Per Second"
+    IDS_SKELETON_AND_POSE   "Skeleton + Pose"
+    IDS_SKELETON_AND_MORPH  "Skeleton + Morph"
+    IDS_POSE                "Pose"
+    IDS_SKELETON            "Skeleton"
+    IDS_DEFAULT_FORMAT      "(Default: %s)"
+    IDS_USE_SCENE_SETTING   "Use Scene Setting"
+    IDS_YES                 "Yes"
+    IDS_NO                  "No"
+    IDS_RENAME_BITMAP       "Rename Bitmap"
+    IDS_RENAME_BITMAP_EXTENSION "Rename Bitmap Extension"
+    IDS_DATA_ENTRY_ERROR    "Data Entry Error"
+    IDS_FROM_FIELD_REQUIRED """From"" field is required"
+    IDS_TO_FIELD_REQUIRED   """To"" field is required"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TYPE                "Type"
+    IDS_FRAMES              "Frames"
+    IDS_LENGTH              "Length"
+    IDS_SAMPLE_RATE         "Sample Rate"
+    IDS_SAMPLE_INTERVAL     "Sample Interval"
+    IDS_TRACK_NAME          "Track Name"
+    IDS_SAMPLE_RATE_INTERVAL "Sample Rate/Interval"
+    IDS_OBJECT              "Object"
+    IDS_MORPHER             "Morpher"
+    IDS_PHYSIQUE            "Physique"
+    IDS_SKIN                "Skin"
+    IDS_EMPTY_STRING_WITH_SPACE " "
+    IDS_NORMALIZE           "Normalize"
+    IDS_SCALE               "Scale"
+    IDS_REMOVE_TRANSLATION_COMPONENT_REQUIRED 
+                            "You must check at least one translation component to remove."
+    IDS_BONE_REQUIRED       "You must choose a bone."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USE_OBJECT_SETTING  "Use Object Setting"
+    IDS_EXPORT_MATERIAL     "Export Material"
+    IDS_LINEAR              "Linear"
+    IDS_EXP                 "Exp"
+    IDS_EXP2                "Exp2"
+    IDS_RECEIVE_SHADOWS     "Receives Shadows"
+    IDS_TRANSPARENCY_CAST_SHADOWS "Transparency Casts Shadows"
+    IDS_SCHEME              "Scheme"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_BITMAP              "Bitmap"
+    IDS_EXCLUSIVE_OBJECTS   "Exclusive Objects"
+    IDS_HIDDEN_OBJECTS      "Hidden Objects"
+    IDS_WIDTH               "Width"
+    IDS_HEIGHT              "Height"
+    IDS_BACKGROUND_COLOR    "Background Color"
+    IDS_SHADERS             "Shaders"
+    IDS_EMBED_ANIMATION     "Export to Separate File"
+    IDS_POLYGON_MODE        "Polygon Mode"
+    IDS_SHININESS           "Shininess"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_IS_ALPHA_TEXTURE    "Is Alpha Texture"
+    IDS_FRAME_COUNT         "Frame Count"
+    IDS_FRAMES_FILE_BASE_NAME "Frames File Base Names"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TEXTURE             "Texture"
+    IDS_CUBIC_TEXTURE       "Cubic Texture"
+    IDS_ANIMATED_TEXTURE    "Animated Texture"
+    IDS_PROCESSING_UNIT     "Processing Unit"
+    IDS_BORDER_COLOR        "Border Color"
+    IDS_MIP_MAP_BIAS        "Mip Map Bias"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ERROR_CHOOSING_MATERIAL "Error Choosing Material"
+    IDS_SOURCE_MATERIAL     "Source Material"
+    IDS_CHOOSE_DIRECTORY    "Choose a Directory"
+    IDS_CHOOSE_ZIP_FILE     "Choose a Zip File"
+    IDS_FINJIN_ERROR        "Finjin Error"
+    IDS_UNKNOWN_ERROR       "Finjin Unknown Error"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TRIANGLE_LIST       "Triangle List"
+    IDS_POINT_LIST          "Point List"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_VALUE               "Value"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_INVALID_RESOURCE_LOCATION "Finjin Invalid Resource Locations"
+    IDS_RESOURCE_LOCATION_NOT_FOUND_FORMAT 
+                            "The following resource locations could not be found:\n\n"
+    IDS_RESOURCE_LOCATION_CORRECTION_INSTRUCTIONS 
+                            "Please verify that the locations you have entered are correct."
+    IDS_BACKGROUND_COLOR_SOURCE "Background Color Source"
+    IDS_VIEW_LOG_ACTION_DESCRIPTION "View Log"
+    IDS_VIEW_LOG_MENU_TEXT  "View Log..."
+    IDS_EXPORTING_MESHES    "Exporting meshes"
+    IDS_EXPORTING_MATERIALS "Exporting materials"
+    IDS_EXPORTING_SCENE_OBJECTS "Exporting scene objects"
+    IDS_TEXTURE_SOURCE      "Texture Source"
+    IDS_CUBIC_TEXTURE_FILE_TYPE "Cubic Texture File Type"
+    IDS_LINE_LIST           "Line List"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_REFRESH_FINJIN_RESOURCES_ACTION_DESCRIPTION "Refresh Finjin Resources"
+    IDS_RENDER_OBJECT       "Render Object"
+    IDS_COPYING_TEXTURES    "Copying Textures"
+    IDS_REFRESH_FINJIN_RESOURCES_MENU_TEXT "Refresh Finjin Resources"
+    IDS_VERTEX_COLOR_USAGE  "Vertex Color Usage"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CUBE                "Cube"
+    IDS_CONVERT_TO_FRAMES_DESCRIPTION "Convert to Frames"
+    IDS_CONVERT_TO_FRAMES_MENU_TEXT "Convert to Frames..."
+    IDS_HIDE_RENDER_OBJECT_DURING_RENDER "Hide Render Object During Render"
+    IDS_RENDER_CUBE_MAP_MENU_TEXT "Render Cube Map..."
+    IDS_SOURCE_FILE_NAME_REQUIRED "Source file name required."
+    IDS_DESTINATION_BASE_FILE_NAME_REQUIRED 
+                            "Destination base file name required."
+    IDS_CONVERT_TO_FRAMES_RESULT_FORMAT "%d frames were generated."
+    IDS_CONVERT_TO_FRAMES_COMPLETE "Convert to Frames Complete"
+    IDS_DESTINATION_BASE_FILE_NAME_EXTENSION_REQUIRED 
+                            "Destination base  file name extension required."
+    IDS_CHOOSE_DDS_FILE     "Choose a DDS File"
+    IDS_DESTINATION_DIRECTORY_REQUIRED "Destination directory required."
+    IDS_DESTINATION_FILE_REQUIRED "Destination file required."
+    IDS_CUBE_MAP_CENTERED_AROUND_SELECTED_OBJECT 
+                            "The cube map will be rendered from a camera at the selected object's origin."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_RENDER_HEIGHT_MAP_DESCRIPTION "Render Height Map"
+    IDS_RENDER_HEIGHT_MAP_MENU_TEXT "Render Height Map..."
+    IDS_CUBE_MAP_CENTERED_AROUND_ORIGIN 
+                            "The cube map will be rendered from a camera at the world origin."
+    IDS_HEIGHT_MAP_SELECTED_OBJECTS 
+                            "The height map will be rendered with the currently selected objects."
+    IDS_HEIGHT_MAP_ALL_OBJECTS 
+                            "The height map will be rendered with all world objects."
+    IDS_CHOOSE_IMAGE_FILE   "Choose Image File"
+    IDS_START_FRAME_MUST_BE_LESS_THAN_END_FRAME 
+                            "The start frame must be less than the end frame."
+    IDS_ANIMATION_NAME_REQUIRED "Animation name required."
+    IDS_ABOUT_FINJIN_TAB    "Finjin"
+    IDS_ABOUT_ACKNOWLEDGEMENTS_TAB "Acknowledgements"
+    IDS_TERRAIN_MAP_SELECTED_OBJECTS 
+                            "The terrain map will be rendered with the currently selected objects."
+    IDS_TERRAIN_MAP_ALL_OBJECTS 
+                            "The terrain map will be rendered with all world objects."
+    IDS_RENDER_TERRAIN_MAP_DESCRIPTION "Render Terrain Map"
+    IDS_RENDER_TERRAIN_MAP_MENU_TEXT "Render Terrain Map..."
+    IDS_RENDER_TERRAIN_MAP_TITLE "Render Terrain Map"
+    IDS_RENDER_HEIGHT_MAP_TITLE "Render Height Map"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CUSTOM_HELPER_ICON_EXPORTER_CLASS_NAME 
+                            "Finjin Custom Helper Icon Exporter"
+    IDS_CUSTOM_HELPER_ICON_EXPORTER_LONG_DESCRIPTION 
+                            "Finjin Custom Helper Icon Exporter"
+    IDS_CUSTOM_HELPER_ICON_EXPORTER_SHORT_DESCRIPTION 
+                            "Finjin Custom Helper Icon"
+    IDS_UTILITIES           "Utilities"
+    IDS_CUSTOM_HELPER_ICON_EXPORTER "Finjin Custom Helper Icon Exporter"
+    IDS_CUSTOM_DUMMY_CLASS_NAME "Dummy"
+    IDS_ICON_SIZE           "Icon Size"
+    IDS_ALWAYS_FACE_VIEW    "Always Face View"
+    IDS_TEXT                "Text"
+    IDS_CHOOSE_CUSTOM_HELPER_ICON_FILE "Choose Custom Helper Icon File"
+    IDS_RENDER_ON_EXPORT    "Render on Export"
+    IDS_FILE_TYPE           "File Type"
+    IDS_BASE_FILE_NAME_REQUIRED "Base file name required."
+    IDS_CUBE_FACE_SIZE      "Cube Face Size"
+    IDS_CUBE_MAP_HELPER_CLASS_NAME "Cube Map"
+    IDS_REFRESH_SELECTED_OBJECTS_IN_VIEWPORTS_DESCRIPTION 
+                            "Refresh Selected Objects in Finjin Viewports"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_REFRESH_SELECTED_OBJECTS_IN_VIEWPORTS_MENU_TEXT 
+                            "Refresh Selected Objects in Finjin Viewports"
+    IDS_AUTO_PORTAL_TYPE    "Auto Portal Type"
+    IDS_TARGET_PORTAL       "Target Portal"
+    IDS_NORMAL_LENGTH       "Normal Length"
+    IDS_QUAD_PORTAL_CLASS_NAME "Quad Portal"
+    IDS_ZONE_CLASS_NAME     "Zone"
+    IDS_ZONE_TYPE           "Zone Type"
+    IDS_SUBMESH             "Submesh"
+    IDS_CHOOSE_USER_DATA_TYPES_FILE "Choose User Data Types File"
+    IDS_ANIMATION_NAME_ALREADY_DEFINED 
+                            "There is already an animation with this name. Please enter a unique name."
+    IDS_TANGENT_BINORMAL    "Tangent/Binormal"
+    IDS_TEX0_TEX1           "TexCoord 0/1"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_BONE                "Bone"
+    IDS_INSTANCED_GEOMETRY_CLASS_NAME "Inst. Geo."
+    IDS_CAST_SHADOWS        "Cast Shadows"
+    IDS_RENDERING_DISTANCE  "Rendering Distance"
+    IDS_BATCH_COUNT         "Batch Count"
+    IDS_STATIC_GEOMETRY_CLASS_NAME "Static. Geo."
+    IDS_SCENE_SETTINGS_OBJECT_CLASS_NAME "Finjin Scene Settings"
+    IDS_OBJECTS             "Objects"
+    IDS_LOD_REDUCTION_TYPE  "LOD Reduction Type"
+    IDS_OBJECT_SETTINGS_OBJECT_CLASS_NAME "Finjin Object Settings"
+    IDS_USER_DATA_REFERENCE "User Data Reference"
+    IDS_USER_DATA           "User Data"
+    IDS_USER_DATA_CLASS     "User Data Class"
+    IDS_GENERATE_LOD        "Generate LOD"
+    IDS_NUM_LOD_LEVELS      "Num LOD Levels"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOD_REDUCTION_AMOUNT "LOD Reduction Amount"
+    IDS_SCENE_MANAGER       "Scene Manager"
+    IDS_ENVIRONMENT_NEAR    "Environment Near"
+    IDS_ENVIRONMENT_FAR     "Environment Far"
+    IDS_ENVIRONMENT_FAR_OBJECT "Environment Far Object"
+    IDS_FOG_MODE            "Fog Mode"
+    IDS_NODE_NAME_PREFIX    "Node Name Prefix"
+    IDS_EXPORT_USER_DATA_TO_SEPARATE_FILE "Export User Data to Separate File"
+    IDS_SHADOW_TECHNIQUE    "Shadow Technique"
+    IDS_SELF_SHADOW         "Self Shadow"
+    IDS_SHADOW_COLOR        "Shadow Color"
+    IDS_SHADOW_PLANE_OBJECT "Shadow Plane Object"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SHADOW_FAR_DISTANCE "Shadow Far Distance"
+    IDS_UP_AXIS             "Up Axis"
+    IDS_SCENE_SCALE         "Scene Scale"
+    IDS_EXPORT_PATH         "Export Path"
+    IDS_MESH_PATH           "Mesh Path"
+    IDS_MATERIAL_PATH       "Material Path"
+    IDS_MODEL_PATH          "Model Path"
+    IDS_BITMAP_PATH         "Bitmap Path"
+    IDS_COPY_BITMAPS        "Copy Bitmaps"
+    IDS_IGNORE_HIDDEN_LAYERS "Ignore Hidden Layers"
+    IDS_IGNORE_HIDDEN_OBJECTS "Ignore Hidden Objects"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_BASE_RESOURCE_DIRECTORY "Base Resource Directory"
+    IDS_RESOURCE_LOCATIONS  "Resource Locations"
+    IDS_RESOURCE_LOCATION_TYPES "Resource Location Types"
+    IDS_BASE_USER_DATA_TYPES_DIRECTORY "Base User Data Types Directory"
+    IDS_USER_DATA_TYPES_LOCATIONS "User Data Types Locations"
+    IDS_USER_DATA_TYPES_LOCATION_TYPES "User Data Types Location Types"
+    IDS_MESH_AND_SKELETON_NAME_PREFIX "Mesh and Skeleton Name Prefix"
+    IDS_EXPORT_MESHES       "Export Meshes"
+    IDS_DISALLOWED_MESHES   "Disallowed Meshes"
+    IDS_EXPORT_VERTEX_COLORS "Export Vertex Colors"
+    IDS_EXPORT_TEXT_MESHES  "Export Text Meshes"
+    IDS_EXPORT_BINARY_MESHES "Export Binary Meshes"
+    IDS_EXPORT_TANGENTS     "Export Tangents"
+    IDS_POINT_SIZE          "Point Size"
+    IDS_TANGENT_BINORMAL_SEMANTICS "Tangent Binormal Semantics"
+    IDS_GENERATE_EDGE_LISTS "Generate Edge Lists"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_FAST_EXPORT         "Fast Export"
+    IDS_VERTEX_COLOR_FORMAT "Vertex Color Format"
+    IDS_BYTE_ORDER          "Byte Order"
+    IDS_EXPORT_MATERIALS    "Export Materials"
+    IDS_DISALLOWED_MATERIALS "Disallowed Materials"
+    IDS_MATERIAL_NAME_PREFIX "Material Name Prefix"
+    IDS_NO_MATERIAL_NAME    "No Material Name"
+    IDS_RENDER_SYSTEM       "Render System"
+    IDS_RENAME_BITMAPS_FROM "Rename Bitmaps From"
+    IDS_RENAME_BITMAPS_TO   "Rename Bitmaps To"
+    IDS_RENAME_BITMAP_EXTENSIONS_FROM "Rename Bitmap Extensions From"
+    IDS_RENAME_BITMAP_EXTENSIONS_TO "Rename Bitmap Extensions To"
+    IDS_BEFORE_EXPORT_COMMANDS "Before Export Commands"
+    IDS_AFTER_EXPORT_COMMANDS "After Export Commands"
+    IDS_VISIBILITY          "Visibility"
+    IDS_TARGET_TYPE         "Target Type"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_IS_PREFAB           "Is Prefab"
+    IDS_PREFAB_NAME         "Prefab Name"
+    IDS_DEFAULT_NODE_ANIMATION_NAME "Default Node Animation Name"
+    IDS_DEFAULT_NODE_ANIMATION_ENABLED "Default Node Animation Enabled"
+    IDS_DEFAULT_NODE_ANIMATION_LOOPED "Default Node Animation Looped"
+    IDS_NODE_ANIMATION_SAMPLE_INTERVAL "Node Animation Sample Interval"
+    IDS_NODE_ANIMATION_SAMPLE_TYPE "Node Animation Sample Type"
+    IDS_NOTE_TRACK_NAMES    "Note Track Names"
+    IDS_RENDER_QUEUE_NAME   "Render Queue Name"
+    IDS_CUSTOM_PARAMTER_IDS "Custom Parameter IDs"
+    IDS_CUSTOM_PARAMTER_VALUES "Custom Parameter Values"
+    IDS_IS_STATIC           "Is Static"
+    IDS_VERTEX_BUFFER_USAGE "Vertex Buffer Usage"
+    IDS_INDEX_BUFFER_USAGE  "Index Buffer Usage"
+    IDS_MESH_NAME           "Mesh Name"
+    IDS_SKELETON_NAME       "Skeleton Name"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_MESH_ANIMATION_TYPE "Mesh Animation Type"
+    IDS_SKELETON_ANIMATION_SAMPLE_INTERVAL 
+                            "Skeleton Animation Sample Interval"
+    IDS_SKELETON_ANIMATION_SAMPLE_TYPE "Skeleton Animation Sample Type"
+    IDS_VERTEX_ANIMATION_SAMPLE_INTERVAL "Vertex Animation Sample Interval"
+    IDS_VERTEX_ANIMATION_SAMPLE_TYPE "Vertex Animation Sample Type"
+    IDS_MESH_ANIMATION_SAMPLE_INTERVAL "Mesh Animation Sample Interval"
+    IDS_MESH_ANIMATION_SAMPLE_TYPE "Mesh Animation Sample Type"
+    IDS_PRIMITIVE_TYPE      "Primitive Type"
+    IDS_FILE_NAME           "File Name"
+    IDS_ITEM_TYPE           "External Item Type"
+    IDS_ENABLE_SKY          "Enable Sky"
+    IDS_DRAW_SKY_FIRST      "Draw Sky First"
+    IDS_CURVATURE           "Curvature"
+    IDS_TILING              "Tiling"
+    IDS_BOW                 "Bow"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LIGHT_SPECULAR_COLOR "Light Specular Color"
+    IDS_IGNORE_CHILDREN     "Ignore Children"
+    IDS_CHILD_SORTING       "Child Sorting"
+    IDS_NODE                "Node"
+    IDS_EXPORT_BINORMALS    "Export Binormals"
+    IDS_SCENE_SCALE_UNIT    "Scene Scale Unit"
+    IDS_SCENE_SCALE_DIVIDE  "Scene Scale Divide"
+    IDS_RENDER_QUEUE_ADD    "Render Queue Add"
+    IDS_VERTEX_BUFFER_SHADOWED "Vertex Buffer Shadowed"
+    IDS_INDEX_BUFFER_SHADOWED "Index Buffer Shadowed"
+    IDS_TEXTURE_COORDINATE_SET_COUNT "Texture Coordinate Set Count"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_EXPORT_RESOURCE_LOCATIONS "Export Resource Locations"
+    IDS_NODES               "Nodes"
+    IDS_LIGHT_ATTENUATION_CONSTANT "Light Attenuation Constant"
+    IDS_LIGHT_ATTENUATION_LINEAR "Light Attenuation Linear"
+    IDS_LIGHT_ATTENUATION_QUADRATIC "Light Attenuation Quadratic"
+    IDS_ADD                 "Add"
+    IDS_CHOOSE_BOX_OBJECT   "Choose Box Object"
+    IDS_CHOOSE_PLANE_OBJECT "Choose Plane Object"
+    IDS_RESOURCE_LOCATION_RECURSIVES "Resource Location Recursives"
+    IDS_USER_DATA_TYPES_LOCATION_RECURSIVES 
+                            "User Data Types Location Recursives"
+    IDS_NODE_ANIMATIONS     "Node Animations"
+    IDS_MESH_ANIMATIONS     "Mesh Animations"
+    IDS_ANIMATION_NAME      "Animation Name"
+    IDS_TIME_SCALE_TYPE     "Time Scale Type"
+    IDS_TIME_SCALE          "Time Scale"
+    IDS_COPY_FIRST_KEY_TO_LAST "Copy First Key to Last"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USE_ANIMATION_START_TIME "Use Animation Start Time"
+    IDS_BONE_TRANSLATION_MASK_NODES "Bone Translation Mask Nodes"
+    IDS_BONE_TRANSLATION_MASKS "Bone Translation Masks"
+    IDS_ALLOW_EXPORT_BONES  "Allow Export Bones"
+    IDS_ALLOW_EXPORT_BONE_ALLOWS "Allow Export Bone Allows"
+    IDS_ALLOW_EXPORT_BONE_RECURSIVES "Allow Export Bone Recursives"
+    IDS_MESH_ANIMATION_SETTINGS_OBJECT_CLASS_NAME 
+                            "Finjin Mesh Animation Settings"
+    IDS_NODE_ANIMATION_SETTINGS_OBJECT_CLASS_NAME 
+                            "Finjin Node Animation Settings"
+    IDS_SAMPLE_TYPE         "Sample Type"
+    IDS_NOTE_TRACK          "Note Track"
+    IDS_NOTE_TRACK_OWNER    "Note Track Owner"
+    IDS_OK                  "OK"
+    IDS_CHOOSE_OBJECT       "Choose Object"
+    IDS_CHOOSE_OBJECTS      "Choose Objects"
+    IDS_OBJECT_SELECTION_MODE "Object Selection Mode"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_CAMERA_CONTROL_MODE "Camera Control Mode"
+    IDS_TIME_START          "Time Start"
+    IDS_TIME_END            "Time End"
+    IDS_EXPORT_SELECTED_MATERIAL_EDITOR_MATERIAL_ACTION_DESCRIPTION 
+                            "Export Selected Material Editor Material"
+    IDS_EXPORT_SELECTED_MATERIAL_EDITOR_MATERIAL_MENU_TEXT 
+                            "Export Selected Material Editor Material..."
+    IDS_OPTIMIZE_SKELETON_ANIMATIONS "Optimize Skeleton Animations"
+    IDS_EXPORT_MATERIAL_ERROR_CAPTION "Finjin Material Export Error"
+    IDS_EXPORT_SELECTED_MATERIAL_UNSUPPORTED_MATERIAL_TYPE 
+                            "Unsupported material type.\n\nOnly 'Finjin' and 'Standard' materials may be exported using this feature."
+    IDS_FLAG_NAMES          "Flag Names"
+    IDS_FLAG_BITS           "Flag Bits"
+    IDS_FLAG_NAME_REQUIRED  "You must enter a flag name."
+    IDS_UNIQUE_FLAG_NAME_REQUIRED 
+                            "The flag name you have entered is already in use. Please enter a unique name."
+    IDS_UNIQUE_FLAG_BIT_REQUIRED 
+                            "The flag bit you have selected is already in use. Please select a unique bit."
+    IDS_EXPORT_FLAGS        "Export Flags"
+    IDS_FLAG_NAME_CANT_BE_INTEGER 
+                            "The flag name cannot be a number. You must add at least one non-numeric character."
+    IDS_DISTANCE            "Distance"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_LOD_TYPE            "LOD Type"
+    IDS_LOD_NODES           "LOD Nodes"
+    IDS_LOD_DISTANCES       "LOD Distances"
+    IDS_NODE_REQUIRED       "You must choose a node."
+    IDS_ENTITY_MESH         "Entity/Mesh"
+    IDS_REFRESH_SKIES_IN_VIEWPORTS_MENU_TEXT 
+                            "Refresh Skies in Finjin Viewports"
+    IDS_REFRESH_SKIES_IN_VIEWPORTS_DESCRIPTION 
+                            "Refresh Skies in Finjin Viewports"
+    IDS_EXPORT_VISIBILITY_FLAGS "Export Visibility Flags"
+    IDS_VISIBILITY_FLAG_NAMES "Visibility Flag Names"
+    IDS_VISIBILITY_FLAG_BITS "Visibility Flag Bits"
+    IDS_QUERY_FLAG_ALIAS    "Query Flag Alias"
+    IDS_VISIBILITY_FLAG_ALIAS "Visibility Flag Alias"
+    IDS_QUERY_FLAG          "Query Flag"
+    IDS_VISIBILITY_FLAG     "Visibility Flag"
+    IDS_ADD_QUERY_FLAG_ALIAS "Add Query Flag Alias"
+    IDS_ADD_VISIBILITY_FLAG_ALIAS "Add Visibility Flag Alias"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ADD_QUERY_FLAG      "Add Query Flag"
+    IDS_ADD_VISIBILITY_FLAG "Add Visibility Flag"
+    IDS_EXPORT_MATERIAL_LIBRARY_ACTION_DESCRIPTION 
+                            "Export Current Material Library"
+    IDS_EXPORT_MATERIAL_LIBRARY_MENU_TEXT "Export Current Material Library..."
+    IDS_EXPORT_SCENE_MATERIALS_ACTION_DESCRIPTION "Export Scene Materials"
+    IDS_EXPORT_SCENE_MATERIALS_MENU_TEXT "Export Scene Materials..."
+    IDS_HELP_MENU_TEXT      "Help..."
+    IDS_EXPORT              "Export"
+    IDS_VISIBILITY_AFFECT_OBJECT_ONLY "Visibility Affect Object Only"
+    IDS_MESH_SCALE_CLASS_NAME "Mesh Scale"
+    IDS_X_SCALE             "X Scale"
+    IDS_Y_SCALE             "Y Scale"
+    IDS_Z_SCALE             "Z Scale"
+    IDS_NORMALIZE_MESH_SCALING_ACTION_DESCRIPTION "Normalize Mesh Scaling"
+    IDS_NORMALIZE_MESH_SCALING_MENU_TEXT "Normalize Mesh Scaling"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_FLIP_NORMALS        "Flip Normals"
+    IDS_FLIPPED_NORMALS     "Flipped Normals"
+    IDS_SELECT_NEGATIVELY_SCALED_OBJECTS_DESCRIPTION 
+                            "Select Negatively Scaled Objects"
+    IDS_SELECT_NEGATIVELY_SCALED_OBJECTS_MENU_TEXT 
+                            "Select Negatively Scaled Objects"
+    IDS_CREATE_MOVABLE_PLANE "Create Movable Plane"
+    IDS_OTHER_RESOURCE_LOCATIONS "Other Resource Locations"
+    IDS_OTHER_RESOURCE_LOCATION_TYPES "Other Resource Location Types"
+    IDS_OTHER_RESOURCE_LOCATION_RECURSIVES 
+                            "Other Resource Location Recursives"
+    IDS_DIRECTORY           "Directory"
+    IDS_ZIP_FILE            "Zip File"
+    IDS_ADD_DIRECTORY       "Add Directory"
+    IDS_ADD_ZIP_FILE        "Add Zip File"
+    IDS_BASE_RESOURCE_DIRECTORY_TYPE "Base Resource Directory Type"
+    IDS_BASE_USER_DATA_TYPES_DIRECTORY_TYPE 
+                            "Base User Data Types Directory Type"
+    IDS_TEXTURE_COORDINATE_TYPE "Texture Coordinate Type"
+    IDS_EXPORT_SKELETON     "Export Skeleton"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_EXPORT_POSES        "Export Poses"
+    IDS_SPLINE              "Spline"
+    IDS_SPHERICAL           "Spherical"
+    IDS_TRANSLATION_INTERPOLATION_TYPE "Translation Interpolation Type"
+    IDS_ROTATION_INTERPOLATION_TYPE "Rotation Interpolation Type"
+    IDS_CONFIGURATION_TARGET_NAME "Node Translation Interpolation Type"
+    IDS_NODE_ROTATION_INTERPOLATION_TYPE "Node Rotation Interpolation Type"
+    IDS_UNDEFINED           "Undefined"
+    IDS_EXPORT_TO_DEFAULT_SCENE_FILE "Export to Default Scene File"
+    IDS_BASE_DEFAULT_SCENE_FILE_DIRECTORY_TYPE 
+                            "Default Scene File Base Directory Type"
+    IDS_DEFAULT_SCENE_FILE_NAME "Default Scene File Name"
+    IDS_BASE_DEFAULT_SCENE_FILE_DIRECTORY "Default Scene File Base Directory"
+    IDS_EMBED_SKELETON_IN_MESH "Embed Skeleton in Mesh"
+    IDS_LINK_SKELETON_TO_MESH "Link Skeleton to Mesh"
+    IDS_SORT_BILLBOARDS     "Sort Billboards"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_USE_BILLBOARD_ACCURATE_FACING_MODEL 
+                            "Use Billboard Accurate Facing Model"
+    IDS_INCLUDE_PARENT_MATERIAL_NAME "Include Parent Material Name"
+    IDS_IS_ATTACHED_OBJECT  "Is Attached Object"
+    IDS_VERTEX_COLOR_WHITE  "Vertex Color White"
+    IDS_UPDATE_COUNTER      "Update Counter"
+    IDS_EXPORT_AS_MOPRH     "Export As Morph"
+    IDS_MORPH_WHOLE_OBJECT  "Morph Whole Object"
+    IDS_GLOBAL_SETTINGS_ACTION_DESCRIPTION "Edit Global Settings"
+    IDS_GLOBAL_SETTINGS_MENU_TEXT "Global Settings..."
+    IDS_ENABLED             "Enabled"
+    IDS_EXPORT_ENVIRONMENT  "Export Environment"
+    IDS_AMBIENT_LIGHT_COLOR "Ambient Light Color"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_AMBIENT_LIGHT_COLOR_SYNC "Ambient Light Color Sync"
+    IDS_BACKGROUND_COLOR_SYNC "Background Color Sync"
+    IDS_FOG_SYNC            "Fog Sync"
+    IDS_ROTATE_SELECTED_PLANES_FOR_BILLBOARD_USE_DESCRIPTION 
+                            "Rotate Selected Planes for Billboard Use"
+    IDS_ROTATE_SELECTED_PLANES_FOR_BILLBOARD_USE_MENU_TEXT 
+                            "Rotate Selected Planes for Billboard Use"
+    IDS_ANIMATED_ROOT       "Animated Root"
+    IDS_STORE_TANGENT_PARITY_IN_W "Store Tangent Parity In W"
+    IDS_TEXTURE_COORDINATE_SET_SOURCES "Texture Coordinate Set Sources"
+    IDS_TEXTURE_COORDINATE_SET_DESTINATIONS 
+                            "Texture Coordinate Set Destinations"
+    IDS_TEXTURE_COORDINATE_SET_TYPES "Texture Coordinate Set Types"
+    IDS_USE_CUSTOM_SUBMESHES "Use Custom Submeshes"
+    IDS_MATERIAL            "Material"
+    IDS_SUBMESH_SETTINGS_OBJECT_CLASS_NAME "Submesh Settings"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SUBMESHES_SETTINGS  "Submeshes Settings"
+    IDS_EXTENDED_VALUES     "Extended Values"
+    IDS_MATERIALS           "Materials"
+    IDS_FLOATS              "Floats"
+    IDS_STRINGS             "Strings"
+    IDS_EXTENDED_VALUE_SETTINGS_OBJECT_CLASS_NAME "Extended Value"
+    IDS_REFRESH_FINJIN_MENU_DESCRIPTION "Refresh Finjin Menu"
+    IDS_REFRESH_FINJIN_MENU_TEXT "Refresh Finjin Menu"
+    IDS_BITMAP_PREFIX       "Bitmap Prefix"
+    IDS_SEPARATE_SOURCE_BLEND "Separate Source Blend"
+    IDS_SEPARATE_DESTINATION_BLEND "Separate Destination Blend"
+    IDS_ITERATION_DEPTH_BIAS "Iteration Depth Bias"
+    IDS_ENABLE_ALPHA_TO_COVERAGE "Enable Alpha to Coverage"
+    IDS_ENABLE_LIGHT_SCISSOR "Enable Light Scissor"
+    IDS_ILLUMINATION_STAGE  "Illumination Stage"
+    IDS_NORMALIZE_NORMALS   "Normalize Normals"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ENABLE_TRANSPARENT_SORTING "Enable Transparent Sorting"
+    IDS_ENABLE_LIGHT_CLIP_PLANES "Enable Light Clip Planes"
+    IDS_POLYGON_MODE_OVERRIDEABLE "Polygon Mode Overrideable"
+    IDS_REMOVE_BONES_WITH_NO_VERTEX_INFLUENCE 
+                            "Remove Bones With No Vertex Influence"
+    IDS_CHECK_DUPLICATE_OBJECT_NAMES_MENU_DESCRIPTION 
+                            "Check Duplicate Object Names"
+    IDS_CHECK_DUPLICATE_OBJECT_NAMES_MENU_TEXT "Check Duplicate Object Names"
+    IDS_SUBMESH_NAME        "Submesh Name"
+    IDS_LINK_TO_MAIN_OBJECT "Link to Main Object"
+    IDS_EMBED_ANIMATION_INHERITED "Export To Separate File Inherited"
+    IDS_LINK_TO_MAIN_OBJECT_INHERITED "Link to Main Object Inherited"
+    IDS_EXPORT_MESH_ANIMATIONS_TO_SEPARATE_FILE 
+                            "Export Mesh Animations to Separate Files"
+    IDS_LINK_MESH_ANIMATIONS_TO_MAIN_OBJECT 
+                            "Link Mesh Animations to Main Object"
+    IDS_CHECK_MESH_INSTANCES "Check Mesh Instances"
+    IDS_MESH_FORMAT         "Mesh Format"
+    IDS_MESH_EXPORTER_CLASS_NAME "Finjin Mesh Exporter"
+    IDS_MESH_EXPORTER_LONG_DESCRIPTION "Finjin Mesh Exporter."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_MESH_EXPORTER_SHORT_DESCRIPTION "Finjin Mesh"
+    IDS_EXTERNAL_VIEWER     "External Viewer"
+    IDS_RUN_EXTERNAL_VIEWER_WITH_LAST_EXPORTED_FILE 
+                            "Run External Viewer With Last Exported File"
+    IDS_RUN_EXTERNAL_VIEWER_WITH_LAST_EXPORTED_FILE_MENU_TEXT 
+                            "Run With Last Exported File..."
+    IDS_RUN_EXTERNAL_VIEWER "Run External Viewer"
+    IDS_RUN_EXTERNAL_VIEWER_MENU_TEXT "Run..."
+    IDS_ADDITIONAL_MATERIALS "Additional Materials"
+    IDS_EXPORTED_PARENT     "Exported Parent"
+    IDS_OVERRIDE_ANIMATED_ROOT_START_TIME "Override Animated Root Start Time"
+    IDS_ANIMATED_ROOT_START_TIME "Animated Root Start Time"
+    IDS_SUBMESH_NAMING      "Submesh Naming"
+    IDS_SUBMESH_CUSTOM_NAME "Submesh Custom Name"
+    IDS_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING 
+                            "Always Create New Submeshes When Merging"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_EXPORT_MESHES_IMMEDIATELY "Export Meshes Immediately"
+    IDS_CHECK_MESH_INSTANCE "Check Mesh Instance"
+    IDS_EXPORT_ANIMATED_NORMALS "Export Animated Normals"
+    IDS_SKELETON_ANIMATION_BLEND_MODE "Skeleton Animation Blend Mode"
+    IDS_EXTERNAL_SOURCE     "External Source"
+    IDS_EXTERNAL_PARAMETERS "External Parameters"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TEXTURE_NAME_ALIAS  "Texture Name Alias"
+    IDS_TEXTURE_ALIASES     "Texture Aliases"
+    IDS_TEXTURE_NAMES       "Texture Names"
+    IDS_GENERATE_NORMALS    "Generate Normals"
+    IDS_FORCE_TRANSPARENT_SORTING "Force Transparent Sorting"
+    IDS_CALCULATE_MANUAL_LOD_DISTANCES "Calculate Manual LOD Distances"
+    IDS_ANIMATE_BOUNDING_VOLUMES "Animate Bounding Volumes"
+    IDS_MESH_TEXT_PATH      "Mesh Text Path"
+    IDS_EXPORT_MESH         "Export Mesh"
+    IDS_OBJECT_NAME_PREFIX  "Object Name Prefix"
+    IDS_NODE_ANIMATIONS_NAME_PREFIX "Node Animations Name Prefix"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_TESTING             "Testing"
+    IDS_CREATE_EXTRA_MATERIALS "Create Extra Materials"
+    IDS_MAKE_BOUNDING_BOXES_CUBES "Make Bounding Boxes Cubes"
+    IDS_MAKE_BOUNDING_BOX_CUBE "Make Bounding Box Cube"
+    IDS_EXPORT_HIERARCHY    "Export Hierarchy"
+    IDS_EXPORTED_MESH_DEFORMED_BY_SKELETON 
+                            "Exported Mesh Deformed By Skeleton"
+    IDS_EXPORT_MATERIALS_TO_SEPARATE_FILES 
+                            "Export Materials to Separate Files"
+    IDS_USE_ROOT_AS_EXPORTED_PARENT "Use Root As Exported Parent"
+    IDS_ENABLE_QUERY_FLAGS  "Enable Query Flags"
+    IDS_ENABLE_VISIBILITY_FLAGS "Enable Visibility Flags"
+    IDS_RENDER_QUEUE_PRIORITY "Render Queue Priority"
+    IDS_SKELETON_REFERENCE_POSE_TYPE "Skeleton Reference Pose Type"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SKELETON_REFERENCE_POSE_TIME "Skeleton Reference Pose Time"
+    IDS_SHADOW_RECEIVER_MATERIAL "Shadow Receiver Material"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

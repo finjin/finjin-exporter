@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Max2015-Release|x64">
+      <Configuration>Max2015-Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Max2016-Release|x64">
+      <Configuration>Max2016-Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{67A2A421-FB4A-4208-B7F5-05F95BC06CD8}</ProjectGuid>
+    <RootNamespace>Finjin::SceneExporter</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">$(SolutionDir)\$(Configuration)-$(Platform)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">$(SolutionDir)\$(Configuration)-$(Platform)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">$(Configuration)-$(Platform)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">$(Configuration)-$(Platform)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>-Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..\..\src;..\..\..\..\common\src;../../../../../finjin-common/cpp/library/include;../../../../../finjin-common/wxcpp/library/src;../../../../../finjin-engine/cpp/library/src;C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\include\;C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\samples\modifiers\morpher\include\;C:\finjin-3rd-party\cpp-vs2012-exporter\FreeImage\Dist\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\include\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\contrib\include\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\lib\vc_x64_lib\mswu\;C:\finjin-3rd-party\cpp-vs2012-exporter\zzip\;C:\Program Files (x86)\Microsoft DirectX SDK (February 2010)\Include;C:\finjin-3rd-party\cpp\eigen;C:\finjin-3rd-party\cpp\tinyxml;C:\finjin-3rd-party\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FINJIN_EXPORTER;NOMINMAX;_WIN32_WINNT=0x0601;_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;FREEIMAGE_LIB;TIXML_USE_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PrecompiledHeaderFile>FinjinPrecompiled.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>poly.lib;core.lib;mesh.lib;geom.lib;Rpcrt4.lib;comctl32.lib;maxutil.lib;gup.lib;paramblk2.lib;maxscrpt.lib;menus.lib;Version.lib;bmm.lib;mnmath.lib;gfx.lib;biped.lib;Morpher.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).gup</OutputFile>
+      <AdditionalLibraryDirectories>C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\lib\x64\Release\;C:\Program Files\Autodesk\3ds Max 2015 SDK\maxsdk\samples\modifiers\morpher\Lib\x64\Release;C:\Program Files (x86)\Microsoft DirectX SDK (February 2010)\Lib\x64;C:\finjin-3rd-party\cpp-vs2012-exporter\zlib\all\;C:\finjin-3rd-party\cpp-vs2012-exporter\zzip\lib\;C:\finjin-3rd-party\cpp-vs2012-exporter\FreeImage\Dist\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\lib\vc_x64_lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetDir)$(ProjectName).gup" "C:\Program Files\Autodesk\3ds Max 2015\plugins"</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>-Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..\..\src;..\..\..\..\common\src;../../../../../finjin-common/cpp/library/include;../../../../../finjin-common/wxcpp/library/src;../../../../../finjin-engine/cpp/library/src;C:\Program Files\Autodesk\3ds Max 2016 SDK\maxsdk\include\;C:\Program Files\Autodesk\3ds Max 2016 SDK\maxsdk\samples\modifiers\morpher\include\;C:\finjin-3rd-party\cpp-vs2012-exporter\FreeImage\Dist\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\include\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\contrib\include\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\lib\vc_x64_lib\mswu\;C:\finjin-3rd-party\cpp-vs2012-exporter\zzip\;C:\Program Files (x86)\Microsoft DirectX SDK (February 2010)\Include;C:\finjin-3rd-party\cpp\eigen;C:\finjin-3rd-party\cpp\tinyxml;C:\finjin-3rd-party\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FINJIN_EXPORTER;NOMINMAX;_WIN32_WINNT=0x0601;_SECURE_SCL=0;WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;FREEIMAGE_LIB;TIXML_USE_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <PrecompiledHeaderFile>FinjinPrecompiled.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>poly.lib;core.lib;mesh.lib;geom.lib;Rpcrt4.lib;comctl32.lib;maxutil.lib;gup.lib;paramblk2.lib;maxscrpt.lib;menus.lib;Version.lib;bmm.lib;mnmath.lib;gfx.lib;biped.lib;Morpher.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).gup</OutputFile>
+      <AdditionalLibraryDirectories>C:\Program Files\Autodesk\3ds Max 2016 SDK\maxsdk\lib\x64\Release\;C:\Program Files\Autodesk\3ds Max 2016 SDK\maxsdk\samples\modifiers\morpher\Lib\x64\Release\;C:\Program Files (x86)\Microsoft DirectX SDK (February 2010)\Lib\x64;C:\finjin-3rd-party\cpp-vs2012-exporter\zlib\all\;C:\finjin-3rd-party\cpp-vs2012-exporter\zzip\lib\;C:\finjin-3rd-party\cpp-vs2012-exporter\FreeImage\Dist\;C:\finjin-3rd-party\cpp-vs2012-exporter\wxWidgets\lib\vc_x64_lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(TargetDir)$(ProjectName).gup" "C:\Program Files\Autodesk\3ds Max 2016\plugins"</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBase64.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBinaryDataChunkWriter.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxByteBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxChunkName.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDataChunkWriter.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentReader.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentWriter.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriter.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriterController.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxJsonDataChunkWriter.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxStreamingFileFormat.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTextDataChunkWriter.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTimeDuration.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxUuid.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentChunkNames.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyNames.cpp" />
+    <ClCompile Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyValues.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\AssetClass.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\AssetReference.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_AnimationsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_FlagsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_GeneralPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_MaterialsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_MeshesPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_ScenePage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\WrappedFileWriter.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExportedGeometry.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinVector.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_SubmeshesPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SimpleUri.cpp" />
+    <ClCompile Include="..\..\src\ArchitecturalMaterialExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\FinjinMaxClassID.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\FinjinPrecompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ApplicationAccessor.cpp" />
+    <ClCompile Include="..\..\src\MaterialAccessor.cpp" />
+    <ClCompile Include="..\..\src\MatrixAccessor.cpp" />
+    <ClCompile Include="..\..\src\MaxModifier.cpp" />
+    <ClCompile Include="..\..\src\ObjectAccessor.cpp" />
+    <ClCompile Include="..\..\src\TimeAccessor.cpp" />
+    <ClCompile Include="..\..\src\TransformAccessor.cpp" />
+    <ClCompile Include="..\..\src\ExtendedValue.cpp" />
+    <ClCompile Include="..\..\src\FinjinMeshAnimationSettingsAccessor.cpp" />
+    <ClCompile Include="..\..\src\FinjinNodeAnimationSettingsAccessor.cpp" />
+    <ClCompile Include="..\..\src\FinjinObjectSettingsAccessor.cpp" />
+    <ClCompile Include="..\..\src\FinjinSceneSettingsAccessor.cpp" />
+    <ClCompile Include="..\..\src\ChooseMaterialsPrompt-Max.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ChooseObjectsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ChooseObjectsPrompt-Generic.cpp" />
+    <ClCompile Include="..\..\src\ChooseObjectsPrompt-Max.cpp" />
+    <ClCompile Include="..\..\src\ObjectSettingsDialog_MeshAnimationsPage_MixerControl-Max.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SpinnerButton.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SpinnerControl-Generic.cpp" />
+    <ClCompile Include="..\..\src\GeometryState.cpp" />
+    <ClCompile Include="..\..\src\MeshBone.cpp" />
+    <ClCompile Include="..\..\src\MeshMorpher.cpp" />
+    <ClCompile Include="..\..\src\MeshNormals-Max.cpp" />
+    <ClCompile Include="..\..\src\MeshSkeleton.cpp" />
+    <ClCompile Include="..\..\src\SimpleMeshInfo.cpp" />
+    <ClCompile Include="..\..\src\CoordinateSystemConverter.cpp" />
+    <ClCompile Include="..\..\src\MaxBaseMaterialExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\ProMaterialsExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\RaytraceMaterialExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\StandardMaterialsExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\VRayMaterialsExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\FinjinSceneExporterHandler.cpp" />
+    <ClCompile Include="..\..\src\CameraExportSettings.cpp" />
+    <ClCompile Include="..\..\src\PhysicalObjectExportSettings.cpp" />
+    <ClCompile Include="..\..\src\LightExportSettings.cpp" />
+    <ClCompile Include="..\..\src\SkyExportSettings.cpp" />
+    <ClCompile Include="..\..\src\CameraObjectType.cpp" />
+    <ClCompile Include="..\..\src\CubeMapHelperObjectType.cpp" />
+    <ClCompile Include="..\..\src\CustomDummyObjectType.cpp" />
+    <ClCompile Include="..\..\src\InstancedGeometryObjectType.cpp" />
+    <ClCompile Include="..\..\src\LightObjectType.cpp" />
+    <ClCompile Include="..\..\src\MeshObjectType.cpp" />
+    <ClCompile Include="..\..\src\RootObjectType.cpp" />
+    <ClCompile Include="..\..\src\SkyObjectType.cpp" />
+    <ClCompile Include="..\..\src\StaticGeometryObjectType.cpp" />
+    <ClCompile Include="..\..\src\SubmeshObjectType.cpp" />
+    <ClCompile Include="..\..\src\RegisterDetectableObjectTypes.cpp" />
+    <ClCompile Include="..\..\src\RegisterExporterHandlerFactories.cpp" />
+    <ClCompile Include="..\..\src\RegisterMaterialExporterHandlerFactories.cpp" />
+    <ClCompile Include="..\..\src\RegisterSceneSettingsTypes.cpp" />
+    <ClCompile Include="..\..\src\MeshAnimationTracksDetector.cpp" />
+    <ClCompile Include="..\..\src\FilteredSceneObjects.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinVersion.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\PropertyValues.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\Strings.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\AboutDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ApplicationControls.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ChooseFilesDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ControlUtilities.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\Dialogs.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FlagAliasDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FlagDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ImageFilePrompt.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\IncludeExcludeBoneDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ManualLodDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationSettingsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ModalDialogFix.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\NodeAnimationSettingsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinFrame.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\LogFileDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ProgressDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\RelativeLocationPrompt.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\RemoveBoneTranslationsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SpinnerControlEvent.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\UserDataClassControls.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_UserDataClassPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\UserDataSettingsDialog.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\UserDataSettingsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\WindowPlacementManager.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\wxAdoptedWindow.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\wxApplicationWindow.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_PhysicalPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_GeneralPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshAnimationsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshLodPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_PrefabInstancePage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_NodeAnimationsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_SkyPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_AnimationsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_BitmapsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_EnvironmentPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_GeneralPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_MaterialsPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_MeshesPage.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MethodEntry.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExporterSystem.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ProgressCalculator.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ApplicationAccessorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectAccessorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExtendedValueBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinMeshAnimationSettingsAccessorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinNodeAnimationSettingsAccessorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinObjectSettingsAccessorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinSceneSettingsAccessorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\AnimationUtilities.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationsEvaluator.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationTracksDetectorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationTypeDetector.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinSceneDocument.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\UserDataTypes.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\CustomHelperIconReaderWriter.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExportableObject.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExportCommandMacros.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\Exporter.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExporterContext.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExporterHandler.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ExporterUtilities.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\DefaultMaterialExporterHandler.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MaterialExporter.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MaterialExporterHandler.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinSceneExporterContext.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\BaseDirectory.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FileUtilities.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MacroExpander.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\RegistryKeyEnumerator.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SystemUtilities.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\HelpSystem.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\LoggerListeners.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\Logger.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GenericBitmapFileName.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MathUtilities.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GeometryStateBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GeometryStateSubmesh.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GeometryStateSubmeshProperties.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshMorpherBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshNormalsBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshSkeletonBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SimpleMeshInfoBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\VertexList.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ChildObjectSorter.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\Direct3DState.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinResourceManager.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectExportSettings.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\FinjinGlobalSettings.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneExportSettings.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\ObjectTypeDetectorBase.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\EmptyObjectType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\PhysicalObjectType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\IgnoreObjectType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\PrefabInstanceObjectType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsTypes.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\AnimationsSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\BitmapsSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\EnvironmentSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\GeneralSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MaterialsSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\MeshesSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\UserDataSceneSettingsType.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\StringSplitter.cpp" />
+    <ClCompile Include="..\..\..\..\common\src\StringUtilities.cpp" />
+    <ClCompile Include="..\..\src\CloneState.cpp" />
+    <ClCompile Include="..\..\src\FinjinGlobalUtilities.cpp" />
+    <ClCompile Include="..\..\src\FinjinCubeMapHelper.cpp" />
+    <ClCompile Include="..\..\src\FinjinCustomDummy.cpp" />
+    <ClCompile Include="..\..\src\FinjinInstancedGeometry.cpp" />
+    <ClCompile Include="..\..\src\FinjinStaticGeometry.cpp" />
+    <ClCompile Include="..\..\src\MaxMathUtilities.cpp" />
+    <ClCompile Include="..\..\src\FinjinSceneExporter.cpp" />
+    <ClCompile Include="..\..\src\FinjinCustomHelperIconExporter.cpp" />
+    <ClCompile Include="..\..\src\MaxBitmapUtilities.cpp" />
+    <ClCompile Include="..\..\src\MaxMaterialUtilities.cpp" />
+    <ClCompile Include="..\..\src\ExtendedValueParameters.cpp" />
+    <ClCompile Include="..\..\src\MaxUtilities.cpp" />
+    <ClCompile Include="..\..\src\ConvertToFramesDialog.cpp" />
+    <ClCompile Include="..\..\src\ListControl.cpp" />
+    <ClCompile Include="..\..\src\MaxControlUtilities.cpp" />
+    <ClCompile Include="..\..\src\ResourceDialog.cpp" />
+    <ClCompile Include="..\..\src\MeshIconUtilities.cpp" />
+    <ClCompile Include="..\..\src\RenderCubeMapDialog.cpp" />
+    <ClCompile Include="..\..\src\RenderTerrainMapDialog.cpp" />
+    <ClCompile Include="..\..\src\SnapUtilities.cpp" />
+    <ClCompile Include="..\..\src\BipedMixerAnimations.cpp" />
+    <ClCompile Include="..\..\src\ExtendedValueObject.cpp" />
+    <ClCompile Include="..\..\src\FinjinMeshAnimationSettingsObject.cpp" />
+    <ClCompile Include="..\..\src\FinjinNodeAnimationSettingsObject.cpp" />
+    <ClCompile Include="..\..\src\FinjinObjectSettingsObject.cpp" />
+    <ClCompile Include="..\..\src\FinjinSceneSettingsObject.cpp" />
+    <ClCompile Include="..\..\src\FinjinSubmeshSettingsObject.cpp" />
+    <ClCompile Include="..\..\src\CubeMapRenderer.cpp" />
+    <ClCompile Include="..\..\src\TerrainMapRenderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.h" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBase64.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBinaryDataChunkWriter.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxByteBuffer.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxChunkName.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDataChunkWriter.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentReader.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentWriter.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriter.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriterController.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDocumentWriterOutput.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxError.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxJsonDataChunkWriter.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxNumericStruct.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxStreamingFileFormat.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTextDataChunkWriter.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTimeDuration.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxUuid.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\FinjinSceneTypeNames.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentChunkNames.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyNames.hpp" />
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyValues.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ArgsArray.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AssetClass.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_AnimationsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_FlagsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_GeneralPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_MaterialsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_MeshesPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_ScenePage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\WrappedFileWriter.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExportedGeometry.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_SubmeshesPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AssetReference.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SimpleUri.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SkeletonReferencePose.hpp" />
+    <ClInclude Include="..\..\src\ArchitecturalMaterialExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\FinjinMaxClassID.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\src\FinjinPrecompiled.hpp" />
+    <ClInclude Include="..\..\src\ApplicationAccessor.hpp" />
+    <ClInclude Include="..\..\src\MaterialAccessor.hpp" />
+    <ClInclude Include="..\..\src\MatrixAccessor.hpp" />
+    <ClInclude Include="..\..\src\ObjectAccessor.hpp" />
+    <ClInclude Include="..\..\src\TimeAccessor.hpp" />
+    <ClInclude Include="..\..\src\TransformAccessor.hpp" />
+    <ClInclude Include="..\..\src\ExtendedValue.hpp" />
+    <ClInclude Include="..\..\src\FinjinMeshAnimationSettingsAccessor.hpp" />
+    <ClInclude Include="..\..\src\FinjinNodeAnimationSettingsAccessor.hpp" />
+    <ClInclude Include="..\..\src\FinjinObjectSettingsAccessor.hpp" />
+    <ClInclude Include="..\..\src\FinjinSceneSettingsAccessor.hpp" />
+    <ClInclude Include="..\..\src\ChooseMaterialsPrompt-Max.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ChooseObjectsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ChooseObjectsPrompt-Generic.hpp" />
+    <ClInclude Include="..\..\src\ChooseObjectsPrompt-Max.hpp" />
+    <ClInclude Include="..\..\src\ObjectSettingsDialog_MeshAnimationsPage_MixerControl-Max.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SpinnerButton.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SpinnerControl-Generic.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SuspendCustomControlsHook-Generic.hpp" />
+    <ClInclude Include="..\..\src\GeometryState.hpp" />
+    <ClInclude Include="..\..\src\MeshBone.hpp" />
+    <ClInclude Include="..\..\src\MeshMorpher.hpp" />
+    <ClInclude Include="..\..\src\MeshMorphTarget.hpp" />
+    <ClInclude Include="..\..\src\MeshNormals-Max.hpp" />
+    <ClInclude Include="..\..\src\MeshSkeleton.hpp" />
+    <ClInclude Include="..\..\src\SimpleMeshInfo.hpp" />
+    <ClInclude Include="..\..\src\CoordinateSystemConverter.hpp" />
+    <ClInclude Include="..\..\src\MaxBaseMaterialExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\ProMaterialsExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\RaytraceMaterialExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\StandardMaterialsExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\VRayMaterialsExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\FinjinSceneExporterHandler.hpp" />
+    <ClInclude Include="..\..\src\CameraExportSettings.hpp" />
+    <ClInclude Include="..\..\src\PhysicalObjectExportSettings.hpp" />
+    <ClInclude Include="..\..\src\LightExportSettings.hpp" />
+    <ClInclude Include="..\..\src\SkyExportSettings.hpp" />
+    <ClInclude Include="..\..\src\ObjectTypeDetectionContext.hpp" />
+    <ClInclude Include="..\..\src\ObjectTypeDetector.hpp" />
+    <ClInclude Include="..\..\src\CameraObjectType.hpp" />
+    <ClInclude Include="..\..\src\CubeMapHelperObjectType.hpp" />
+    <ClInclude Include="..\..\src\CustomDummyObjectType.hpp" />
+    <ClInclude Include="..\..\src\InstancedGeometryObjectType.hpp" />
+    <ClInclude Include="..\..\src\LightObjectType.hpp" />
+    <ClInclude Include="..\..\src\MeshObjectType.hpp" />
+    <ClInclude Include="..\..\src\RootObjectType.hpp" />
+    <ClInclude Include="..\..\src\SkyObjectType.hpp" />
+    <ClInclude Include="..\..\src\StaticGeometryObjectType.hpp" />
+    <ClInclude Include="..\..\src\SubmeshObjectType.hpp" />
+    <ClInclude Include="..\..\src\ConvertString.hpp" />
+    <ClInclude Include="..\..\src\RegisterDetectableObjectTypes.hpp" />
+    <ClInclude Include="..\..\src\RegisterExporterHandlerFactories.hpp" />
+    <ClInclude Include="..\..\src\RegisterMaterialExporterHandlerFactories.hpp" />
+    <ClInclude Include="..\..\src\RegisterSceneSettingsTypes.hpp" />
+    <ClInclude Include="..\..\src\MeshAnimationTracksDetector.hpp" />
+    <ClInclude Include="..\..\src\FilteredSceneObjects.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinVersion.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\PropertyValues.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\Strings.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AboutDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ApplicationControls.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ChooseFilesDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ChooseMaterialsPrompt.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ChooseObjectsPrompt.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ColorPickerControl.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ControlUtilities.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\Dialogs.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FlagAliasDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FlagDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ImageFilePrompt.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\IncludeExcludeBoneDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ManualLodDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationSettingsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ModalDialogFix.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\NodeAnimationSettingsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinFrame.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\LogFileDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ProgressDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\RelativeLocationPrompt.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\RemoveBoneTranslationsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SpinnerControl.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SpinnerControlEvent.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SuspendCustomControlsHook.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\TabControl.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\UserDataClassControls.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_UserDataClassPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\UserDataSettingsDialog.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\UserDataSettingsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\WindowPlacementManager.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\wxAdoptedWindow.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\wxApplicationWindow.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_PhysicalPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_GeneralPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshAnimationsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshAnimationsPage_MixerControl.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshLodPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_PrefabInstancePage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_NodeAnimationsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_SkyPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_AnimationsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_BitmapsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_EnvironmentPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_GeneralPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_MaterialsPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_MeshesPage.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AccessorSetAndMap.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\CommonTypes.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\EnvironmentFar.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ManualLod.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MethodEntry.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinBox.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinColor.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinEdge.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinNoteTrack.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExporterSystem.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinTimeInterval.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinVector.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ProgressCalculator.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\PRSKey.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ReindexedVertex.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\WeightedVertex.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ApplicationAccessorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MaterialAccessorExtras.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectAccessorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectAccessorExtras.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExtendedValueAccessor.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExtendedValueBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinMeshAnimationSettingsAccessorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinNodeAnimationSettingsAccessorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinObjectSettingsAccessorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinSceneSettingsAccessorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\UserDataSettingsAccessor.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AnimationUtilities.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationsEvaluator.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationTracksDetectorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationTypeDetector.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshMorphAnimation.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinSceneDocument.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\UserDataTypes.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\CustomHelperIconReaderWriter.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExportableObject.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExportableObjectBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExportCommandMacros.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExportedObject.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\Exporter.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExporterContext.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExporterHandler.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ExporterUtilities.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\DefaultMaterialExporterHandler.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MaterialExporter.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MaterialExporterHandler.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinSceneExporterContext.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\BaseDirectory.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FileUtilities.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MacroExpander.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\RegistryKeyEnumerator.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SystemUtilities.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\HelpSystem.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\LoggerListeners.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\Logger.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GenericBitmapFileName.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MathUtilities.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GeometryStateBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GeometryStateSubmesh.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GeometryStateSubmeshProperties.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshBoneBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshMorpherBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshMorphTargetBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshNormalsBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshSkeletonBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SimpleMeshInfoBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\TextureCoordinateSetMappings.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\VertexList.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ChildObjectSorter.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FilteredSceneObjectsBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectFilterType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\Direct3DState.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinResourceManager.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AnimationExportSettings.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectExportSettings.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\FinjinGlobalSettings.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneExportSettings.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\DetectableObjectType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\DetectableObjectTypeDescriptor.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectTypeDetectionContextBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\ObjectTypeDetectorBase.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\EmptyObjectType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\PhysicalObjectType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\IgnoreObjectType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\PrefabInstanceObjectType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsTypes.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\AnimationsSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\BitmapsSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\EnvironmentSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\GeneralSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MaterialsSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\MeshesSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\UserDataSceneSettingsType.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\StringSplitter.hpp" />
+    <ClInclude Include="..\..\..\..\common\src\StringUtilities.hpp" />
+    <ClInclude Include="..\..\src\CloneState.hpp" />
+    <ClInclude Include="..\..\src\FinjinGlobalUtilities.hpp" />
+    <ClInclude Include="..\..\src\FinjinCubeMapHelper.hpp" />
+    <ClInclude Include="..\..\src\FinjinCustomDummy.hpp" />
+    <ClInclude Include="..\..\src\FinjinInstancedGeometry.hpp" />
+    <ClInclude Include="..\..\src\FinjinStaticGeometry.hpp" />
+    <ClInclude Include="..\..\src\MaxMathUtilities.hpp" />
+    <ClInclude Include="..\..\src\FinjinSceneExporter.hpp" />
+    <ClInclude Include="..\..\src\FinjinCustomHelperIconExporter.hpp" />
+    <ClInclude Include="..\..\src\MaxBitmapUtilities.hpp" />
+    <ClInclude Include="..\..\src\MaxMaterialUtilities.hpp" />
+    <ClInclude Include="..\..\src\AutoKeyState.hpp" />
+    <ClInclude Include="..\..\src\ExtendedValueParameters.hpp" />
+    <ClInclude Include="..\..\src\MaxModifier.hpp" />
+    <ClInclude Include="..\..\src\MaxUtilities.hpp" />
+    <ClInclude Include="..\..\src\UserDataParameters.hpp" />
+    <ClInclude Include="..\..\src\CenteredCreateMouseCallback.hpp" />
+    <ClInclude Include="..\..\src\ConvertToFramesDialog.hpp" />
+    <ClInclude Include="..\..\src\CornerCreateMouseCallback.hpp" />
+    <ClInclude Include="..\..\src\ListControl.hpp" />
+    <ClInclude Include="..\..\src\MaxControlUtilities.hpp" />
+    <ClInclude Include="..\..\src\ResourceDialog.hpp" />
+    <ClInclude Include="..\..\src\MeshIconUtilities.hpp" />
+    <ClInclude Include="..\..\src\RenderCubeMapDialog.hpp" />
+    <ClInclude Include="..\..\src\RenderTerrainMapDialog.hpp" />
+    <ClInclude Include="..\..\src\SnapUtilities.hpp" />
+    <ClInclude Include="..\..\src\BipedMixerAnimations.hpp" />
+    <ClInclude Include="..\..\src\ExtendedValueObject.hpp" />
+    <ClInclude Include="..\..\src\FinjinMeshAnimationSettingsObject.hpp" />
+    <ClInclude Include="..\..\src\FinjinNodeAnimationSettingsObject.hpp" />
+    <ClInclude Include="..\..\src\FinjinObjectSettingsObject.hpp" />
+    <ClInclude Include="..\..\src\FinjinSceneSettingsObject.hpp" />
+    <ClInclude Include="..\..\src\FinjinSubmeshSettingsObject.hpp" />
+    <ClInclude Include="..\..\src\CubeMapRenderer.hpp" />
+    <ClInclude Include="..\..\src\TerrainMapRenderer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\common\assets\images\application.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="finjin-exporter.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\common\assets\images\about-logo.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

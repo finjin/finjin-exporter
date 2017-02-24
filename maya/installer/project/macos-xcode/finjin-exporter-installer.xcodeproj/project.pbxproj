@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65FCA44F1DECB8DC00220977 /* FinjinPrecompiled.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA44C1DECB8DC00220977 /* FinjinPrecompiled.cpp */; };
+		65FCA4511DECB8DC00220977 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA44E1DECB8DC00220977 /* main.cpp */; };
+		65FCA45C1DECB91400220977 /* FileUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA4521DECB91400220977 /* FileUtilities.cpp */; };
+		65FCA45E1DECB91400220977 /* InstallationContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA4541DECB91400220977 /* InstallationContext.cpp */; };
+		65FCA4601DECB91400220977 /* InstallationDetailsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA4561DECB91400220977 /* InstallationDetailsDialog.cpp */; };
+		65FCA4621DECB91400220977 /* InstallationDialogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA4581DECB91400220977 /* InstallationDialogBase.cpp */; };
+		65FCA4641DECB91400220977 /* SystemUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65FCA45A1DECB91400220977 /* SystemUtilities.cpp */; };
+		65FCA4681DECBD4200220977 /* libwx_osx_cocoa_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FCA4671DECBD4200220977 /* libwx_osx_cocoa_static.a */; };
+		65FCA46A1DECBD7E00220977 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FCA4691DECBD7E00220977 /* Cocoa.framework */; };
+		65FCA46C1DECBD8C00220977 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FCA46B1DECBD8C00220977 /* IOKit.framework */; };
+		65FCA46E1DECBDB400220977 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65FCA46D1DECBDB400220977 /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		65FCA43C1DECB81200220977 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		65FCA43E1DECB81200220977 /* finjin-exporter-installer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "finjin-exporter-installer"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65FCA44C1DECB8DC00220977 /* FinjinPrecompiled.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FinjinPrecompiled.cpp; path = ../../src/FinjinPrecompiled.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA44D1DECB8DC00220977 /* FinjinPrecompiled.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FinjinPrecompiled.hpp; path = ../../src/FinjinPrecompiled.hpp; sourceTree = SOURCE_ROOT; };
+		65FCA44E1DECB8DC00220977 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../src/main.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA4521DECB91400220977 /* FileUtilities.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FileUtilities.cpp; path = ../../../../common/src/FileUtilities.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA4531DECB91400220977 /* FileUtilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = FileUtilities.hpp; path = ../../../../common/src/FileUtilities.hpp; sourceTree = SOURCE_ROOT; };
+		65FCA4541DECB91400220977 /* InstallationContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = InstallationContext.cpp; path = ../../../../common/src/InstallationContext.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA4551DECB91400220977 /* InstallationContext.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = InstallationContext.hpp; path = ../../../../common/src/InstallationContext.hpp; sourceTree = SOURCE_ROOT; };
+		65FCA4561DECB91400220977 /* InstallationDetailsDialog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = InstallationDetailsDialog.cpp; path = ../../../../common/src/InstallationDetailsDialog.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA4571DECB91400220977 /* InstallationDetailsDialog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = InstallationDetailsDialog.hpp; path = ../../../../common/src/InstallationDetailsDialog.hpp; sourceTree = SOURCE_ROOT; };
+		65FCA4581DECB91400220977 /* InstallationDialogBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = InstallationDialogBase.cpp; path = ../../../../common/src/InstallationDialogBase.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA4591DECB91400220977 /* InstallationDialogBase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = InstallationDialogBase.hpp; path = ../../../../common/src/InstallationDialogBase.hpp; sourceTree = SOURCE_ROOT; };
+		65FCA45A1DECB91400220977 /* SystemUtilities.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SystemUtilities.cpp; path = ../../../../common/src/SystemUtilities.cpp; sourceTree = SOURCE_ROOT; };
+		65FCA45B1DECB91400220977 /* SystemUtilities.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SystemUtilities.hpp; path = ../../../../common/src/SystemUtilities.hpp; sourceTree = SOURCE_ROOT; };
+		65FCA4671DECBD4200220977 /* libwx_osx_cocoa_static.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwx_osx_cocoa_static.a; path = "../../../../../../../finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug/libwx_osx_cocoa_static.a"; sourceTree = "<group>"; };
+		65FCA4691DECBD7E00220977 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		65FCA46B1DECBD8C00220977 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		65FCA46D1DECBDB400220977 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		65FCA46F1DECC4BF00220977 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		65FCA4711DECC74100220977 /* CommonInstallerTypes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = CommonInstallerTypes.hpp; path = ../../../../common/src/CommonInstallerTypes.hpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65FCA43B1DECB81200220977 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65FCA46E1DECBDB400220977 /* Carbon.framework in Frameworks */,
+				65FCA46C1DECBD8C00220977 /* IOKit.framework in Frameworks */,
+				65FCA46A1DECBD7E00220977 /* Cocoa.framework in Frameworks */,
+				65FCA4681DECBD4200220977 /* libwx_osx_cocoa_static.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		65FCA4351DECB81200220977 = {
+			isa = PBXGroup;
+			children = (
+				65FCA4401DECB81200220977 /* finjin-exporter-installer */,
+				65FCA43F1DECB81200220977 /* Products */,
+				65FCA4661DECBD4200220977 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		65FCA43F1DECB81200220977 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA43E1DECB81200220977 /* finjin-exporter-installer */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65FCA4401DECB81200220977 /* finjin-exporter-installer */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA4481DECB88400220977 /* Source Files */,
+			);
+			path = "finjin-exporter-installer";
+			sourceTree = "<group>";
+		};
+		65FCA4481DECB88400220977 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA44B1DECB89700220977 /* common */,
+				65FCA4491DECB88B00220977 /* ui */,
+				65FCA44A1DECB89000220977 /* utilities */,
+				65FCA44C1DECB8DC00220977 /* FinjinPrecompiled.cpp */,
+				65FCA44D1DECB8DC00220977 /* FinjinPrecompiled.hpp */,
+				65FCA44E1DECB8DC00220977 /* main.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		65FCA4491DECB88B00220977 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA4561DECB91400220977 /* InstallationDetailsDialog.cpp */,
+				65FCA4571DECB91400220977 /* InstallationDetailsDialog.hpp */,
+				65FCA4581DECB91400220977 /* InstallationDialogBase.cpp */,
+				65FCA4591DECB91400220977 /* InstallationDialogBase.hpp */,
+			);
+			name = ui;
+			sourceTree = "<group>";
+		};
+		65FCA44A1DECB89000220977 /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA4521DECB91400220977 /* FileUtilities.cpp */,
+				65FCA4531DECB91400220977 /* FileUtilities.hpp */,
+				65FCA45A1DECB91400220977 /* SystemUtilities.cpp */,
+				65FCA45B1DECB91400220977 /* SystemUtilities.hpp */,
+			);
+			name = utilities;
+			sourceTree = "<group>";
+		};
+		65FCA44B1DECB89700220977 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA4711DECC74100220977 /* CommonInstallerTypes.hpp */,
+				65FCA4541DECB91400220977 /* InstallationContext.cpp */,
+				65FCA4551DECB91400220977 /* InstallationContext.hpp */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		65FCA4661DECBD4200220977 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65FCA46F1DECC4BF00220977 /* CoreData.framework */,
+				65FCA46D1DECBDB400220977 /* Carbon.framework */,
+				65FCA46B1DECBD8C00220977 /* IOKit.framework */,
+				65FCA4691DECBD7E00220977 /* Cocoa.framework */,
+				65FCA4671DECBD4200220977 /* libwx_osx_cocoa_static.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65FCA43D1DECB81200220977 /* finjin-exporter-installer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65FCA4451DECB81200220977 /* Build configuration list for PBXNativeTarget "finjin-exporter-installer" */;
+			buildPhases = (
+				65FCA43A1DECB81200220977 /* Sources */,
+				65FCA43B1DECB81200220977 /* Frameworks */,
+				65FCA43C1DECB81200220977 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "finjin-exporter-installer";
+			productName = "finjin-exporter-installer";
+			productReference = 65FCA43E1DECB81200220977 /* finjin-exporter-installer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65FCA4361DECB81200220977 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = Finjin;
+				TargetAttributes = {
+					65FCA43D1DECB81200220977 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 65FCA4391DECB81200220977 /* Build configuration list for PBXProject "finjin-exporter-installer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 65FCA4351DECB81200220977;
+			productRefGroup = 65FCA43F1DECB81200220977 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65FCA43D1DECB81200220977 /* finjin-exporter-installer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65FCA43A1DECB81200220977 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65FCA45C1DECB91400220977 /* FileUtilities.cpp in Sources */,
+				65FCA45E1DECB91400220977 /* InstallationContext.cpp in Sources */,
+				65FCA4601DECB91400220977 /* InstallationDetailsDialog.cpp in Sources */,
+				65FCA4621DECB91400220977 /* InstallationDialogBase.cpp in Sources */,
+				65FCA4641DECB91400220977 /* SystemUtilities.cpp in Sources */,
+				65FCA44F1DECB8DC00220977 /* FinjinPrecompiled.cpp in Sources */,
+				65FCA4511DECB8DC00220977 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		65FCA4431DECB81200220977 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		65FCA4441DECB81200220977 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		65FCA4461DECB81200220977 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"__WXMAC__=1",
+					"__WXOSX__=1",
+					"__WXOSX_COCOA__=1",
+					"SIZEOF_INT=4",
+					"SIZEOF_WCHAR_T=2",
+					"HAVE_SSIZE_T=1",
+					"HAVE_WCSLEN=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../src,
+					../../../../common/src,
+					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/setup/cocoa/include",
+					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/include",
+				);
+				LIBRARY_SEARCH_PATHS = "~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_LDFLAGS = "";
+			};
+			name = Debug;
+		};
+		65FCA4471DECB81200220977 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__WXMAC__=1",
+					"__WXOSX__=1",
+					"__WXOSX_COCOA__=1",
+					"SIZEOF_INT=4",
+					"SIZEOF_WCHAR_T=2",
+					"HAVE_SSIZE_T=1",
+					"HAVE_WCSLEN=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					../../src,
+					../../../../common/src,
+					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/setup/cocoa/include",
+					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/include",
+				);
+				LIBRARY_SEARCH_PATHS = "~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_LDFLAGS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65FCA4391DECB81200220977 /* Build configuration list for PBXProject "finjin-exporter-installer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65FCA4431DECB81200220977 /* Debug */,
+				65FCA4441DECB81200220977 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65FCA4451DECB81200220977 /* Build configuration list for PBXNativeTarget "finjin-exporter-installer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65FCA4461DECB81200220977 /* Debug */,
+				65FCA4471DECB81200220977 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65FCA4361DECB81200220977 /* Project object */;
+}

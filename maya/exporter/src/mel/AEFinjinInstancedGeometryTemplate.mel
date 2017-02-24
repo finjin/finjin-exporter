@@ -1,0 +1,40 @@
+
+//Note procedures------------------------------------------
+global proc AEFinjinInstancedGeometryNoteNew(string $attributeName)
+{
+    rowLayout -nc 1 -columnWidth1 385 noteLayout;
+        text -label "" -align "left" noteText;
+        setParent ..;
+    
+    AEFinjinInstancedGeometryNoteEdit($attributeName);
+}
+
+global proc AEFinjinInstancedGeometryNoteEdit(string $attributeName)
+{    
+    text -edit -label "Note: To associate entities with this instance,\nattach the entities as child nodes." -align "left" noteText;
+}
+
+
+//Entry point---------------------------------------------
+global proc AEFinjinInstancedGeometryTemplate(string $nodeName)
+{
+    editorTemplate -beginScrollLayout;
+        
+        editorTemplate -beginLayout "Instanced Geometry Attributes" -collapse false;
+            editorTemplate -beginNoOptimize;
+                editorTemplate -addControl "Width";
+                editorTemplate -addControl "Length";
+                editorTemplate -addControl "Height";
+                editorTemplate -addControl "BatchCount";
+                editorTemplate -addControl "CastShadows";
+                editorTemplate -addSeparator;
+                editorTemplate -addControl "IconColor";
+                editorTemplate -addSeparator;
+                editorTemplate -callCustom "AEFinjinInstancedGeometryNoteNew" "AEFinjinInstancedGeometryNoteEdit" "Note";
+            editorTemplate -endNoOptimize;                
+        editorTemplate -endLayout;
+
+        editorTemplate -addExtraControls;
+
+    editorTemplate -endScrollLayout;
+}

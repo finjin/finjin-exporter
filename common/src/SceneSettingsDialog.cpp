@@ -1,0 +1,195 @@
+//Copyright (c) 2017 Finjin
+//
+//This file is part of Finjin Exporter (finjin-exporter).
+//
+//Finjin Exporter is free software: you can redistribute it and/or modify
+//it under the terms of the GNU General Public License as published by
+//the Free Software Foundation, either version 3 of the License, or
+//(at your option) any later version.
+//
+//Finjin Exporter is distributed in the hope that it will be useful,
+//but WITHOUT ANY WARRANTY; without even the implied warranty of
+//MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//GNU General Public License for more details.
+//
+//You should have received a copy of the GNU General Public License
+//along with Finjin Exporter.  If not, see <http://www.gnu.org/licenses/>.
+
+
+//Includes----------------------------------------------------------------------
+#include "FinjinPrecompiled.hpp"
+#include "SceneSettingsDialog.hpp"
+#include "ApplicationAccessor.hpp"
+#include "WindowPlacementManager.hpp"
+#include "UserDataSettingsPage.hpp"
+#include "ApplicationControls.hpp"
+#include "SceneSettingsTypes.hpp"
+#include "Strings.hpp"
+#include "SettingsPage.hpp"
+
+#if defined(__WXMAC__)
+    #define DIALOG_WIDTH 860
+    #define DIALOG_HEIGHT 710
+#else
+    #define DIALOG_WIDTH 615
+    #define DIALOG_HEIGHT 610
+#endif
+
+using namespace Finjin::Exporter;
+
+
+//Static initialization--------------------------------------------------------
+int SceneSettingsDialog::lastPageSelection = 0;
+
+
+//Implementation---------------------------------------------------------------
+BEGIN_EVENT_TABLE(SceneSettingsDialog, FinjinDialog)
+    EVT_CLOSE(SceneSettingsDialog::OnCloseWindow)        
+    EVT_BUTTON(wxID_OK, SceneSettingsDialog::OnOK)
+    EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, SceneSettingsDialog::OnNotebookPageChanged)
+END_EVENT_TABLE()
+
+SceneSettingsDialog::SceneSettingsDialog()
+{   
+}
+
+SceneSettingsDialog::SceneSettingsDialog(wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, int initialPageIndex, const wxString& initialPageTitle)
+{
+    Create(parent, sceneSettings, initialPageIndex, initialPageTitle);
+}
+
+bool SceneSettingsDialog::Create(wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, int initialPageIndex, const wxString& initialPageTitle)
+{
+    this->sceneSettings = sceneSettings;
+
+    if (!FinjinDialog::Create(parent, wxID_ANY, Strings::SCENE_SETTINGS_DIALOG_TITLE, wxDefaultPosition, wxSize(DIALOG_WIDTH, DIALOG_HEIGHT), wxCAPTION | wxRESIZE_BORDER | wxSYSTEM_MENU, wxT("FinjinSceneSettingsDialog")))
+        return false;
+
+    CreateControls(initialPageIndex, initialPageTitle);
+
+    return true;
+}
+
+void SceneSettingsDialog::CreateControls(int initialPageIndex, const wxString& initialPageTitle)
+{
+    wxButton* closeButton;
+
+    SetSizeHints(wxDefaultSize, wxDefaultSize);
+    
+    wxBoxSizer* topSizer;
+    topSizer = new wxBoxSizer(wxVERTICAL);
+
+    wxBoxSizer* tabPagesSizer = nullptr;
+    int tabControlProportion = 1;        
+    
+    this->initializingPages = true;
+    tabControl = new TabControl( this, wxID_ANY, wxDefaultPosition, DEFAULT_TAB_CONTROL_SIZE, 0);
+    ApplicationControls::AdjustContainerBackgroundColor(tabControl);
+
+    //Add pages to the control
+    this->pages.SetTabControl(this->tabControl, tabPagesSizer);
+    for (int i = 0; i < SceneSettingsTypes::GetTypeCount(); i++)
+        SceneSettingsTypes::GetType(i)->CreateSettingsPages(this->pages, this->sceneSettings);
+    this->initializingPages = false;
+
+    //Select the initial page
+    ChangeToPage(initialPageIndex, initialPageTitle);
+        
+    //Finish adding tab control(s) to the dialog
+    topSizer->Add( tabControl, tabControlProportion, wxEXPAND | wxALL | TAB_CONTROL_SIZER_FLAGS, 5 );
+    if (tabPagesSizer != nullptr)
+        topSizer->Add( tabPagesSizer, 1, wxEXPAND | wxDOWN | wxRIGHT | wxLEFT, 5);
+    
+    wxGridSizer* bottomSizer;
+    bottomSizer = new wxGridSizer( 1, 1, 0, 0 );
+    
+    closeButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
+    bottomSizer->Add( closeButton, 0, wxALIGN_RIGHT|wxDOWN | wxRIGHT | wxLEFT, 5 );
+    
+    topSizer->Add( bottomSizer, 0, wxEXPAND, 5 );
+    
+    SetGUIData();
+
+    SetSizer(topSizer);
+    
+    if (!WindowPlacementManager::RestorePlacement(this))
+    {
+        Layout();        
+        Centre(wxBOTH);
+    }
+
+    SetMinSize(GetSize());
+    SetMaxSize(wxGetDisplaySize());
+}
+
+void SceneSettingsDialog::ChangeToPage(int index, const wxString& title)
+{
+    if (index < 0 && !title.empty())
+    {
+        for (size_t i = 0; i < this->pages.GetPageCount(); i++)
+        {
+            if (this->pages.GetPageText(i) == title)
+            {
+                index = (int)i;
+                break;
+            }
+        }
+    }
+    if (index < 0)
+        index = lastPageSelection;
+    index = std::max(0, index);
+    
+    //Set initial page
+    this->pages.ChangeSelection(index);
+}
+
+void SceneSettingsDialog::OnCloseWindow(wxCloseEvent& event)
+{
+    WindowPlacementManager::SavePlacement(this);
+    EndModal(wxID_OK);    
+}
+
+void SceneSettingsDialog::OnOK(wxCommandEvent& event)
+{
+    WindowPlacementManager::SavePlacement(this);
+    int badPage = GetGUIData();
+    if (badPage == -1)
+    {
+        MODAL_DIALOG_ON_CLOSE(event, wxID_OK)
+    }
+}
+
+void SceneSettingsDialog::OnNotebookPageChanged(wxNotebookEvent& event)
+{
+    this->pages.OnPageChanged();
+    Layout();
+    if (!this->initializingPages)
+        lastPageSelection = this->pages.GetSelection();
+}
+
+int SceneSettingsDialog::GetGUIData()
+{
+    if (this->sceneSettings.IsValid())
+    {
+        for (size_t pageIndex = 0; pageIndex < this->pages.GetPageCount(); pageIndex++)
+        {
+            auto page = static_cast<SettingsPage*>(this->pages.GetPage(pageIndex));
+            if (!page->GetGUIData())
+                return (int)pageIndex;
+        }
+    }
+    
+    return -1;
+}
+
+void SceneSettingsDialog::SetGUIData()
+{
+    if (this->sceneSettings.IsValid())
+    {
+        for (size_t pageIndex = 0; pageIndex < this->pages.GetPageCount(); pageIndex++)
+        {
+            auto page = static_cast<SettingsPage*>(this->pages.GetPage(pageIndex));
+            page->SetGUIData();
+        }
+    }
+}

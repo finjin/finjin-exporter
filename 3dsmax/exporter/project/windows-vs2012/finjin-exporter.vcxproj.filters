@@ -1,0 +1,1755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{2c2a02a8-a246-48db-94f5-2d772e2e26a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\accessors">
+      <UniqueIdentifier>{357f1dbf-88fe-477f-9569-cb682d308fe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\accessors\application">
+      <UniqueIdentifier>{218d23db-d440-4128-851f-43c954a764b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\accessors\finjin">
+      <UniqueIdentifier>{309bf683-3d89-4aaf-9560-f3285b21dcdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\animation">
+      <UniqueIdentifier>{cbb4320a-f892-452e-b68b-a29e370ae6fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\data">
+      <UniqueIdentifier>{1e7fb9c9-29bd-4751-afd3-400922ccbe47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ui">
+      <UniqueIdentifier>{e60fbd37-5679-4ffc-a28b-33e0905fee16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ui\object-settings">
+      <UniqueIdentifier>{b66b74e2-3476-4ed8-b41b-1bc22fa4ebe0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ui\scene-settings">
+      <UniqueIdentifier>{def6da68-c58a-43e6-bc06-7419bbcc0b86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\documents">
+      <UniqueIdentifier>{9d7a18e2-e045-40f9-bffc-3b616f9c27d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\documents\tinyxml">
+      <UniqueIdentifier>{1d9d4ead-efe2-4c61-858b-3cceb4ec3dc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\documents\user-data">
+      <UniqueIdentifier>{677eafb4-22a7-417d-86b8-8f427c4bdf4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\export/import">
+      <UniqueIdentifier>{57e76569-3913-4111-97da-1ee36a020843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\export/import\material">
+      <UniqueIdentifier>{b03d110d-196c-4f95-b772-c31528a38de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\file/registry/system">
+      <UniqueIdentifier>{cab20b89-b45b-417a-9147-c98809d78d1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\help">
+      <UniqueIdentifier>{f1f945c6-242e-4337-8ce3-5931bc471540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\log">
+      <UniqueIdentifier>{6c0045a2-3064-49c3-87f6-518a11257774}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\material">
+      <UniqueIdentifier>{ce2ca80f-d1f9-4b15-936a-df151c6b5f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\math">
+      <UniqueIdentifier>{9b61ca19-9a2a-40c7-9549-752d8b40bf4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\mesh/geometry">
+      <UniqueIdentifier>{92ecf281-9095-47fa-b6aa-060e2f5acba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\objects">
+      <UniqueIdentifier>{1f3f9113-de80-4f4f-8766-ed94e383a084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\settings">
+      <UniqueIdentifier>{5e50f2c7-00a7-4473-8140-2c3dd44281aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\settings\object-type-detector">
+      <UniqueIdentifier>{431bfd5c-f4ac-41fe-a006-eb55affb587e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\settings\object-type-detector\common-object-types">
+      <UniqueIdentifier>{e8e7b611-56fa-46c1-99ad-b58eb027e81b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\settings\scene-settings-types">
+      <UniqueIdentifier>{f2d408ec-5585-4871-98ab-f4c82b3fb846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\settings\scene-settings-types\common-scene-settings-types">
+      <UniqueIdentifier>{762ed201-e2c2-41c4-bcc6-907d863157e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\string/parsing">
+      <UniqueIdentifier>{da524da4-d181-49fc-b503-b02259094a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\utilities">
+      <UniqueIdentifier>{0e45b882-a723-42f8-88fd-b3c94afa4f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific">
+      <UniqueIdentifier>{a4599846-7745-4970-81bd-3605c556d075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\accessors">
+      <UniqueIdentifier>{7b94a29e-4d96-4f29-9dc8-4b3fd61ea396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\accessors\application">
+      <UniqueIdentifier>{014b15a9-698e-4637-8a78-dc3a1df7b2aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\accessors\finjin">
+      <UniqueIdentifier>{6304346a-b131-41d6-b04b-18014c518e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\animation">
+      <UniqueIdentifier>{5a916b6f-93d3-4e89-9013-d02af6cb6010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\application">
+      <UniqueIdentifier>{947ad95e-f9b8-4564-9354-96b12d0665a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\ui">
+      <UniqueIdentifier>{53fc7274-43a4-4527-a9ec-ad45d30a610b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\export/import">
+      <UniqueIdentifier>{5ca87d6a-6aba-4040-90a4-7c3d31abc48c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\export/import\material">
+      <UniqueIdentifier>{f285d3cd-f3ff-4aa6-8264-48007249088a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\mesh/geometry">
+      <UniqueIdentifier>{04020f6e-a64b-4d83-a191-57b599dd61ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\objects">
+      <UniqueIdentifier>{22073d1b-5dae-4ef3-8e9b-66ca69b0b7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\settings">
+      <UniqueIdentifier>{273065d8-6b82-400f-8669-f9112da84a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\settings\object-type-detector">
+      <UniqueIdentifier>{8ee3cc47-b61e-4763-adaf-3bddaad23ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\settings\object-type-detector\object-types">
+      <UniqueIdentifier>{bbb5ab2c-aa69-4b5b-80dd-1bbd3d938468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common/application-specific\export/import\finjin-exporter">
+      <UniqueIdentifier>{1879b40d-e415-4a69-b5fa-1deef9bd577b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max">
+      <UniqueIdentifier>{92784b14-f3e2-447b-91f4-13a297dfd126}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\finjin-global-utilities">
+      <UniqueIdentifier>{d27458e7-6abf-4632-ba25-00f752ec2882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\finjin-helpers">
+      <UniqueIdentifier>{0dbf6c72-f47a-43f6-8d58-f52b127afccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\math">
+      <UniqueIdentifier>{0ed35c37-cc44-4db8-b4d5-0c6f0b72bbd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\export/import">
+      <UniqueIdentifier>{205c6766-6470-4d31-b613-37ef1f116456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\export/import\finjin-exporter">
+      <UniqueIdentifier>{9ac71ac4-196f-4473-826b-5558e9d52da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\export/import\finjin-custom-helper-icon-exporter">
+      <UniqueIdentifier>{128c89a1-eee2-49bc-9712-6702369fcff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\material">
+      <UniqueIdentifier>{375bf49c-8b0b-4339-ab39-fe4fde4c9ce9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\utilities">
+      <UniqueIdentifier>{b61fc9d0-07d1-4821-85f6-4feab81fd32c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\ui">
+      <UniqueIdentifier>{35b328c0-c070-4be1-b3ae-7587a9af066b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\animation">
+      <UniqueIdentifier>{caed5d27-54cc-43de-9bb3-c2fba5d9d330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\settings">
+      <UniqueIdentifier>{cfd5bc10-c8b6-4806-9318-ec07658377b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\renderers">
+      <UniqueIdentifier>{4a08cafa-379f-4015-aaeb-c8369633a08d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\max\data">
+      <UniqueIdentifier>{d66e6253-8428-47ab-8717-0700a73a5e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\documents\finjin-scene">
+      <UniqueIdentifier>{21801a74-4e3c-460b-a664-99e6708f7023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\export/import\finjin-writers">
+      <UniqueIdentifier>{86f152f6-ffb1-4179-9b92-a038600d5810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Source Files\common\resources">
+      <UniqueIdentifier>{2b6d0280-1980-4197-9b77-16ec5e173ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\utilities\common">
+      <UniqueIdentifier>{b327f080-0c35-4eda-a154-7950888c5333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\ui\global-settings">
+      <UniqueIdentifier>{e6312733-f9c3-4fd6-acac-d4ed2b1b6e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\export/import\finjin-scene">
+      <UniqueIdentifier>{7fcd3fee-45a9-47b6-a123-be93ba790018}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinPrecompiled.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ApplicationAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaterialAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MatrixAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ObjectAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TimeAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TransformAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ExtendedValue.cpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ChooseMaterialsPrompt-Max.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ChooseObjectsDialog.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ChooseObjectsPrompt-Generic.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ChooseObjectsPrompt-Max.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ObjectSettingsDialog_MeshAnimationsPage_MixerControl-Max.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SpinnerButton.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SpinnerControl-Generic.cpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\GeometryState.cpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshBone.cpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshMorpher.cpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshNormals-Max.cpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshSkeleton.cpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SimpleMeshInfo.cpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CoordinateSystemConverter.cpp">
+      <Filter>Source Files\common/application-specific\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxBaseMaterialExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ProMaterialsExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RaytraceMaterialExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StandardMaterialsExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\VRayMaterialsExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinSceneExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\finjin-exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CameraExportSettings.cpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PhysicalObjectExportSettings.cpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LightExportSettings.cpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SkyExportSettings.cpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CameraObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CubeMapHelperObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CustomDummyObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\InstancedGeometryObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\LightObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RootObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SkyObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\StaticGeometryObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SubmeshObjectType.cpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RegisterDetectableObjectTypes.cpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RegisterExporterHandlerFactories.cpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RegisterMaterialExporterHandlerFactories.cpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RegisterSceneSettingsTypes.cpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshAnimationTracksDetector.cpp">
+      <Filter>Source Files\common/application-specific\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FilteredSceneObjects.cpp">
+      <Filter>Source Files\common/application-specific\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinVersion.cpp">
+      <Filter>Source Files\common\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\PropertyValues.cpp">
+      <Filter>Source Files\common\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\Strings.cpp">
+      <Filter>Source Files\common\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\AboutDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ApplicationControls.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ChooseFilesDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ControlUtilities.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\Dialogs.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FlagAliasDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FlagDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ImageFilePrompt.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\IncludeExcludeBoneDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ManualLodDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationSettingsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ModalDialogFix.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\NodeAnimationSettingsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinFrame.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\LogFileDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ProgressDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\RelativeLocationPrompt.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\RemoveBoneTranslationsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SpinnerControlEvent.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\UserDataClassControls.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\UserDataSettingsDialog.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\UserDataSettingsPage.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\WindowPlacementManager.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\wxAdoptedWindow.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\wxApplicationWindow.cpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_PhysicalPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_GeneralPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshAnimationsPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshLodPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_PrefabInstancePage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_NodeAnimationsPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_SkyPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_AnimationsPage.cpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_BitmapsPage.cpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_EnvironmentPage.cpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_GeneralPage.cpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_MaterialsPage.cpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsDialog_MeshesPage.cpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MethodEntry.cpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ProgressCalculator.cpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ApplicationAccessorBase.cpp">
+      <Filter>Source Files\common\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectAccessorBase.cpp">
+      <Filter>Source Files\common\accessors\application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExtendedValueBase.cpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinMeshAnimationSettingsAccessorBase.cpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinNodeAnimationSettingsAccessorBase.cpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinObjectSettingsAccessorBase.cpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinSceneSettingsAccessorBase.cpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\AnimationUtilities.cpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationsEvaluator.cpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationTracksDetectorBase.cpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshAnimationTypeDetector.cpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinSceneDocument.cpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\UserDataTypes.cpp">
+      <Filter>Source Files\common\documents\user-data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\CustomHelperIconReaderWriter.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExportableObject.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExportCommandMacros.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\Exporter.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExporterContext.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExporterHandler.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExporterUtilities.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\DefaultMaterialExporterHandler.cpp">
+      <Filter>Source Files\common\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MaterialExporter.cpp">
+      <Filter>Source Files\common\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MaterialExporterHandler.cpp">
+      <Filter>Source Files\common\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinSceneExporterContext.cpp">
+      <Filter>Source Files\common\export/import\finjin-scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\BaseDirectory.cpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FileUtilities.cpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MacroExpander.cpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\RegistryKeyEnumerator.cpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SystemUtilities.cpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\HelpSystem.cpp">
+      <Filter>Source Files\common\help</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\LoggerListeners.cpp">
+      <Filter>Source Files\common\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\Logger.cpp">
+      <Filter>Source Files\common\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GenericBitmapFileName.cpp">
+      <Filter>Source Files\common\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MathUtilities.cpp">
+      <Filter>Source Files\common\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GeometryStateBase.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GeometryStateSubmesh.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GeometryStateSubmeshProperties.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshMorpherBase.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshNormalsBase.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshSkeletonBase.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SimpleMeshInfoBase.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\VertexList.cpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ChildObjectSorter.cpp">
+      <Filter>Source Files\common\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\Direct3DState.cpp">
+      <Filter>Source Files\common\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinResourceManager.cpp">
+      <Filter>Source Files\common\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectExportSettings.cpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinGlobalSettings.cpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneExportSettings.cpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectTypeDetectorBase.cpp">
+      <Filter>Source Files\common\settings\object-type-detector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\EmptyObjectType.cpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\PhysicalObjectType.cpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\IgnoreObjectType.cpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\PrefabInstanceObjectType.cpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SceneSettingsTypes.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\AnimationsSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\BitmapsSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\EnvironmentSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GeneralSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MaterialsSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\MeshesSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\UserDataSceneSettingsType.cpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\StringSplitter.cpp">
+      <Filter>Source Files\common\string/parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\StringUtilities.cpp">
+      <Filter>Source Files\common\string/parsing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CloneState.cpp">
+      <Filter>Source Files\max\finjin-global-utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxMathUtilities.cpp">
+      <Filter>Source Files\max\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxBitmapUtilities.cpp">
+      <Filter>Source Files\max\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxMaterialUtilities.cpp">
+      <Filter>Source Files\max\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ExtendedValueParameters.cpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxUtilities.cpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ConvertToFramesDialog.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ListControl.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxControlUtilities.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshIconUtilities.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RenderCubeMapDialog.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\RenderTerrainMapDialog.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SnapUtilities.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BipedMixerAnimations.cpp">
+      <Filter>Source Files\max\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ExtendedValueObject.cpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinNodeAnimationSettingsObject.cpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CubeMapRenderer.cpp">
+      <Filter>Source Files\max\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TerrainMapRenderer.cpp">
+      <Filter>Source Files\max\renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ArchitecturalMaterialExporterHandler.cpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ObjectSettingsDialog_SubmeshesPage.cpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinMaxClassID.cpp">
+      <Filter>Source Files\max\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinGlobalUtilities.cpp">
+      <Filter>Source Files\max\finjin-global-utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinSceneExporter.cpp">
+      <Filter>Source Files\max\export/import\finjin-exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinCustomHelperIconExporter.cpp">
+      <Filter>Source Files\max\export/import\finjin-custom-helper-icon-exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinMeshAnimationSettingsObject.cpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinObjectSettingsObject.cpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinSceneSettingsObject.cpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinSubmeshSettingsObject.cpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinMeshAnimationSettingsAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinNodeAnimationSettingsAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinObjectSettingsAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinSceneSettingsAccessor.cpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ResourceDialog.cpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinCubeMapHelper.cpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinCustomDummy.cpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinInstancedGeometry.cpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FinjinStaticGeometry.cpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\FinjinVector.cpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.cpp">
+      <Filter>Source Files\common\documents\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExporterSystem.cpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MaxModifier.cpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\SimpleUri.cpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\ExportedGeometry.cpp">
+      <Filter>Source Files\common\export/import\finjin-scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\AssetClass.cpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\WrappedFileWriter.cpp">
+      <Filter>Source Files\common\export/import\finjin-writers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentReader.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentWriter.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBase64.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxByteBuffer.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriterController.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxJsonDataChunkWriter.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTextDataChunkWriter.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBinaryDataChunkWriter.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxChunkName.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDataChunkWriter.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriter.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxUuid.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTimeDuration.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxStreamingFileFormat.cpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_GeneralPage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_ScenePage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_AnimationsPage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_MaterialsPage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_MeshesPage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_UserDataClassPage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyNames.cpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentChunkNames.cpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyValues.cpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\GlobalSettingsDialog_FlagsPage.cpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\src\AssetReference.cpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinPrecompiled.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ApplicationAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaterialAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MatrixAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ObjectAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TimeAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TransformAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ExtendedValue.hpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ChooseMaterialsPrompt-Max.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ChooseObjectsDialog.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ChooseObjectsPrompt-Generic.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ChooseObjectsPrompt-Max.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ObjectSettingsDialog_MeshAnimationsPage_MixerControl-Max.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SpinnerButton.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SpinnerControl-Generic.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SuspendCustomControlsHook-Generic.hpp">
+      <Filter>Source Files\common/application-specific\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GeometryState.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshBone.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshMorpher.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshMorphTarget.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshNormals-Max.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshSkeleton.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SimpleMeshInfo.hpp">
+      <Filter>Source Files\common/application-specific\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CoordinateSystemConverter.hpp">
+      <Filter>Source Files\common/application-specific\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxBaseMaterialExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ProMaterialsExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RaytraceMaterialExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\StandardMaterialsExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\VRayMaterialsExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinSceneExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\finjin-exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CameraExportSettings.hpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PhysicalObjectExportSettings.hpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\LightExportSettings.hpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SkyExportSettings.hpp">
+      <Filter>Source Files\common/application-specific\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ObjectTypeDetectionContext.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ObjectTypeDetector.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CameraObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CubeMapHelperObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CustomDummyObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\InstancedGeometryObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\LightObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RootObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SkyObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\StaticGeometryObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SubmeshObjectType.hpp">
+      <Filter>Source Files\common/application-specific\settings\object-type-detector\object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ConvertString.hpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RegisterDetectableObjectTypes.hpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RegisterExporterHandlerFactories.hpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RegisterMaterialExporterHandlerFactories.hpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RegisterSceneSettingsTypes.hpp">
+      <Filter>Source Files\common/application-specific\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshAnimationTracksDetector.hpp">
+      <Filter>Source Files\common/application-specific\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FilteredSceneObjects.hpp">
+      <Filter>Source Files\common/application-specific\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinVersion.hpp">
+      <Filter>Source Files\common\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\PropertyValues.hpp">
+      <Filter>Source Files\common\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\Strings.hpp">
+      <Filter>Source Files\common\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AboutDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ApplicationControls.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ChooseFilesDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ChooseMaterialsPrompt.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ChooseObjectsPrompt.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ColorPickerControl.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ControlUtilities.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\Dialogs.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FlagAliasDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FlagDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ImageFilePrompt.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\IncludeExcludeBoneDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ManualLodDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationSettingsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ModalDialogFix.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\NodeAnimationSettingsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinFrame.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\LogFileDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ProgressDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\RelativeLocationPrompt.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\RemoveBoneTranslationsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SpinnerControl.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SpinnerControlEvent.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SuspendCustomControlsHook.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\TabControl.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\UserDataClassControls.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\UserDataSettingsDialog.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\UserDataSettingsPage.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\WindowPlacementManager.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\wxAdoptedWindow.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\wxApplicationWindow.hpp">
+      <Filter>Source Files\common\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_PhysicalPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_GeneralPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshAnimationsPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshAnimationsPage_MixerControl.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshLodPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_MeshPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_PrefabInstancePage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_NodeAnimationsPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_SkyPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_AnimationsPage.hpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_BitmapsPage.hpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_EnvironmentPage.hpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_GeneralPage.hpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_MaterialsPage.hpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsDialog_MeshesPage.hpp">
+      <Filter>Source Files\common\ui\scene-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AccessorSetAndMap.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\CommonTypes.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\EnvironmentFar.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ManualLod.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationType.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MethodEntry.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinBox.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinColor.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinEdge.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinNoteTrack.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinTimeInterval.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinVector.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ProgressCalculator.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\PRSKey.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ReindexedVertex.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\WeightedVertex.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ApplicationAccessorBase.hpp">
+      <Filter>Source Files\common\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MaterialAccessorExtras.hpp">
+      <Filter>Source Files\common\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectAccessorBase.hpp">
+      <Filter>Source Files\common\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectAccessorExtras.hpp">
+      <Filter>Source Files\common\accessors\application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExtendedValueAccessor.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExtendedValueBase.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinMeshAnimationSettingsAccessorBase.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinNodeAnimationSettingsAccessorBase.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinObjectSettingsAccessorBase.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinSceneSettingsAccessorBase.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\UserDataSettingsAccessor.hpp">
+      <Filter>Source Files\common\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AnimationUtilities.hpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationsEvaluator.hpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationTracksDetectorBase.hpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshAnimationTypeDetector.hpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshMorphAnimation.hpp">
+      <Filter>Source Files\common\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinSceneDocument.hpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\UserDataTypes.hpp">
+      <Filter>Source Files\common\documents\user-data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\CustomHelperIconReaderWriter.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExportableObject.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExportableObjectBase.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExportCommandMacros.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExportedObject.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\Exporter.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExporterContext.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExporterHandler.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExporterUtilities.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\DefaultMaterialExporterHandler.hpp">
+      <Filter>Source Files\common\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MaterialExporter.hpp">
+      <Filter>Source Files\common\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MaterialExporterHandler.hpp">
+      <Filter>Source Files\common\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinSceneExporterContext.hpp">
+      <Filter>Source Files\common\export/import\finjin-scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\BaseDirectory.hpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FileUtilities.hpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MacroExpander.hpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\RegistryKeyEnumerator.hpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SystemUtilities.hpp">
+      <Filter>Source Files\common\file/registry/system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\HelpSystem.hpp">
+      <Filter>Source Files\common\help</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\LoggerListeners.hpp">
+      <Filter>Source Files\common\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\Logger.hpp">
+      <Filter>Source Files\common\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GenericBitmapFileName.hpp">
+      <Filter>Source Files\common\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MathUtilities.hpp">
+      <Filter>Source Files\common\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GeometryStateBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GeometryStateSubmesh.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GeometryStateSubmeshProperties.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshBoneBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshMorpherBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshMorphTargetBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshNormalsBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshSkeletonBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SimpleMeshInfoBase.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\TextureCoordinateSetMappings.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\VertexList.hpp">
+      <Filter>Source Files\common\mesh/geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ChildObjectSorter.hpp">
+      <Filter>Source Files\common\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FilteredSceneObjectsBase.hpp">
+      <Filter>Source Files\common\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectFilterType.hpp">
+      <Filter>Source Files\common\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\Direct3DState.hpp">
+      <Filter>Source Files\common\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinResourceManager.hpp">
+      <Filter>Source Files\common\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AnimationExportSettings.hpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectExportSettings.hpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\FinjinGlobalSettings.hpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneExportSettings.hpp">
+      <Filter>Source Files\common\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\DetectableObjectType.hpp">
+      <Filter>Source Files\common\settings\object-type-detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\DetectableObjectTypeDescriptor.hpp">
+      <Filter>Source Files\common\settings\object-type-detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectTypeDetectionContextBase.hpp">
+      <Filter>Source Files\common\settings\object-type-detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectTypeDetectorBase.hpp">
+      <Filter>Source Files\common\settings\object-type-detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\EmptyObjectType.hpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\PhysicalObjectType.hpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\IgnoreObjectType.hpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\PrefabInstanceObjectType.hpp">
+      <Filter>Source Files\common\settings\object-type-detector\common-object-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SceneSettingsTypes.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AnimationsSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\BitmapsSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\EnvironmentSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GeneralSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MaterialsSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\MeshesSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\UserDataSceneSettingsType.hpp">
+      <Filter>Source Files\common\settings\scene-settings-types\common-scene-settings-types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\StringSplitter.hpp">
+      <Filter>Source Files\common\string/parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\StringUtilities.hpp">
+      <Filter>Source Files\common\string/parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CloneState.hpp">
+      <Filter>Source Files\max\finjin-global-utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxMathUtilities.hpp">
+      <Filter>Source Files\max\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxBitmapUtilities.hpp">
+      <Filter>Source Files\max\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxMaterialUtilities.hpp">
+      <Filter>Source Files\max\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\AutoKeyState.hpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ExtendedValueParameters.hpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxModifier.hpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxUtilities.hpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\UserDataParameters.hpp">
+      <Filter>Source Files\max\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CenteredCreateMouseCallback.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ConvertToFramesDialog.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CornerCreateMouseCallback.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ListControl.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MaxControlUtilities.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshIconUtilities.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RenderCubeMapDialog.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\RenderTerrainMapDialog.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SnapUtilities.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BipedMixerAnimations.hpp">
+      <Filter>Source Files\max\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ExtendedValueObject.hpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinNodeAnimationSettingsObject.hpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CubeMapRenderer.hpp">
+      <Filter>Source Files\max\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TerrainMapRenderer.hpp">
+      <Filter>Source Files\max\renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ArchitecturalMaterialExporterHandler.hpp">
+      <Filter>Source Files\common/application-specific\export/import\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ObjectSettingsDialog_SubmeshesPage.hpp">
+      <Filter>Source Files\common\ui\object-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SkeletonReferencePose.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ArgsArray.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinMaxClassID.hpp">
+      <Filter>Source Files\max\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinGlobalUtilities.hpp">
+      <Filter>Source Files\max\finjin-global-utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinSceneExporter.hpp">
+      <Filter>Source Files\max\export/import\finjin-exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinCustomHelperIconExporter.hpp">
+      <Filter>Source Files\max\export/import\finjin-custom-helper-icon-exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinMeshAnimationSettingsObject.hpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinObjectSettingsObject.hpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinSceneSettingsObject.hpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinSubmeshSettingsObject.hpp">
+      <Filter>Source Files\max\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinMeshAnimationSettingsAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinNodeAnimationSettingsAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinObjectSettingsAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinSceneSettingsAccessor.hpp">
+      <Filter>Source Files\common/application-specific\accessors\finjin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ResourceDialog.hpp">
+      <Filter>Source Files\max\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinCubeMapHelper.hpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinCustomDummy.hpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinInstancedGeometry.hpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FinjinStaticGeometry.hpp">
+      <Filter>Source Files\max\finjin-helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.h">
+      <Filter>Source Files\common\documents\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExporterSystem.hpp">
+      <Filter>Source Files\common\export/import</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\SimpleUri.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\ExportedGeometry.hpp">
+      <Filter>Source Files\common\export/import\finjin-scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AssetReference.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\AssetClass.hpp">
+      <Filter>Source Files\common\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\WrappedFileWriter.hpp">
+      <Filter>Source Files\common\export/import\finjin-writers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxByteBuffer.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentReader.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDocumentWriter.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDocumentWriterOutput.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxError.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBase64.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriterController.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxJsonDataChunkWriter.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTextDataChunkWriter.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBinaryDataChunkWriter.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxChunkName.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxConfigDataChunkWriter.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxDataChunkWriter.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxUuid.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxTimeDuration.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxStreamingFileFormat.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxNumericStruct.hpp">
+      <Filter>Source Files\common\utilities\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_GeneralPage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_ScenePage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_AnimationsPage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_MaterialsPage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_MeshesPage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_UserDataClassPage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyNames.hpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentChunkNames.hpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\StandardAssetDocumentPropertyValues.hpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\src\GlobalSettingsDialog_FlagsPage.hpp">
+      <Filter>Source Files\common\ui\global-settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\finjin-engine\cpp\library\src\finjin\engine\FinjinSceneTypeNames.hpp">
+      <Filter>Source Files\common\documents\finjin-scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\common\assets\images\application.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\..\common\assets\images\about-logo.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="finjin-exporter.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,18 @@
+/* XPM */
+static const char *drag_arrows_disabled[] = {
+/* columns rows colors chars-per-pixel */
+"6 9 3 1",
+"  c black",
+". c #8E8E8E8E8A8A",
+"X c gray100",
+/* pixels */
+"   .  ",
+"  ... ",
+" .....",
+"XXXXX ",
+"      ",
+" .....",
+"XX... ",
+" XX.  ",
+"  X   "
+};

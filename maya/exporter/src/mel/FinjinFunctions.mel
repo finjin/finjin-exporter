@@ -1,0 +1,173 @@
+
+//Naming procedures----------------------------------------
+global proc string FinjinGetAttributeNodeName(string $attributeName)
+{
+    string $items[];
+    tokenize($attributeName, ".", $items);
+    return FinjinGetAttributeNodeNameFromArray($items);
+}
+
+global proc string FinjinGetAttributeLocalName(string $attributeName)
+{
+    string $items[];
+    tokenize($attributeName, ".", $items);
+    return FinjinGetAttributeLocalNameFromArray($items);
+}
+
+global proc string FinjinGetAttributeNodeNameFromArray(string $items[])
+{
+    return $items[0];
+}
+
+global proc string FinjinGetAttributeLocalNameFromArray(string $items[])
+{
+    return $items[1];
+}
+
+global proc string FinjinGetAttributeExtraItemFromArray(string $items[], int $index)
+{
+    return $items[2 + $index];
+}
+
+
+//String attribute/list control procedures-----------------
+global proc string[] FinjinGetAttributeValues(string $attributeName)
+{
+    string $result[];
+    
+    int $count = getAttr("-size", $attributeName);
+    int $i;
+    for ($i = 0; $i < $count; $i++)
+    {
+        string $value = getAttr($attributeName + "[" + $i + "]");
+        if ($value != "")
+            $result[size($result)] = $value;
+    }    
+    
+    return $result;    
+}
+
+global proc int FinjinSetAttributeAtIndex(string $attributeName, int $index, string $value)
+{
+    int $result = 0;
+    
+    int $count = getAttr("-size", $attributeName);
+    int $i;
+    for ($i = 0; $i < $count; $i++)
+    {
+        string $attributeValue = getAttr($attributeName + "[" + $i + "]");
+        
+        if ($attributeValue != "")
+        {
+            if ($index == 0)
+            {
+                setAttr(($attributeName + "[" + $i + "]"), "-type", "string", $value);
+                $result = 1;
+                break;
+            }    
+            else
+                $index--;
+        }    
+    }    
+    
+    return $result;
+}
+
+global proc FinjinRemoveAttributeAtIndex(string $attributeName, int $index)
+{
+    removeMultiInstance("-break", true, $attributeName + "[" + $index + "]");
+}
+
+global proc FinjinAddListItem(string $listControlName, string $attributeName, string $value, string $text)
+{
+    //Add value to attribute array
+    int $count = getAttr("-size", $attributeName);
+    setAttr(($attributeName + "[" + $count + "]"), "-type", "string", $value);
+    
+    //Add text to list control
+    if ($text == "")
+        $text = $value;
+    textScrollList("-e", "-append", $text, $listControlName);    
+}
+
+global proc FinjinRemoveSelectedListItems(string $listControlName, string $attributeName)
+{
+    int $selectedIndices[] = textScrollList("-q", "-selectIndexedItem", $listControlName);
+    int $i;
+    for ($i = size($selectedIndices) - 1; $i >= 0; $i--)
+    {        
+        int $selectedIndex = $selectedIndices[$i];
+        
+        //Remove item from the attribute array
+        FinjinRemoveAttributeAtIndex($attributeName, $selectedIndex - 1);
+        
+        //Remove item from list control
+        textScrollList("-e", "-removeIndexedItem", $selectedIndex, $listControlName);
+    }
+}
+
+global proc FinjinReplaceListItem(string $listControlName, string $attributeName, int $selectedIndex, string $value, string $text)
+{
+    //Modify file name in the attribute array
+    FinjinSetAttributeAtIndex($attributeName, $selectedIndex - 1, $value);
+
+    //Modify file name in list control
+    if ($text == "")
+        $text = $value;
+    textScrollList("-e", "-removeIndexedItem", $selectedIndex, $listControlName);
+    textScrollList("-e", "-appendPosition", $selectedIndex, $text, $listControlName);
+}
+
+global proc FinjinReplaceSelectedListItem(string $listControlName, string $attributeName, string $value, string $text)
+{
+    int $selectedIndices[] = textScrollList("-q", "-selectIndexedItem", $listControlName);
+    if (size($selectedIndices) > 0)
+    {        
+        int $selectedIndex = $selectedIndices[0];
+        
+        //Modify file name in the attribute array
+        FinjinSetAttributeAtIndex($attributeName, $selectedIndex - 1, $value);
+        
+        //Modify file name in list control
+        if ($text == "")
+            $text = $value;
+        textScrollList("-e", "-removeIndexedItem", $selectedIndex, $listControlName);
+        textScrollList("-e", "-appendPosition", $selectedIndex, $text, $listControlName);
+    }
+}
+
+global proc string FinjinFormatFileNameListItem(string $fileName)
+{
+    string $name = basename($fileName, "");
+    return $name + " (" + toNativePath($fileName) + ")";    
+}
+
+global proc FinjinFillFileNameList(string $listControlName, string $attributeName)
+{    
+    //Clear the contents of the list control
+    textScrollList("-e", "-removeAll", $listControlName);
+    
+    //Add the items to the list control
+    string $values[] = FinjinGetAttributeValues($attributeName);
+    int $i;
+    for ($i = 0; $i < size($values); $i++)
+    {
+        string $value = $values[$i];
+        textScrollList("-e", "-append", FinjinFormatFileNameListItem($value), $listControlName);
+    }    
+}
+
+global proc FinjinFillList(string $listControlName, string $attributeName)
+{    
+    //Clear the contents of the list control
+    textScrollList("-e", "-removeAll", $listControlName);
+    
+    //Add the items to the list control
+    string $values[] = FinjinGetAttributeValues($attributeName);
+    int $i;
+    for ($i = 0; $i < size($values); $i++)
+    {
+        string $value = $values[$i];
+        textScrollList("-e", "-append", $value, $listControlName);
+    }    
+}

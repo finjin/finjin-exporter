@@ -1,0 +1,2 @@
+
+del install*.bat
