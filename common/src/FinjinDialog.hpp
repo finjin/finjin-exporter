@@ -19,23 +19,23 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ApplicationControls.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Base class for all Finjin dialogs.
      */
     class FinjinDialog : public wxDialog
-    {    
+    {
     public:
         /** Default constructor. */
         FinjinDialog();
-        
-        /** 
+
+        /**
          * Constructor.
          * @param parent [in] - The parent window.
          * @param id [in] - The dialog identifier.
@@ -47,12 +47,12 @@ namespace Finjin { namespace Exporter {
          */
         FinjinDialog
             (
-            wxWindow* parent, 
-            wxWindowID id = wxID_ANY, 
-            const wxString& title = wxEmptyString, 
-            const wxPoint& pos = wxDefaultPosition, 
-            const wxSize& size = wxDefaultSize, 
-            long style = wxDEFAULT_DIALOG_STYLE, 
+            wxWindow* parent,
+            wxWindowID id = wxID_ANY,
+            const wxString& title = wxEmptyString,
+            const wxPoint& pos = wxDefaultPosition,
+            const wxSize& size = wxDefaultSize,
+            long style = wxDEFAULT_DIALOG_STYLE,
             const wxString& name = wxDialogNameStr
             );
 
@@ -60,43 +60,43 @@ namespace Finjin { namespace Exporter {
 
         bool Create
             (
-            wxWindow* parent, 
-            wxWindowID id = wxID_ANY, 
-            const wxString& title = wxEmptyString, 
-            const wxPoint& pos = wxDefaultPosition, 
-            const wxSize& size = wxDefaultSize, 
-            long style = wxDEFAULT_DIALOG_STYLE, 
+            wxWindow* parent,
+            wxWindowID id = wxID_ANY,
+            const wxString& title = wxEmptyString,
+            const wxPoint& pos = wxDefaultPosition,
+            const wxSize& size = wxDefaultSize,
+            long style = wxDEFAULT_DIALOG_STYLE,
             const wxString& name = wxDialogNameStr
             );
 
-        /** 
-         * Shows the dialog modally. 
+        /**
+         * Shows the dialog modally.
          * @return The dialog return code is returned.
          */
         int ShowModal();
 
-        /** 
+        /**
          * Ends the modal dialog.
          * @param retCode - The return code returned by ShowModal().
          */
         void EndModal(int retCode);
-        
+
         bool Destroy();
-        
+
     private:
-        /** 
+        /**
          * Performs final initialization on the dialog.
          * @param style [in] - Dialog style flags passed to the constructor or Create().
          */
         void FinishCreation(long style);
-        
+
         void DestroyParent();
     };
 
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define MODAL_DIALOG_ON_CLOSE(event, returnCode)\
     {\
         EndModal(returnCode);\

@@ -28,8 +28,8 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes-----------------------------------------------------------------
-class FinjinCustomHelperIconExporterClassDesc : public ClassDesc 
+//Local types-------------------------------------------------------------------
+class FinjinCustomHelperIconExporterClassDesc : public ClassDesc
 {
 public:
     int IsPublic() override                        {return TRUE;}
@@ -53,7 +53,7 @@ struct IconEdge
 };
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinCustomHelperIconExporter::FinjinCustomHelperIconExporter()
 {
     this->time = 0;
@@ -106,39 +106,39 @@ unsigned int FinjinCustomHelperIconExporter::Version()
 }
 
 void FinjinCustomHelperIconExporter::ShowAbout(HWND hWnd)
-{       
+{
 }
 
 int FinjinCustomHelperIconExporter::DoExport
     (
-    const TCHAR* fileName, 
-    ExpInterface* exportInterface, 
-    Interface* maxInterface, 
-    BOOL suppressPrompts, 
+    const TCHAR* fileName,
+    ExpInterface* exportInterface,
+    Interface* maxInterface,
+    BOOL suppressPrompts,
     DWORD options
     )
-{        
+{
     //Update member variables
     this->time = maxInterface->GetTime();
     this->maxInterface = maxInterface;
-        
+
     //First see if there's anything to even attempt to export
     int nodeCount = maxInterface->GetRootNode()->NumberOfChildren();
     if (nodeCount == 0)
     {
         if (!suppressPrompts)
         {
-            MessageBox(maxInterface->GetMAXHWnd(), wxT("There is no object to export"), MaxUtilities::GetString2(IDS_CUSTOM_HELPER_ICON_EXPORTER), MB_OK);        
-            return IMPEXP_SUCCESS;            
+            MessageBox(maxInterface->GetMAXHWnd(), wxT("There is no object to export"), MaxUtilities::GetString2(IDS_CUSTOM_HELPER_ICON_EXPORTER), MB_OK);
+            return IMPEXP_SUCCESS;
         }
         else
             return IMPEXP_FAIL;
     }
 
-    //Get first "meshy" child of root node                
+    //Get first "meshy" child of root node
     INode* nodeToSave = nullptr;
     for (int i = 0; i < nodeCount; i++)
-    {            
+    {
         INode* node = maxInterface->GetRootNode()->GetChildNode(i);
         if (IsNodeMesh(node))
         {
@@ -146,7 +146,7 @@ int FinjinCustomHelperIconExporter::DoExport
             break;
         }
     }
-    
+
     //Make sure we have something valid
     if (nodeToSave == nullptr)
     {
@@ -157,15 +157,15 @@ int FinjinCustomHelperIconExporter::DoExport
         }
         else
             return IMPEXP_FAIL;
-    }    
-        
+    }
+
     SaveIcon(nodeToSave, ApplicationStringToWxString(fileName));
-    
+
     return IMPEXP_SUCCESS;
 }
 
 BOOL FinjinCustomHelperIconExporter::SupportsOptions(int ext, DWORD options)
-{    
+{
     if (options & SCENE_EXPORT_SELECTED)
         return TRUE;
     else
@@ -181,11 +181,11 @@ void FinjinCustomHelperIconExporter::SaveIcon(INode* node, const wxString& fileN
 {
     //Converts a meshy node and saves it as a C code 3d icon file
     Object* obj = node->EvalWorldState(this->time).obj;
-    TriObject* triObj = (TriObject*)obj->ConvertToType(this->time, triObjectClassID);    
+    TriObject* triObj = (TriObject*)obj->ConvertToType(this->time, triObjectClassID);
     MNMesh mnmesh(triObj->mesh);
     int vertexCount = mnmesh.VNum();
     int edgeCount = mnmesh.ENum();
-                
+
     //Count the number of visible edges
     int visibleEdgeCount = 0;
     for (int i = 0; i < edgeCount; i++)
@@ -193,9 +193,9 @@ void FinjinCustomHelperIconExporter::SaveIcon(INode* node, const wxString& fileN
         MNEdge* edge = mnmesh.E(i);
 
         if (!edge->GetFlag(MN_EDGE_INVIS))
-            visibleEdgeCount++;                    
+            visibleEdgeCount++;
     }
-    
+
     //Convert the vertices and edges
     CustomHelperIconWriter icon;
     icon.edges.resize(visibleEdgeCount);
@@ -208,9 +208,9 @@ void FinjinCustomHelperIconExporter::SaveIcon(INode* node, const wxString& fileN
         MNEdge* edge = mnmesh.E(i);
 
         if (!edge->GetFlag(MN_EDGE_INVIS))
-        {                
+        {
             icon.edges[count].v1 = edge->v1;
-            icon.edges[count].v2 = edge->v2;            
+            icon.edges[count].v2 = edge->v2;
             count++;
         }
     }
@@ -221,7 +221,7 @@ void FinjinCustomHelperIconExporter::SaveIcon(INode* node, const wxString& fileN
         MNVert* v = mnmesh.V(i);
         icon.vertices[i].Set(v->p.x, v->p.y, v->p.z);
     }
-    
+
     //Save
     if (icon.IsValid())
     {
@@ -238,9 +238,9 @@ bool FinjinCustomHelperIconExporter::IsNodeMesh(INode* node)
 {
     //Determines whether or not a node is a mesh
     ObjectState os = node->EvalWorldState(this->time);
-            
+
     if (os.obj->CanConvertToType(triObjectClassID))
         return true;
-    
-    return false;    
+
+    return false;
 }

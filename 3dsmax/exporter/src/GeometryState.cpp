@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 struct TextureMapChannels : std::vector<std::pair<int, MeshMap*>>
 {
     MeshMap* alphaMapChannel;
@@ -75,11 +75,11 @@ struct TextureMapChannels : std::vector<std::pair<int, MeshMap*>>
             if ((*this)[i].first == mapNumber)
                 return (*this)[i].second;
         }
-            
+
         return nullptr;
     }
 
-    MeshMap* GetFirstNonempty() 
+    MeshMap* GetFirstNonempty()
     {
         for (auto& item : *this)
         {
@@ -91,7 +91,7 @@ struct TextureMapChannels : std::vector<std::pair<int, MeshMap*>>
 };
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool GeometryState::CanHandle(ObjectAccessor object)
 {
     auto result = false;
@@ -99,9 +99,9 @@ bool GeometryState::CanHandle(ObjectAccessor object)
     auto maxObject = object.node->EvalWorldState(0).obj;
     if (maxObject != nullptr)
     {
-        result = 
+        result =
             maxObject->SuperClassID() == SHAPE_CLASS_ID ||
-            maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0));        
+            maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0));
     }
 
     return result;
@@ -126,15 +126,15 @@ void GeometryState::GetSubmeshesSettings(ObjectAccessor object, SubmeshesSetting
     material.Expand(submeshMaterials);
     if (submeshMaterials.empty())
         submeshMaterials.push_back(MaterialAccessor());
-    
+
     //Get all the texture mapping channels
     TextureMapChannels textureMapChannels;
     textureMapChannels.Initialize(*mesh);
-    
+
     TextureCoordinateSetMappings textureCoordinateSets;
     textureCoordinateSets.resize(textureMapChannels.size());
-    for (size_t textureCoordinateSetIndex = 0; 
-        textureCoordinateSetIndex < textureMapChannels.size(); 
+    for (size_t textureCoordinateSetIndex = 0;
+        textureCoordinateSetIndex < textureMapChannels.size();
         textureCoordinateSetIndex++)
     {
         textureCoordinateSets[textureCoordinateSetIndex].source.number = textureMapChannels[textureCoordinateSetIndex].first;
@@ -147,10 +147,10 @@ void GeometryState::GetSubmeshesSettings(ObjectAccessor object, SubmeshesSetting
 bool GeometryState::Create
     (
     const wxString& meshName,
-    ObjectAccessor object, 
-    const CoordinateSystemConverter& coordinateConverter, 
+    ObjectAccessor object,
+    const CoordinateSystemConverter& coordinateConverter,
     float scale,
-    TimeAccessor time, 
+    TimeAccessor time,
     GeometryStateFlags flags,
     SubmeshesSettings* submeshesSettings,
     const SkeletonReferencePose* referencePose
@@ -176,7 +176,7 @@ bool GeometryState::Create
     auto maxObject = object.node->EvalWorldState(time.GetNativeTime()).obj;
     if (maxObject->SuperClassID() == SHAPE_CLASS_ID)
     {
-        shapeObject = static_cast<ShapeObject*>(maxObject);        
+        shapeObject = static_cast<ShapeObject*>(maxObject);
         shapeObject->MakePolyShape(0, shape);
     }
     else if (maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0)))
@@ -186,7 +186,7 @@ bool GeometryState::Create
     }
 
     this->submeshProperties.vertexFormatElements.push_back(WxGpuVertexFormatStructUtilities::CreateElement(WxGpuVertexFormatStructMetadata::ElementID::POSITION, WxNumericStructElementType::FLOAT3));
-    
+
     //Geometry type and coloring
     auto hasRealVertexColors = false;
     MeshMap* colorMapChannel = nullptr;
@@ -276,15 +276,15 @@ bool GeometryState::Create
                     auto submesh = primitiveSubmeshes[primitiveSubmeshIndex++] = GetMaterialSubmesh(materialsToSubmeshes, segmentMaterial, &isNew);
                     if (isNew)
                         submesh->Reserve(mesh->numVerts);
-                }                
+                }
             }
         }
     }
 
-    //Get all the texture mapping channels    
+    //Get all the texture mapping channels
     TextureMapChannels textureMapChannels;
     textureMapChannels.Initialize(*mesh);
-    
+
     TextureCoordinateSetMappings textureCoordinateSetMappings;
     textureCoordinateSetMappings.resize(textureMapChannels.size());
     for (size_t textureCoordinateSetIndex = 0; textureCoordinateSetIndex < textureMapChannels.size(); textureCoordinateSetIndex++)
@@ -300,14 +300,14 @@ bool GeometryState::Create
     int textureCoordinateSetIndexForTangents = -1;
 
     //Set more information for each submesh
-    GeometryStateSubmesh::SubmeshesTextureCoordSetDimensionArray submeshesTextureCoordSetDimensions; 
+    GeometryStateSubmesh::SubmeshesTextureCoordSetDimensionArray submeshesTextureCoordSetDimensions;
     submeshesTextureCoordSetDimensions.resize(submeshesSettings->size());
     size_t submeshIndex = 0;
     for (auto submesh : this->submeshes)
     {
         int foundMappingIndex = submeshesSettings->FindIndexOfMaterial(submesh->material);
         auto& submeshSettings = (*submeshesSettings)[foundMappingIndex];
-        
+
         //Submesh name
         submesh->name = submeshSettings.submeshName;
 
@@ -346,10 +346,10 @@ bool GeometryState::Create
     {
         int foundMappingIndex = submeshesSettings->FindIndexOfMaterial(submesh->material);
         auto& submeshSettings = (*submeshesSettings)[foundMappingIndex];
-        
+
         auto& textureCoordinateSetMappings = submeshSettings.textureCoordinateSetMappings;
         auto& textureCoordSetDimensions = submeshesTextureCoordSetDimensions[submeshIndex];
-        
+
         //Tangent/binormal
         if (this->submeshProperties.generateTangents && textureCoordinateSetIndexForTangents >= 0)
         {
@@ -363,7 +363,7 @@ bool GeometryState::Create
 
         //Texture coordinates
         for (size_t textureCoordinateSetIndex = 0; textureCoordinateSetIndex < textureCoordinateSetMappings.size(); textureCoordinateSetIndex++)
-        {            
+        {
             submesh->submeshProperties.vertexFormatElements.push_back(WxGpuVertexFormatStructUtilities::CreateTextureCoordinate(textureCoordinateSetIndex, textureCoordSetDimensions[textureCoordinateSetIndex]));
         }
 
@@ -391,8 +391,8 @@ bool GeometryState::Create
         }
 
         //Get the normals and tangents
-        this->meshNormals.Create(*mesh, coordinateConverter, this->submeshProperties.primitiveType);        
-        
+        this->meshNormals.Create(*mesh, coordinateConverter, this->submeshProperties.primitiveType);
+
         //Get the vertices
         for (int faceIndex = 0; faceIndex < mesh->numFaces; faceIndex++)
         {
@@ -401,7 +401,7 @@ bool GeometryState::Create
             int faceMaterialIndex = -1;
             if (!objectMaterials.empty())
                 faceMaterialIndex = face.getMatID() % objectMaterials.size();
-            
+
             auto submesh = primitiveSubmeshes[faceIndex];
             submesh->primitiveCount++;
 
@@ -410,7 +410,7 @@ bool GeometryState::Create
             {
                 //Visibility
                 explodedEdgeVisibilities.push_back((face.flags & (EDGE_A << vertexIndex)) ? true : false);
-                
+
                 Vertex vertex;
 
                 //Original index
@@ -418,7 +418,7 @@ bool GeometryState::Create
                 vertex.originalFaceVertexIndex = face.v[vertexIndex];
                 vertex.originalFaceIndex = faceIndex;
                 vertex.smoothingGroups = face.smGroup;
-                
+
                 //Position
                 auto position = mesh->verts[face.v[vertexIndex]];
                 coordinateConverter.ConvertPoint(position);
@@ -457,26 +457,26 @@ bool GeometryState::Create
                     if (map != nullptr &&
                         vertexIndex < map->vnum && faceIndex < map->fnum) //Prevents a rare problem that occurs if the map channel was invalidated
                     {
-                        auto& maxTextureCoordinate = map->tv[map->tf[faceIndex].t[vertexIndex]];                    
+                        auto& maxTextureCoordinate = map->tv[map->tf[faceIndex].t[vertexIndex]];
                         textureCoordinate.Set(maxTextureCoordinate.x, 1.0f - maxTextureCoordinate.y, maxTextureCoordinate.z);
                     }
-                    
+
                     vertex.AddTexCoord((int)textureCoordinateSetIndex, textureCoordinate);
                 }
 
                 //Add vertex
                 explodedVertices.push_back(vertex);
             }
-        }        
+        }
     }
     else
-    { 
+    {
         //Iterate over lines and segments
         int absoluteSegmentIndex = 0;
         for (int lineIndex = 0; lineIndex < shape.numLines; lineIndex++)
         {
             auto& line = shape.lines[lineIndex];
-            
+
             for (int segmentIndex = 0; segmentIndex < line.Segments(); segmentIndex++)
             {
                 auto submesh = primitiveSubmeshes[absoluteSegmentIndex++];
@@ -489,11 +489,11 @@ bool GeometryState::Create
                     //Original index
                     vertex.originalCornerIndex = 0;
                     vertex.originalFaceVertexIndex = 0;
-                    
+
                     //Position
                     auto position = line.pts[(segmentIndex + vertexIndex) % line.Verts()].p;
                     coordinateConverter.ConvertPoint(position);
-                    vertex.SetPosition(position.x * scale, position.y * scale, position.z * scale); 
+                    vertex.SetPosition(position.x * scale, position.y * scale, position.z * scale);
 
                     auto isNewVertex = false;
                     unsigned int actualVertexIndex = submesh->vertexList.Add(vertex, &isNewVertex, fastVertices);
@@ -515,7 +515,7 @@ bool GeometryState::Create
 
 bool GeometryState::SamplePoints
     (
-    std::vector<FinjinVector3>& positions, 
+    std::vector<FinjinVector3>& positions,
     const CoordinateSystemConverter& coordinateConverter,
     float scale,
     TimeAccessor time,
@@ -536,14 +536,14 @@ bool GeometryState::SamplePoints
     auto maxObject = this->createObject.node->EvalWorldState(time.GetNativeTime()).obj;
     if (maxObject->SuperClassID() == SHAPE_CLASS_ID)
     {
-        shapeObject = static_cast<ShapeObject*>(maxObject);        
+        shapeObject = static_cast<ShapeObject*>(maxObject);
         shapeObject->MakePolyShape(0, shape);
 
         //Count points
         int pointCount = 0;
         for (int lineIndex = 0; lineIndex < shape.numLines; lineIndex++)
         {
-            auto& line = shape.lines[lineIndex];            
+            auto& line = shape.lines[lineIndex];
             pointCount += line.Verts();
         }
 
@@ -552,10 +552,10 @@ bool GeometryState::SamplePoints
         for (int lineIndex = 0; lineIndex < shape.numLines; lineIndex++)
         {
             auto& line = shape.lines[lineIndex];
-            
+
             for (int pointIndex = 0; pointIndex < line.Verts(); pointIndex++)
             {
-                auto point = line.pts[pointIndex].p;                                    
+                auto point = line.pts[pointIndex].p;
                 coordinateConverter.ConvertPoint(point);
                 positions.push_back(FinjinVector3(point.x * scale, point.y * scale, point.z * scale));
             }
@@ -564,7 +564,7 @@ bool GeometryState::SamplePoints
         result = true;
     }
     else if (maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0)))
-    {        
+    {
         triObject = static_cast<TriObject*>(maxObject->ConvertToType(time.GetNativeTime(), Class_ID(TRIOBJ_CLASS_ID, 0)));
         auto mesh = &triObject->GetMesh();
 
@@ -580,7 +580,7 @@ bool GeometryState::SamplePoints
         //Get the normals
         if (normals != nullptr)
             normals->Create(*mesh, coordinateConverter, this->submeshProperties.primitiveType);
-        
+
         result = true;
     }
 
@@ -590,7 +590,6 @@ bool GeometryState::SamplePoints
 
     this->meshSkeleton.Restore();
     this->meshMorpher.Restore();
-    
+
     return result;
 }
-

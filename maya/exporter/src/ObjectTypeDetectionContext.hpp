@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectTypeDetectionContextBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ObjectTypeDetectionContext : public ObjectTypeDetectionContextBase

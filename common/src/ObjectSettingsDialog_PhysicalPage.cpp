@@ -24,37 +24,37 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ObjectSettingsDialog_PhysicalPage::TITLE(wxT("Physical"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ObjectSettingsDialog_PhysicalPage::ObjectSettingsDialog_PhysicalPage(wxWindow* parent, FinjinObjectSettingsAccessor objectSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
 {
     this->objectSettings = objectSettings;
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* generalSettingsSizer;
     generalSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("General Settings") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* gridSizer;
     gridSizer = new wxFlexGridSizer( 1, 2, 0, 0 );
     gridSizer->SetFlexibleDirection( wxBOTH );
     gridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     itemTypeLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Item Type"), wxDefaultPosition, wxDefaultSize, 0 );
     itemTypeLabel->Wrap( -1 );
     gridSizer->Add( itemTypeLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     itemTypeText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 140,-1 ), 0 );
     gridSizer->Add( itemTypeText, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     generalSettingsSizer->Add( gridSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( generalSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     SetSizer(topSizer);
     Layout();
 }

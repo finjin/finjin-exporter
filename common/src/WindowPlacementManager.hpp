@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Manages the saving and restoring of window placements (position and size). */

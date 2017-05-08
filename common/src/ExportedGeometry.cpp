@@ -49,13 +49,13 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void WriteVertexChannels
     (
-    WxDataChunkWriter& writer, 
+    WxDataChunkWriter& writer,
     const wxString& formatName,
-    const std::vector<WxGpuVertexFormatStruct::Element>& vertexFormatElements, 
-    const VertexList& vertexList, 
+    const std::vector<WxGpuVertexFormatStruct::Element>& vertexFormatElements,
+    const VertexList& vertexList,
     WxError& error
     )
 {
@@ -67,7 +67,7 @@ static void WriteVertexChannels
         writer.WriteString(StandardAssetDocumentPropertyNames::FORMAT, formatName, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-                    
+
     //Channel formats
     writer.WriteChunk(StandardAssetDocumentChunkNames::FORMAT, [&vertexFormatElements](WxDataChunkWriter& writer, WxError& error)
     {
@@ -81,7 +81,7 @@ static void WriteVertexChannels
         for (size_t elementIndex = 0; elementIndex < vertexFormatElements.size(); elementIndex++)
         {
             auto& element = vertexFormatElements[elementIndex];
-                        
+
             writer.WriteChunk(WxChunkName(StandardAssetDocumentChunkNames::FORMAT_ELEMENT, elementIndex), [&element](WxDataChunkWriter& writer, WxError& error)
             {
                 FINJIN_WX_ERROR_METHOD_START(error)
@@ -89,7 +89,7 @@ static void WriteVertexChannels
                 //ID
                 writer.WriteString(StandardAssetDocumentPropertyNames::ID, WxGpuVertexFormatStructMetadata::ElementIDToString(element.elementID), error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                                    
+
                 //Type
                 writer.WriteString(StandardAssetDocumentPropertyNames::TYPE, WxNumericStructElementTypeUtilities::ToString(element.type), error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -111,11 +111,11 @@ static void WriteVertexChannels
         writer.WriteCount(StandardAssetDocumentPropertyNames::COUNT, vertexFormatElements.size(), error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
-        //Each channel                    
+        //Each channel
         for (size_t vertexFormatElementIndex = 0; vertexFormatElementIndex < vertexFormatElements.size(); vertexFormatElementIndex++)
         {
             auto& element = vertexFormatElements[vertexFormatElementIndex];
-                            
+
             WxChunkName channelChunkName(StandardAssetDocumentChunkNames::CHANNEL, vertexFormatElementIndex);
             writer.WriteChunk(channelChunkName, [&element, &vertexList](WxDataChunkWriter& writer, WxError& error)
             {
@@ -126,7 +126,7 @@ static void WriteVertexChannels
                 //Values
                 switch (element.elementID)
                 {
-                    case WxGpuVertexFormatStructMetadata::ElementID::BINORMAL: 
+                    case WxGpuVertexFormatStructMetadata::ElementID::BINORMAL:
                     {
                         writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::VALUES, &firstVertex.binormal.x, vertexList.size(), WxDataChunkWriteStride(3, sizeof(Vertex)), error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -161,7 +161,7 @@ static void WriteVertexChannels
 
                         break;
                     }
-                    case WxGpuVertexFormatStructMetadata::ElementID::POSITION: 
+                    case WxGpuVertexFormatStructMetadata::ElementID::POSITION:
                     {
                         writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::VALUES, &firstVertex.position.x, vertexList.size() * 3, WxDataChunkWriteStride(3, sizeof(Vertex)), error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -175,14 +175,14 @@ static void WriteVertexChannels
 
                         break;
                     }
-                    case WxGpuVertexFormatStructMetadata::ElementID::POINT_SIZE:                                        
+                    case WxGpuVertexFormatStructMetadata::ElementID::POINT_SIZE:
                     {
                         writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::VALUES, &firstVertex.pointSize, vertexList.size() * 1, WxDataChunkWriteStride(1, sizeof(Vertex)), error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
                         break;
                     }
-                    case WxGpuVertexFormatStructMetadata::ElementID::TANGENT: 
+                    case WxGpuVertexFormatStructMetadata::ElementID::TANGENT:
                     {
                         writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::VALUES, &firstVertex.tangent.x, vertexList.size() * 4, WxDataChunkWriteStride(4, sizeof(Vertex)), error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -201,11 +201,11 @@ static void WriteVertexChannels
                         auto textureCoordinateSetIndex = (int)element.elementID - (int)WxGpuVertexFormatStructMetadata::ElementID::TEX_COORD_0;
                         auto textureCoordinateDimension = (size_t)element.type - (size_t)WxNumericStructElementType::FLOAT1 + 1;
 
-                        auto& textureCoordinate = firstVertex.GetTextureCoordinate(textureCoordinateSetIndex); 
+                        auto& textureCoordinate = firstVertex.GetTextureCoordinate(textureCoordinateSetIndex);
 
                         writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::VALUES, &textureCoordinate.x, vertexList.size() * textureCoordinateDimension, WxDataChunkWriteStride(textureCoordinateDimension, sizeof(Vertex)), error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                                
+
                         break;
                     }
                     default: break;
@@ -218,14 +218,14 @@ static void WriteVertexChannels
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 {
     FINJIN_WX_ERROR_METHOD_START(error);
-     
+
     const FinjinVector3 nullAnimatedVertexNormal(1, 0, 0);
-        
-    auto usingSkeleton = this->exportSkeleton && this->geometryState->meshSkeleton.IsValid();    
+
+    auto usingSkeleton = this->exportSkeleton && this->geometryState->meshSkeleton.IsValid();
     auto usingMorpher = this->exportPoses && this->geometryState->meshMorpher.IsValid();
 
     //Type
@@ -239,7 +239,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 
     //Bounds
     float boundingVolumeScale = 1.0f;
-    GeometryState::ProcessedLocalBounds allBounds[2] = 
+    GeometryState::ProcessedLocalBounds allBounds[2] =
         {
         this->geometryState->standardBounds.GetProcessed(boundingVolumeScale), //Non-animated
         this->geometryState->animatedBounds.GetProcessed(boundingVolumeScale) //Animated
@@ -358,12 +358,12 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                 writer.WriteChunk(vertexBufferChunkName, [this, &vertexBuffer](WxDataChunkWriter& writer, WxError& error)
                 {
                     FINJIN_WX_ERROR_METHOD_START(error);
-                    
+
                     WriteVertexChannels(writer, vertexBuffer.formatName, vertexBuffer.vertexFormatElements, vertexBuffer.vertices, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-            }            
+            }
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
@@ -374,11 +374,11 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
     SubmeshNaming submeshNaming;
     this->sceneSettings.GetSubmeshNamingValue(submeshNaming);
 
-    std::set<wxString> submeshNames;    
+    std::set<wxString> submeshNames;
     writer.WriteChunk(StandardAssetDocumentChunkNames::SUBMESHES, [this, &submeshNames, &submeshNaming, usingSkeleton, usingMorpher](WxDataChunkWriter& writer, WxError& error)
     {
         FINJIN_WX_ERROR_METHOD_START(error);
-    
+
         //Count
         writer.WriteCount(StandardAssetDocumentPropertyNames::COUNT, this->geometryState->submeshes.size(), error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -430,21 +430,21 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                 //Primitive type
                 switch (submeshState->submeshProperties.primitiveType)
                 {
-                    case PrimitiveType::TRIANGLES: 
+                    case PrimitiveType::TRIANGLES:
                     {
                         //Primitive type
                         writer.WriteString(StandardAssetDocumentPropertyNames::PRIMITIVE_TYPE, StandardAssetDocumentPropertyValues::PrimitiveType::TRIANGLE_LIST, error);
-                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)                        
+                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                         break;
                     }
-                    case PrimitiveType::LINES: 
+                    case PrimitiveType::LINES:
                     {
                         //Primitive type
                         writer.WriteString(StandardAssetDocumentPropertyNames::PRIMITIVE_TYPE, StandardAssetDocumentPropertyValues::PrimitiveType::LINE_LIST, error);
-                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)                        
+                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                         break;
                     }
-                    case PrimitiveType::POINTS: 
+                    case PrimitiveType::POINTS:
                     {
                         writer.WriteString(StandardAssetDocumentPropertyNames::PRIMITIVE_TYPE, StandardAssetDocumentPropertyValues::PrimitiveType::POINT_LIST, error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -453,7 +453,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                     default: break;
                 }
 
-                //Index buffer--------------------------------        
+                //Index buffer--------------------------------
                 if (!submeshState->indices.empty())
                 {
                     writer.WriteChunk(StandardAssetDocumentChunkNames::INDEX_BUFFER, [this, submeshState, &submeshNames, &submeshNaming](WxDataChunkWriter& writer, WxError& error)
@@ -523,7 +523,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 
                         //Channels
                         WriteVertexChannels(writer, submeshState->submeshProperties.vertexFormatName, submeshState->submeshProperties.vertexFormatElements, submeshState->vertexList, error);
-                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)                    
+                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                     }, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }
@@ -555,7 +555,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                 }
                 //End of vertex buffer-----------------------------
 
-                //Bone assignments---------------------------------                
+                //Bone assignments---------------------------------
                 if (usingSkeleton)
                 {
                     submeshState->BuildVertexBoneAssignments(this->geometryState->meshSkeleton);
@@ -571,8 +571,8 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 
                             //Vertex index
                             writer.WriteStridedUInt32s(StandardAssetDocumentPropertyNames::VERTEX, &submeshState->vertexBoneAssignments[0].vertexIndex, submeshState->vertexBoneAssignments.size(), WxDataChunkWriteStride(1, sizeof(GeometryStateSubmesh::VertexBoneAssignment)), error);
-                            FINJIN_WX_DEFAULT_ERROR_CHECK(error)                            
-                                                    
+                            FINJIN_WX_DEFAULT_ERROR_CHECK(error)
+
                             //Bone index
                             writer.WriteStridedUInt32s(StandardAssetDocumentPropertyNames::BONE, &submeshState->vertexBoneAssignments[0].boneIndex, submeshState->vertexBoneAssignments.size(), WxDataChunkWriteStride(1, sizeof(GeometryStateSubmesh::VertexBoneAssignment)), error);
                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -584,7 +584,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                     }
                 }
-                //End of bone assignments-----------------------------                            
+                //End of bone assignments-----------------------------
             }, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
@@ -630,7 +630,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                         //Name
                         writer.WriteString(StandardAssetDocumentPropertyNames::NAME, writer.GetContextString(WxDataChunkWriter::ContextIndex::OBJECT_NAME), error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                        
+
                         //Parent index
                         if (bone->parent != nullptr)
                         {
@@ -717,7 +717,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                     for (size_t boneIndex = 0; boneIndex < animation.boneAnimations.size(); boneIndex++)
                                     {
                                         auto& boneAnimation = *animation.boneAnimations[boneIndex].get();
-                                        
+
                                         WxChunkName boneAnimationsChunkName(StandardAssetDocumentChunkNames::BONE, boneIndex);
                                         writer.WriteChunk(boneAnimationsChunkName, [this, &boneAnimation](WxDataChunkWriter& writer, WxError& error)
                                         {
@@ -752,7 +752,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                                     }
                                 }, error);
-                                FINJIN_WX_DEFAULT_ERROR_CHECK(error)                                
+                                FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                             }, error);
                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                         }
@@ -764,7 +764,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     auto hasTangents = this->geometryState->HasSubmeshWithVertexElement(WxGpuVertexFormatStructMetadata::ElementID::TANGENT);
 
     //Morph animations
@@ -780,7 +780,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
             for (size_t animationIndex = 0; animationIndex < geometryState->meshMorphAnimations.size(); animationIndex++)
             {
                 auto& animation = *geometryState->meshMorphAnimations[animationIndex].get();
-            
+
                 writer.SetContextString(WxDataChunkWriter::ContextIndex::OBJECT_NAME, animation.name);
                 writer.SetContextString(WxDataChunkWriter::ContextIndex::EMBED_OBJECT, StringUtilities::ToString(animation.embedAnimation));
                 writer.SetContextString(WxDataChunkWriter::ContextIndex::LINK_TO_MAIN_OBJECT, StringUtilities::ToString(animation.linkToMainObject));
@@ -809,7 +809,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 
                         //Each subanimation
                         for (size_t subanimIndex = 0; subanimIndex < animation.subanimations.size(); subanimIndex++)
-                        {       
+                        {
                             auto& subanimation = *animation.subanimations[subanimIndex].get();
 
                             WxChunkName subanimChunkName(StandardAssetDocumentChunkNames::SUBANIMATION, subanimIndex);
@@ -893,7 +893,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                     //Count
                                     writer.WriteCount(StandardAssetDocumentPropertyNames::COUNT, subanimation.keys.size(), error);
                                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                                        
+
                                     //Each key
                                     for (size_t keyIndex = 0; keyIndex < subanimation.keys.size(); keyIndex++)
                                     {
@@ -923,7 +923,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 
                                                 auto& firstPoint = key.points[0];
 
-                                                //Position                    
+                                                //Position
                                                 writer.WriteChunk(WxChunkName(StandardAssetDocumentChunkNames::CHANNEL, 0), [this, &key, &firstPoint](WxDataChunkWriter& writer, WxError& error)
                                                 {
                                                     FINJIN_WX_ERROR_METHOD_START(error);
@@ -934,7 +934,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                                 }, error);
                                                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
-                                                //Normal                    
+                                                //Normal
                                                 writer.WriteChunk(WxChunkName(StandardAssetDocumentChunkNames::CHANNEL, 1), [this, &key, &firstPoint](WxDataChunkWriter& writer, WxError& error)
                                                 {
                                                     FINJIN_WX_ERROR_METHOD_START(error);
@@ -972,7 +972,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-            }     
+            }
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
@@ -1081,7 +1081,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                             writer.WriteString(StandardAssetDocumentPropertyNames::TYPE, WxNumericStructElementTypeUtilities::ToString(WxNumericStructElementType::FLOAT4), error);
                                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                                         }, error);
-                                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)                                    
+                                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                                     }
                                 }, error);
                                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -1101,7 +1101,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                     writer.WriteStridedCounts(StandardAssetDocumentPropertyNames::VERTEX, &firstOffset.index, subtarget.offsets.size(), WxDataChunkWriteStride(1, sizeof(MeshMorphTarget::Offset)), error);
                                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
-                                    //Position                    
+                                    //Position
                                     writer.WriteChunk(WxChunkName(StandardAssetDocumentChunkNames::CHANNEL, 0), [this, &subtarget, &firstOffset](WxDataChunkWriter& writer, WxError& error)
                                     {
                                         FINJIN_WX_ERROR_METHOD_START(error);
@@ -1134,7 +1134,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                             writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::VALUES, &firstOffset.tangentOffset.x, subtarget.offsets.size() * 4, WxDataChunkWriteStride(4, sizeof(MeshMorphTarget::Offset)), error);
                                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                                         }, error);
-                                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)                                    
+                                        FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                                     }
                                 }, error);
                                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -1171,7 +1171,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                     writer.SetContextString(WxDataChunkWriter::ContextIndex::OBJECT_NAME, animation.name);
                     writer.SetContextString(WxDataChunkWriter::ContextIndex::EMBED_OBJECT, StringUtilities::ToString(animation.embedAnimation));
                     writer.SetContextString(WxDataChunkWriter::ContextIndex::LINK_TO_MAIN_OBJECT, StringUtilities::ToString(animation.linkToMainObject));
-                    
+
                     writer.WriteChunk(WxChunkName(StandardAssetDocumentChunkNames::POSE_ANIMATION, animationIndex), [this, &animation](WxDataChunkWriter& writer, WxError& error)
                     {
                         FINJIN_WX_ERROR_METHOD_START(error);
@@ -1195,10 +1195,10 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
 
                             //Each subpose
                             for (size_t subanimIndex = 0; subanimIndex < animation.subanimations.size(); subanimIndex++)
-                            {       
+                            {
                                 auto& subanimation = *animation.subanimations[subanimIndex].get();
 
-                                WxChunkName subposeChunkName(StandardAssetDocumentChunkNames::SUBANIMATION, subanimIndex);                            
+                                WxChunkName subposeChunkName(StandardAssetDocumentChunkNames::SUBANIMATION, subanimIndex);
                                 writer.WriteChunk(subposeChunkName, [this, &animation, &subanimation](WxDataChunkWriter& writer, WxError& error)
                                 {
                                     FINJIN_WX_ERROR_METHOD_START(error);
@@ -1220,7 +1220,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                         for (size_t keyIndex = 0; keyIndex < subanimation.keys.size(); keyIndex++)
                                         {
                                             auto& key = subanimation.keys[keyIndex];
-                                            
+
                                             WxChunkName keyChunkName(StandardAssetDocumentChunkNames::KEY, keyIndex);
                                             writer.WriteChunk(keyChunkName, [this, &key](WxDataChunkWriter& writer, WxError& error)
                                             {
@@ -1229,7 +1229,7 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                                                 //Time
                                                 writer.WriteTimeDuration(StandardAssetDocumentPropertyNames::TIME, key.time, error);
                                                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                                                
+
                                                 //Count
                                                 writer.WriteCount(StandardAssetDocumentPropertyNames::INFLUENCE_COUNT, key.influences.size(), error);
                                                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -1286,11 +1286,11 @@ void ExportedGeometry::Write(WxDataChunkWriter& writer, WxError& error)
                 writer.WriteChunk(manualLodChunkName, [this, &manualLod, &manualLodObjectSettings](WxDataChunkWriter& writer, WxError& error)
                 {
                     FINJIN_WX_ERROR_METHOD_START(error);
-                    
+
                     //Asset reference
                     writer.WriteString(StandardAssetDocumentPropertyNames::MESH_REF, this->sceneExportSettings->GetAssetReference(AssetClass::MESH, manualLod.object, manualLodObjectSettings).ToUriString(), error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                    
+
                     //Distance
                     writer.WriteFloat(StandardAssetDocumentPropertyNames::DISTANCE, manualLod.distance, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)

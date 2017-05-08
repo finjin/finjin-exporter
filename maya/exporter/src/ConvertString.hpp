@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Inline functions-------------------------------------------------------------
+//Inline functions--------------------------------------------------------------
 
 /** Converts an application string to a wxString. */
 inline wxString ApplicationStringToWxString(const MString& maya)
-{    
-#if wxUSE_UNICODE    
+{
+#if wxUSE_UNICODE
     return maya.asWChar();
 #else
     return wxString::FromUTF8(maya.asUTF8());
@@ -33,8 +33,8 @@ inline wxString ApplicationStringToWxString(const MString& maya)
 
 /** Converts a wxString to an application. */
 inline MString WxStringToApplicationString(const wxString& wx)
-{   
-#if wxUSE_UNICODE    
+{
+#if wxUSE_UNICODE
     return MString(WxStringAsInternal(wx));
 #else
     return MString(wx.ToUTF8().data());

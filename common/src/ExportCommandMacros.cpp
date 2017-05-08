@@ -30,7 +30,7 @@ using namespace Finjin::Exporter;
 //Implementation----------------------------------------------------------------
 ExportCommandMacros::ExportCommandMacros()
 {
-    this->applicationDirectory = ApplicationAccessor::GetApplicationDirectory();    
+    this->applicationDirectory = ApplicationAccessor::GetApplicationDirectory();
 }
 
 void ExportCommandMacros::Finalize()
@@ -49,7 +49,7 @@ bool ExportCommandMacros::Expand(wxString& text)
     MacroExpander expander;
 
     expander.SetMatchErrorFormatString(Strings::EXPORT_COMMAND_MACRO_NO_VALUE_FOUND_FOR_SEQUENCE_FORMAT);
-    
+
     expander.AddVariable(wxT("AppDir"), this->applicationDirectory);
     expander.AddVariable(wxT("ExportDir"), this->exportDirectory);
     expander.AddVariable(wxT("ExportFilePath"), this->exportFilePath);

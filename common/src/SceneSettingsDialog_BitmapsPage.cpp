@@ -30,12 +30,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString SceneSettingsDialog_BitmapsPage::TITLE(wxT("Bitmaps"));
 
 
-//Implementation---------------------------------------------------------------
-BEGIN_EVENT_TABLE(SceneSettingsDialog_BitmapsPage, SettingsPage)    
+//Implementation----------------------------------------------------------------
+BEGIN_EVENT_TABLE(SceneSettingsDialog_BitmapsPage, SettingsPage)
 END_EVENT_TABLE()
 
 SceneSettingsDialog_BitmapsPage::SceneSettingsDialog_BitmapsPage( wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
@@ -44,16 +44,16 @@ SceneSettingsDialog_BitmapsPage::SceneSettingsDialog_BitmapsPage( wxWindow* pare
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* bitmapExportControlSizer;
     bitmapExportControlSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Bitmap Export Control") ), wxVERTICAL );
-    
-    copyBitmapsToExportDirectoryCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Copy Bitmaps to Export Directory"), wxDefaultPosition, wxDefaultSize, 0 );    
+
+    copyBitmapsToExportDirectoryCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Copy Bitmaps to Export Directory"), wxDefaultPosition, wxDefaultSize, 0 );
     bitmapExportControlSizer->Add( copyBitmapsToExportDirectoryCheckbox, 0, wxALL, 5 );
 
     convertBitmapsToTexturesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Convert Bitmaps to Textures (.texture)"), wxDefaultPosition, wxDefaultSize, 0 );
     bitmapExportControlSizer->Add( convertBitmapsToTexturesCheckbox, 0, wxALL, 5 );
-    
+
     topSizer->Add( bitmapExportControlSizer, 0, wxEXPAND|wxTOP, 5 );
 
     SetSizer(topSizer);
@@ -64,16 +64,16 @@ SceneSettingsDialog_BitmapsPage::~SceneSettingsDialog_BitmapsPage()
 {
 }
 
-bool SceneSettingsDialog_BitmapsPage::GetGUIData() 
+bool SceneSettingsDialog_BitmapsPage::GetGUIData()
 {
     //Copy/convert bitmaps
     //this->sceneSettings.SetCopyBitmaps(this->copyBitmapsToExportDirectoryCheckbox->GetValue());
     //this->sceneSettings.SetConvertBitmapsToTextures(this->convertBitmapsToTexturesCheckbox->GetValue());
-    
+
     return true;
 }
 
-bool SceneSettingsDialog_BitmapsPage::SetGUIData() 
+bool SceneSettingsDialog_BitmapsPage::SetGUIData()
 {
     //Copy/convert bitmaps
     //this->copyBitmapsToExportDirectoryCheckbox->SetValue(this->sceneSettings.GetCopyBitmaps());

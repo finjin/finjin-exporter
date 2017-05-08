@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is an entity/mesh. */
@@ -38,9 +38,9 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("entity")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Entity/Mesh")); return name;}  
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Entity/Mesh")); return name;}
             bool CanAttachToNode() const override {return true;}
-            bool IsMovableObject() const override {return true;}            
+            bool IsMovableObject() const override {return true;}
         };
 
         static Descriptor& GetTypeDescriptor()

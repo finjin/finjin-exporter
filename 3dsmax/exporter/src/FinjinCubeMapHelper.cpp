@@ -37,7 +37,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinCubeMapHelperClassDesc : public ClassDesc2
 {
 public:
@@ -62,7 +62,7 @@ public:
 
     void DeleteThis() override {}
 
-    void SetThing(ReferenceTarget* m) 
+    void SetThing(ReferenceTarget* m)
     {
         this->helper = (FinjinCubeMapHelper*)m;
         this->node = nullptr;
@@ -100,11 +100,11 @@ public:
                                 FileUtilities::CreateFileDirectoryRecursive(fileName);
 
                                 CubeMapRenderer renderer;
-                                renderer.SetCenterNode(this->node);                                
+                                renderer.SetCenterNode(this->node);
                                 renderer.RenderToFile(fileName, this->helper->GetCubeFaceSize(), this->helper->GetRenderToSeparateFiles());
                             }
                         }
-                        
+
                         break;
                     }
                 }
@@ -130,11 +130,11 @@ public:
         this->object = nullptr;
     }
 
-    void SetObject(FinjinCubeMapHelper* obj) 
+    void SetObject(FinjinCubeMapHelper* obj)
     {
         this->object = obj;
     }
-    
+
 protected:
     void SetCreationSize(float size)
     {
@@ -144,12 +144,12 @@ protected:
     void SuspendSnap(bool suspend)
     {
         this->object->suspendSnap = suspend;
-    }    
+    }
 
 private:
     FinjinCubeMapHelper* object;
 
-public:    
+public:
     static FinjinCubeMapHelperCreateCallback instance;
 };
 FinjinCubeMapHelperCreateCallback FinjinCubeMapHelperCreateCallback::instance;
@@ -157,25 +157,25 @@ FinjinCubeMapHelperCreateCallback FinjinCubeMapHelperCreateCallback::instance;
 static std::vector<Point3> DEFAULT_ICON_EDGE_VERTICES;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {CUSTOM_HELPER_PARAM_BLOCK_ID = 0};
 enum {CUSTOM_HELPER_VERSION = 1};
 enum {MAIN_MAP, NUM_MAPS};
 
 static ParamBlockDesc2 FinjinCubeMapHelperParamBlock
     (
-    CUSTOM_HELPER_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinCubeMapHelperClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT | P_AUTO_UI | P_MULTIMAP, 
-    
+    CUSTOM_HELPER_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinCubeMapHelperClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT | P_AUTO_UI | P_MULTIMAP,
+
     //Version
     CUSTOM_HELPER_VERSION,
-    
+
     //Reference number
-    FinjinCubeMapHelper::PARAM_BLOCK_REF, 
-    
+    FinjinCubeMapHelper::PARAM_BLOCK_REF,
+
     //Rollout
     NUM_MAPS,
     MAIN_MAP, IDD_CUBE_MAP_HELPER_ROLLUP, IDS_PARAMETERS, 0, 0, &FinjinCubeMapHelperDlgProc::instance,
-    
+
     FinjinCubeMapHelper::PB_ICON_SIZE, _M("IconSize"), TYPE_FLOAT, P_RESET_DEFAULT, IDS_ICON_SIZE,
         p_default, 1.0f,
         p_range, 0.05f, FINJIN_EXPORTER_DEFAULT_MAX_DISTANCE,
@@ -189,9 +189,9 @@ static ParamBlockDesc2 FinjinCubeMapHelperParamBlock
         p_default, 512,
         p_range, 1, 4096,
         p_ui, MAIN_MAP, TYPE_SPINNER, EDITTYPE_INT, IDC_CUBE_FACE_SIZE_EDIT, IDC_CUBE_FACE_SIZE_SPIN, 1.0f,
-        p_end,    
+        p_end,
     FinjinCubeMapHelper::PB_FILE_TYPE, _M("FileType"), TYPE_INT, P_RESET_DEFAULT, IDS_FILE_TYPE,
-        p_default, 0,    
+        p_default, 0,
         p_range, 0, 1,
         p_ui, MAIN_MAP, TYPE_RADIO, 2, IDC_SEPARATE_FILES_RADIO, IDC_DDS_FILE_RADIO,
         p_end,
@@ -202,7 +202,7 @@ static ParamBlockDesc2 FinjinCubeMapHelperParamBlock
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinCubeMapHelper::FinjinCubeMapHelper()
 {
     this->pblock = nullptr;
@@ -239,17 +239,17 @@ int FinjinCubeMapHelper::Display(TimeValue t, INode* inode, ViewExp* vpt, int fl
     FinjinCubeMapHelperDlgProc::instance.SetNode(inode);
 
     //Get viewport graphics window
-    auto gw = vpt->getGW();    
+    auto gw = vpt->getGW();
 
     //Get transform
     auto tm = GetIconSizeMatrix(t) * inode->GetObjectTM(t);
     if (GetAlwaysFaceView())
         tm = MeshIconUtilities::MakeBillboardTM(tm, vpt);
-    
+
     //Draw the icon
     auto& edgeVertices = GetEdgeVertices();
     MeshIconUtilities::DrawCustomIcon(vpt, &edgeVertices[0], edgeVertices.size(), nullptr, &tm, inode->Selected(), inode->IsFrozen(), inode->GetWireColor());
-        
+
     return 0;
 }
 
@@ -304,7 +304,7 @@ void FinjinCubeMapHelper::GetLocalBoundBox(TimeValue t, INode* inode, ViewExp* v
 
     auto tm = GetIconSizeMatrix(t);
     auto& edgeVertices = GetEdgeVertices();
-    box = MeshIconUtilities::GetCustomIconBox(&edgeVertices[0], edgeVertices.size(), &tm);    
+    box = MeshIconUtilities::GetCustomIconBox(&edgeVertices[0], edgeVertices.size(), &tm);
     box.EnlargeBy(.01f);
 }
 
@@ -369,19 +369,19 @@ std::vector<Point3>& FinjinCubeMapHelper::GetEdgeVertices()
     return DEFAULT_ICON_EDGE_VERTICES;
 }
 
-Class_ID FinjinCubeMapHelper::ClassID() 
+Class_ID FinjinCubeMapHelper::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinCubeMapHelper::GetClassClassID()
 {
     return FinjinMaxClassID::CubeMapHelper;
 }
 
-SClass_ID FinjinCubeMapHelper::SuperClassID() 
-{ 
-    return HELPER_CLASS_ID; 
+SClass_ID FinjinCubeMapHelper::SuperClassID()
+{
+    return HELPER_CLASS_ID;
 }
 
 void FinjinCubeMapHelper::GetClassName(MSTR& s)
@@ -395,9 +395,9 @@ RefTargetHandle FinjinCubeMapHelper::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -406,34 +406,34 @@ RefResult FinjinCubeMapHelper::NotifyRefChanged(const Interval& changeInt, RefTa
     return REF_SUCCEED;
 }
 
-int FinjinCubeMapHelper::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinCubeMapHelper::SubAnimName(int i) 
+int FinjinCubeMapHelper::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinCubeMapHelper::SubAnim(int i) 
+MSTR FinjinCubeMapHelper::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinCubeMapHelper::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinCubeMapHelper::GetReference(int i) 
+Animatable* FinjinCubeMapHelper::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinCubeMapHelper::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinCubeMapHelper::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinCubeMapHelper::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinCubeMapHelper::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinCubeMapHelper::GetClassDesc()

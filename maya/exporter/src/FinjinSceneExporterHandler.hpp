@@ -19,18 +19,18 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExporterHandler.hpp"
 #include "FinjinSceneDocument.hpp"
 #include "GenericBitmapFileName.hpp"
 #include "FinjinSceneExporterContext.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Handler for exporting a Finjin scene. */
-    class FinjinSceneExporterHandler : public ExporterHandler         
+    class FinjinSceneExporterHandler : public ExporterHandler
     {
     public:
         FINJIN_EXPORTER_DEFINE_SUPERCLASS(ExporterHandler)
@@ -44,16 +44,16 @@ namespace Finjin { namespace Exporter {
     protected:
         void ExportChildren
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
             ExportableObjectPtr object,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         FinjinSceneDocumentParentItems ExportExportableObject
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
             ExportableObjectPtr exportableObject,
             bool createNodeIfNeeded,
             FinjinSceneExporterContext& finjinExporterContext,
@@ -62,35 +62,35 @@ namespace Finjin { namespace Exporter {
 
         std::shared_ptr<FinjinSceneDocument_SceneNode> ExportNode
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
-            ExportableObject* exportableObject, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
+            ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         void ExportCamera
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
-            MObject camera, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
+            MObject camera,
             ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         void ExportLight
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
-            MObject light, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
+            MObject light,
             ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         void ExportEntity
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
-            ExportableObject* exportableObject, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
+            ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
@@ -98,29 +98,29 @@ namespace Finjin { namespace Exporter {
 
         void ExportPhysical
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneDocumentParentItems parentItems, 
+            FinjinSceneDocument& scene,
+            FinjinSceneDocumentParentItems parentItems,
             ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         void ExportStaticGeometry
             (
-            FinjinSceneDocument& scene, 
+            FinjinSceneDocument& scene,
             ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         void ExportInstancedGeometry
             (
-            FinjinSceneDocument& scene, 
+            FinjinSceneDocument& scene,
             ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext
             );
 
         void ExportStaticAndInstancedGeometryEntities
             (
-            FinjinSceneDocument& scene, 
+            FinjinSceneDocument& scene,
             ExportableObject* exportableObject,
             FinjinSceneExporterContext& finjinExporterContext,
             FinjinSceneDocument_Item* exportedOwnerItem,
@@ -129,7 +129,7 @@ namespace Finjin { namespace Exporter {
 
         void ExportBoneAttachments
             (
-            FinjinSceneDocument& scene, 
+            FinjinSceneDocument& scene,
             FinjinSceneDocument_Entity* exportedEntity,
             ExportableObject* exportableObject,
             GeometryState* geometryState,

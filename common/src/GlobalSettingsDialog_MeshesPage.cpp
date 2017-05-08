@@ -34,112 +34,112 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString GlobalSettingsDialog_MeshesPage::TITLE(wxT("Meshes"));
 
 
-//Local data-------------------------------------------------------------------
+//Local data--------------------------------------------------------------------
 static const wxChar* SUBMESH_NAMINGS_TEXT[] = {wxT("\"submesh\""), wxT("Material Name"), wxT("Custom")};
 static const wxChar* SUBMESH_NAMINGS_VALUE[] = {wxT(""), wxT("material"), wxT("custom")};
 static const int SUBMESH_NAMINGS_COUNT = FINJIN_COUNT_OF(SUBMESH_NAMINGS_VALUE);
 static const int SUBMESH_NAMINGS_CUSTOM_VALUE_INDEX = 2;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(GlobalSettingsDialog_MeshesPage, SettingsPage)
     EVT_CHOICE(GlobalSettingsDialog_MeshesPage::SUBMESH_NAMING_CHOICE, GlobalSettingsDialog_MeshesPage::OnSubmeshNamingChoice)
     EVT_CHOICE(GlobalSettingsDialog_MeshesPage::BASE_DIRECTORY_CHOICE, GlobalSettingsDialog_MeshesPage::OnVertexFormatBaseDirectoryChoice)
     EVT_BUTTON(GlobalSettingsDialog_MeshesPage::BASE_DIRECTORY_BUTTON, GlobalSettingsDialog_MeshesPage::OnVertexFormatBaseDirectoryButton)
-    EVT_BUTTON(GlobalSettingsDialog_MeshesPage::VERTEX_FORMAT_FILE_BUTTON, GlobalSettingsDialog_MeshesPage::OnVertexFormatFileButton)    
+    EVT_BUTTON(GlobalSettingsDialog_MeshesPage::VERTEX_FORMAT_FILE_BUTTON, GlobalSettingsDialog_MeshesPage::OnVertexFormatFileButton)
 END_EVENT_TABLE()
 
 GlobalSettingsDialog_MeshesPage::GlobalSettingsDialog_MeshesPage(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
 {
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxStaticBoxSizer* meshNamingSizer;
     meshNamingSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Meshes") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* meshNamingGridSizer;
     meshNamingGridSizer = new wxFlexGridSizer( 1, 2, 0, 0 );
     meshNamingGridSizer->SetFlexibleDirection( wxBOTH );
     meshNamingGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     submeshNamingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Submesh Naming"), wxDefaultPosition, wxDefaultSize, 0 );
     submeshNamingLabel->Wrap( -1 );
     meshNamingGridSizer->Add( submeshNamingLabel, 0, wxALL, 5 );
-    
+
     wxBoxSizer* submeshNamingSizer;
     submeshNamingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxArrayString submeshNamingChoiceChoices;
     submeshNamingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), submeshNamingChoiceChoices, 0 );
     submeshNamingChoice->SetSelection( 0 );
     submeshNamingSizer->Add( submeshNamingChoice, 0, wxLEFT|wxRIGHT, 5 );
-    
+
     submeshNamingCustomText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-    submeshNamingCustomText->SetMaxLength( 0 ); 
+    submeshNamingCustomText->SetMaxLength( 0 );
     submeshNamingSizer->Add( submeshNamingCustomText, 0, 0, 5 );
-    
-    
+
+
     meshNamingGridSizer->Add( submeshNamingSizer, 1, wxEXPAND, 5 );
-    
-    
+
+
     meshNamingSizer->Add( meshNamingGridSizer, 0, wxEXPAND, 5 );
-    
+
     topSizer->Add( meshNamingSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* vertexFileLocationsTopSizer;
     vertexFileLocationsTopSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Vertex Format File") ), wxVERTICAL );
-    
+
     baseDirectoryLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Base Directory"), wxDefaultPosition, wxDefaultSize, 0 );
     baseDirectoryLabel->Wrap( -1 );
     vertexFileLocationsTopSizer->Add( baseDirectoryLabel, 0, wxALL, 5 );
-    
+
     wxBoxSizer* baseDirectorySizer;
     baseDirectorySizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxArrayString baseDirectoryChoiceChoices;
     baseDirectoryChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, baseDirectoryChoiceChoices, 0 );
     baseDirectoryChoice->SetSelection( 0 );
     baseDirectorySizer->Add( baseDirectoryChoice, 0, wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     baseDirectoryText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 285,-1 ), wxTE_READONLY );
-    baseDirectoryText->SetMaxLength( 0 ); 
+    baseDirectoryText->SetMaxLength( 0 );
     baseDirectorySizer->Add( baseDirectoryText, 1, wxBOTTOM, 5 );
-    
+
     baseDirectoryButton = new wxButton( this, wxID_ANY, wxT("Browse..."), wxDefaultPosition, wxSize( 100,-1 ), 0 );
     baseDirectorySizer->Add( baseDirectoryButton, 0, wxBOTTOM|wxLEFT, 5 );
-    
-    
+
+
     vertexFileLocationsTopSizer->Add( baseDirectorySizer, 0, wxEXPAND, 5 );
-    
+
     wxBoxSizer* vertexFormatFileSizer;
     vertexFormatFileSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     vertexFormatFileLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("File"), wxDefaultPosition, wxDefaultSize, 0 );
     vertexFormatFileLabel->Wrap( -1 );
     vertexFormatFileSizer->Add( vertexFormatFileLabel, 0, wxALL, 5 );
-    
+
     vertexFormatFileText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 285,-1 ), 0 );
-    vertexFormatFileText->SetMaxLength( 0 ); 
+    vertexFormatFileText->SetMaxLength( 0 );
     vertexFormatFileSizer->Add( vertexFormatFileText, 1, wxBOTTOM|wxLEFT, 5 );
-    
+
     vertexFormatFileButton = new wxButton( this, wxID_ANY, wxT("Browse..."), wxDefaultPosition, wxSize( 100,-1 ), 0 );
     vertexFormatFileSizer->Add( vertexFormatFileButton, 0, wxBOTTOM|wxLEFT, 5 );
-    
-    
+
+
     vertexFileLocationsTopSizer->Add( vertexFormatFileSizer, 0, wxEXPAND, 5 );
-    
-    
+
+
     topSizer->Add( vertexFileLocationsTopSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
 
     this->submeshNamingChoice->SetId(SUBMESH_NAMING_CHOICE);
     this->baseDirectoryChoice->SetId(BASE_DIRECTORY_CHOICE);
     this->baseDirectoryButton->SetId(BASE_DIRECTORY_BUTTON);
     this->vertexFormatFileButton->SetId(VERTEX_FORMAT_FILE_BUTTON);
-    
+
     SetSizer(topSizer);
     Layout();
 }
@@ -151,17 +151,17 @@ GlobalSettingsDialog_MeshesPage::~GlobalSettingsDialog_MeshesPage()
 bool GlobalSettingsDialog_MeshesPage::GetGUIData()
 {
     auto& settings = FinjinGlobalSettings::GetInstance();
-    
+
     //Submesh naming
     settings.submeshNaming = (wxChar*)this->submeshNamingChoice->GetClientData(this->submeshNamingChoice->GetSelection());
-    
+
     //Submesh naming custom name
     settings.submeshCustomName = this->submeshNamingCustomText->GetValue();
 
     //Base directory choice/edit
     BaseDirectory baseDirectory(this->baseDirectoryChoice, this->baseDirectoryText);
     baseDirectory.GetGUIData(settings.baseVertexFormatDirectoryType, settings.baseVertexFormatDirectory);
-    
+
     //Vertex format
     settings.vertexFormatPath = this->vertexFormatFileText->GetValue();
 
@@ -227,7 +227,7 @@ void GlobalSettingsDialog_MeshesPage::UpdateVertexFormatBaseDirectoryControls(bo
     //Base directory text
     if (baseDirectoryChoice == BaseDirectory::CUSTOM_DIRECTORY_CHOICE)
     {
-        this->baseDirectoryText->SetValue(this->currentVertexFormatCustomDirectory);                
+        this->baseDirectoryText->SetValue(this->currentVertexFormatCustomDirectory);
     }
     else
     {
@@ -262,13 +262,13 @@ void GlobalSettingsDialog_MeshesPage::OnVertexFormatBaseDirectoryButton(wxComman
         {
             this->currentVertexFormatCustomDirectory = dialog.GetPath();
             FileUtilities::EnsureTrailingPathSeparator(this->currentVertexFormatCustomDirectory);
-            this->baseDirectoryText->SetValue(this->currentVertexFormatCustomDirectory);            
+            this->baseDirectoryText->SetValue(this->currentVertexFormatCustomDirectory);
         }
         else if (baseDirectoryChoice == BaseDirectory::PROJECT_DIRECTORY_CHOICE)
         {
             auto directory = dialog.GetPath();
             FileUtilities::EnsureTrailingPathSeparator(directory);
-            this->baseDirectoryText->SetValue(directory);            
+            this->baseDirectoryText->SetValue(directory);
         }
     }
 }
@@ -279,7 +279,7 @@ void GlobalSettingsDialog_MeshesPage::OnVertexFormatFileButton(wxCommandEvent& e
     RelativeLocationPrompt prompt(this, baseDirectory.GetBaseDirectory(), Strings::CHOOSE_FILE, Strings::CFG_FILE_FILTER);
     auto path = prompt.ShowPrompt();
     if (!path.empty())
-    {   
+    {
         //Set into text box
         this->vertexFormatFileText->SetValue(path);
     }

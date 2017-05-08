@@ -19,38 +19,38 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshMorphTargetBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class MeshMorphTarget : public MeshMorphTargetBase
     {
     public:
-        MeshMorphTarget(IParamBlock* pblock) 
+        MeshMorphTarget(IParamBlock* pblock)
         {
             this->pblock = pblock;
             this->pblock2 = nullptr;
             this->control = nullptr;
         }
 
-        MeshMorphTarget(IParamBlock2* pblock2) 
+        MeshMorphTarget(IParamBlock2* pblock2)
         {
             this->pblock = nullptr;
             this->pblock2 = pblock2;
             this->control = nullptr;
         }
 
-        MeshMorphTarget(Control* control) 
+        MeshMorphTarget(Control* control)
         {
             this->pblock = nullptr;
             this->pblock2 = nullptr;
             this->control = control;
         }
 
-        float GetInfluence(TimeAccessor t) 
+        float GetInfluence(TimeAccessor t)
         {
             if (this->pblock != nullptr)
                 return this->pblock->GetFloat(0, t.GetNativeTime())/100.0f;
@@ -65,9 +65,9 @@ namespace Finjin { namespace Exporter {
             else
                 return 0;
         }
-        
+
     private:
-        IParamBlock* pblock;        
+        IParamBlock* pblock;
         IParamBlock2* pblock2;
         Control* control;
     };

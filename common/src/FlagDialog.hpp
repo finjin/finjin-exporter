@@ -19,33 +19,33 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "SpinnerControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A modal dialog used to add a visibility or query flag.
      * This dialog can be seen within the application by clicking the 'Add' button
-     * in the 'Visibility Flags' or 'Query Flags' section of the 'General' page in the 
+     * in the 'Visibility Flags' or 'Query Flags' section of the 'General' page in the
      * object settings dialog.
      */
     class FlagDialog : public FinjinDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* nameText;
         ApplicationChoiceCtrl* nameChoice;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
-        /** 
+        /**
          * Constructor.
          * @param parent [in] - The parent window.
          * @param title [in] - The dialog's title text.
@@ -54,9 +54,9 @@ namespace Finjin { namespace Exporter {
          */
         FlagDialog
             (
-            wxWindow* parent, 
-            const wxString& title, 
-            const std::vector<wxString>& flagNames, 
+            wxWindow* parent,
+            const wxString& title,
+            const std::vector<wxString>& flagNames,
             const std::vector<int>& flagBits
             );
         ~FlagDialog();
@@ -71,7 +71,7 @@ namespace Finjin { namespace Exporter {
     public:
         /** The name of the selected flag. */
         wxString name;
-        
+
         /** The index of the selected bit. */
         int bit;
 

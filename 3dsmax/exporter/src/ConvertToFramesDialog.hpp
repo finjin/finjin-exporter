@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ResourceDialog.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** Dialog that lets users select how to convert a video file to frames. */
     class ConvertToFramesDialog : public ResourceDialog
     {
@@ -52,8 +52,8 @@ namespace Finjin { namespace Exporter {
         int height;
 
     protected:
-        ISpinnerControl* widthSpin;    
-        ISpinnerControl* heightSpin;    
+        ISpinnerControl* widthSpin;
+        ISpinnerControl* heightSpin;
     };
 
 } }

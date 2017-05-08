@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** The vertex indices for a visible edge. */

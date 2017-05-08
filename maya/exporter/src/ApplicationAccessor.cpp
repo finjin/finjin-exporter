@@ -30,14 +30,14 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static MObject GetEnvFogMaterial()
 {
     MObject envFog;
     const MFn::Type listType = MFn::kShaderList;
     const MString listPlugName = "shaders";
     MItDependencyNodes nodeIt(listType);
-    MFnDependencyNode depNode(nodeIt.item());    
+    MFnDependencyNode depNode(nodeIt.item());
     MPlug shaders = depNode.findPlug(listPlugName);
     unsigned int count = shaders.evaluateNumElements();
     for (unsigned int i = 0; i < count; i++)
@@ -70,7 +70,7 @@ static bool GetAmbientLightObject(ObjectAccessor& object)
         if (obj.hasFn(MFn::kAmbientLight))
         {
             lightObject = obj;
-            break;            
+            break;
         }
     }
 
@@ -79,7 +79,7 @@ static bool GetAmbientLightObject(ObjectAccessor& object)
 }
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ApplicationAccessor::APPLICATION_LONG_NAME(wxT("Maya"));
 const wxString ApplicationAccessor::APPLICATION_SHORT_NAME(wxT("Maya"));
 const wxString ApplicationAccessor::MATERIAL_SELECTOR_WINDOW_NAME(wxT("Hypershade"));
@@ -87,7 +87,7 @@ const wxString ApplicationAccessor::BONE_NAME(wxT("Joint"));
 const wxString ApplicationAccessor::TEXTURE_COORDINATE_SET_NAME(wxT("UV Set"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 UpAxis ApplicationAccessor::GetUpAxis()
 {
     return MGlobal::isYAxisUp() ? UpAxis::Y : UpAxis::Z;
@@ -123,7 +123,7 @@ wxString ApplicationAccessor::GetApplicationVersion()
 }
 
 wxString ApplicationAccessor::GetFinjinHomeDirectory(bool writable)
-{   
+{
     if (writable)
         return GetUserHomeApplicationDirectory();
     else
@@ -143,7 +143,7 @@ wxString ApplicationAccessor::GetHelpDirectory()
 {
     wxString directory = GetApplicationDirectory();
     if (!directory.empty())
-        directory += wxT("docs/ext/");        
+        directory += wxT("docs/ext/");
     return directory;
 }
 
@@ -168,12 +168,12 @@ bool ApplicationAccessor::SetCurrentProjectDirectory(wxString directory)
 wxString ApplicationAccessor::GetApplicationHelpLocation()
 {
     wxString location;
-    
+
 #if defined(__WXMSW__)
     location = FileUtilities::JoinPath(GetHelpDirectory(), wxT("finjin-exporter.chm"));
 #elif defined(__WXMAC__)
     location = FileUtilities::JoinPath(GetApplicationDirectory(), wxString::Format(wxT("docs/Maya%d/en_US/Nodes/FinjinDocuments/index.html"), MAYA_API_VERSION / 100));
-    
+
     if (wxFileExists(location) || wxDirExists(location))
         location = wxT("file://") + location;
     else
@@ -181,7 +181,7 @@ wxString ApplicationAccessor::GetApplicationHelpLocation()
 #else
     Not implemented!
 #endif
-    
+
     return location;
 }
 
@@ -192,12 +192,12 @@ bool ApplicationAccessor::GetWindowBackgroundColor(wxColor& color)
 
 bool ApplicationAccessor::GetTextBackgroundColor(wxColor& color)
 {
-    return false;    
+    return false;
 }
 
 bool ApplicationAccessor::GetTextForegroundColor(wxColor& color)
 {
-    return false;    
+    return false;
 }
 
 float ApplicationAccessor::GetInternalToUIScale()
@@ -311,7 +311,7 @@ bool ApplicationAccessor::SetAmbientLightColor(FinjinColor value, TimeAccessor t
         if (obj.hasFn(MFn::kAmbientLight))
         {
             lightObject = obj;
-            break;            
+            break;
         }
     }
 
@@ -328,13 +328,13 @@ bool ApplicationAccessor::SetAmbientLightColor(FinjinColor value, TimeAccessor t
 FinjinColor ApplicationAccessor::GetBackgroundColor(TimeAccessor time)
 {
     FinjinColor backgroundColor;
-    
+
     TimeChanger timeChanger(time);
 
     M3dView view = M3dView::active3dView();
     MDagPath cameraDagPath;
     view.getCamera(cameraDagPath);
-    
+
     MayaPlug::GetColor(cameraDagPath.node(), "backgroundColor", backgroundColor);
 
     return backgroundColor;
@@ -363,7 +363,7 @@ bool ApplicationAccessor::GetLinearFog(float& start, float& end, FinjinColor& co
 
         start = 0;
         end = Limited(depNode.findPlug("saturationDistance").asFloat() / range, 0.0f, 1.0f);
-        color = MayaPlug::GetColor(depNode.findPlug("color"));            
+        color = MayaPlug::GetColor(depNode.findPlug("color"));
     }
     return !envFog.isNull();
 }

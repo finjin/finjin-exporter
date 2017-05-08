@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinBox.hpp"
 #include "ObjectAccessor.hpp"
 #include "CoordinateSystemConverter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
      * Base mesh class that collects the data and methods common to all the
      * application-specific SimpleMesh classes. This class is used to extract very
-     * simple information from a mesh, such as its bounding box, bounding radius, and 
+     * simple information from a mesh, such as its bounding box, bounding radius, and
      * plane (if it is known to contain a planar set of faces).
      */
     class SimpleMeshInfoBase
@@ -52,12 +52,12 @@ namespace Finjin { namespace Exporter {
          */
         bool Create
             (
-            ObjectAccessor object, 
-            TimeAccessor time = TimeAccessor(), 
+            ObjectAccessor object,
+            TimeAccessor time = TimeAccessor(),
             TransformAccessor* transformation = nullptr
             );
 
-        /** 
+        /**
          * Creates the simple mesh info with coordinate/scale conversion
          * @param object [in] - The object whose mesh info is extracted.
          * @param coordinateConverter [in] - The coordinate converter used to convert points, normals, and transformations.
@@ -68,7 +68,7 @@ namespace Finjin { namespace Exporter {
          */
         virtual bool Create
             (
-            ObjectAccessor object, 
+            ObjectAccessor object,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
             TimeAccessor time = TimeAccessor(),
@@ -108,7 +108,7 @@ namespace Finjin { namespace Exporter {
 
         /** Called when the bounding volume initialization is done. */
         void FinishBounds();
-        
+
         /**
          * Initializes the member planes.
          * @param rawPlaneVertices [in] - At least 3 unconverted vertices that define a face.

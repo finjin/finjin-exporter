@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ApplicationAccessorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to application-level (3DS Max, Maya, etc) functionality. */
@@ -36,9 +36,9 @@ namespace Finjin { namespace Exporter {
         /** Gets the global animation range. */
         static FinjinTimeInterval GetAnimationRange();
 
-        /** 
-         * Gets the application's main window. 
-         * @param modal [in] - Indicates whether the window will be used as the parent of a modal dialog. 
+        /**
+         * Gets the application's main window.
+         * @param modal [in] - Indicates whether the window will be used as the parent of a modal dialog.
          */
         static WXWidget GetMainWindow(bool modal = true);
 
@@ -59,19 +59,19 @@ namespace Finjin { namespace Exporter {
 
         /** Sets the application's current project directory, returning true if successful. */
         static bool SetCurrentProjectDirectory(wxString directory);
-        
+
         /** Gets the application's online or local HTML help index.html. */
         static wxString GetApplicationHelpLocation();
 
-        /** 
+        /**
          * Gets the background color of the application's windows.
          * @param color [out] - The application's window background color.
          * @return If the application has a custom background color, true is returned.
          * Otherwise, false is returned.
          */
         static bool GetWindowBackgroundColor(wxColor& color);
-        
-        /** 
+
+        /**
          * Gets the background color of the application's text controls.
          * @param color [out] - The application's text control background color.
          * @return If the application has a custom text control background color, true is returned.
@@ -79,7 +79,7 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetTextBackgroundColor(wxColor& color);
 
-        /** 
+        /**
          * Gets the foreground color of the application's text controls.
          * This is the color of the text entered into text boxes.
          * @param color [out] - The application's text color.
@@ -94,7 +94,7 @@ namespace Finjin { namespace Exporter {
         /** Gets the scaling factor that converts from internal units to meters. */
         static float GetMasterScaleMeters();
 
-        /** 
+        /**
          * Gets the scene scaling factor for the specified unit.
          * @param scaleUnit [in/out] - An Finjin-specific name of a unit. This will be
          * set to an empty string if it is not recognized.
@@ -132,7 +132,7 @@ namespace Finjin { namespace Exporter {
 
         /** Sets the environment background color at the specified time. */
         static bool SetBackgroundColor(FinjinColor value, TimeAccessor time = TimeAccessor());
-        
+
         /** Gets the environment linear fog color at the specified time. */
         static bool GetLinearFog(float& start, float& end, FinjinColor& color, float range, TimeAccessor time = TimeAccessor());
 
@@ -140,7 +140,7 @@ namespace Finjin { namespace Exporter {
         static bool SetLinearFog(float start, float end, FinjinColor color, float range, TimeAccessor time = TimeAccessor());
 
         static void EnableExport(bool enable = true);
-        
+
     public:
         /** The application's full name. */
         static const wxString APPLICATION_LONG_NAME;

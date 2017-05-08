@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A single weighted vertex. */
@@ -102,7 +102,7 @@ namespace Finjin { namespace Exporter {
                 this->assignments.resize(maxAssignments);
 
                 //Rescale weights
-                float totalWeight = GetTotalWeight();                        
+                float totalWeight = GetTotalWeight();
                 if (totalWeight > 0)
                     ScaleWeights(1 / totalWeight);
             }

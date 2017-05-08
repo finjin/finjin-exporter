@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool ExporterHandler::Initialize(AssetClass assetType, const wxString& filePath, bool exportSelected, FinjinSceneSettingsAccessor sceneSettings)
 {
     this->exportFilePath = filePath;
@@ -54,7 +54,7 @@ void ExporterHandler::RunExportCommands(const std::vector<wxString>& commands)
         //Expand command macros
         auto command = commands[i];
         this->exportCommandMacros.Expand(command);
-        
+
         FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Executing command: %s"), command.wx_str());
 
         //Execute
@@ -65,7 +65,7 @@ void ExporterHandler::RunExportCommands(const std::vector<wxString>& commands)
             Logger::LogResults(INFO_LOG_MESSAGE, output, Strings::OUTPUT_HEADING);
         if (!errors.empty())
             Logger::LogResults(INFO_LOG_MESSAGE, errors, Strings::ERRORS_HEADING);
-    }    
+    }
 }
 
 void ExporterHandler::PreparePrefabAssetReference(std::shared_ptr<FinjinSceneDocument_SceneNode> exportedNode)
@@ -89,7 +89,7 @@ void ExporterHandler::PreparePrefabAssetReference(std::shared_ptr<FinjinSceneDoc
             };
         }
         else
-        {     
+        {
             //No extension
             exportedNode->prefabRef = [this, prefabName, prefabAssetUri]()
             {
@@ -103,7 +103,7 @@ void ExporterHandler::PreparePrefabAssetReference(std::shared_ptr<FinjinSceneDoc
 
                     auto formattedPrefabRef = prefabName;
                     formattedPrefabRef.Replace(filePathWithoutExtension, filePathWithExtension);
-                        
+
                     auto assetRef = AssetReference::Parse(formattedPrefabRef);
                     if (assetRef.objectName.empty())
                         assetRef.objectName = filePathWithoutExtension;

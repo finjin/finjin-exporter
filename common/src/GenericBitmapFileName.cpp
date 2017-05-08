@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Locals-----------------------------------------------------------------------
+//Locals------------------------------------------------------------------------
 static const wxChar* SEPARATE_CUBIC_SUFFIXES[] = {wxT("fr"), wxT("bk"), wxT("lf"), wxT("rt"), wxT("up"), wxT("dn")};
 
 
@@ -74,9 +74,9 @@ void GenericBitmapFileName::GetAllFileNames(std::vector<wxString>& fileNames) co
         {
             auto fileNameNoExtension = FileUtilities::RemoveExtension(this->fileName);
             auto extension = FileUtilities::GetExtension(this->fileName, true);
-        
+
             for (int i = 0; i < this->frameCount; i++)
-                fileNames[i] = wxString::Format(wxT("%s_%d%s"), fileNameNoExtension.wx_str(), i, extension.wx_str());        
+                fileNames[i] = wxString::Format(wxT("%s_%d%s"), fileNameNoExtension.wx_str(), i, extension.wx_str());
         }
         else if (this->type == CUBIC)
         {
@@ -84,7 +84,7 @@ void GenericBitmapFileName::GetAllFileNames(std::vector<wxString>& fileNames) co
             auto extension = FileUtilities::GetExtension(this->fileName, true);
 
             for (int i = 0; i < FINJIN_COUNT_OF(SEPARATE_CUBIC_SUFFIXES); i++)
-                fileNames[i] = wxString::Format(wxT("%s_%s%s"), fileNameNoExtension.wx_str(), SEPARATE_CUBIC_SUFFIXES[i], extension.wx_str());        
+                fileNames[i] = wxString::Format(wxT("%s_%s%s"), fileNameNoExtension.wx_str(), SEPARATE_CUBIC_SUFFIXES[i], extension.wx_str());
         }
     }
 }

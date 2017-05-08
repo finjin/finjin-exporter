@@ -31,91 +31,91 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ObjectSettingsDialog_MeshPage::TITLE(wxT("Mesh"));
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 static const wxChar* PRIMITIVE_TYPES_TEXT[] = {wxT("Default"), wxT("Line List"), wxT("Point List")};
 static const wxChar* PRIMITIVE_TYPES_VALUE[] = {wxT(""), wxT("lines"), wxT("points")};
 static const int PRIMITIVE_TYPE_COUNT = FINJIN_COUNT_OF(PRIMITIVE_TYPES_VALUE);
 
 
-//Implementation---------------------------------------------------------------
-BEGIN_EVENT_TABLE(ObjectSettingsDialog_MeshPage, SettingsPage)        
+//Implementation----------------------------------------------------------------
+BEGIN_EVENT_TABLE(ObjectSettingsDialog_MeshPage, SettingsPage)
 END_EVENT_TABLE()
 
 ObjectSettingsDialog_MeshPage::ObjectSettingsDialog_MeshPage(wxWindow* parent, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
 {
     this->object = object;
     this->objectSettings = objectSettings;
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* meshSettingsSizer;
     meshSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("General Settings") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* meshSettingsGridSizer;
     meshSettingsGridSizer = new wxFlexGridSizer( 4, 2, 0, 0 );
     meshSettingsGridSizer->SetFlexibleDirection( wxBOTH );
     meshSettingsGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     meshNameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Mesh Name"), wxDefaultPosition, wxDefaultSize, 0 );
     meshNameLabel->Wrap( -1 );
     meshSettingsGridSizer->Add( meshNameLabel, 0, wxALL, 5 );
-    
+
     meshNameText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 140,-1 ), 0 );
     meshSettingsGridSizer->Add( meshNameText, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     primitiveTypeLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Primitive Type"), wxDefaultPosition, wxDefaultSize, 0 );
     primitiveTypeLabel->Wrap( -1 );
     meshSettingsGridSizer->Add( primitiveTypeLabel, 0, wxALL, 5 );
-    
+
     wxArrayString primitiveTypeChoiceChoices;
     primitiveTypeChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 140,-1 ), primitiveTypeChoiceChoices, 0 );
     primitiveTypeChoice->SetSelection( 0 );
     meshSettingsGridSizer->Add( primitiveTypeChoice, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     pointSizeLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Point Size"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     pointSizeLabel->Wrap( -1 );
     meshSettingsGridSizer->Add( pointSizeLabel, 0, wxALL, 5 );
-    
+
     pointSizeSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, 1, 4096, SpinnerControl::FLOAT_UNIT, 1);
     meshSettingsGridSizer->Add( pointSizeSpinner, 0, wxBOTTOM|wxLEFT|wxRIGHT, 5 );
 
     meshSettingsSizer->Add( meshSettingsGridSizer, 1, wxEXPAND, 5 );
 
     exportVertexColorsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Vertex Colors"), wxDefaultPosition, wxDefaultSize, 0 );
-	meshSettingsSizer->Add( exportVertexColorsCheckbox, 0, wxALL, 5 );
-	
-	animateBoundingVolumesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Animated Bounding Volumes"), wxDefaultPosition, wxDefaultSize, 0 );
-	meshSettingsSizer->Add( animateBoundingVolumesCheckbox, 0, wxALL, 5 );
-	
-	checkMeshInstanceCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Check for Mesh Instance"), wxDefaultPosition, wxDefaultSize, 0 );
-	meshSettingsSizer->Add( checkMeshInstanceCheckbox, 0, wxALL, 5 );
-    
+    meshSettingsSizer->Add( exportVertexColorsCheckbox, 0, wxALL, 5 );
+
+    animateBoundingVolumesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Animated Bounding Volumes"), wxDefaultPosition, wxDefaultSize, 0 );
+    meshSettingsSizer->Add( animateBoundingVolumesCheckbox, 0, wxALL, 5 );
+
+    checkMeshInstanceCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Check for Mesh Instance"), wxDefaultPosition, wxDefaultSize, 0 );
+    meshSettingsSizer->Add( checkMeshInstanceCheckbox, 0, wxALL, 5 );
+
     topSizer->Add( meshSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-	
-	wxStaticBoxSizer* tangentBinormalSettingsSizer;
-	tangentBinormalSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Tangent/Binormal Settings") ), wxVERTICAL );
-	
-	wxFlexGridSizer* tangentBinormalSettingsGridSizer;
-	tangentBinormalSettingsGridSizer = new wxFlexGridSizer( 6, 2, 0, 0 );
-	tangentBinormalSettingsGridSizer->SetFlexibleDirection( wxBOTH );
-	tangentBinormalSettingsGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-	
-	exportTangentsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Tangents"), wxDefaultPosition, wxDefaultSize, 0 );
-	tangentBinormalSettingsGridSizer->Add( exportTangentsCheckbox, 0, wxALL, 5 );
-	
-	exportBinormalsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Binormals"), wxDefaultPosition, wxDefaultSize, 0 );
-	tangentBinormalSettingsGridSizer->Add( exportBinormalsCheckbox, 0, wxALL, 5 );
-	
-	
-	tangentBinormalSettingsSizer->Add( tangentBinormalSettingsGridSizer, 1, wxEXPAND, 5 );
-	
-	
-	topSizer->Add( tangentBinormalSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
+
+    wxStaticBoxSizer* tangentBinormalSettingsSizer;
+    tangentBinormalSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Tangent/Binormal Settings") ), wxVERTICAL );
+
+    wxFlexGridSizer* tangentBinormalSettingsGridSizer;
+    tangentBinormalSettingsGridSizer = new wxFlexGridSizer( 6, 2, 0, 0 );
+    tangentBinormalSettingsGridSizer->SetFlexibleDirection( wxBOTH );
+    tangentBinormalSettingsGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
+
+    exportTangentsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Tangents"), wxDefaultPosition, wxDefaultSize, 0 );
+    tangentBinormalSettingsGridSizer->Add( exportTangentsCheckbox, 0, wxALL, 5 );
+
+    exportBinormalsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Binormals"), wxDefaultPosition, wxDefaultSize, 0 );
+    tangentBinormalSettingsGridSizer->Add( exportBinormalsCheckbox, 0, wxALL, 5 );
+
+
+    tangentBinormalSettingsSizer->Add( tangentBinormalSettingsGridSizer, 1, wxEXPAND, 5 );
+
+
+    topSizer->Add( tangentBinormalSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
 
     SetSizer(topSizer);
 
@@ -140,7 +140,7 @@ bool ObjectSettingsDialog_MeshPage::GetGUIData()
 
     //Export vertex colors
     this->objectSettings.SetExportVertexColors(this->exportVertexColorsCheckbox->GetValue());
-    
+
     //Allow mesh instance check
     this->objectSettings.SetCheckMeshInstance(this->checkMeshInstanceCheckbox->GetValue());
 
@@ -176,10 +176,10 @@ bool ObjectSettingsDialog_MeshPage::SetGUIData()
 
     //Export vertex colors
     this->exportVertexColorsCheckbox->SetValue(this->objectSettings.GetExportVertexColors());
-    
+
     //Point size
     pointSizeSpinner->SetValue(this->objectSettings.GetPointSize());
-        
+
     //Allow mesh instance check
     this->checkMeshInstanceCheckbox->SetValue(this->objectSettings.GetCheckMeshInstance());
 
@@ -188,7 +188,7 @@ bool ObjectSettingsDialog_MeshPage::SetGUIData()
 
     //Generate tangents
     this->exportTangentsCheckbox->SetValue(this->objectSettings.GetExportTangents());
-    
+
     //Generate binormals
     this->exportBinormalsCheckbox->SetValue(this->objectSettings.GetExportBinormals());
 

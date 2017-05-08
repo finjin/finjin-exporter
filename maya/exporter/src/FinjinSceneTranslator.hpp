@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExporterTranslatorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class FinjinSceneTranslatorBase : public ExporterTranslatorBase
     {
     public:

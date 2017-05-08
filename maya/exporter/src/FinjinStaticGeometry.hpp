@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "BasicLocatorNode.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** The Finjin static geometry container locator. */
@@ -31,7 +31,7 @@ namespace Finjin { namespace Exporter {
     {
     public:
         FinjinStaticGeometry();
-        ~FinjinStaticGeometry(); 
+        ~FinjinStaticGeometry();
 
         MStatus compute(const MPlug& plug, MDataBlock& data);
 
@@ -41,10 +41,10 @@ namespace Finjin { namespace Exporter {
 
         static void* Creator();
         static MStatus Initialize();
-        
+
     private:
         static MStatus AddAttributes();
-                
+
     public:
         static const MString TYPE_NAME;
         static const MTypeId TYPE_ID;

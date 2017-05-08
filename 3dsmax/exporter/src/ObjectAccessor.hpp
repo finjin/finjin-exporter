@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to an object. */
@@ -51,15 +51,15 @@ namespace Finjin { namespace Exporter {
         /** Determines whether this object is less than the other object. */
         bool operator < (const ObjectAccessor other) const;
 
-        /** 
-         * Gets the object's local name. 
+        /**
+         * Gets the object's local name.
          * @param useObjectName [in] - Indicates whether the object name is used.
          * If false, the node name is used.
          */
         wxString GetLocalName(bool useObjectName = true) const;
 
-        /** 
-         * Gets the object's full name. 
+        /**
+         * Gets the object's full name.
          * @param useObjectName [in] - Indicates whether the object name is used.
          * If false, the node name is used.
          */
@@ -88,7 +88,7 @@ namespace Finjin { namespace Exporter {
 
         /** Sets the object's shadow casting setting. */
         void SetCastShadows(bool value);
-        
+
         /** Determines whether the object receives shadows. */
         bool GetReceiveShadows() const;
 
@@ -103,7 +103,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the object's light color at the specified time, assuming it's a light. */
         FinjinColor GetLightColor(TimeAccessor time);
-        
+
         /** Gets the material assigned to the object. */
         Mtl* GetMaterial();
 
@@ -117,7 +117,7 @@ namespace Finjin { namespace Exporter {
 
         TransformAccessor GetFullWorldTransformation(TimeAccessor time);
 
-        /** 
+        /**
          * Gets the object's world transformation at the specified time.
          * @param time [in] - The time at which the world transformation is retrieved.
          * @param addPivotOffset [in] - Indicates whether the pivot offset should be added
@@ -140,7 +140,7 @@ namespace Finjin { namespace Exporter {
         {
             std::vector<ObjectAccessor> childObjects;
             GetChildren(childObjects);
-            
+
             for (size_t childIndex = 0; childIndex < childObjects.size(); childIndex++)
             {
                 if (!IsSettingsObject(childObjects[childIndex]))
@@ -166,7 +166,7 @@ namespace Finjin { namespace Exporter {
         /** Determines whether the specified object is some kind of bone. */
         static bool IsBone(ObjectAccessor object);
 
-        /** 
+        /**
          * Determines whether the specified object is used exclusively for settings.
          * Such objects are typically hidden from the user and ignored during the export process.
          */
@@ -179,5 +179,5 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Includes----------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessorExtras.hpp"

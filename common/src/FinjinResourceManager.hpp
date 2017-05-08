@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "UserDataTypes.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "finjin/common/WxNumericStruct.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     enum class ManagedResourceType
@@ -37,8 +37,8 @@ namespace Finjin { namespace Exporter {
     };
     FINJIN_ENUM_BITWISE_OPERATIONS(ManagedResourceType)
 
-    /** 
-     * Manages the resource locations stored in the Finjin scene settings.     
+    /**
+     * Manages the resource locations stored in the Finjin scene settings.
      * There are two types of resources that this class manages:
      *   1)User data types and their file locations.
      */
@@ -58,23 +58,23 @@ namespace Finjin { namespace Exporter {
 
         void AddUserDataTypesChangedListener(UserDataTypesChangedListener* listener);
         void RemoveUserDataTypesChangedListener(UserDataTypesChangedListener* listener);
-        
+
         void UpdateGlobalResources();
 
         void UpdateVertexFormats();
 
-        /** 
-         * Updates the user data types, triggering notifications for all the user data type listeners. 
+        /**
+         * Updates the user data types, triggering notifications for all the user data type listeners.
          * @param sceneSettings [in] - The scene settings.
          */
         void UpdateUserDataTypes();
 
         /** Gets all the user data types. */
         UserDataTypes& GetUserDataTypes();
-        
+
         wxString FindVertexFormatName(const std::vector<WxGpuVertexFormatStruct::Element>& vertexFormatElements) const;
 
-        /** 
+        /**
          * Refreshes the specified resources, triggering notifications as necessary.
          * @param resourceTypes [in] - Flags indicating which types of resources to refresh.
          * @param force [in] - Indicates whether the resources should be forced to be refreshed, even
@@ -83,17 +83,17 @@ namespace Finjin { namespace Exporter {
          */
         void RefreshSceneResources
             (
-            ManagedResourceType resourceTypes = ManagedResourceType::ALL, 
+            ManagedResourceType resourceTypes = ManagedResourceType::ALL,
             bool force = false,
             FinjinSceneSettingsAccessor sceneSettings = FinjinSceneSettingsAccessor()
             );
 
-        /** 
+        /**
          * Clears the specified resources, triggering notifications as necessary.
          * @param resourceTypes [in] - Flags indicating which types of resources to refresh.
          */
         void ClearSceneResources(ManagedResourceType resourceTypes = ManagedResourceType::ALL);
-        
+
         bool ValidateVertexFormatLocation();
 
         /**
@@ -105,7 +105,7 @@ namespace Finjin { namespace Exporter {
         bool ValidateUserDataTypesLocations();
 
         /**
-         * Validates all the specified resources. 
+         * Validates all the specified resources.
          * As invalid resources are found, the user is presented with appropriate dialogs that allow them to
          * fix the invalid locations.
          * @param resourceTypes [in] - Flags indicating which types of resources to validate.
@@ -118,14 +118,14 @@ namespace Finjin { namespace Exporter {
         static void GetInvalidUserDataTypesLocations
             (
             std::vector<UserDataTypesLocation>& invalidLocations,
-            const std::vector<UserDataTypesLocation>& locations, 
+            const std::vector<UserDataTypesLocation>& locations,
             const wxString& baseDirectory
             );
 
         void NotifyUserDataTypesChangingListeners();
         void NotifyUserDataTypesChangedListeners();
 
-    private:        
+    private:
         std::vector<WxGpuVertexFormatStruct> vertexFormats;
 
         /** Listeners that are called when the user data types change. */

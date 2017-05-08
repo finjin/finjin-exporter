@@ -26,11 +26,11 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 ObjectTypeDetectorBase::Detectors ObjectTypeDetectorBase::detectors;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void ObjectTypeDetectorBase::AddDisallowedType(DetectableObjectType* type)
 {
     this->disallowedTypes.insert(type);
@@ -41,22 +41,22 @@ void ObjectTypeDetectorBase::AddMappedType(DetectableObjectType* source, Detecta
     this->mappedTypes[source] = destination;
 }
 
-DetectableObjectType* ObjectTypeDetectorBase::Detect(ObjectAccessor object, FinjinObjectSettingsAccessorBase& objectSettings) 
+DetectableObjectType* ObjectTypeDetectorBase::Detect(ObjectAccessor object, FinjinObjectSettingsAccessorBase& objectSettings)
 {
     return Detect(object, 0, false, objectSettings);
 }
 
-DetectableObjectType* ObjectTypeDetectorBase::Detect(ObjectAccessor object, const wxString& typeName, FinjinObjectSettingsAccessorBase& objectSettings) 
+DetectableObjectType* ObjectTypeDetectorBase::Detect(ObjectAccessor object, const wxString& typeName, FinjinObjectSettingsAccessorBase& objectSettings)
 {
     return Detect(object, &typeName, true, objectSettings);
 }
 
 DetectableObjectType* ObjectTypeDetectorBase::Detect(ObjectAccessor object, const wxString* typeNamePtr, bool useTypeNamePtr, FinjinObjectSettingsAccessorBase& objectSettings)
 {
-    //Initialize context    
+    //Initialize context
     ObjectTypeDetectionContext context;
     context.object = object;
-    
+
     if (useTypeNamePtr)
     {
         if (typeNamePtr != nullptr)
@@ -91,8 +91,8 @@ DetectableObjectType* ObjectTypeDetectorBase::Detect(ObjectAccessor object, cons
 
     //Perform final detection
     for (auto detector : detectors)
-        detector->Detect(context);        
-    
+        detector->Detect(context);
+
     //Collect results
     this->detectedTypes.resize(context.types.size());
     std::copy(context.types.begin(), context.types.end(), this->detectedTypes.begin());

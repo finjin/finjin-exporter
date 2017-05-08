@@ -30,12 +30,12 @@
 using namespace Finjin::Exporter;
 
 
-//Locals-----------------------------------------------------------------------
+//Locals------------------------------------------------------------------------
 static const MString OBJECT_SETTINGS_ATTRIBUTE_NAME("FinjinObjectSettings");
 FinjinObjectSettingsAccessor::ObjectSettingsAttributes FinjinObjectSettingsAccessor::attributes;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 IMPLEMENT_DYNAMIC_OR_STATIC_ATTRIBUTE_USER_DATA_ACCESSOR_METHODS(FinjinObjectSettingsAccessor, FinjinObjectSettingsAccessor::attributes)
 
 IMPLEMENT_DYNAMIC_OR_STATIC_ATTRIBUTE_EXTENDED_VALUE_ACCESSOR_METHODS(FinjinObjectSettingsAccessor, FinjinObjectSettingsAccessor::attributes)
@@ -140,7 +140,7 @@ int FinjinObjectSettingsAccessor::GetFlagCount()
 }
 
 void FinjinObjectSettingsAccessor::GetFlag(int i, wxString& name)
-{    
+{
     MPlug namesPlug = Child(attributes.flagNames, "FlagNames");
     if (!namesPlug.isNull())
         name = ApplicationStringToWxString(namesPlug[i].asString());
@@ -204,7 +204,7 @@ wxString FinjinObjectSettingsAccessor::GetMeshAnimationType()
 
 bool FinjinObjectSettingsAccessor::GetExportSkeleton()
 {
-    return ChildBool(attributes.exportSkeleton, "ExportSkeleton", true);    
+    return ChildBool(attributes.exportSkeleton, "ExportSkeleton", true);
 }
 
 bool FinjinObjectSettingsAccessor::GetExportedMeshDeformedBySkeleton()
@@ -310,7 +310,7 @@ bool FinjinObjectSettingsAccessor::GetExportBinormals()
 
 bool FinjinObjectSettingsAccessor::GetAnimateBoundingVolumes()
 {
-    return ChildBool(attributes.animateBoundingVolumes, "AnimateBoundingVolumes", false);    
+    return ChildBool(attributes.animateBoundingVolumes, "AnimateBoundingVolumes", false);
 }
 
 bool FinjinObjectSettingsAccessor::GetCheckMeshInstance()
@@ -334,14 +334,14 @@ void FinjinObjectSettingsAccessor::GetSubmeshesSettings(SubmeshesSettings& value
         for (size_t i = 0; i < value.size(); i++)
         {
             MPlug submeshPlug = submeshesPlug[i];
-            
+
             //Submesh name
             MPlug textureCoordinateSetSubmeshNamePlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetSubmeshName, "TextureCoordinateSetSubmeshName");
             if (!textureCoordinateSetSubmeshNamePlug.isNull())
                 value[i].submeshName = ApplicationStringToWxString(textureCoordinateSetSubmeshNamePlug.asString());
-            
+
             //Material
-            MPlug textureCoordinateSetMaterialPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetMaterial, "TextureCoordinateSetMaterial");        
+            MPlug textureCoordinateSetMaterialPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetMaterial, "TextureCoordinateSetMaterial");
             MPlug textureCoordinateSetMaterialObjectPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetMaterialObject, "TextureCoordinateSetMaterialObject");
             MString materialName;
             if (!textureCoordinateSetMaterialPlug.isNull())
@@ -356,22 +356,22 @@ void FinjinObjectSettingsAccessor::GetSubmeshesSettings(SubmeshesSettings& value
             }
             else
                 value[i].material = MayaPlug::GetObjectReference(textureCoordinateSetMaterialObjectPlug);
-            
+
             //Source/destination mapping
             MPlug textureCoordinateSetSourcesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetSources, "TextureCoordinateSetSources");
             MPlug textureCoordinateSetDestinationsPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetDestinations, "TextureCoordinateSetDestinations");
-            MPlug textureCoordinateSetTypesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetTypes, "TextureCoordinateSetTypes");        
+            MPlug textureCoordinateSetTypesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetTypes, "TextureCoordinateSetTypes");
             if (!textureCoordinateSetSourcesPlug.isNull() &&
                 !textureCoordinateSetDestinationsPlug.isNull() &&
                 !textureCoordinateSetTypesPlug.isNull())
             {
                 value[i].textureCoordinateSetMappings.resize(textureCoordinateSetSourcesPlug.evaluateNumElements());
-                for (size_t textureCoordinateSetIndex = 0; 
-                    textureCoordinateSetIndex < value[i].textureCoordinateSetMappings.size(); 
+                for (size_t textureCoordinateSetIndex = 0;
+                    textureCoordinateSetIndex < value[i].textureCoordinateSetMappings.size();
                     textureCoordinateSetIndex++)
                 {
                     TextureCoordinateSetMapping& textureCoordinateSetMapping = value[i].textureCoordinateSetMappings[textureCoordinateSetIndex];
-                    
+
                     textureCoordinateSetMapping.source.name = ApplicationStringToWxString(textureCoordinateSetSourcesPlug[(unsigned int)textureCoordinateSetIndex].asString());
                     textureCoordinateSetMapping.destinationIndex = textureCoordinateSetDestinationsPlug[(unsigned int)textureCoordinateSetIndex].asInt();
                     textureCoordinateSetMapping.SetTextureCoordinateFlagsFromString(ApplicationStringToWxString(textureCoordinateSetTypesPlug[(unsigned int)textureCoordinateSetIndex].asString()));
@@ -385,8 +385,8 @@ void FinjinObjectSettingsAccessor::GetSubmeshesSettings(SubmeshesSettings& value
                 !textureNamesPlug.isNull())
             {
                 value[i].textureNameAliases.resize(textureAliasesPlug.evaluateNumElements());
-                for (size_t textureAliasesIndex = 0; 
-                    textureAliasesIndex < value[i].textureNameAliases.size(); 
+                for (size_t textureAliasesIndex = 0;
+                    textureAliasesIndex < value[i].textureNameAliases.size();
                     textureAliasesIndex++)
                 {
                     TextureNameAlias& textureNameAlias = value[i].textureNameAliases[(unsigned int)textureAliasesIndex];
@@ -442,7 +442,7 @@ void FinjinObjectSettingsAccessor::GetManualLod(int i, ObjectAccessor& object, f
     if (!lodObjectsPlug.isNull() && !distancesPlug.isNull())
     {
         std::vector<int> deletedIndices;
-        MayaPlug::GetObjectReferenceCount(lodObjectsPlug, &deletedIndices);    
+        MayaPlug::GetObjectReferenceCount(lodObjectsPlug, &deletedIndices);
         MayaPlug::RemoveAttributeElements(distancesPlug, &deletedIndices);
 
         object = ObjectAccessor(MayaPlug::GetObjectReference(lodObjectsPlug[i]));
@@ -458,12 +458,12 @@ bool FinjinObjectSettingsAccessor::GetCalculateManualLodDistances()
 
 void FinjinObjectSettingsAccessor::SetType(wxString value)
 {
-    Child(attributes.type, "Type").setValue(WxStringToApplicationString(value));    
+    Child(attributes.type, "Type").setValue(WxStringToApplicationString(value));
 }
 
 void FinjinObjectSettingsAccessor::SetVisibility(wxString value)
 {
-    Child(attributes.visibility, "Visibility").setValue(WxStringToApplicationString(value));        
+    Child(attributes.visibility, "Visibility").setValue(WxStringToApplicationString(value));
 }
 
 void FinjinObjectSettingsAccessor::SetVisibilityAffectObjectOnly(bool value)
@@ -488,12 +488,12 @@ void FinjinObjectSettingsAccessor::SetRenderingDistance(float value)
 
 void FinjinObjectSettingsAccessor::SetExportedParent(ObjectAccessor value)
 {
-    MayaPlug::SetObjectReference(Child(attributes.exportedParent, "ExportedParent"), value.obj);    
+    MayaPlug::SetObjectReference(Child(attributes.exportedParent, "ExportedParent"), value.obj);
 }
 
 void FinjinObjectSettingsAccessor::SetUseRootAsExportedParent(bool value)
 {
-    Child(attributes.useRootAsExportedParent, "UseRootAsExportedParent").setValue(value);    
+    Child(attributes.useRootAsExportedParent, "UseRootAsExportedParent").setValue(value);
 }
 
 void FinjinObjectSettingsAccessor::SetAttachedObject(bool value)
@@ -543,12 +543,12 @@ void FinjinObjectSettingsAccessor::AddNoteTrackName(wxString value)
 
 void FinjinObjectSettingsAccessor::SetExportFlags(bool value)
 {
-    Child(attributes.exportFlags, "ExportFlags").setValue(value);    
+    Child(attributes.exportFlags, "ExportFlags").setValue(value);
 }
 
 void FinjinObjectSettingsAccessor::ClearFlags()
 {
-    MayaPlug::RemoveAttributeElements(Child(attributes.flagNames, "FlagNames"));    
+    MayaPlug::RemoveAttributeElements(Child(attributes.flagNames, "FlagNames"));
 }
 
 void FinjinObjectSettingsAccessor::AddFlag(wxString name)
@@ -574,9 +574,9 @@ FinjinNodeAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNewNodeAnim
 }
 
 FinjinNodeAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNodeAnimationCopy(int i)
-{   
-    FinjinNodeAnimationSettingsAccessor sourceAccessor = GetNodeAnimation(i);    
-    FinjinNodeAnimationSettingsAccessor accessor = AddNewNodeAnimation();    
+{
+    FinjinNodeAnimationSettingsAccessor sourceAccessor = GetNodeAnimation(i);
+    FinjinNodeAnimationSettingsAccessor accessor = AddNewNodeAnimation();
     accessor.CopyFrom(sourceAccessor);
     return accessor;
 }
@@ -668,7 +668,7 @@ void FinjinObjectSettingsAccessor::SetVertexAnimationSampleInterval(double value
 
 void FinjinObjectSettingsAccessor::SetAnimatedRoot(ObjectAccessor value)
 {
-    MayaPlug::SetObjectReference(Child(attributes.animatedSkeletonRoot, "AnimatedRoot"), value.obj);    
+    MayaPlug::SetObjectReference(Child(attributes.animatedSkeletonRoot, "AnimatedRoot"), value.obj);
 }
 
 FinjinMeshAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNewMeshAnimation()
@@ -680,8 +680,8 @@ FinjinMeshAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNewMeshAnim
 
 FinjinMeshAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddMeshAnimationCopy(int i)
 {
-    FinjinMeshAnimationSettingsAccessor sourceAccessor = GetMeshAnimation(i);    
-    FinjinMeshAnimationSettingsAccessor accessor = AddNewMeshAnimation();    
+    FinjinMeshAnimationSettingsAccessor sourceAccessor = GetMeshAnimation(i);
+    FinjinMeshAnimationSettingsAccessor accessor = AddNewMeshAnimation();
     accessor.CopyFrom(sourceAccessor);
     return accessor;
 }
@@ -710,12 +710,12 @@ void FinjinObjectSettingsAccessor::SetPrimitiveType(wxString value)
 {
     Child(attributes.primitiveType, "PrimitiveType").setValue(WxStringToApplicationString(value));
 }
-    
+
 void FinjinObjectSettingsAccessor::SetExportVertexColors(bool value)
 {
     Child(attributes.exportVertexColors, "ExportVertexColors").setValue(value);
 }
-    
+
 void FinjinObjectSettingsAccessor::SetExportTangents(bool value)
 {
     Child(attributes.exportTangents, "ExportTangents").setValue(value);
@@ -745,7 +745,7 @@ void FinjinObjectSettingsAccessor::SetSubmeshesSettings(const SubmeshesSettings&
 {
     MPlug submeshesPlug = Child(attributes.submeshes, "SubmeshesTextureCoordinateSets");
     submeshesPlug.evaluateNumElements();
-    
+
     MayaPlug::RemoveAttributeElements(submeshesPlug);
 
     for (size_t i = 0; i < value.size(); i++)
@@ -756,18 +756,18 @@ void FinjinObjectSettingsAccessor::SetSubmeshesSettings(const SubmeshesSettings&
         //Submesh name
         MPlug textureCoordinateSetSubmeshNamePlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetSubmeshName, "TextureCoordinateSetSubmeshName");
         textureCoordinateSetSubmeshNamePlug.setString(WxStringToApplicationString(value[i].submeshName));
-        
+
         //Material
         MPlug textureCoordinateSetMaterialObjectPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetMaterialObject, "TextureCoordinateSetMaterialObject");
-        MObject materialObject = value[i].material.obj;        
+        MObject materialObject = value[i].material.obj;
         MayaPlug::SetObjectReference(textureCoordinateSetMaterialObjectPlug, materialObject);
-                
+
         //Source/destination mapping
         MPlug textureCoordinateSetSourcesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetSources, "TextureCoordinateSetSources");
         MPlug textureCoordinateSetDestinationsPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetDestinations, "TextureCoordinateSetDestinations");
-        MPlug textureCoordinateSetTypesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetTypes, "TextureCoordinateSetTypes");        
-        for (size_t textureCoordinateSetIndex = 0; 
-            textureCoordinateSetIndex < value[i].textureCoordinateSetMappings.size(); 
+        MPlug textureCoordinateSetTypesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureCoordinateSetTypes, "TextureCoordinateSetTypes");
+        for (size_t textureCoordinateSetIndex = 0;
+            textureCoordinateSetIndex < value[i].textureCoordinateSetMappings.size();
             textureCoordinateSetIndex++)
         {
             auto& textureCoordinateSetMapping = value[i].textureCoordinateSetMappings[textureCoordinateSetIndex];
@@ -780,8 +780,8 @@ void FinjinObjectSettingsAccessor::SetSubmeshesSettings(const SubmeshesSettings&
         //Texture aliases
         MPlug submeshTextureAliasesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureAliases, "SubmeshTextureAliases");
         MPlug submeshTextureNamesPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.textureNames, "SubmeshTextureNames");
-        for (size_t textureAliasesIndex = 0; 
-            textureAliasesIndex < value[i].textureNameAliases.size(); 
+        for (size_t textureAliasesIndex = 0;
+            textureAliasesIndex < value[i].textureNameAliases.size();
             textureAliasesIndex++)
         {
             auto& textureNameAlias = value[i].textureNameAliases[textureAliasesIndex];
@@ -793,7 +793,7 @@ void FinjinObjectSettingsAccessor::SetSubmeshesSettings(const SubmeshesSettings&
         //Render queue
         MPlug renderQueueNamePlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.renderQueueName, "SubmeshRenderQueueName");
         renderQueueNamePlug.setString(WxStringToApplicationString(value[i].renderQueueName));
-        
+
         MPlug renderQueuePriorityPlug = MayaPlug::FindChildPlug(submeshPlug, attributes.submeshesAttributes.renderQueuePriority, "SubmeshRenderQueuePriority");
         renderQueuePriorityPlug.setInt(value[i].renderPriority);
     }
@@ -813,7 +813,7 @@ void FinjinObjectSettingsAccessor::SetManualLod(int i, ObjectAccessor object, fl
 
 void FinjinObjectSettingsAccessor::RemoveManualLod(int i)
 {
-    MayaPlug::RemoveAttributeElement(Child(attributes.lodObjectReferences, "LODObjectReferences")[i]);    
+    MayaPlug::RemoveAttributeElement(Child(attributes.lodObjectReferences, "LODObjectReferences")[i]);
     MayaPlug::RemoveAttributeElement(Child(attributes.lodDistances, "LODDistances")[i]);
 }
 
@@ -824,8 +824,8 @@ void FinjinObjectSettingsAccessor::SetCalculateManualLodDistances(bool value)
 
 static MObject CreateSubmeshesAttribute
     (
-    FinjinObjectSettingsAccessor::ObjectSettingsAttributes::SubmeshesAttributes& attributes, 
-    NodeAttributeAdder& adder, 
+    FinjinObjectSettingsAccessor::ObjectSettingsAttributes::SubmeshesAttributes& attributes,
+    NodeAttributeAdder& adder,
     const MString& name
     )
 {
@@ -841,7 +841,7 @@ static MObject CreateSubmeshesAttribute
     attributesList.push_back(attributes.textureNames = adder.AddStringArray("SubmeshTextureNames"));
     attributesList.push_back(attributes.renderQueueName = adder.AddString("SubmeshRenderQueueName"));
     attributesList.push_back(attributes.renderQueuePriority = adder.AddInt("SubmeshRenderQueuePriority"));
-    
+
     return adder.AddCompoundArray(name, attributesList);
 }
 
@@ -856,8 +856,8 @@ MObject FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(NodeAtt
     attributes.CreateExtendedValueAttributes(attributesList, adder, "Object_");
 
     attributesList.push_back(attributes.object = adder.AddObjectReference("Object_Object"));
-    
-    attributesList.push_back(attributes.type = adder.AddString("Object_Type"));    
+
+    attributesList.push_back(attributes.type = adder.AddString("Object_Type"));
     attributesList.push_back(attributes.visibility = adder.AddString("Object_Visibility"));
     attributesList.push_back(attributes.visibilityAffectObjectOnly = adder.AddBool("Object_VisibilityAffectObjectOnly"));
     attributesList.push_back(attributes.targetType = adder.AddString("Object_TargetType"));
@@ -872,7 +872,7 @@ MObject FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(NodeAtt
     attributesList.push_back(attributes.renderQueuePriority = adder.AddInt("Object_RenderQueuePriority"));
     attributesList.push_back(attributes.exportFlags = adder.AddBool("Object_ExportFlags", true));
     attributesList.push_back(attributes.flagNames = adder.AddStringArray("Object_FlagNames"));
-        
+
     attributesList.push_back(attributes.exportMesh = adder.AddBool("Object_ExportMesh", true));
     attributesList.push_back(attributes.meshName = adder.AddString("Object_MeshName"));
     attributesList.push_back(attributes.animateBoundingVolumes = adder.AddBool("Object_AnimateBoundingVolumes", false));
@@ -884,7 +884,7 @@ MObject FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(NodeAtt
     attributesList.push_back(attributes.skeletonReferencePoseTime = adder.AddDouble("Object_SkeletonReferencePoseTime"));
     attributesList.push_back(attributes.exportPoses = adder.AddBool("Object_ExportPoses", true));
     attributesList.push_back(attributes.removeBonesWithNoVertexInfluence = adder.AddBool("Object_RemoveBonesWithNoVertexInfluence"));
-    
+
     attributesList.push_back(attributes.skeletonName = adder.AddString("Object_SkeletonName"));
     attributesList.push_back(attributes.meshAnimationType = adder.AddString("Object_MeshAnimationType"));
     attributesList.push_back(attributes.skeletonAnimationSampleInterval = adder.AddDouble("Object_SkeletonAnimationSampleInterval"));
@@ -894,7 +894,7 @@ MObject FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(NodeAtt
     attributesList.push_back(attributes.animatedSkeletonRoot = adder.AddObjectReference("Object_AnimatedRoot"));
     attributesList.push_back(attributes.exportMeshAnimationsToSeparateFile = adder.AddBool("Object_ExportMeshAnimationsToSeparateFile"));
     attributesList.push_back(attributes.linkMeshAnimationsToMainObject = adder.AddBool("Object_LinkMeshAnimationsToMainObject"));
-        
+
     attributesList.push_back(attributes.primitiveType = adder.AddString("Object_PrimitiveType"));
     attributesList.push_back(attributes.exportVertexColors = adder.AddBool("Object_ExportVertexColors"));
     attributesList.push_back(attributes.exportTangents = adder.AddBool("Object_ExportTangents"));
@@ -906,13 +906,13 @@ MObject FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(NodeAtt
     attributesList.push_back(attributes.lodObjectReferences = adder.AddObjectReferenceArray("Object_LODObjectReferences"));
     attributesList.push_back(attributes.lodDistances = adder.AddFloatArray("Object_LODDistances"));
     attributesList.push_back(attributes.calculateManualLodDistances = adder.AddBool("Object_CalculateManualLodDistances"));
-    
+
     attributesList.push_back(attributes.itemType = adder.AddString("Object_ItemType"));
-    
+
     attributesList.push_back(attributes.enableSky = adder.AddBool("Object_EnableSky", true));
-    
+
     attributesList.push_back(attributes.scale = adder.AddFloat("Object_Scale", 1.0));
-    
+
     attributesList.push_back(attributes.embedSkeletonInMesh = adder.AddBool("Object_EmbedSkeletonInMesh", true));
     attributesList.push_back(attributes.linkSkeletonToMesh = adder.AddBool("Object_LinkSkeletonToMesh", true));
 
@@ -924,17 +924,17 @@ MObject FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(NodeAtt
     attributesList.push_back(attributes.childOrder = adder.AddInt("Object_ChildOrder"));
 
     attributesList.push_back(attributes.renderingDistance = adder.AddFloat("Object_RenderingDistance"));
-    
+
     attributesList.push_back(attributes.nodeAnimations = FinjinNodeAnimationSettingsAccessor::CreateSettingsArrayAttribute(adder, "Object_NodeAnimations"));
     attributesList.push_back(attributes.meshAnimations = FinjinMeshAnimationSettingsAccessor::CreateSettingsArrayAttribute(adder, "Object_MeshAnimations"));
-    
+
     return adder.AddCompoundArray(name, attributesList);
 }
 
 MPlug FinjinObjectSettingsAccessor::GetObjectSettings(ObjectAccessor object)
 {
     MObject objectWithSettings = object.obj;
-    
+
     //Try to find the object settings plug/attribute
     MPlug objectSettingsPlug;
     if (objectWithSettings.hasFn(MFn::kDependencyNode))
@@ -942,7 +942,7 @@ MPlug FinjinObjectSettingsAccessor::GetObjectSettings(ObjectAccessor object)
         MFnDependencyNode depNode(objectWithSettings);
         objectSettingsPlug = depNode.findPlug(OBJECT_SETTINGS_ATTRIBUTE_NAME);
     }
-    
+
     return objectSettingsPlug;
 }
 
@@ -950,7 +950,7 @@ MPlug FinjinObjectSettingsAccessor::Child(MObject attribute, const MString& name
 {
     MPlug result;
 
-    if (this->rootPlug.isDynamic())    
+    if (this->rootPlug.isDynamic())
     {
         MString prefixedName = "Object_" + name;
 
@@ -969,7 +969,7 @@ MPlug FinjinObjectSettingsAccessor::Child(MObject attribute, const MString& name
     }
     else
         result = this->rootPlug.child(attribute);
-    
+
     return result;
 }
 

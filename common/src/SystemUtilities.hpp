@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Various system-level utility functions. */
@@ -27,8 +27,8 @@ namespace Finjin { namespace Exporter {
     {
     public:
 #if defined(__WXMSW__)
-        /** 
-         * Gets the string value for the specified registry key. 
+        /**
+         * Gets the string value for the specified registry key.
          * @param key [in] - The key.
          * @param valueName [in] - The name of the value.
          * @param hRootKey [in] - The root key.
@@ -36,12 +36,12 @@ namespace Finjin { namespace Exporter {
          */
         static wxString GetKeyStringValue
             (
-            const wxString& key, 
-            const wxString& valueName, 
+            const wxString& key,
+            const wxString& valueName,
             HKEY hRootKey = HKEY_LOCAL_MACHINE
             );
 
-        /** 
+        /**
          * Finds the subkey with the specified name.
          * @param baseKey [in] - The key whose subkeys should be searched.
          * @param subkey [in] - The string to search for in subkeys. The search is performed
@@ -50,13 +50,13 @@ namespace Finjin { namespace Exporter {
          */
         static wxString FindSubkey
             (
-            const wxString& baseKey, 
-            const wxString& subkey, 
+            const wxString& baseKey,
+            const wxString& subkey,
             HKEY hRootKey = HKEY_LOCAL_MACHINE
             );
 
-        /** 
-         * Finds the subkey that starts with the specified string. 
+        /**
+         * Finds the subkey that starts with the specified string.
          * @param baseKey [in] - The key whose subkeys should be searched.
          * @param startingWith [in] - The string to search for in subkeys. The search is performed
          * without regard to case sensitivity.
@@ -64,13 +64,13 @@ namespace Finjin { namespace Exporter {
          */
         static wxString FindSubkeyStartingWith
             (
-            const wxString& baseKey, 
-            const wxString& startingWith, 
+            const wxString& baseKey,
+            const wxString& startingWith,
             HKEY hRootKey = HKEY_LOCAL_MACHINE
             );
 #endif
 
-        /** 
+        /**
          * Shows a particular resource (text file, web page, and so on) in the most appropriate way.
          * @param resourceName [in] - The name of the resource.
          * @param resourceExtension [in] - The typical file extension for the resource, without the leading '.'
@@ -81,7 +81,7 @@ namespace Finjin { namespace Exporter {
         static void ShowTextFile(const wxString& fileName);
 
         /** Shows the specified web URL in a system-appropriate way. */
-        static void ShowWebPage(const wxString& url);        
+        static void ShowWebPage(const wxString& url);
     };
 
 } }

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Values that are used in scene and object settings. */
@@ -30,7 +30,7 @@ namespace Finjin { namespace Exporter {
             static const wxString MORPH_ONLY;
             static const wxString COMBINED_MORPH_ONLY;
             static const wxString MORPH;
-            static const wxString POSE;            
+            static const wxString POSE;
         };
 
         struct Visibility

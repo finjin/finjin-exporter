@@ -25,11 +25,11 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FINJIN_IMPLEMENT_TRANSLATOR(FinjinCustomHelperIconTranslator, "1.0", "chi", "*.chi", "Finjin Custom Helper Icon");
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MStatus FinjinCustomHelperIconTranslatorBase::writer
     (
     const MFileObject& file,
@@ -61,7 +61,7 @@ MStatus FinjinCustomHelperIconTranslatorBase::writer
 
         if (dagPath.hasFn(MFn::kMesh) && dagPath.hasFn(MFn::kTransform))
             foundMesh = true;
-    }   
+    }
 
     //Handle mesh
     if (!foundMesh)
@@ -79,16 +79,16 @@ bool FinjinCustomHelperIconTranslatorBase::SaveIcon(MDagPath& dagPath, const MSt
 
     CustomHelperIconWriter icon;
 
-    //Get the visible edges    
+    //Get the visible edges
     int edgeCount = mesh.numEdges();
-    icon.edges.resize(edgeCount);    
+    icon.edges.resize(edgeCount);
     int2 edgeVertexIndices;
     for (int i = 0; i < edgeCount; i++)
     {
         mesh.getEdgeVertices(i, edgeVertexIndices);
 
         icon.edges[i].v1 = edgeVertexIndices[0];
-        icon.edges[i].v2 = edgeVertexIndices[1];        
+        icon.edges[i].v2 = edgeVertexIndices[1];
     }
 
     //Get mesh points

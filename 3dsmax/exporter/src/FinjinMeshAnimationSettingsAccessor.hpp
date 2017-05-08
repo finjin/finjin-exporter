@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinMeshAnimationSettingsAccessorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinMeshAnimationSettingsObject;
@@ -31,10 +31,10 @@ namespace Finjin { namespace Exporter {
     /** Access to a Finjin mesh animation settings object. */
     class FinjinMeshAnimationSettingsAccessor : public FinjinMeshAnimationSettingsAccessorBase
     {
-    public:    
+    public:
         FinjinMeshAnimationSettingsAccessor() {this->object = nullptr;}
         FinjinMeshAnimationSettingsAccessor(FinjinMeshAnimationSettingsObject* object) {this->object = object;}
-        
+
         bool IsValid() const {return this->object != nullptr;}
 
         bool operator == (const FinjinMeshAnimationSettingsAccessor& other) const;
@@ -60,14 +60,14 @@ namespace Finjin { namespace Exporter {
         FinjinVector3 GetBoneTranslationMask(ObjectAccessor object) override;
         int GetAllowExportBoneCount() override;
         void GetAllowExportBone(int i, ObjectAccessor& object, bool& allow, bool& recursive) override;
-                
+
         void SetTrack(wxString value) override;
         void SetAnimationName(wxString value) override;
         void SetTimeScaleType(wxString value) override;
         void SetTimeScale(double value) override;
         void SetCopyFirstKeyToLast(bool value) override;
         void SetExportAsMorph(bool value) override;
-        void SetMorphWholeObject(InheritedBool value) override;        
+        void SetMorphWholeObject(InheritedBool value) override;
         void SetOverrideAnimatedRootStartTime(bool value) override;
         void SetAnimatedRootStartTime(TimeAccessor value) override;
         void SetUseAnimationStartTime(bool value) override;
@@ -80,7 +80,7 @@ namespace Finjin { namespace Exporter {
         void ClearBoneTranslationMasks() override;
         void AddBoneTranslationMask(ObjectAccessor object, FinjinVector3 mask) override;
         void ClearAllowExportBones() override;
-        void AddAllowExportBone(ObjectAccessor object, bool allow, bool recursive) override;        
+        void AddAllowExportBone(ObjectAccessor object, bool allow, bool recursive) override;
 
     public:
         FinjinMeshAnimationSettingsObject* object;

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Utility functions for dealing with the mesh icons used with Finjin helpers. */
@@ -43,16 +43,16 @@ namespace Finjin { namespace Exporter {
          */
         static void DrawCustomIcon
             (
-            ViewExp* viewport, 
-            const Point3* edgeVertices, 
-            size_t edgeVertexCount, 
-            const wxString* text, 
-            Matrix3* matrix, 
-            BOOL selected, 
-            BOOL frozen, 
+            ViewExp* viewport,
+            const Point3* edgeVertices,
+            size_t edgeVertexCount,
+            const wxString* text,
+            Matrix3* matrix,
+            BOOL selected,
+            BOOL frozen,
             COLORREF color
             );
-        
+
         /**
          * Gets the icon's bounding box.
          * @param edgeVertices [in] - Array of pairs of vertices making up
@@ -65,11 +65,11 @@ namespace Finjin { namespace Exporter {
          */
         static Box3 GetCustomIconBox
             (
-            const Point3* edgeVertices, 
-            size_t edgeVertexCount, 
+            const Point3* edgeVertices,
+            size_t edgeVertexCount,
             Matrix3* matrix
             );
-        
+
         /**
          * Makes a wireframe box mesh of the given dimensions.
          * @param edgeVertices [out] - The output edge vertices.
@@ -80,13 +80,13 @@ namespace Finjin { namespace Exporter {
          */
         static void MakeBoxEdges
             (
-            std::vector<Point3>& edgeVertices, 
-            float width, 
-            float height, 
-            float length, 
+            std::vector<Point3>& edgeVertices,
+            float width,
+            float height,
+            float length,
             Matrix3* matrix
             );
-        
+
         /**
          * Makes a wireframe quad mesh of the given dimensions.
          * @param edgeVertices [out] - The output edge vertices.
@@ -96,9 +96,9 @@ namespace Finjin { namespace Exporter {
          */
         static void MakeQuadEdges
             (
-            std::vector<Point3>& edgeVertices, 
-            float width, 
-            float length, 
+            std::vector<Point3>& edgeVertices,
+            float width,
+            float length,
             Matrix3* matrix
             );
 
@@ -112,14 +112,14 @@ namespace Finjin { namespace Exporter {
          */
         static void MakeQuadEdgesWithNormal
             (
-            std::vector<Point3>& edgeVertices, 
-            float width, 
-            float length, 
-            float normalLength, 
+            std::vector<Point3>& edgeVertices,
+            float width,
+            float length,
+            float normalLength,
             Matrix3* matrix
             );
-        
-        /** 
+
+        /**
          * Creates a transformation matrix that makes an object point at the view.
          * @param m [in] - The object's transformation matrix.
          * @param viewport [in] - The viewport being drawn into.
@@ -139,20 +139,20 @@ namespace Finjin { namespace Exporter {
          * @param type [in] - The type of hit testing to perform. This value is passed in to HitTest() by 3DS Max.
          * @param crossing [in] - The state of the crossing setting. This value is passed in to HitTest() by 3DS Max.
          * @param flags [in] - The hit test flags. This value is passed in to HitTest() by 3DS Max.
-         * @param p [in] - The screen point to test. This value is passed in to HitTest() by 3DS Max.    
+         * @param p [in] - The screen point to test. This value is passed in to HitTest() by 3DS Max.
          * @return The hit test result is returned.
          */
         static int HitTestCustomIcon
             (
             ViewExp* viewport,
-            const std::vector<Point3>& edgeVertices, 
-            Matrix3 matrix, 
-            BOOL alwaysFaceView, 
-            TimeValue t, 
-            INode* inode, 
-            int type, 
-            int crossing, 
-            int flags, 
+            const std::vector<Point3>& edgeVertices,
+            Matrix3 matrix,
+            BOOL alwaysFaceView,
+            TimeValue t,
+            INode* inode,
+            int type,
+            int crossing,
+            int flags,
             IPoint2* p
             );
 

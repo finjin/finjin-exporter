@@ -19,29 +19,29 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 #include "CoordinateSystemConverter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A collection of 3DS Max utility functions. */
     class MaxUtilities
     {
     public:
-        /** 
-         * Gets the value of the specified property as a string. 
-         * @param propertySet [in] - The property set identifier. 
+        /**
+         * Gets the value of the specified property as a string.
+         * @param propertySet [in] - The property set identifier.
          * @param propid [in] - The property identifier.
          * @return The property value is returned.
          */
         static wxString GetPropertyString(int propertySet, PROPID propid);
 
-        /** 
-         * Sets the value of the specified property as a string. 
-         * @param propertySet [in] - The property set identifier. 
+        /**
+         * Sets the value of the specified property as a string.
+         * @param propertySet [in] - The property set identifier.
          * @param propid [in] - The property identifier.
          * @param value [in] - The property value.
          */
@@ -53,7 +53,7 @@ namespace Finjin { namespace Exporter {
         /** Sets the scene's summary information. */
         //static void SetSceneSummaryInfo(const wxString& text);
 
-        /** 
+        /**
          * Determines whether an array of ClassIDs contains a particular ClassID.
          * @param classIDs [in] - An array of ClassIDs.
          * @param classIDCount [in] - The number of ClassIDs.
@@ -63,12 +63,12 @@ namespace Finjin { namespace Exporter {
          */
         static bool ContainsClassID
             (
-            const Class_ID* classIDs, 
-            int classIDCount, 
+            const Class_ID* classIDs,
+            int classIDCount,
             Class_ID id
             );
 
-        /** 
+        /**
          * Searches through the object's modifier stack to find the modifier with any of the specified ClassIDs.
          * @param node [in] - The node whose modifier stack is searched.
          * @param classIDs [in] - An array of ClassIDs.
@@ -78,12 +78,12 @@ namespace Finjin { namespace Exporter {
          */
         static Modifier* FindModifier
             (
-            INode* node, 
-            const Class_ID* classIDs, 
+            INode* node,
+            const Class_ID* classIDs,
             int cidCount
             );
 
-        /** 
+        /**
          * Searches through the object's modifier stack to find a modifier with the specified ClassID.
          * @param node [in] - The node whose modifier stack is searched.
          * @param id [in] - The ClassID to search for.
@@ -91,7 +91,7 @@ namespace Finjin { namespace Exporter {
          */
         static Modifier* FindModifier(INode* node, Class_ID id);
 
-        /** 
+        /**
          * Verifies that the mesh modifiers in the specified object's modifier stack are in the proper order.
          * The ordering is important during export because some modifiers, such as Edit Mesh, can
          * invalidate the vertex information in previous modifiers, such as the Skin modifier.
@@ -111,20 +111,20 @@ namespace Finjin { namespace Exporter {
         /** Determines if the specified object is any kind of bone. */
         static bool IsAnyBone(INode* node);
 
-        /** 
+        /**
          * Determines if the specified object is unknown.
          * An unknown object is one that has its corresponding plug missing.
          */
         static bool IsUnknownObject(INode* node);
-        
-        /** 
+
+        /**
          * Finds the root biped bone referenced by the object.
          * @param bone [in] - A Biped bone.
          * @return Gets the bone that is the ancestor of all bones.
          */
         static INode* FindRootmostBipedBone(INode* bone);
 
-        /** 
+        /**
          * Finds the biped root bone that is attached to the node, if any. This is done by
          * finding the physique or skin modifier applied to the node's object, and then searching the
          * attached bones for the root Biped.
@@ -143,16 +143,16 @@ namespace Finjin { namespace Exporter {
 
         /** * Searches through the object's modifier stack to find a Morpher modifier. */
         static Modifier* FindMorpherModifier(INode* node);
-        
-        /** 
-         * Removes/enables the non-uniform scale from the specified node's biped controller, if it has one. 
+
+        /**
+         * Removes/enables the non-uniform scale from the specified node's biped controller, if it has one.
          * @param node [in] - The node whose biped controller has non-uniform scale removed/enabled.
          * @param remove [in] - Indicates whether non-uniform scale is being removed or enabled.
          */
         static void RemoveBipedNonuniformScale(INode* node, bool remove = true);
 
-        /** 
-         * Gets all the nodes below the specified parent, including the parent. 
+        /**
+         * Gets all the nodes below the specified parent, including the parent.
          * @param nodes [out] - The retrieved nodes.
          * @param parentNode [in] - The root node from which the node retrieval occurs.
          * If null, the root node is used (and not included in the output).
@@ -160,27 +160,27 @@ namespace Finjin { namespace Exporter {
          */
         static void GetAllNodes
             (
-            std::unordered_set<INode*>& nodes, 
-            INode* parentNode = nullptr, 
+            std::unordered_set<INode*>& nodes,
+            INode* parentNode = nullptr,
             bool ignoreSettings = true
-            );    
+            );
 
-        /** 
+        /**
          * Gets the selected nodes.
          * @param nodes [out] - The currently selected nodes.
          * @return The number of selected nodes is returned.
          */
-        static int GetSelectedNodes(std::unordered_set<INode*>& nodes);    
+        static int GetSelectedNodes(std::unordered_set<INode*>& nodes);
 
-        /** 
+        /**
          * Gets the node's child nodes.
          * @param node [in] - The node whose child nodes are retrieved.
          * @param childNodes [out] - The retrieved child nodes.
          */
         static void GetChildNodes(INode* node, INodeTab& childNodes);
-        
-        /** 
-         * Gets the identifier of a parameter, within a given parameter block, based on a name. 
+
+        /**
+         * Gets the identifier of a parameter, within a given parameter block, based on a name.
          * The search is not case sensitive.
          * @param paramID [out] - The found parameter identifier.
          * @param name [in] - The name of the parameter to search for.
@@ -189,8 +189,8 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetParamIDByName(ParamID& paramID, const MCHAR* name, IParamBlock2* pblock);
 
-        /** 
-         * Gets the identifier and parameter block of a parameter based on a name. 
+        /**
+         * Gets the identifier and parameter block of a parameter based on a name.
          * The search is not case sensitive.
          * @param pblock [out] - The found parameter block.
          * @param paramID [out] - The found parameter identifier.
@@ -262,7 +262,7 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetPlaneSegmentCount(FinjinIVector2& segmentCount, INode* node, TimeValue time = -1);
 
-        /** 
+        /**
          * Gets the current unit info.
          * @param name [out] - The name of the current unit.
          * @param fractional [out] - The fraction of the specified unit name. For most unit types
@@ -283,7 +283,7 @@ namespace Finjin { namespace Exporter {
          */
         static INode* GetLookAtNode(INode* node, bool* gotFromController = nullptr);
 
-        /** 
+        /**
          * Gets the direction vector the specified object uses to look at a target object.
          * @param node [in] - The node whose 'look at' direction is returned.
          * @param direction [out] - The direction vector.
@@ -293,8 +293,8 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetLookAtDirection
             (
-            INode* node, 
-            FinjinVector3& direction, 
+            INode* node,
+            FinjinVector3& direction,
             const CoordinateSystemConverter& converter
             );
 
@@ -308,7 +308,7 @@ namespace Finjin { namespace Exporter {
          * any longer than MAX_GET_STRING_LENGTH and should not be freed.
          * Note that the returned string points to a global buffer and should
          * copied to a new buffer if the string needs to be kept between
-         * success successive calls to GetString(). If no string could 
+         * success successive calls to GetString(). If no string could
          * be located for the specified ID, null is returned.
          */
         static TCHAR* GetString(int id);

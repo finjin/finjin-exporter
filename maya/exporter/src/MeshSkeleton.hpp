@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshSkeletonBase.hpp"
 #include "AutoKeyState.hpp"
 #include "NodeMenuItemsState.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class MeshSkeleton : public MeshSkeletonBase
@@ -36,7 +36,7 @@ namespace Finjin { namespace Exporter {
 
         void Clear();
 
-        /** 
+        /**
          * Initializes the skeleton data.
          * @param object [in] - The object that may contain a skeleton.
          * @param coordinateConverter [in] - The coordinate converter used to convert transformations.
@@ -44,8 +44,8 @@ namespace Finjin { namespace Exporter {
          */
         bool Initialize
             (
-            MObject object, 
-            const CoordinateSystemConverter& coordinateConverter, 
+            MObject object,
+            const CoordinateSystemConverter& coordinateConverter,
             float scale,
             const SkeletonReferencePose* referencePose
             );
@@ -53,15 +53,15 @@ namespace Finjin { namespace Exporter {
         /** Determines whether there are skeleton bones. */
         bool IsValid() const override;
 
-        /** 
-         * Enables/disables the skeleton. 
+        /**
+         * Enables/disables the skeleton.
          * Enabling it means that it has an effect on the target mesh object.
          * Disabling it means that the target mesh data appears as though there is no skeleton.
          */
         void Enable(bool enable = true);
 
-        /** 
-         * Disables the skeleton. 
+        /**
+         * Disables the skeleton.
          * Disabling it means that the target mesh data appears as though there is no skeleton.
          */
         void Disable() {Enable(false);}
@@ -88,7 +88,7 @@ namespace Finjin { namespace Exporter {
     public:
         /** A list of skin clusters. */
         typedef std::list<MObject> SmoothClusters;
-        
+
         /** Smooth skin clusters. If this is empty, rigidClusters is ignored. */
         SmoothClusters smoothClusters;
 
@@ -101,7 +101,7 @@ namespace Finjin { namespace Exporter {
         /** Rigid skin. This is used if smoothSkin is non-empty. */
         RigidClusters rigidClusters;
 
-        std::vector<float> originalEnvelopes;        
+        std::vector<float> originalEnvelopes;
         AutoKeyState autoKeyState;
         NodeMenuItemsState nodeMenuItemsState;
         //bool ikGlobalSnap;

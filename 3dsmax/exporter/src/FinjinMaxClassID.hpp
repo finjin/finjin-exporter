@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Identifiers for all types. */
     class FinjinMaxClassID
     {
-    public:        
+    public:
         static const Class_ID ExtendedValueObject;
         static const Class_ID MeshScaleModifier;
         static const Class_ID CubeMapHelper;

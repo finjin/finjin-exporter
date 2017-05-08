@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "TransformAccessor.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base mesh bone class. */
@@ -47,14 +47,14 @@ namespace Finjin { namespace Exporter {
             return this->parent == nullptr;
         }
 
-        /** 
-         * Sets the bone's initial state. 
+        /**
+         * Sets the bone's initial state.
          * This should be called after manually setting the initialWorldTransform member.
          * @param skinTransform [in] - The initial skin transform.
          */
         void SetInitialState(const TransformAccessor& skinTransform)
         {
-            this->initialRelativeTransform = this->initialWorldTransform.GetRelativeTo(IsRoot() ? skinTransform : this->parent->initialWorldTransform);            
+            this->initialRelativeTransform = this->initialWorldTransform.GetRelativeTo(IsRoot() ? skinTransform : this->parent->initialWorldTransform);
 
             this->initialized = true;
         }
@@ -64,12 +64,12 @@ namespace Finjin { namespace Exporter {
         {
             return this->object.GetNodeTransformation(time);
         }
-        
+
     public:
         /** Indicates whether SetInitialState() has been called. */
         bool initialized;
 
-        /** 
+        /**
          * Indicates whether the bone was explicitly defined.
          * If false, the bone was found implicitly.
          */

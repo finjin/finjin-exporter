@@ -29,7 +29,7 @@ using namespace Finjin::Exporter;
 #define USE_MAYA_OBJECT_NAME 0
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static bool IsIntermediate(MFnDagNode& dagNode)
 {
     return dagNode.isIntermediateObject() || dagNode.inUnderWorld();
@@ -104,7 +104,7 @@ bool ObjectAccessor::IsInVisibleLayer() const
 {
     //Get all the display layer names
     MStringArray displayLayers;
-    MGlobal::executeCommand("string $allDisplayLayers[] = `layout -query -childArray LayerEditorDisplayLayerLayout`;", displayLayers, DISPLAY_MAYA_COMMAND);    
+    MGlobal::executeCommand("string $allDisplayLayers[] = `layout -query -childArray LayerEditorDisplayLayerLayout`;", displayLayers, DISPLAY_MAYA_COMMAND);
     if (displayLayers.length() > 0)
     {
         //Iterate on the object and its ancestors looking for visibility info, stopping at the root
@@ -137,12 +137,12 @@ bool ObjectAccessor::IsInVisibleLayer() const
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ObjectAccessor::ObjectAccessor()
 {
 }
 
-ObjectAccessor::ObjectAccessor(MObject obj) 
+ObjectAccessor::ObjectAccessor(MObject obj)
 {
     this->obj = obj;
     this->container = obj;
@@ -176,7 +176,7 @@ ObjectAccessor::ObjectAccessor(MObject obj)
     }
     else
     {
-        //The object doesn't have a transform. 
+        //The object doesn't have a transform.
         //See if a parent with a transform can be found
         if (status == MStatus::kSuccess && dagNode.parentCount() > 0)
         {
@@ -207,27 +207,27 @@ ObjectAccessor::ObjectAccessor(const ObjectAccessor& object)
     this->nodeName = object.nodeName;
 }
 
-ObjectAccessor::operator MObject () 
+ObjectAccessor::operator MObject ()
 {
     return this->obj;
 }
 
-bool ObjectAccessor::operator == (const ObjectAccessor& other) const 
+bool ObjectAccessor::operator == (const ObjectAccessor& other) const
 {
     return this->container == other.container;
 }
 
-bool ObjectAccessor::operator != (const ObjectAccessor& other) const 
+bool ObjectAccessor::operator != (const ObjectAccessor& other) const
 {
     return this->container != other.container;
 }
 
-bool ObjectAccessor::operator < (const ObjectAccessor& other) const 
+bool ObjectAccessor::operator < (const ObjectAccessor& other) const
 {
     return GetFullName() < other.GetFullName();
 }
 
-wxString ObjectAccessor::GetLocalName(bool useObjectName) const 
+wxString ObjectAccessor::GetLocalName(bool useObjectName) const
 {
 #if !USE_MAYA_OBJECT_NAME
     useObjectName = false;
@@ -238,7 +238,7 @@ wxString ObjectAccessor::GetLocalName(bool useObjectName) const
         return nameOverride;
     else
     {
-        MObject obj = useObjectName ? this->obj : this->container;        
+        MObject obj = useObjectName ? this->obj : this->container;
         MString name;
         if (obj.hasFn(MFn::kDependencyNode))
         {
@@ -250,7 +250,7 @@ wxString ObjectAccessor::GetLocalName(bool useObjectName) const
     }
 }
 
-wxString ObjectAccessor::GetFullName(bool useObjectName) const 
+wxString ObjectAccessor::GetFullName(bool useObjectName) const
 {
 #if !USE_MAYA_OBJECT_NAME
     useObjectName = false;
@@ -293,15 +293,15 @@ void ObjectAccessor::GetChildren(ObjectAccessorVector& children)
             MFnDependencyNode depNode(child);
             bool traversable = IsTraversableAsNode(child);
             if (traversable)
-                children.push_back(child);            
+                children.push_back(child);
         }
-    }        
+    }
 }
 
 bool ObjectAccessor::HasDescendant(ObjectAccessor other)
 {
-    for (MObject parent = MayaUtilities::GetParent(other.obj); 
-        !parent.isNull() && !MayaUtilities::IsRoot(parent); 
+    for (MObject parent = MayaUtilities::GetParent(other.obj);
+        !parent.isNull() && !MayaUtilities::IsRoot(parent);
         parent = MayaUtilities::GetParent(parent))
     {
         if (parent == this->obj)
@@ -310,7 +310,7 @@ bool ObjectAccessor::HasDescendant(ObjectAccessor other)
     return false;
 }
 
-bool ObjectAccessor::IsValid() const 
+bool ObjectAccessor::IsValid() const
 {
     return !this->obj.isNull();
 }
@@ -333,12 +333,12 @@ bool ObjectAccessor::IsVisible() const
 
 bool ObjectAccessor::GetCastShadows() const
 {
-    return MayaPlug::GetBoolAttribute(this->obj, "castsShadows", true);    
+    return MayaPlug::GetBoolAttribute(this->obj, "castsShadows", true);
 }
 
 void ObjectAccessor::SetCastShadows(bool value)
 {
-    MayaPlug::SetBoolAttribute(this->obj, "castsShadows", value);    
+    MayaPlug::SetBoolAttribute(this->obj, "castsShadows", value);
 }
 
 bool ObjectAccessor::GetReceiveShadows() const
@@ -370,7 +370,7 @@ FinjinColor ObjectAccessor::GetLightColor(TimeAccessor time)
 }
 
 MObject ObjectAccessor::GetMaterial()
-{   
+{
     MObject material;
 
     if (this->obj.hasFn(MFn::kMesh))
@@ -383,7 +383,7 @@ MObject ObjectAccessor::GetMaterial()
         if (shaders.length() > 0)
             material = MayaUtilities::GetBestMaterial(shaders[0]);
     }
-    
+
     return material;
 }
 
@@ -402,7 +402,7 @@ PrimitiveType ObjectAccessor::GetDefaultPrimitiveType()
 }
 
 TransformAccessor ObjectAccessor::GetObjectOffsetTransformation(TimeAccessor time)
-{    
+{
     TransformAccessor transformation;
 
     if (this->container.hasFn(MFn::kTransform))
@@ -427,7 +427,7 @@ TransformAccessor ObjectAccessor::GetNodeTransformation(TimeAccessor time)
         MTransformationMatrix transformation(matrix);
         result = transformation;
     }
-    
+
     return result;
 }
 
@@ -444,7 +444,7 @@ TransformAccessor ObjectAccessor::GetFullWorldTransformation(TimeAccessor time)
         MTransformationMatrix transformation(matrix);
         result = transformation;
     }
-    
+
     return result;
 }
 
@@ -482,14 +482,14 @@ ObjectAccessor ObjectAccessor::GetObjectByName(const wxString& name)
     {
         MSelectionList selection;
         selection.add(WxStringToApplicationString(name));
-        
+
         MDagPath dagPath;
         if (selection.getDagPath(0, dagPath) == MStatus::kSuccess)
             object = dagPath.node();
         else
             selection.getDependNode(0, object);
     }
-    
+
     return object;
 }
 
@@ -503,7 +503,7 @@ void ObjectAccessor::GetSelectedObjects(ObjectAccessorVector& selectedObjects)
     for (unsigned int i = 0; i < selection.length(); i++)
     {
         MObject object;
-        selection.getDependNode(i, object);        
+        selection.getDependNode(i, object);
         if (IsTraversableAsNode(object) && !MayaUtilities::IsRoot(object))
             selectedObjects.push_back(object);
     }
@@ -515,7 +515,7 @@ void ObjectAccessor::SetSelectedObjects(const ObjectAccessorVector& selectedObje
     MSelectionList selection;
     for (size_t i = 0; i < selectedObjects.size(); i++)
         selection.add(selectedObjects[i].container, true);
-    MGlobal::setActiveSelectionList(selection);    
+    MGlobal::setActiveSelectionList(selection);
 
     //This is necessary to select the objects in the Maya viewports
     MString name;
@@ -560,13 +560,13 @@ bool ObjectAccessor::IsTraversableAsNode(MObject& object)
 {
     if (IsSettingsObject(object) || !IsTraversableNodeType(object.apiType()))
         return false;
-    
+
     //Make sure object is a non-intermediate DAG node
     MStatus status;
     MFnDagNode dagNode(object, &status);
     if (status != MStatus::kSuccess || IsIntermediate(dagNode))
         return false;
-    
+
     unsigned int childCount = dagNode.childCount();
     if (childCount > 0)
     {

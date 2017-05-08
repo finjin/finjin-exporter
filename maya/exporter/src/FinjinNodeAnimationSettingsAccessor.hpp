@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinNodeAnimationSettingsAccessorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class NodeAttributeAdder;
@@ -31,10 +31,10 @@ namespace Finjin { namespace Exporter {
     /** Access to a Finjin node animation settings object. */
     class FinjinNodeAnimationSettingsAccessor : public FinjinNodeAnimationSettingsAccessorBase
     {
-    public:    
+    public:
         FinjinNodeAnimationSettingsAccessor();
         FinjinNodeAnimationSettingsAccessor(MPlug rootPlug);
-        
+
         bool IsValid() const {return !this->rootPlug.isNull();}
 
         bool operator == (const FinjinNodeAnimationSettingsAccessor& other) const;
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
         MPlug rootPlug;
 
         struct Attributes
-        {        
+        {
             MObject updateCounter;
 
             MObject animationName;

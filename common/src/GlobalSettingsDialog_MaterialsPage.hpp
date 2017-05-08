@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GlobalSettingsDialog_MaterialsPage : public SettingsPage
@@ -33,7 +33,7 @@ namespace Finjin { namespace Exporter {
     private:
         DECLARE_EVENT_TABLE()
 
-    protected:        
+    protected:
         wxStaticText* noMaterialNameLabel;
         ApplicationTextCtrl* noMaterialNameText;
         wxStaticText* noMaterialNameDescriptionLabel;
@@ -41,17 +41,17 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* createExtraMaterialsCheckbox;
         wxCheckBox* copyBitmapsToExportDirectoryCheckbox;
         wxCheckBox* convertBitmapsToTexturesCheckbox;
-        
+
     public:
         GlobalSettingsDialog_MaterialsPage(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
         ~GlobalSettingsDialog_MaterialsPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
 
-    private:        
+    private:
     };
 
 } }

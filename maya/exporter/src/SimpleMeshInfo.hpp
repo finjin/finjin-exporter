@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SimpleMeshInfoBase.hpp"
 #include "CoordinateSystemConverter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class SimpleMeshInfo : public SimpleMeshInfoBase
@@ -39,14 +39,14 @@ namespace Finjin { namespace Exporter {
 
         bool Create
             (
-            ObjectAccessor object, 
-            TimeAccessor time = TimeAccessor(), 
+            ObjectAccessor object,
+            TimeAccessor time = TimeAccessor(),
             TransformAccessor* transformation = nullptr
             );
 
         bool Create
             (
-            ObjectAccessor object, 
+            ObjectAccessor object,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
             TimeAccessor time = TimeAccessor(),

@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class InstallationItem_3DSMaxPlugin : public PluginInstallationItem
 {
 public:
@@ -100,7 +100,7 @@ public:
                 else
                     context.LogFailure(wxString::Format(wxT("You must allow %s to be started."), GetApplicationVersion().displayName.wx_str()));
             }
-        }       
+        }
 
         //Delete log/settings directory
         auto appDirectory = wxT("FinjinExporter/3DS") + GetApplicationVersion().directoryName + (wxT("-") APPLICATION_PLATFORM);
@@ -112,7 +112,7 @@ public:
     }
 
 protected:
-    virtual int GetMaxVersionNumber() const = 0;    
+    virtual int GetMaxVersionNumber() const = 0;
 
     const wxString& GetMaxSubkey() const
     {
@@ -141,14 +141,14 @@ protected:
         if (!maxSubkey.empty())
         {
             key << maxSubkey << wxT("\\") << GetMaxVersionNumber() << wxT(".0");
-        
+
             //There may be a localized subkey containing the information
             wxString subKey;
             if (GetMaxVersionNumber() >= FIRST_LOCALIZED_VERSION)
                 subKey = SystemUtilities::FindSubkeyStartingWith(key, wxT("MAX"));
 
-            if (GetMaxVersionNumber() < FIRST_LOCALIZED_VERSION || 
-                GetMaxVersionNumber() > LAST_LOCALIZED_VERSION || 
+            if (GetMaxVersionNumber() < FIRST_LOCALIZED_VERSION ||
+                GetMaxVersionNumber() > LAST_LOCALIZED_VERSION ||
                 !subKey.empty())
             {
                 if (!subKey.empty())
@@ -169,7 +169,7 @@ protected:
                         //Success
                         installPath = path;
                     }
-                    
+
                     //Close key
                     RegCloseKey(hKey);
                 }
@@ -244,15 +244,15 @@ public:
         }
         return true;
     }
-    
+
     void Install(InstallationContext& context)
     {
         for (int index = 0; ; index++)
         {
-            auto sourceFileName = GetSourceFileName(index);        
+            auto sourceFileName = GetSourceFileName(index);
             if (sourceFileName.empty())
                 break;
-            
+
             if (wxFileExists(sourceFileName))
             {
                 auto destinationFileName = context.applicationRootDirectory + GetBaseFileName(index);
@@ -265,10 +265,10 @@ public:
     {
         for (int index = 0; ; index++)
         {
-            auto sourceFileName = GetBaseFileName(index);        
+            auto sourceFileName = GetBaseFileName(index);
             if (sourceFileName.empty())
                 break;
-            
+
             //Delete application file
             auto destinationFileName = context.applicationRootDirectory + sourceFileName;
             context.LogOptionalFileDelete(destinationFileName);
@@ -290,21 +290,21 @@ public:
 private:
     static wxString GetBaseFileName(int index)
     {
-        static const wxString fileNames[] = 
+        static const wxString fileNames[] =
             {
             wxT("finjin-viewer") APPLICATION_EXTENSION,
             wxEmptyString
-            };    
+            };
         return fileNames[index];
     }
 
     static wxString GetSourceFileName(int index, bool* required = nullptr)
     {
-        static const wxString fileNames[] = 
+        static const wxString fileNames[] =
             {
             wxT("finjin-viewer"),
             wxEmptyString
-            };    
+            };
 
         if (required != nullptr)
             *required = index == 0;
@@ -340,9 +340,9 @@ public:
     #ifdef _WIN64
         AddPluginInstallationItem(new InstallationItem_3DSMax2016);
         AddPluginInstallationItem(new InstallationItem_3DSMax2015);
-        AddPluginInstallationItem(new InstallationItem_3DSMax2015(false));        
+        AddPluginInstallationItem(new InstallationItem_3DSMax2015(false));
     #endif
-        
+
         AddOtherInstallationItem(new InstallationItem_Viewers);
 
         Create();
@@ -350,7 +350,7 @@ public:
 };
 
 
-//Entry point------------------------------------------------------------------
+//Entry point-------------------------------------------------------------------
 class InstallationApp : public wxApp
 {
 public:

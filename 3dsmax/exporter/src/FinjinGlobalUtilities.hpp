@@ -19,20 +19,20 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinGlobalSettings.hpp"
 #include "CloneState.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
-    /** 
-     * The main Finjin plugin class that handles initialization/shutdown, 
+
+    /**
+     * The main Finjin plugin class that handles initialization/shutdown,
      * registers notifications, creates the Finjin menu, and handles all the
      * top level commands.
      */
-    class FinjinGlobalUtilities : public GUP 
+    class FinjinGlobalUtilities : public GUP
     {
     private:
         FinjinGlobalUtilities();
@@ -56,7 +56,7 @@ namespace Finjin { namespace Exporter {
         void OnExportCurrentMaterialLibrary();
         void OnSceneSettings();
         void OnObjectSettings();
-        void OnGlobalSettings();        
+        void OnGlobalSettings();
         void OnCheckDuplicateObjectNames();
         void OnRenderCubeMap();
         void OnViewLog();
@@ -82,13 +82,13 @@ namespace Finjin { namespace Exporter {
         static void OnScenePreSave(void* param, NotifyInfo* info);
         static void OnScenePostSave(void* param, NotifyInfo* info);
         static void OnNodeAdded(void* param, NotifyInfo* info);
-        static void OnNodePreDelete(void* param, NotifyInfo* info);        
+        static void OnNodePreDelete(void* param, NotifyInfo* info);
         static void OnNodeClone(void* param, NotifyInfo* info);
         static void OnNodePostMtl(void* param, NotifyInfo* info);
         static void OnSelectionSetChanged(void* param, NotifyInfo* info);
         static void OnNodeUnhide(void* param, NotifyInfo* info);
         static void OnPreMerge(void* param, NotifyInfo* info);
-        static void OnPostMerge(void* param, NotifyInfo* info);        
+        static void OnPostMerge(void* param, NotifyInfo* info);
         static void OnSystemShutdown(void* param, NotifyInfo* info);
         static void OnPreWorkspaceChange(void* param, NotifyInfo* info);
         static void OnPostWorkspaceChange(void* param, NotifyInfo* info);
@@ -96,7 +96,7 @@ namespace Finjin { namespace Exporter {
     public:
         static FinjinGlobalUtilities instance;
 
-    private:        
+    private:
         FinjinGlobalSettings globalSettings;
         CloneState cloneState;
     };

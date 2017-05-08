@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 #if FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_XSI && defined(USE_XSI_CONTROL_STYLE)
     //XSI overrides the default handling of regular text controls, preventing them from rendering properly
     //As a result, we must turn all text controls into a rich text controls and give them a border
@@ -42,9 +42,9 @@ using namespace Finjin::Exporter;
 
     const long ApplicationTextCtrl::DISALLOWED_TEXT_CTRL_FLAGS = 0;
 #endif
-    
 
-//Implementation---------------------------------------------------------------
+
+//Implementation----------------------------------------------------------------
 void ApplicationControls::AdjustContainerBackgroundColor(wxWindow* window)
 {
     wxColor color;
@@ -52,7 +52,7 @@ void ApplicationControls::AdjustContainerBackgroundColor(wxWindow* window)
     {
         window->SetBackgroundStyle(wxBG_STYLE_COLOUR);
         window->SetBackgroundColour(color);
-    }       
+    }
 }
 
 void ApplicationControls::AdjustTextColors(wxWindow* window)
@@ -70,7 +70,7 @@ void ApplicationControls::AdjustTextColors(wxWindow* window)
 void ApplicationControls::AdjustStaticTextForegroundColor(wxWindow* window)
 {
     wxColor color;
-    if (ApplicationAccessor::GetStaticTextForegroundColor(color))    
+    if (ApplicationAccessor::GetStaticTextForegroundColor(color))
         window->SetForegroundColour(color);
 }
 

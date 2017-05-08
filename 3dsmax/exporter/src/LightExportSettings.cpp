@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 LightExportSettings::LightExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Light(scene)
 {
 }
@@ -48,7 +48,7 @@ void LightExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettings
         case OMNI_LIGHT: this->lightType = LightType::POINT_LIGHT; break;
         default: this->lightType = LightType::DIRECTIONAL_LIGHT; break;
     }
-    
+
     //Shadows
     this->castShadows = lightState.shadow ? true : false;
 
@@ -57,7 +57,7 @@ void LightExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettings
 
     //Color
     this->color.Set(lightState.color.r, lightState.color.g, lightState.color.b);
-    
+
     //Range
     float rangeEnd = lightState.attenEnd * finjinExporterContext.GetSceneExportSettings()->scale;
     if (rangeEnd > 0)
@@ -65,7 +65,7 @@ void LightExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettings
         this->range[0] = lightState.attenStart * finjinExporterContext.GetSceneExportSettings()->scale;
         this->range[1] = rangeEnd;
     }
-    
+
     //Spotlight range
     if (this->lightType == LightType::SPOT_LIGHT)
     {

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Various math utility functions. */
@@ -47,7 +47,7 @@ namespace Finjin { namespace Exporter {
         /** Swaps two rows in the specified matrix. */
         static void SwapRow(Matrix3& m, int row1, int row2);
 
-        /** 
+        /**
          * Creates the transformation that can be used to transform normals.
          * @param matrix [in] - The matrix that can be used to transform points.
          */
@@ -55,7 +55,7 @@ namespace Finjin { namespace Exporter {
 
         static Matrix3 GetObjectOffsetTM(INode* node, TimeValue time = 0);
 
-        /** 
+        /**
          * Gets the direction vectors from a transform matrix.
          * @param rotation [in] - The transform matrix.
          * @param rightDirection [out] - The local right direction.
@@ -64,11 +64,11 @@ namespace Finjin { namespace Exporter {
          */
         static void GetDirections
             (
-            const Matrix3& rotation, 
-            Point3& rightDirection, 
+            const Matrix3& rotation,
+            Point3& rightDirection,
             Point3& upDirection,
             Point3& forwardDirection
             );
-    };    
+    };
 
 } }

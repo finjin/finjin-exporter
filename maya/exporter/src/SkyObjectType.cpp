@@ -30,11 +30,11 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void SkyObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     ObjectAccessor parent(MayaUtilities::GetParent(context.object.container));
-        
+
     if (MayaUtilities::IsRoot(parent) && GeometryState::CanHandle(context.object))
         context.AddType(this, context.typeName.empty());
 }

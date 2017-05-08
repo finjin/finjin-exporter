@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshMorpherBase.hpp"
 #include "AutoKeyState.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Extracts morph targets from the blend shapes. */
@@ -33,10 +33,10 @@ namespace Finjin { namespace Exporter {
     public:
         MeshMorpher(GeometryStateBase* geometryState);
         ~MeshMorpher();
-        
+
         void Clear();
-        
-        /** 
+
+        /**
          * Initializes the morpher data.
          * @param object [in] - The object that may contain blend shapes.
          * @param coordinateConverter [in] - The coordinate converter used to convert points.
@@ -44,8 +44,8 @@ namespace Finjin { namespace Exporter {
          */
         bool Initialize
             (
-            MObject object, 
-            const CoordinateSystemConverter& coordinateConverter, 
+            MObject object,
+            const CoordinateSystemConverter& coordinateConverter,
             float scale,
             PrimitiveType meshPrimitiveType
             );
@@ -53,15 +53,15 @@ namespace Finjin { namespace Exporter {
         /** Determines whether there are any morph targets. */
         bool IsValid() const;
 
-        /** 
-         * Enables/disables the morpher. 
+        /**
+         * Enables/disables the morpher.
          * Enabling it means that it has an effect on the target mesh object.
          * Disabling it means that the target mesh data appears as though there is no morpher.
          */
         void Enable(bool enable = true);
 
-        /** 
-         * Disables the morpher. 
+        /**
+         * Disables the morpher.
          * Disabling it means that the target mesh data appears as though there is no morpher.
          */
         void Disable() {Enable(false);}
@@ -75,7 +75,7 @@ namespace Finjin { namespace Exporter {
     private:
         /** Attempts to find the blend shape defoermer. */
         bool FindMeshBlendShapeDeformer(MFnMesh& mesh);
-        
+
         bool HasMorphTarget(ObjectAccessor target) const;
 
         void StartMorphTargets
@@ -84,12 +84,12 @@ namespace Finjin { namespace Exporter {
             MIntArray& weightIndexList,
             std::vector<float>& originalWeights
             );
-        
+
         void FinishMorphTargets
             (
             const std::vector<MDagModifier*>& weightConnectionDagModifiers,
             const MIntArray& indexList,
-            const std::vector<float>& originalWeights            
+            const std::vector<float>& originalWeights
             );
 
     public:
@@ -98,7 +98,7 @@ namespace Finjin { namespace Exporter {
          * can be copied
          */
         std::shared_ptr<MFnBlendShapeDeformer> blendShapeDeformer;
-        
+
     private:
         /** The original envelope value. Needed for restoring. */
         float originalEnvelope;

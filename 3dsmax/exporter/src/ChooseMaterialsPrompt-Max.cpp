@@ -25,21 +25,21 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ChooseMaterialsPrompt::ChooseMaterialsPrompt(wxWindow* parent, HowMany howMany)
 {
     this->parent = parent;
 }
 
-bool ChooseMaterialsPrompt::ShowPrompt() 
+bool ChooseMaterialsPrompt::ShowPrompt()
 {
-    BOOL newMat;  
-    BOOL cancel;    
+    BOOL newMat;
+    BOOL cancel;
     auto sourceMaterial = GetCOREInterface()->DoMaterialBrowseDlg
         (
-        (HWND)this->parent->GetHWND(), 
-        BROWSE_MATSONLY | BROWSE_INSTANCEONLY, 
-        newMat, 
+        (HWND)this->parent->GetHWND(),
+        BROWSE_MATSONLY | BROWSE_INSTANCEONLY,
+        newMat,
         cancel
         );
 
@@ -48,7 +48,7 @@ bool ChooseMaterialsPrompt::ShowPrompt()
         //Do nothing
         sourceMaterial = nullptr;
     }
-    
+
     this->materials.clear();
     if (sourceMaterial != nullptr)
     {

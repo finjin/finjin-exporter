@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A material exporter handler that exports a default material.
      * This is typically used as a fallback whenever an unsupported material is encountered.
      */

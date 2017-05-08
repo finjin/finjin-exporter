@@ -29,15 +29,15 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
-int RenderCubeMapDialog::lastDimensions = 512;        
+//Static initialization---------------------------------------------------------
+int RenderCubeMapDialog::lastDimensions = 512;
 RenderCubeMapDialog::Type RenderCubeMapDialog::lastType = RenderCubeMapDialog::SEPARATE_FILES;
 wxString RenderCubeMapDialog::lastDestinationDirectory;
 wxString RenderCubeMapDialog::lastDestinationBaseFileName;
 wxString RenderCubeMapDialog::lastDestinationFileName;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 RenderCubeMapDialog::RenderCubeMapDialog()
 {
     this->type = lastType;
@@ -99,7 +99,7 @@ INT_PTR RenderCubeMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM lPar
                 case IDOK:
                 {
                     handled = true;
-                    
+
                     GetDlgItemText(IDC_DESTINATION_DIRECTORY_EDIT, this->destinationDirectory);
                     GetDlgItemText(IDC_DESTINATION_BASE_FILE_NAME_EDIT, this->destinationBaseFileName);
                     GetDlgItemText(IDC_DESTINATION_FILE_EDIT, this->destinationFileName);
@@ -143,10 +143,10 @@ INT_PTR RenderCubeMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM lPar
                             SetFocus(GetDlgItem(IDC_DESTINATION_FILE_EDIT));
                             success = false;
                         }
-                    }                    
-                    
+                    }
+
                     if (success)
-                    {                    
+                    {
                         lastType = this->type;
                         lastDimensions = this->dimensions;
                         lastDestinationDirectory = this->destinationDirectory;
@@ -175,7 +175,7 @@ INT_PTR RenderCubeMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM lPar
                         auto directory = dialog.GetPath();
                         SetDlgItemText(IDC_DESTINATION_DIRECTORY_EDIT, directory.wx_str());
                     }
-                    
+
                     break;
                 }
                 case IDC_DESTINATION_FILE_BUTTON:
@@ -188,7 +188,7 @@ INT_PTR RenderCubeMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM lPar
                         FileUtilities::EnsureExtension(file, _T(".dds"));
                         SetDlgItemText(IDC_DESTINATION_FILE_EDIT, file);
                     }
-                        
+
                     break;
                 }
             }

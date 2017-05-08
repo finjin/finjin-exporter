@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Identifiers for all types. */
     class FinjinMayaTypeID
     {
     public:
-        enum 
+        enum
         {
-            SCENE_SETTINGS_NODE = 0x04152149,            
+            SCENE_SETTINGS_NODE = 0x04152149,
             SCENE_SETTINGS_DATA = 0x04152150,
             OBJECT_SETTINGS_DATA = 0x04152151,
-            
+
             CUSTOM_DUMMY_NODE = 0x04152152,
             INSTANCED_GEOMETRY_NODE = 0x04152159,
             STATIC_GEOMETRY_NODE = 0x0415215a

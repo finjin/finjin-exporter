@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void ObjectExportSettings::Initialize
     (
     ObjectAccessor object,
@@ -39,7 +39,7 @@ void ObjectExportSettings::Initialize
     )
 {
     //FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(wxT("ObjectExportSettings::Initialize(%s)"), object.GetLocalName().wx_str());
-    
+
     if (NoneSet(flags & ObjectExportSettingsFlags::IGNORE_LOD))
     {
         objectSettings.GetManualLods(object, this->manualLods);
@@ -50,5 +50,5 @@ void ObjectExportSettings::Initialize
 
             this->manualLodsObjectSettings[manualLodIndex] = sceneSettings.GetObjectSettings(this->manualLods[manualLodIndex].object);
         }
-    }    
+    }
 }

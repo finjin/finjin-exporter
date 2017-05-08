@@ -19,21 +19,21 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 #include "ObjectAccessor.hpp"
 #include "FinjinTimeInterval.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinObjectSettingsAccessorBase;
     class FinjinSceneSettingsAccessorBase;
     struct MeshAnimationType;
     class MeshAnimationTracksDetectorBase;
-    
-    /** 
+
+    /**
      * FinjinMeshAnimationSettingsAccessorBase and the application-specific FinjinMeshAnimationSettingsAccessor
      * classes provide generic access to an Finjin mesh animation settings object.
      */
@@ -63,7 +63,7 @@ namespace Finjin { namespace Exporter {
         virtual FinjinVector3 GetBoneTranslationMask(ObjectAccessor object) = 0;
         virtual int GetAllowExportBoneCount() = 0;
         virtual void GetAllowExportBone(int index, ObjectAccessor& object, bool& allow, bool& recursive) = 0;
-                
+
         virtual void SetTrack(wxString value) = 0;
         virtual void SetAnimationName(wxString value) = 0;
         virtual void SetTimeScaleType(wxString value) = 0;
@@ -84,18 +84,18 @@ namespace Finjin { namespace Exporter {
         virtual void AddBoneTranslationMask(ObjectAccessor object, FinjinVector3 mask) = 0;
         virtual void ClearAllowExportBones() = 0;
         virtual void AddAllowExportBone(ObjectAccessor object, bool allow, bool recursive) = 0;
-        
-        /** Gets the time scale factor. */
-        double GetRealTimeScale();  
 
-        /** 
+        /** Gets the time scale factor. */
+        double GetRealTimeScale();
+
+        /**
          * Determines whether this animation should be generated as a combined morph.
          * @param objectValue [in] - The corresponding object-level (parent) setting. This is used if
          * the mesh animation setting is 'use parent'.
          */
         bool GetGenerateCombinedMorphsValue(bool objectValue);
 
-        /** 
+        /**
          * Determines whether the bone is allowed in this animation, taking into account the
          * hierarchical bone inclusions/exclusions.
          * @param bone [in] - The bone to check.
@@ -115,15 +115,15 @@ namespace Finjin { namespace Exporter {
          */
         void GetSampleTypeAndIntervalValues
             (
-            SampleType& sampleType, 
-            double& sampleInterval, 
-            FinjinObjectSettingsAccessorBase& objectSettings, 
-            FinjinSceneSettingsAccessorBase& sceneSettings, 
+            SampleType& sampleType,
+            double& sampleInterval,
+            FinjinObjectSettingsAccessorBase& objectSettings,
+            FinjinSceneSettingsAccessorBase& sceneSettings,
             MeshAnimationType& meshAnimationType,
             MeshAnimationTracksDetectorBase& tracksDetector
             );
 
-        /** 
+        /**
          * Copies all the settings from the specified source to this animation.
          */
         virtual void CopyFrom(FinjinMeshAnimationSettingsAccessorBase& from);

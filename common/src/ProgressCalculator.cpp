@@ -23,11 +23,11 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ProgressCalculator::ProgressCalculator(ProgressCalculator* parent)
 {
     this->root = (parent != nullptr) ? parent->root : this;
-    this->parent = parent;    
+    this->parent = parent;
     this->progress = 0;
     this->range = 0;
 }
@@ -35,7 +35,7 @@ ProgressCalculator::ProgressCalculator(ProgressCalculator* parent)
 ProgressCalculator::ProgressCalculator(const wxString& name, ProgressCalculator* parent)
 {
     this->root = (parent != nullptr) ? parent->root : this;
-    this->parent = parent;    
+    this->parent = parent;
     this->name = name;
     this->progress = 0;
     this->range = 0;
@@ -53,19 +53,19 @@ const wxString& ProgressCalculator::GetName() const
 
 float ProgressCalculator::GetProgress()
 {
-    if (!this->childCalculators.empty())        
+    if (!this->childCalculators.empty())
     {
         //Reset progress
         this->progress = 0;
 
         //Determine the influence of each child calculator
-        float influence = (float)1.0/this->childCalculators.size();        
+        float influence = (float)1.0/this->childCalculators.size();
 
         //Add the progress of all child calculators
         for (auto calculator : this->childCalculators)
             this->progress += calculator->GetProgress() * influence;
     }
-    
+
     return this->progress;
 }
 
@@ -85,9 +85,9 @@ void ProgressCalculator::Update(float amount)
         //Update the progress, scaling it by the inverse range
         this->progress += amount / this->range;
 
-        //Limit the progress to [0, 1]    
+        //Limit the progress to [0, 1]
         this->progress = std::max(this->progress, (float)0);
-        this->progress = std::min(this->progress, (float)1);    
+        this->progress = std::min(this->progress, (float)1);
 
         ProgressChanged(this);
     }

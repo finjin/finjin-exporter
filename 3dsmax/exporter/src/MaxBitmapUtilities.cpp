@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MaxBitmapUtilities::CopyBitmapInfo(BitmapInfo& destinationBitmapInfo, BitmapInfo& sourceBitmapInfo)
 {
     destinationBitmapInfo.SetWidth(sourceBitmapInfo.Width());
@@ -32,7 +32,7 @@ void MaxBitmapUtilities::CopyBitmapInfo(BitmapInfo& destinationBitmapInfo, Bitma
     destinationBitmapInfo.SetGamma(sourceBitmapInfo.Gamma());
     destinationBitmapInfo.SetType(sourceBitmapInfo.Type());
     destinationBitmapInfo.SetFlags(sourceBitmapInfo.Flags());
-    destinationBitmapInfo.SetCustomFlag(sourceBitmapInfo.GetCustomFlags());    
+    destinationBitmapInfo.SetCustomFlag(sourceBitmapInfo.GetCustomFlags());
 }
 
 void MaxBitmapUtilities::ResizeImage(const wxString& sourceFileName, const wxString& destinationFileName, int width, int height)
@@ -47,24 +47,24 @@ void MaxBitmapUtilities::ResizeImage(const wxString& sourceFileName, const wxStr
         BitmapInfo destinationBitmapInfo;
         CopyBitmapInfo(destinationBitmapInfo, sourceBitmapInfo);
         destinationBitmapInfo.SetWidth(width);
-        destinationBitmapInfo.SetHeight(height);        
+        destinationBitmapInfo.SetHeight(height);
         destinationBitmapInfo.SetName(destinationFileName.wx_str());
         std::unique_ptr<Bitmap, DeleteThisDeleter<Bitmap> > destinationBitmap(TheManager->Create(&destinationBitmapInfo));
-        
+
         //Locate the device for the destination file format
         int sourceDeviceIndex = TheManager->ioList.ResolveDevice(&sourceBitmapInfo);
-        int destinationDeviceIndex = TheManager->ioList.ResolveDevice(&destinationBitmapInfo);        
+        int destinationDeviceIndex = TheManager->ioList.ResolveDevice(&destinationBitmapInfo);
         if (sourceDeviceIndex != -1 && destinationDeviceIndex != -1)
         {
             //Create the device so that we can get its default settings
             std::shared_ptr<BitmapIO> sourceIO(TheManager->ioList.CreateDevInstance(sourceDeviceIndex));
             std::shared_ptr<BitmapIO> destinationIO;
-            if (sourceDeviceIndex == destinationDeviceIndex) 
+            if (sourceDeviceIndex == destinationDeviceIndex)
                 destinationIO = sourceIO;
             else
                 destinationIO.reset(TheManager->ioList.CreateDevInstance(destinationDeviceIndex));
             if (sourceIO != nullptr && destinationIO != nullptr)
-            {              
+            {
                 //Get the number of bytes required by the configuration
                 DWORD piSizeSource = sourceIO->EvaluateConfigure();
                 DWORD piSizeDestination = (destinationDeviceIndex == sourceDeviceIndex) ? piSizeSource : destinationIO->EvaluateConfigure();
@@ -90,7 +90,7 @@ void MaxBitmapUtilities::ResizeImage(const wxString& sourceFileName, const wxStr
                         destinationBitmap->WriteAll();
                         destinationBitmap->CloseAll();
                     }
-                }                
+                }
             }
         }
     }
@@ -107,7 +107,7 @@ void MaxBitmapUtilities::SaveBitmap(Bitmap* bitmap, BitmapInfo& bitmapInfo, bool
             //Create the device so that we can get its default settings
             std::unique_ptr<BitmapIO> io(TheManager->ioList.CreateDevInstance(deviceIndex));
             if (io != nullptr)
-            {              
+            {
                 //Get the number of bytes required by the configuration
                 DWORD piSize = io->EvaluateConfigure();
                 if (piSize > 0)
@@ -122,7 +122,7 @@ void MaxBitmapUtilities::SaveBitmap(Bitmap* bitmap, BitmapInfo& bitmapInfo, bool
                     {
                         //Write the frames
                         bitmap->WriteAll();
-                        
+
                         //Close the output
                         bitmap->CloseAll();
                     }
@@ -136,7 +136,7 @@ void MaxBitmapUtilities::SaveBitmap(Bitmap* bitmap, BitmapInfo& bitmapInfo, bool
         {
             //Write the frames
             bitmap->WriteAll();
-            
+
             //Close the output
             bitmap->CloseAll();
         }

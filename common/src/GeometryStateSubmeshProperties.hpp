@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectExportSettings.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
@@ -28,7 +28,7 @@
 #include "finjin/common/WxNumericStruct.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     enum class MeshAnimationFlags
@@ -56,7 +56,7 @@ namespace Finjin { namespace Exporter {
          */
         GeometryStateSubmeshProperties();
 
-        /** 
+        /**
          * Initializes the submesh properties.
          * @param object [in] - The object that the submesh is derived from.
          * @param objectSettings [in] - Settings for the object.
@@ -65,11 +65,11 @@ namespace Finjin { namespace Exporter {
         void Initialize
             (
             ObjectAccessor object,
-            FinjinObjectSettingsAccessor objectSettings, 
+            FinjinObjectSettingsAccessor objectSettings,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
-        /** 
+        /**
          * Initializes the submesh properties.
          * @param object [in] - The object that the submesh is derived from.
          * @param objectSettings [in] - Settings for the object.
@@ -79,12 +79,12 @@ namespace Finjin { namespace Exporter {
         void Initialize
             (
             ObjectAccessor object,
-            FinjinObjectSettingsAccessor objectSettings, 
+            FinjinObjectSettingsAccessor objectSettings,
             const ObjectExportSettings& objectExportSettings,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
-        /** 
+        /**
          * Initializes the submesh properties.
          * @param object [in] - The object that the submesh is derived from.
          * @param objectSettings [in] - Settings for the object.
@@ -94,12 +94,12 @@ namespace Finjin { namespace Exporter {
         void Initialize
             (
             ObjectAccessor object,
-            FinjinObjectSettingsAccessor objectSettings, 
+            FinjinObjectSettingsAccessor objectSettings,
             const ObjectExportSettings* objectExportSettings,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
-        /** 
+        /**
          * Merges other submesh properties into this set of properties.
          * Before calling this, you must make sure that merging is valid by calling MatchesForMerge().
          * @param other [in/out] - The other properties to merge into this set of properties. This might have some of its
@@ -107,14 +107,14 @@ namespace Finjin { namespace Exporter {
          */
         void Merge(GeometryStateSubmeshProperties& other);
 
-        /** 
+        /**
          * Determines whether the specified properties can be merged into this set of properties.
-         */ 
+         */
         bool MatchesForMerge(const GeometryStateSubmeshProperties& other);
 
-        /** 
+        /**
          * Determines whether the specified properties appear to be an instance of this set of properties.
-         */ 
+         */
         bool MatchesForInstancing(const GeometryStateSubmeshProperties& other);
 
         /** Indicates whether vertex colors are exportable. */
@@ -128,14 +128,14 @@ namespace Finjin { namespace Exporter {
 
         typedef std::vector<unsigned short> TextureCoordSetDimensionArray;
 
-        /** Sets the dimensions for the texture coordinate sets in the submesh. */         
+        /** Sets the dimensions for the texture coordinate sets in the submesh. */
         void SetTextureCoordinateSetDimensions(const TextureCoordSetDimensionArray& textureCoordSetDimensions);
 
         /** Indicates whether the submesh is animated in some way. */
         bool IsAnimated() const;
 
-        /** 
-         * Indicates whether the submesh has an animation type that can be merged with another submesh. 
+        /**
+         * Indicates whether the submesh has an animation type that can be merged with another submesh.
          * @param other [in] - The properties of a submesh to potentially merge with.
          */
         bool HasMergableAnimation(const GeometryStateSubmeshProperties& other) const;
@@ -148,19 +148,19 @@ namespace Finjin { namespace Exporter {
         float pointSize;
         wxString vertexFormatName;
         std::vector<WxGpuVertexFormatStruct::Element> vertexFormatElements;
-        bool exportVertexColors;        
+        bool exportVertexColors;
         bool hasVertexColors;
         bool has2DTextureCoordinates;
         bool hasNormals;
         bool generateTangents;
         bool generateBinormals;
         ManualLods manualLods;
-        
+
         std::set<wxString> morphTargetNames;
         ObjectAccessorSet bones;
 
         /** The dimensions of each texture coordinate set */
-        TextureCoordSetDimensionArray textureCoordSetDimensions; 
+        TextureCoordSetDimensionArray textureCoordSetDimensions;
 
         bool useCustomSubmeshes;
         wxString renderQueueName;

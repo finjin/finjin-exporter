@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 SkyExportSettings::SkyExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Sky(scene)
 {
 }

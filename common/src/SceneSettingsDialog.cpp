@@ -38,19 +38,19 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 int SceneSettingsDialog::lastPageSelection = 0;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(SceneSettingsDialog, FinjinDialog)
-    EVT_CLOSE(SceneSettingsDialog::OnCloseWindow)        
+    EVT_CLOSE(SceneSettingsDialog::OnCloseWindow)
     EVT_BUTTON(wxID_OK, SceneSettingsDialog::OnOK)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, SceneSettingsDialog::OnNotebookPageChanged)
 END_EVENT_TABLE()
 
 SceneSettingsDialog::SceneSettingsDialog()
-{   
+{
 }
 
 SceneSettingsDialog::SceneSettingsDialog(wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, int initialPageIndex, const wxString& initialPageTitle)
@@ -75,13 +75,13 @@ void SceneSettingsDialog::CreateControls(int initialPageIndex, const wxString& i
     wxButton* closeButton;
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
 
     wxBoxSizer* tabPagesSizer = nullptr;
-    int tabControlProportion = 1;        
-    
+    int tabControlProportion = 1;
+
     this->initializingPages = true;
     tabControl = new TabControl( this, wxID_ANY, wxDefaultPosition, DEFAULT_TAB_CONTROL_SIZE, 0);
     ApplicationControls::AdjustContainerBackgroundColor(tabControl);
@@ -94,27 +94,27 @@ void SceneSettingsDialog::CreateControls(int initialPageIndex, const wxString& i
 
     //Select the initial page
     ChangeToPage(initialPageIndex, initialPageTitle);
-        
+
     //Finish adding tab control(s) to the dialog
     topSizer->Add( tabControl, tabControlProportion, wxEXPAND | wxALL | TAB_CONTROL_SIZER_FLAGS, 5 );
     if (tabPagesSizer != nullptr)
         topSizer->Add( tabPagesSizer, 1, wxEXPAND | wxDOWN | wxRIGHT | wxLEFT, 5);
-    
+
     wxGridSizer* bottomSizer;
     bottomSizer = new wxGridSizer( 1, 1, 0, 0 );
-    
+
     closeButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     bottomSizer->Add( closeButton, 0, wxALIGN_RIGHT|wxDOWN | wxRIGHT | wxLEFT, 5 );
-    
+
     topSizer->Add( bottomSizer, 0, wxEXPAND, 5 );
-    
+
     SetGUIData();
 
     SetSizer(topSizer);
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
-        Layout();        
+        Layout();
         Centre(wxBOTH);
     }
 
@@ -138,7 +138,7 @@ void SceneSettingsDialog::ChangeToPage(int index, const wxString& title)
     if (index < 0)
         index = lastPageSelection;
     index = std::max(0, index);
-    
+
     //Set initial page
     this->pages.ChangeSelection(index);
 }
@@ -146,7 +146,7 @@ void SceneSettingsDialog::ChangeToPage(int index, const wxString& title)
 void SceneSettingsDialog::OnCloseWindow(wxCloseEvent& event)
 {
     WindowPlacementManager::SavePlacement(this);
-    EndModal(wxID_OK);    
+    EndModal(wxID_OK);
 }
 
 void SceneSettingsDialog::OnOK(wxCommandEvent& event)
@@ -178,7 +178,7 @@ int SceneSettingsDialog::GetGUIData()
                 return (int)pageIndex;
         }
     }
-    
+
     return -1;
 }
 

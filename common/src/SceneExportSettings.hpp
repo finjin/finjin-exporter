@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "CoordinateSystemConverter.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "finjin/common/WxStreamingFileFormat.hpp"
@@ -30,7 +30,7 @@
 #include "AssetReference.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     enum class SceneExportSettingsFlags
@@ -54,8 +54,8 @@ namespace Finjin { namespace Exporter {
 
         bool HasCurrentFileFormat() const;
         void NextFileFormat();
-        WxStreamingFileFormat GetCurrentFileFormat() const;        
-        wxString GetCurrentAssetDirectory(AssetClass assetType) const;        
+        WxStreamingFileFormat GetCurrentFileFormat() const;
+        wxString GetCurrentAssetDirectory(AssetClass assetType) const;
 
         wxString GetMaterialName(MaterialAccessor material) const;
         wxString GetAssetName(ExportableObject* exportableObject, GeometryStateBase* geometryState) const;
@@ -81,7 +81,7 @@ namespace Finjin { namespace Exporter {
         AssetReference GetAssetReference(AssetClass assetType, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, EmbeddedAndLinkingHint hint = EmbeddedAndLinkingHint()) const;
         AssetReference GetAssetReference(AssetClass assetType, const wxString& objectName, EmbeddedAndLinkingHint hint = EmbeddedAndLinkingHint()) const;
         AssetReference GetAssetFileReference(AssetClass assetType, const AssetPaths& fileName, EmbeddedAndLinkingHint hint = EmbeddedAndLinkingHint()) const;
-        
+
         void AppendAssetExtension(wxString& s, AssetClass assetType) const;
 
         AssetPaths GetAssetFilePaths(AssetClass assetType, const wxString& objectName, EmbeddedAndLinkingHint hint = EmbeddedAndLinkingHint()) const;
@@ -89,19 +89,19 @@ namespace Finjin { namespace Exporter {
 
         static bool ChunkNameToAssetType(const WxChunkName& chunkName, AssetClass& assetType);
         static WxChunkPropertyName AssetTypeToAssetReferencePropertyName(AssetClass assetType);
-    
+
     public:
 
         struct FormatData
         {
             WxStreamingFileFormat fileFormat;
 
-            EnumValues<AssetClass, AssetClass::COUNT, wxString> assetDirectories;
+            EnumArray<AssetClass, AssetClass::COUNT, wxString> assetDirectories;
         };
 
         AssetClass defaultAssetType;
         StaticVector<FormatData, (size_t)WxStreamingFileFormat::COUNT> fileFormats;
-        
+
         /** The export time. */
         TimeAccessor time;
 
@@ -123,7 +123,7 @@ namespace Finjin { namespace Exporter {
         StaticVector<AssetClass, (size_t)AssetClass::COUNT> embeddedAssetTypes;
 
         bool includeParentMaterialInName;
-        
+
         ByteOrder byteOrder;
 
     private:
@@ -139,7 +139,7 @@ namespace Finjin { namespace Exporter {
 
     public:
         size_t objectIndex;
-        SceneExportSettings* sceneExportSettings;    
+        SceneExportSettings* sceneExportSettings;
     };
 
 } }

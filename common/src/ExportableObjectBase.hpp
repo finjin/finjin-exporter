@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 #include "AccessorSetAndMap.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ExportableObject;
@@ -32,7 +32,7 @@ namespace Finjin { namespace Exporter {
 
     /** A shared ExportableObject pointer */
     typedef std::shared_ptr<ExportableObject> ExportableObjectPtr;
-    
+
     /** Maps application objects to their corresponding shared ExportableObject pointer */
     typedef AccessorMap<ObjectAccessor, ExportableObjectPtr> ExportableObjectMap;
 

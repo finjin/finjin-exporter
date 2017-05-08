@@ -26,12 +26,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ResourceDialog::ResourceDialog()
 {
     this->hDlg = nullptr;
     this->oldUserData = 0;
-    this->oldWndProc = nullptr;    
+    this->oldWndProc = nullptr;
 }
 
 ResourceDialog::~ResourceDialog()
@@ -45,8 +45,8 @@ INT_PTR ResourceDialog::DoModal(int dialogID, HWND hWndParent)
 
     return DialogBoxParam
         (
-        wxGetInstance(), 
-        MAKEINTRESOURCE(dialogID), 
+        wxGetInstance(),
+        MAKEINTRESOURCE(dialogID),
         hWndParent,
         DialogProcCallback,
         (LPARAM)this
@@ -63,7 +63,7 @@ void ResourceDialog::Attach(HWND hDlg)
 
     //Replace user data and procedure
     SetWindowLongPtr(hDlg, GWLP_USERDATA, (LONG_PTR)this);
-    SetWindowLongPtr(hDlg, GWLP_WNDPROC, (LONG_PTR)DialogProcCallback);    
+    SetWindowLongPtr(hDlg, GWLP_WNDPROC, (LONG_PTR)DialogProcCallback);
 }
 
 bool ResourceDialog::GetGUIData()
@@ -107,14 +107,14 @@ INT_PTR CALLBACK ResourceDialog::DialogProcCallback(HWND hDlg, UINT message, WPA
     {
         //Restore old window user data and procedure
         SetWindowLongPtr(dialog->hDlg, GWLP_USERDATA, (LONG_PTR)dialog->oldUserData);
-        SetWindowLongPtr(dialog->hDlg, GWLP_WNDPROC, (LONG_PTR)dialog->oldWndProc);    
- 
+        SetWindowLongPtr(dialog->hDlg, GWLP_WNDPROC, (LONG_PTR)dialog->oldWndProc);
+
         //Call old window procedure
         result = dialog->oldWndProc(dialog->hDlg, message, wParam, lParam);
-        
+
         //Replace user data and procedure
         SetWindowLongPtr(dialog->hDlg, GWLP_USERDATA, (LONG_PTR)dialog);
-        SetWindowLongPtr(dialog->hDlg, GWLP_WNDPROC, (LONG_PTR)DialogProcCallback);    
+        SetWindowLongPtr(dialog->hDlg, GWLP_WNDPROC, (LONG_PTR)DialogProcCallback);
     }
 
     return result;
@@ -149,7 +149,7 @@ wxString ResourceDialog::GetDlgItemText(int idControl)
 
 void ResourceDialog::GetDlgItemText(int idControl, wxString& text)
 {
-    MaxControlUtilities::GetWindowText(GetDlgItem(idControl), text);    
+    MaxControlUtilities::GetWindowText(GetDlgItem(idControl), text);
 }
 
 void ResourceDialog::SetDlgItemText(int idControl, const wxString& text)

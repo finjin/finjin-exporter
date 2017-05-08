@@ -19,23 +19,23 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class LogFileDialog : public FinjinDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         ApplicationTextCtrl* logText;
         wxButton* originalFileButton;
         wxButton* okButton;
-    
+
     public:
         /** The method used to monitor the log file. */
         enum class MonitorMethod
@@ -54,12 +54,12 @@ namespace Finjin { namespace Exporter {
          */
         LogFileDialog(wxWindow* parent, const wxString& fileName, MonitorMethod monitorMethod);
 
-        ~LogFileDialog();        
+        ~LogFileDialog();
 
         void OnOK(wxCommandEvent& event);
         void OnCloseWindow(wxCloseEvent& event);
 
-        /** 
+        /**
          * Shows the dialog modelessly.
          * @param show [in] - If true, the dialog is shown. Otherwise, the dialog is hidden.
          * @return Indicates whether the dialog was shown.
@@ -71,7 +71,7 @@ namespace Finjin { namespace Exporter {
 
     private:
         wxString fileName;
-        
+
         MonitorMethod monitorMethod;
 
     #if defined(__WXMSW__)

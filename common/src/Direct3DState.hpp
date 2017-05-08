@@ -21,7 +21,7 @@
 #if defined(FINJIN_EXPORTER_ENABLE_D3D_FUNCTIONALITY)
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Handles the initialization and shutdown of a Direct3D interface. */
@@ -33,7 +33,7 @@ namespace Finjin { namespace Exporter {
 
         /** Destructor. */
         virtual ~Direct3DState();
-         
+
         bool Create();
         void Destroy();
 

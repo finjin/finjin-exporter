@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Object filter types. 
+    /**
+     * Object filter types.
      */
     enum class ObjectFilterType
     {
@@ -34,7 +34,7 @@ namespace Finjin { namespace Exporter {
         LIGHT = 1 << 3,
         OTHER = 1 << 4,
         RENDERABLE = MESH | PLANE | OTHER,
-        ALL = MESH | PLANE | CAMERA | LIGHT | OTHER        
+        ALL = MESH | PLANE | CAMERA | LIGHT | OTHER
     };
     FINJIN_ENUM_BITWISE_OPERATIONS(ObjectFilterType)
 

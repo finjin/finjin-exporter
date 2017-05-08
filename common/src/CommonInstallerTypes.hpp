@@ -50,7 +50,7 @@
 #include <wx/event.h>
 #include <wx/control.h>
 #include <wx/radiobut.h>
-#include <wx/app.h>    
+#include <wx/app.h>
 #include <wx/dir.h>
 #include <wx/file.h>
 #include <wx/mimetype.h>
@@ -58,7 +58,7 @@
 #include <wx/tokenzr.h>
 
 
-//Types------------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 enum class InstallationMode
 {
     INSTALL,
@@ -78,7 +78,7 @@ struct BuildVersion
     BuildVersion()
     {
     #if defined(_WIN64) || defined(__LP64__)
-        this->directoryName = wxT("x64");                
+        this->directoryName = wxT("x64");
     #elif defined(__WXMSW__)
         this->directoryName = wxT("Win32");
     #else
@@ -97,21 +97,21 @@ struct FileVersion
 
 inline wxString FormatDirectoryName
     (
-    const ApplicationVersion& appVersion, 
+    const ApplicationVersion& appVersion,
     const BuildVersion& buildVersion
     )
 {
     return wxString::Format
         (
-        wxT("%s-%s"), 
-        appVersion.directoryName.wx_str(), 
+        wxT("%s-%s"),
+        appVersion.directoryName.wx_str(),
         buildVersion.directoryName.wx_str()
         );
 }
 
 inline wxString FormatFileName
     (
-    const FileVersion& fileVersion, 
+    const FileVersion& fileVersion,
     const BuildVersion& buildVersion
     )
 {
@@ -121,9 +121,9 @@ inline wxString FormatFileName
 
     return wxString::Format
         (
-        wxT("%s-%s.%s"), 
-        name.wx_str(), 
-        buildVersion.directoryName.wx_str(), 
+        wxT("%s-%s.%s"),
+        name.wx_str(),
+        buildVersion.directoryName.wx_str(),
         ext.wx_str()
         );
 }

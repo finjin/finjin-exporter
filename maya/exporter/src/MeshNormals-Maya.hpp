@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshNormalsBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -35,8 +35,8 @@ namespace Finjin { namespace Exporter {
     public:
         MeshNormals();
         MeshNormals(MFnMesh& mesh, const CoordinateSystemConverter& coordinateConverter);
-        
-        void Create(MFnMesh& mesh, const CoordinateSystemConverter& coordinateConverter);    
+
+        void Create(MFnMesh& mesh, const CoordinateSystemConverter& coordinateConverter);
     };
 
 } }

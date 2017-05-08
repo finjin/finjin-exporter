@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is a submesh within another mesh. */
@@ -38,8 +38,8 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("submesh")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Submesh")); return name;}    
-            bool IsMerged() const override {return true;}            
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Submesh")); return name;}
+            bool IsMerged() const override {return true;}
         };
 
         static Descriptor& GetTypeDescriptor()

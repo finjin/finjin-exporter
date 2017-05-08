@@ -19,10 +19,10 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Expands the macros in the 'before export' and 'after export' area of the
      * events page in the Scene Settings dialog. This expansion is done during export.
      */
@@ -33,9 +33,9 @@ namespace Finjin { namespace Exporter {
 
         /** Finalizes the initialization of the macros. */
         void Finalize();
-        
-        /** 
-         * Expands the macros specified in the text. 
+
+        /**
+         * Expands the macros specified in the text.
          * @return If all of the patterns of the form $(PATTERN) are replaced, true is returned. Otherwise, false is returned.
          */
         bool Expand(wxString& text);

@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshMorpherBase::MeshMorpherBase(GeometryStateBase* geometryState)
 {
     this->geometryState = geometryState;
@@ -79,7 +79,7 @@ void MeshMorpherBase::FinishCreate()
                 subtarget.reset(new MeshMorphTarget::Subtarget);
                 subtarget->submesh = submesh.get();
                 subtarget->offsets.reserve(submesh->indices.size());
-                
+
                 for (size_t vertexIndex = 0; vertexIndex < this->geometryState->meshPositions.size(); vertexIndex++)
                 {
                     if (submesh->ContainsVertex((int)vertexIndex))
@@ -90,7 +90,7 @@ void MeshMorpherBase::FinishCreate()
                             auto& originalIndices = submesh->addedOriginalIndices[reindexedVertex[reindexed]];
                             MeshMorphTarget::Offset offset
                                 (
-                                reindexedVertex[reindexed], 
+                                reindexedVertex[reindexed],
                                 morphTarget->creationPositions[vertexIndex],
                                 morphTarget->creationNormals.GetNormal(originalIndices.cornerIndex, originalIndices.vertexIndex, originalIndices.faceIndex, originalIndices.smoothingGroups),
                                 morphTarget->creationNormals.GetTangent(originalIndices.cornerIndex, originalIndices.vertexIndex, originalIndices.faceIndex, originalIndices.smoothingGroups),
@@ -98,9 +98,9 @@ void MeshMorpherBase::FinishCreate()
                                 this->geometryState->meshNormals.GetNormal(originalIndices.cornerIndex, originalIndices.vertexIndex, originalIndices.faceIndex, originalIndices.smoothingGroups),
                                 this->geometryState->meshNormals.GetTangent(originalIndices.cornerIndex, originalIndices.vertexIndex, originalIndices.faceIndex, originalIndices.smoothingGroups)
                                 );
-                            subtarget->offsets.push_back(offset); 
+                            subtarget->offsets.push_back(offset);
                         }
-                    }                    
+                    }
                 }
             }
         }
@@ -120,7 +120,7 @@ void MeshMorpherBase::SampleMorphTargetInfluences(MorphTargetInfluences& targetI
     for (auto morphTarget : this->morphTargets)
     {
         MorphTargetInfluence targetInfluence;
-        targetInfluence.target = morphTarget.get();            
+        targetInfluence.target = morphTarget.get();
         targetInfluence.influence = targetInfluence.target->GetInfluence(sampleTime);
         if (forceAllTargets || targetInfluence.influence > 0)
             targetInfluences.push_back(targetInfluence);

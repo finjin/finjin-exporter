@@ -19,24 +19,24 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Environment page for the scene settings dialog. */
-    class SceneSettingsDialog_EnvironmentPage : public SettingsPage 
+    class SceneSettingsDialog_EnvironmentPage : public SettingsPage
     {
     private:
         DECLARE_EVENT_TABLE()
 
     protected:
         wxCheckBox* exportCheckbox;
-        
+
         wxStaticText* ambientLightColorLabel;
         Finjin::Exporter::ColorPickerControl* ambientLightColor;
         ApplicationChoiceCtrl* ambientLightColorSyncChoice;
@@ -47,12 +47,12 @@ namespace Finjin { namespace Exporter {
         SpinnerControl* nearDistanceSpinner;
         wxStaticText* farLabel;
         wxRadioButton* farDistanceButton;
-        SpinnerControl* farDistanceSpinner;        
+        SpinnerControl* farDistanceSpinner;
         wxRadioButton* farBoxObjectButton;
         ApplicationTextCtrl* farBoxObjectText;
         wxButton* chooseFarBoxObjectButton;
         wxStaticText* fogModeLabel;
-        ApplicationChoiceCtrl* fogModeChoice;        
+        ApplicationChoiceCtrl* fogModeChoice;
         wxStaticText* fogDensityLabel;
         SpinnerControl* fogDensitySpinner;
         wxStaticText* fogStartLabel;
@@ -71,11 +71,11 @@ namespace Finjin { namespace Exporter {
 
         FinjinSceneSettingsAccessor sceneSettings;
 
-        ObjectAccessor environmentFarObject;        
-        
+        ObjectAccessor environmentFarObject;
+
     public:
         SceneSettingsDialog_EnvironmentPage( wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 485,614 ), long style = wxTAB_TRAVERSAL );
-        ~SceneSettingsDialog_EnvironmentPage();    
+        ~SceneSettingsDialog_EnvironmentPage();
 
         bool GetGUIData() override;
         bool SetGUIData() override;
@@ -98,14 +98,14 @@ namespace Finjin { namespace Exporter {
             FOG_DENSITY_SPINNER,
             FOG_COLOR,
             SHADOW_COLOR,
-            SHADOW_FAR_DISTANCE_SPINNER            
+            SHADOW_FAR_DISTANCE_SPINNER
         };
 
         void OnBackgroundColorChanged(wxColourPickerEvent& event);
         void OnBackgroundColorSyncChoice(wxCommandEvent& event);
         void OnAmbientLightColorChanged(wxColourPickerEvent& event);
         void OnAmbientLightColorSyncChoice(wxCommandEvent& event);
-        void OnNearDistanceSpinner(SpinnerControlEvent& event);        
+        void OnNearDistanceSpinner(SpinnerControlEvent& event);
         void OnFarDistanceRadioButton(wxCommandEvent& event);
         void OnFarBoxObjectRadioButton(wxCommandEvent& event);
         void OnFarDistanceSpinner(SpinnerControlEvent& event);
@@ -118,14 +118,14 @@ namespace Finjin { namespace Exporter {
         void OnFogColorChanged(wxColourPickerEvent& event);
         void OnShadowColorChanged(wxColourPickerEvent& event);
         void OnShadowFarDistanceSpinner(SpinnerControlEvent& event);
-        
+
         static const wxString TITLE;
 
     private:
         void UpdateAmbientLightColorControls(bool syncChanged = false);
         void UpdateBackgroundColorControls(bool syncChanged = false);
         void UpdateFogModeControls(bool syncChanged = false);
-        
+
         ObjectAccessor GetEnvironmentObject();
     };
 

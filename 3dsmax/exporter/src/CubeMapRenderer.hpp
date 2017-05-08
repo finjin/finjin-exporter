@@ -20,7 +20,7 @@
 
 #if defined(FINJIN_EXPORTER_ENABLE_D3D_FUNCTIONALITY)
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Renders a cube map to a file or files. */
@@ -28,26 +28,26 @@ namespace Finjin { namespace Exporter {
     {
     public:
         CubeMapRenderer();
-        
-        /** 
+
+        /**
          * Sets the node that serves as the center point from which the rendering takes place.
-         * @param node [in] - The node to set. This may be null. If null (the default), the 
+         * @param node [in] - The node to set. This may be null. If null (the default), the
          * rendering takes place from (0,0,0).
          */
         void SetCenterNode(INode* node);
 
-        /** 
+        /**
          * Performs the render.
          * @param fileName [in] - The file to which the cube map is rendered.
          * @param dimensions [in] - The dimensions of a cube map face.
-         * @param separateFiles [in] - Indicates whether the cube map faces are 
-         * rendered to separate files. If true, the output files are named with the following 
-         * suffixes: _fr, _bk, _up, _dn, _lf, _rt. If false, all cube map faces are saved in a DDS file, 
+         * @param separateFiles [in] - Indicates whether the cube map faces are
+         * rendered to separate files. If true, the output files are named with the following
+         * suffixes: _fr, _bk, _up, _dn, _lf, _rt. If false, all cube map faces are saved in a DDS file,
          * regardless of the input file's extension.
          */
         void RenderToFile
             (
-            const wxString& fileName, 
+            const wxString& fileName,
             int dimensions,
             bool separateFiles
             );

@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Logs a debug message upon creation and destruction.
      * This is used to log the entry and exit of functions.
      */
     class MethodEntry
     {
     public:
-        /** 
+        /**
          * Constructor that logs a message.
          * @param format [in] - The message format string. This should resemble the signature of the function
          * from which it is called.
@@ -46,8 +46,8 @@ namespace Finjin { namespace Exporter {
 
 } }
 
-//#define FINJIN_EXPORTER_LOG_METHOD_ENTRY(message) 
-//#define FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(format, ...) 
+//#define FINJIN_EXPORTER_LOG_METHOD_ENTRY(message)
+//#define FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(format, ...)
 
 #define FINJIN_EXPORTER_LOG_METHOD_ENTRY(message) MethodEntry methodEntry(message);
 #define FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(format, ...) MethodEntry methodEntry(wxString::Format(format, __VA_ARGS__));

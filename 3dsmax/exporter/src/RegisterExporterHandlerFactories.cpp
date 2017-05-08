@@ -25,12 +25,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void RegisterExporterHandlerFactories()
 {
     Exporter::ClearHandlerFactories();
 
     //Note that the default factory always goes first
 
-    Exporter::RegisterHandlerFactory(FinjinSceneExporterHandlerFactory::GetInstance());    
+    Exporter::RegisterHandlerFactory(FinjinSceneExporterHandlerFactory::GetInstance());
 }

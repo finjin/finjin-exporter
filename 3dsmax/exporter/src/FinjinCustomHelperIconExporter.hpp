@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** 3DS Max's entry point for the Finjin Exporter. */
     class FinjinCustomHelperIconExporter : public SceneExport
     {
     public:
         FinjinCustomHelperIconExporter();
-        
+
         int ExtCount();
         const TCHAR* Ext(int n);
 
@@ -35,11 +35,11 @@ namespace Finjin { namespace Exporter {
         const TCHAR* ShortDesc();
 
         const TCHAR* AuthorName();
-        
+
         const TCHAR* CopyrightMessage();
 
-        const TCHAR* OtherMessage1(); 
-        const TCHAR* OtherMessage2(); 
+        const TCHAR* OtherMessage1();
+        const TCHAR* OtherMessage2();
 
         unsigned int Version();
 
@@ -47,21 +47,21 @@ namespace Finjin { namespace Exporter {
 
         int DoExport
             (
-            const TCHAR* fileName, 
-            ExpInterface* exportInterface, 
-            Interface* maxInterface, 
-            BOOL suppressPrompts = FALSE, 
+            const TCHAR* fileName,
+            ExpInterface* exportInterface,
+            Interface* maxInterface,
+            BOOL suppressPrompts = FALSE,
             DWORD options = 0
             );
-        
+
         BOOL SupportsOptions(int ext, DWORD options);
 
         static ClassDesc* GetClassDesc();
-        
+
     protected:
         void SaveIcon(INode* node, const wxString& fileName);
         bool IsNodeMesh(INode* node);
-        
+
     protected:
         TimeValue time;                //the current time slider value
         Interface* maxInterface;

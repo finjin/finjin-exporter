@@ -25,20 +25,20 @@ def getfiles(ext):
     for f in files:
         if os.path.splitext(f)[1] == ext:
             result.append(f)
-    return result            
-    
+    return result
+
 if __name__ == '__main__':
     #Modify this to match the Maya installation you are using during development
     templatesdirectory = 'C:\\Program Files\\Autodesk\\Maya2011\\scripts\\AETemplates\\'
-    
+
     scriptfiles = getfiles('.mel')
 
-    regexp = re.compile('(AEFinjin|Finjin|Template|\.mel)')    
+    regexp = re.compile('(AEFinjin|Finjin|Template|\.mel)')
 
     for scriptfile in scriptfiles:
         outfilename =  'Install' + scriptfile + '.bat'
         outfilename = regexp.sub('', outfilename)
-        
+
         outfile = open(outfilename, 'wt')
         outfile.write('copy %s "%s"\n' % (scriptfile, templatesdirectory))
         outfile.close()

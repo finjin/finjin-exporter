@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshMorpher::MeshMorpher(GeometryStateBase* geometryState) : MeshMorpherBase(geometryState)
 {
 }
@@ -43,22 +43,22 @@ bool MeshMorpher::Initialize(INode* maxNode, const CoordinateSystemConverter& co
 
     this->morpherModifier = MaxUtilities::FindMorpherModifier(maxNode);
     if (this->morpherModifier.IsValid())
-    {    
+    {
         //Get the morph targets
         MaxMorphModifier actualMorpherModifier(this->morpherModifier.modifier);
-        
+
         auto channelCount = (size_t)actualMorpherModifier.NumMorphChannels();
         for (size_t channelIndex = 0; channelIndex < channelCount; channelIndex++)
         {
             auto channel = actualMorpherModifier.GetMorphChannel((int)channelIndex);
             auto morphPointCount = (size_t)channel.NumMorphPoints();
             auto morphTargetNode = channel.GetMorphTarget();
-            
+
             if (channel.IsActive() && morphTargetNode != nullptr)
             {
                 MeshMorphTargetPtr morphTarget(new MeshMorphTarget(channel.GetMorphWeightController()));
                 AddMorphTarget(morphTarget);
-                
+
                 if (morphTargetNode != nullptr)
                 {
                     //The channel references an object in the scene
@@ -108,7 +108,7 @@ bool MeshMorpher::Initialize(INode* maxNode, const CoordinateSystemConverter& co
                             point *= scale;
 
                             morphTarget->creationPositions[pointIndex].Set(point.x, point.y, point.z);
-                            coordinateConverter.ConvertPoint(morphTarget->creationPositions[pointIndex]);                                                    
+                            coordinateConverter.ConvertPoint(morphTarget->creationPositions[pointIndex]);
                         }
                     }
                 }

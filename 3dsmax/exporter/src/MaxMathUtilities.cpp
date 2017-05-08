@@ -23,10 +23,10 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
-/** 
- * Gets the transpose of the specified matrix. 
- * Due to the fact that 3DS Max uses 4x3 matrices, the returned matrix 
+//Local functions---------------------------------------------------------------
+/**
+ * Gets the transpose of the specified matrix.
+ * Due to the fact that 3DS Max uses 4x3 matrices, the returned matrix
  * does not contain translation components.
  */
 static Matrix3 Transpose(const Matrix3& matrix)
@@ -36,16 +36,16 @@ static Matrix3 Transpose(const Matrix3& matrix)
 
     for (int rowIndex = 0; rowIndex < 3; rowIndex++)
     {
-        row = Point4(matrix.GetRow(rowIndex), 0); 
+        row = Point4(matrix.GetRow(rowIndex), 0);
         transpose.SetColumn(rowIndex, row);
     }
-        
+
     return transpose;
 }
 
-/** 
- * Gets the inverse-transpose of the specified matrix. 
- * Due to the fact that 3DS Max uses 4x3 matrices, the returned matrix 
+/**
+ * Gets the inverse-transpose of the specified matrix.
+ * Due to the fact that 3DS Max uses 4x3 matrices, the returned matrix
  * does not contain translation components.
  */
 static Matrix3 InverseTranspose(const Matrix3& worldMatrix)
@@ -55,7 +55,7 @@ static Matrix3 InverseTranspose(const Matrix3& worldMatrix)
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 float MaxMathUtilities::Average(const Point3& xyz)
 {
     return (xyz.x + xyz.y + xyz.z) / 3;
@@ -113,19 +113,19 @@ Matrix3 MaxMathUtilities::CreateNormalTM(const Matrix3& matrix)
 Matrix3 MaxMathUtilities::GetObjectOffsetTM(INode* node, TimeValue t)
 {
     Matrix3 objectTM;
-    /*if (node->GetObjTMAfterWSM(t).IsIdentity()) 
-        objectTM = Inverse(node->GetObjTMBeforeWSM(t)); 
+    /*if (node->GetObjTMAfterWSM(t).IsIdentity())
+        objectTM = Inverse(node->GetObjTMBeforeWSM(t));
     else*/
-        objectTM = node->GetObjectTM(t); 
-    
+        objectTM = node->GetObjectTM(t);
+
     Matrix3 objectOffsetTM = objectTM * Inverse(node->GetNodeTM(t));
     return objectOffsetTM;
 }
 
 void MaxMathUtilities::GetDirections
     (
-    const Matrix3& rotation, 
-    Point3& rightDirection, 
+    const Matrix3& rotation,
+    Point3& rightDirection,
     Point3& upDirection,
     Point3& forwardDirection
     )

@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Various functions for dealing with bitmaps in 3DS Max. */
     class MaxBitmapUtilities
     {
     public:
-        /** 
+        /**
          * Copies various bitmap properties from one location to another.
          * This is needed because the default '=' operator doesn't copy
          * everything that is needed.
@@ -36,14 +36,14 @@ namespace Finjin { namespace Exporter {
         /**
          * Resizes an image file and saves the resized image to a new file.
          * @param sourceFileName [in] - The file to resize.
-         * @param destinationFileName [in] - The destination for the resized image. 
+         * @param destinationFileName [in] - The destination for the resized image.
          * This file name can have a different type (extension) than the source.
          * @param width [in] - The new resized width.
          * @param height [in] - The new resized height.
          */
         static void ResizeImage(const wxString& sourceFileName, const wxString& destinationFileName, int width, int height);
 
-        /** 
+        /**
          * Saves the specified bitmap to a file.
          * @param bitmap [in] - The bitmap to save.
          * @param bitmapInfo [in] - Bitmap information, including the destination file path.

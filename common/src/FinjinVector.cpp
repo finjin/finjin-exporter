@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const FinjinVector3 FinjinVector3::UNIT_X(1, 0, 0);
 const FinjinVector3 FinjinVector3::UNIT_Y(0, 1, 0);
 const FinjinVector3 FinjinVector3::UNIT_Z(0, 0, 1);

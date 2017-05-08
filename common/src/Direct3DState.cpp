@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 Direct3DState::Direct3DState()
 {
     this->d3d = nullptr;
@@ -51,14 +51,14 @@ bool Direct3DState::Create()
     d3dPresent.BackBufferFormat = D3DFMT_X8R8G8B8;
     d3dPresent.SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dPresent.hDeviceWindow = hWnd;
-    d3dPresent.Windowed = TRUE;    
+    d3dPresent.Windowed = TRUE;
     auto hr = this->d3d->CreateDevice
         (
-        D3DADAPTER_DEFAULT, 
-        D3DDEVTYPE_HAL, 
+        D3DADAPTER_DEFAULT,
+        D3DDEVTYPE_HAL,
         hWnd,
-        D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_FPU_PRESERVE, 
-        &d3dPresent, 
+        D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_FPU_PRESERVE,
+        &d3dPresent,
         &this->d3dDevice
         );
 

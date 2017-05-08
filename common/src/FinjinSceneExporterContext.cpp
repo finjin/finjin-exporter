@@ -53,17 +53,17 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinSceneExporterContext::FinjinSceneExporterContext(ExporterHandler* handler, FinjinSceneSettingsAccessor sceneSettings, SceneExportSettings* sceneExportSettings, FinjinSceneExporterContextFlags flags) :
     ExporterContext(handler, sceneSettings, sceneExportSettings)
 {
     this->scene = nullptr;
-    this->flags = flags;    
+    this->flags = flags;
     this->dataChunkWriter = nullptr;
 }
 
 FinjinSceneExporterContext::~FinjinSceneExporterContext()
-{    
+{
 }
 
 void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool exportSelected)
@@ -92,7 +92,7 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
 
         MaterialAccessorVector additionalMaterials;
         additionalMaterial.Expand(additionalMaterials);
-        
+
         for (size_t expandedMaterialIndex = 0; expandedMaterialIndex < additionalMaterials.size(); expandedMaterialIndex++)
             AddMaterial(additionalMaterials[expandedMaterialIndex]);
     }
@@ -103,9 +103,9 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
         exportedScene = exportableObjectRoot->detectedObjectType->Export(exportableObjectRoot, *this);
     if (exportedScene != nullptr)
     {
-        std::unordered_set<GeometryState*> exportedGeometryStates;    
+        std::unordered_set<GeometryState*> exportedGeometryStates;
         for (auto& exportedGeometry : this->exportedGeometries)
-        {   
+        {
             if (exportedGeometry.geometryState == nullptr ||
                 exportedGeometry.geometryState->submeshes.empty() ||
                 exportedGeometryStates.find(exportedGeometry.geometryState) != exportedGeometryStates.end())
@@ -139,7 +139,7 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
         writerSettings.customHeader = [](WxDataChunkWriter& writer, WxError& error)
         {
             FINJIN_WX_ERROR_METHOD_START(error);
-            
+
             if (FinjinGlobalSettings::GetInstance().GetExportAnyDocumentCreationData())
             {
                 writer.WriteChunk(StandardAssetDocumentChunkNames::DOCUMENT_CREATION, [](WxDataChunkWriter& writer, WxError& error)
@@ -183,7 +183,7 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                         }
                     }
-            
+
                     //Timestamp
                     if (globalSettings.exportExportTime)
                     {
@@ -198,20 +198,20 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
 
         auto sceneObjectName = FileUtilities::GetFileNameNoExtension(exportFileName);
         ExporterUtilities::FixObjectName(sceneObjectName);
-            
+
         for (; this->sceneExportSettings->HasCurrentFileFormat(); this->sceneExportSettings->NextFileFormat())
         {
-            auto currentFileFormat = this->sceneExportSettings->GetCurrentFileFormat();            
+            auto currentFileFormat = this->sceneExportSettings->GetCurrentFileFormat();
             FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, Strings::EXPORTING_FILE_FORMAT_FORMAT, WxStreamingFileFormatUtilities::ToString(currentFileFormat).wx_str());
 
             SceneDataChunkWriterController chunkWriterController(this->sceneExportSettings);
 
-            auto exportSceneFileNamesForFormat = this->sceneExportSettings->GetAssetFilePaths(this->sceneExportSettings->defaultAssetType, sceneObjectName);            
+            auto exportSceneFileNamesForFormat = this->sceneExportSettings->GetAssetFilePaths(this->sceneExportSettings->defaultAssetType, sceneObjectName);
             auto dataChunkWriter = WxStreamingFileFormatUtilities::CreateFileWriter(exportSceneFileNamesForFormat.absolutePath, currentFileFormat, writerSettings, chunkWriterController, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
             dataChunkWriter->SetContextStringProcessor(WxDataChunkWriter::ContextIndex::OBJECT_NAME, ExporterUtilities::FixObjectName);
-            
+
             this->dataChunkWriter = dataChunkWriter.get();
             this->dataChunkWriter->WriteWriterHeader(error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -230,9 +230,9 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
                     MaterialExporter materialExporter;
                     materialExporter.SetProgressCalculator(this->materialsProgress);
                     materialExporter.SetBitmapsProgressCalculator(this->bitmapsProgress);
-                
+
                     materialExporter.Export(*this->dataChunkWriter, this->materialHandlerMap, this->sceneSettings, *this->sceneExportSettings);
-                
+
                     materialExporter.ExportBitmaps(*this->dataChunkWriter, this->sceneSettings, *this->sceneExportSettings, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }
@@ -270,15 +270,15 @@ void FinjinSceneExporterContext::RunExport(const wxString& exportFileName, bool 
                     }, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }
-            
+
                 //Scene graph
                 exportedScene->Write(*this->dataChunkWriter, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }, error);
-            FINJIN_WX_DEFAULT_ERROR_CHECK(error)            
+            FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
             this->dataChunkWriter = nullptr;
-        }        
+        }
     }
 
     FinishProgress();
@@ -289,19 +289,19 @@ void FinjinSceneExporterContext::StartProgress(ExportableObject* rootObject)
     this->objectGraphProgress = this->sceneProgress.AddCalculator(wxT("scene object"));
     int objectCount = GetExportableChildCount(rootObject);
     this->objectGraphProgress->SetRange(objectCount);
-    
+
     this->meshesProgress = this->sceneProgress.AddCalculator(wxT("mesh"));
 
     if (this->sceneSettings.GetExportMaterials())
         this->materialsProgress = this->sceneProgress.AddCalculator(wxT("material"));
     else
         this->materialsProgress = nullptr;
-    
+
     if (this->sceneExportSettings->copyBitmaps || this->sceneExportSettings->IsEmbeddedAssetType(AssetClass::TEXTURE))
         this->bitmapsProgress = this->sceneProgress.AddCalculator(wxT("bitmap"));
     else
         this->bitmapsProgress = nullptr;
-    
+
     this->sceneProgress.AddProgressChangeListener(this);
 }
 
@@ -318,7 +318,7 @@ void FinjinSceneExporterContext::StartSceneExport(FinjinSceneDocument* scene)
     if (this->scene == nullptr)
         return;
 
-    //Scene settings----------------------------------------    
+    //Scene settings----------------------------------------
     this->scene->id = this->sceneSettings.GetUserID();
     this->scene->userData = this->sceneSettings.GetUserData();
     this->scene->sceneManager = this->sceneSettings.GetSceneManager();
@@ -327,19 +327,19 @@ void FinjinSceneExporterContext::StartSceneExport(FinjinSceneDocument* scene)
     ApplicationAccessor::GetScale(this->scene->unitType);
     if (this->scene->unitType.empty())
         this->scene->unitType = ApplicationAccessor::GetDefaultUnitType();
-    
+
     auto scaleDivide = this->sceneSettings.GetSceneScaleDivide();
     if (!MathUtilities::AlmostZero(scaleDivide) && !MathUtilities::AlmostZero(1 - scaleDivide))
     {
         //Scale divider is not the default value
         this->scene->unitType += wxT("/");
-        this->scene->unitType += StringUtilities::ToString(scaleDivide);        
+        this->scene->unitType += StringUtilities::ToString(scaleDivide);
     }
 
     //Flags-----------------------------
     if (this->sceneSettings.GetExportFlags())
         ExporterUtilities::ExportFlags(*this->scene, this->sceneSettings);
-    
+
     //Environment--------------------------------------------
     if (this->sceneSettings.GetExportEnvironment())
     {
@@ -351,7 +351,7 @@ void FinjinSceneExporterContext::StartSceneExport(FinjinSceneDocument* scene)
 
         //Background color
         environment->backgroundColor = this->sceneSettings.GetBackgroundColorValue();
-        
+
         //Environment range
         float rangeFar = 0.0f;
         {
@@ -371,7 +371,7 @@ void FinjinSceneExporterContext::StartSceneExport(FinjinSceneDocument* scene)
             std::unique_ptr<FinjinSceneDocument_Fog> fog(new FinjinSceneDocument_Fog(this->scene, fogMode, fogDensity, fogStart, fogEnd, fogColor));
             environment->SetFog(std::move(fog));
         }
-        
+
         //Shadows
         {
             auto shadows = ExporterUtilities::ExportShadows(*this->scene, this->sceneSettings, *this->sceneExportSettings);
@@ -381,7 +381,7 @@ void FinjinSceneExporterContext::StartSceneExport(FinjinSceneDocument* scene)
 }
 
 void FinjinSceneExporterContext::FinishSceneExport()
-{    
+{
 }
 
 void FinjinSceneExporterContext::AddMaterial(MaterialAccessor material)
@@ -408,19 +408,19 @@ void FinjinSceneExporterContext::ProgressChanged(ProgressCalculator* progress)
 {
     int itemIndex = RoundToInt(progress->GetProgress() * progress->GetRange());
     int itemTotal = RoundToInt(progress->GetRange());
-    
+
     wxString message;
     if (!progress->GetName().empty())
     {
         message = wxString::Format
             (
-            wxT("Exporting %s %d of %d"), 
-            progress->GetName().wx_str(), 
-            itemIndex, 
+            wxT("Exporting %s %d of %d"),
+            progress->GetName().wx_str(),
+            itemIndex,
             itemTotal
             );
     }
-    
+
     if (ProgressDialog::GetInstance() != nullptr)
     {
         ProgressDialog::GetInstance()->UpdateProgress(this->sceneProgress.GetProgress(), progress->GetProgress());
@@ -434,15 +434,15 @@ void FinjinSceneExporterContext::ProgressChanged(ProgressCalculator* progress)
 
         /*ApplicationAccessor::LogMessage
             (
-            "%s...progress: %f, total progress: %f", 
+            "%s...progress: %f, total progress: %f",
             message.wx_str(),
-            progress->GetProgress(), 
+            progress->GetProgress(),
             this->sceneProgress.GetProgress()
             );*/
     }
     else
     {
-        //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, "Total progress: 1");        
+        //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, "Total progress: 1");
     }
 }
 
@@ -464,7 +464,7 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
     //Get the geometry
     GeometryState* geometryState = nullptr;
     auto geometryFlags = GeometryStateFlags::NONE;
-    if ((parentGeometry != nullptr && parentGeometry->meshSkeleton.IsValid()) || 
+    if ((parentGeometry != nullptr && parentGeometry->meshSkeleton.IsValid()) ||
         exportableObject->objectSettings.GetExportSkeleton() ||
         !exportableObject->objectSettings.GetExportedMeshDeformedBySkeleton())
     {
@@ -492,23 +492,23 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
     if ((geometryState != nullptr && geometryState->Create
             (
             exportableObject->objectSettings.GetMeshName(),
-            exportableObject->object, 
-            this->sceneExportSettings->conversionManager, 
-            this->sceneExportSettings->scale, 
-            referencePose.type == SkeletonReferencePose::SPECIFIC_TIME ? referencePose.time : this->sceneExportSettings->time, 
+            exportableObject->object,
+            this->sceneExportSettings->conversionManager,
+            this->sceneExportSettings->scale,
+            referencePose.type == SkeletonReferencePose::SPECIFIC_TIME ? referencePose.time : this->sceneExportSettings->time,
             geometryFlags,
             useCustomTextureCoordinateSets ? &submeshesSettings : nullptr,
             &referencePose
             )) ||
         !createGeometryStates)
-    {        
+    {
         //Try to find matching vertex formats for the submeshes
         for (auto submesh : geometryState->submeshes)
         {
             submesh->submeshProperties.vertexFormatName = FinjinResourceManager::GetInstance().FindVertexFormatName(submesh->submeshProperties.vertexFormatElements);
         }
 
-        //Convert manual LOD meshes 
+        //Convert manual LOD meshes
         if (manualLods != nullptr)
             manualLods->reserve(exportableObject->objectExportSettings.manualLods.size());
         for (size_t i = 0; i < exportableObject->objectExportSettings.manualLods.size(); i++)
@@ -522,7 +522,7 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
             {
                 if (manualLods != nullptr)
                     manualLods->push_back(manualLod);
-                
+
                 //Associate the exported object with the geometry that was used
                 ExportedGeometry exportedGeometry(exportableLodObjectPtr.get(), manualLod.geometryState, nullptr, this->sceneSettings, this->sceneExportSettings);
                 this->exportedGeometries.push_back(exportedGeometry);
@@ -532,17 +532,17 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
         if (geometryState != nullptr)
         {
             //Evaluate the mesh animations
-            meshAnimationEval.Evaluate(geometryState, exportableObject->objectSettings, exportableObject->objectExportSettings);        
+            meshAnimationEval.Evaluate(geometryState, exportableObject->objectSettings, exportableObject->objectExportSettings);
             geometryState->UpdateAnimationData
                 (
-                exportableObject->objectSettings.GetExportSkeleton(), 
+                exportableObject->objectSettings.GetExportSkeleton(),
                 exportableObject->objectSettings.GetExportPoses()
                 );
 
             //Update bounding volumes
             if (this->sceneSettings.GetAnimateBoundingVolumes() || exportableObject->objectSettings.GetAnimateBoundingVolumes())
                 geometryState->AnimateBoundingVolumes(meshAnimationEval.allSampleTimes, this->sceneExportSettings->conversionManager, this->sceneExportSettings->scale, 0, exportableObject->objectSettings.GetAnimatedRoot());
-            
+
             //Merge all mergable meshes
             for (auto& mergedSource : exportableObject->mergedObjects)
             {
@@ -560,7 +560,7 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
             //{
                 //TransformAccessor objectOffsetTransformation(exportableObject->object.GetObjectOffsetTransformation(this->sceneExportSettings->time), this->sceneExportSettings->conversionManager, this->sceneExportSettings->scale);
                 //geometryState->TransformVertices(objectOffsetTransformation);
-            //}    
+            //}
         }
 
         //Get all submesh materials
@@ -584,7 +584,7 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
             GeometryState::GetSubmeshesSettings(exportableObject->object, submeshesSettings, geometryFlags);
             if (submeshMaterials != nullptr)
                 submeshMaterials->reserve(submeshesSettings.size());
-            
+
             for (size_t i = 0; i < submeshesSettings.size(); i++)
             {
                 //Add material to scene's collection
@@ -620,8 +620,8 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
                     //There is no match
                     //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, wxT("No match"));
 
-                    //Save the geometry state        
-                    this->geometryStates.push_back(std::shared_ptr<GeometryState>(geometryState));            
+                    //Save the geometry state
+                    this->geometryStates.push_back(std::shared_ptr<GeometryState>(geometryState));
                 }
             }
         }
@@ -636,7 +636,7 @@ GeometryState* FinjinSceneExporterContext::GetOrCreateGeometry
 }
 
 ExportedGeometry* FinjinSceneExporterContext::FindOriginalInstance(GeometryState* geometryState)
-{    
+{
     float tolerance = 0.001f;
 
     for (auto& exportedGeometry : this->exportedGeometries)
@@ -673,18 +673,18 @@ int FinjinSceneExporterContext::GetExportableChildCount(ExportableObject* object
                 if (childPtr->objectSettings.IsValid())
                     count += GetExportableChildCount(childPtr.get());
             }
-        }   
+        }
     }
 
     return count;
 }
 
 bool FinjinSceneExporterContext::ShouldIgnoreObject(ExportableObject* exportableObject, bool rebuildingObjectGraph)
-{        
+{
     if (exportableObject->object.IsRoot())
         return false;
 
-    return 
+    return
         !exportableObject->objectSettings.IsValid() ||
         (!rebuildingObjectGraph && exportableObject->IsConsumedByParent()) ||
         (this->sceneSettings.GetIgnoreHiddenObjects() && !exportableObject->object.IsVisible()) ||
@@ -698,7 +698,7 @@ bool FinjinSceneExporterContext::ShouldIgnoreChildren(ExportableObject* exportab
     if (exportableObject->object.IsRoot())
         return false;
 
-    return 
+    return
         !exportableObject->objectSettings.IsValid() ||
         (exportableObject->objectSettings.IsValid() && exportableObject->objectSettings.GetIgnoreChildren()) ||
         exportableObject->detectedObjectType->GetDescriptor().ConsumesAllChildren();
@@ -718,11 +718,11 @@ void FinjinSceneExporterContext::GetItemSettings(FinjinSceneDocument_Item* item,
     item->id = objectSettings.GetUserID();
 
     //User data
-    item->userData = objectSettings.GetUserData();    
+    item->userData = objectSettings.GetUserData();
 
     //Note tracks
     objectSettings.GetNoteTracks(object, item->noteTracks);
-    
+
     //Child order
     item->childOrder = objectSettings.GetChildOrder();
 
@@ -732,11 +732,11 @@ void FinjinSceneExporterContext::GetItemSettings(FinjinSceneDocument_Item* item,
 
 void FinjinSceneExporterContext::GetMovableObjectSettings
     (
-    FinjinSceneDocument_MovableObject* movableObject, 
+    FinjinSceneDocument_MovableObject* movableObject,
     ObjectAccessor object,
     FinjinObjectSettingsAccessor objectSettings,
-    TimeAccessor time, 
-    CoordinateSystemConverter& conversionManager, 
+    TimeAccessor time,
+    CoordinateSystemConverter& conversionManager,
     float scale
     )
 {
@@ -748,11 +748,11 @@ void FinjinSceneExporterContext::GetMovableObjectSettings
 
 void FinjinSceneExporterContext::GetRenderableObjectSettings
     (
-    FinjinSceneDocument_RenderableMovableObject* renderableObject, 
+    FinjinSceneDocument_RenderableMovableObject* renderableObject,
     ObjectAccessor object,
     FinjinObjectSettingsAccessor objectSettings,
-    TimeAccessor time, 
-    CoordinateSystemConverter& conversionManager, 
+    TimeAccessor time,
+    CoordinateSystemConverter& conversionManager,
     float scale
     )
 {
@@ -773,11 +773,11 @@ void FinjinSceneExporterContext::GetRenderableObjectSettings
             renderableObject->visibility = FinjinSceneDocument_RenderableMovableObject::OBJECT_HIDDEN;
         }
     }
-    
+
     //Render queue
     renderableObject->renderQueue = objectSettings.GetRenderQueueName();
     renderableObject->renderPriority = objectSettings.GetRenderPriority();
-    
+
     //Rendering distance
     renderableObject->renderingDistance = objectSettings.GetRenderingDistance() * this->sceneExportSettings->scale;
 
@@ -797,8 +797,8 @@ void FinjinSceneExporterContext::GenerateNodeAnimations(FinjinSceneDocument_Item
     {
         AnimationExportSettings animationSettings
             (
-            nodeAnimationSettings[animationIndex], 
-            exportableObject->objectSettings.GetNodeAnimationSampleInterval(), 
+            nodeAnimationSettings[animationIndex],
+            exportableObject->objectSettings.GetNodeAnimationSampleInterval(),
             this->sceneSettings.GetNodeAnimationSampleInterval(),
             FinjinGlobalSettings::GetInstance().nodeAnimationSampleInterval
             );
@@ -806,7 +806,7 @@ void FinjinSceneExporterContext::GenerateNodeAnimations(FinjinSceneDocument_Item
         //Create the animation
         std::shared_ptr<FinjinSceneDocument_NodeAnimation> createdAnimation(new FinjinSceneDocument_NodeAnimation(item->sceneDocument));
         item->AddChildItem(createdAnimation);
-        
+
         //Name
         createdAnimation->name = animationSettings.name;
 
@@ -823,7 +823,7 @@ void FinjinSceneExporterContext::GenerateNodeAnimations(FinjinSceneDocument_Item
         //Generate sample times
         std::vector<WxTimeDuration> sampleTimes;
         AnimationUtilities::GetSampledKeyTimes(sampleTimes, animationSettings.timeInterval, animationSettings.sampleInterval);
-        
+
         //Add keys
         createdAnimation->keys.resize(sampleTimes.size());
         for (size_t sampleIndex = 0; sampleIndex < sampleTimes.size(); sampleIndex++)

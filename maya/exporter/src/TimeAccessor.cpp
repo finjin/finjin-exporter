@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 TimeAccessor::TimeAccessor()
 {
     this->t.setUnit(MTime::kSeconds);

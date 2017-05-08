@@ -26,9 +26,9 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ChooseObjectsDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, ChooseObjectsDialog::OnOK)    
+    EVT_BUTTON(wxID_OK, ChooseObjectsDialog::OnOK)
     EVT_TEXT(ChooseObjectsDialog::NAME_TEXT, ChooseObjectsDialog::OnNameTextChanged)
     EVT_CHECKBOX(ChooseObjectsDialog::SHOW_FULL_NAMES_CHECKBOX, ChooseObjectsDialog::OnShowFullNamesCheckBox)
     EVT_LISTBOX_DCLICK(ChooseObjectsDialog::OBJECTS_LIST, ChooseObjectsDialog::OnObjectsListDClick)
@@ -44,15 +44,15 @@ END_EVENT_TABLE()
 
 ChooseObjectsDialog::ChooseObjectsDialog
     (
-    wxWindow* parent, 
-    bool singleSelection, 
-    ObjectFilterType types, 
+    wxWindow* parent,
+    bool singleSelection,
+    ObjectFilterType types,
     const ObjectAccessorSet* chooseObjects,
     const ObjectAccessorSet* excludeObjects,
-    wxWindowID id, 
-    const wxString& title, 
+    wxWindowID id,
+    const wxString& title,
     const wxPoint& pos
-    ) 
+    )
     : FinjinDialog( parent, id, !title.empty() ? title : (singleSelection ? wxString(wxT("Choose Object")) : wxString(wxT("Choose Objects"))), pos, wxSize( 380,456 ), wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER, wxT("ChooseObjectsDialog"))
 {
     this->filteredSceneObjects.SetTypes(types);
@@ -62,24 +62,24 @@ ChooseObjectsDialog::ChooseObjectsDialog
         this->filteredSceneObjects.SetExcludeObjects(*excludeObjects);
 
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* nameSizer;
     nameSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     nameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
     nameLabel->Wrap( -1 );
     nameSizer->Add( nameLabel, 0, wxALL, 5 );
-    
+
     nameTextBox = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
     nameTextBox->SetMinSize( wxSize( 200,-1 ) );
-    
+
     nameSizer->Add( nameTextBox, 1, wxEXPAND|wxBOTTOM|wxLEFT, 5 );
-    
+
     topSizer->Add( nameSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* objectsListSizer;
     objectsListSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -89,74 +89,74 @@ ChooseObjectsDialog::ChooseObjectsDialog
     showFullNamesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Show Full Names"), wxDefaultPosition, wxDefaultSize, 0 );
     listBoxSizer->Add( showFullNamesCheckbox, 0, wxLEFT|wxTOP, 5 );
     showFullNamesCheckbox->Show(ApplicationAccessor::UsesFullNames());
-    
+
     long selectionStyle = singleSelection ? wxLB_SINGLE : wxLB_MULTIPLE;
-    objectsListBox = new ApplicationListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_NEEDED_SB|selectionStyle ); 
+    objectsListBox = new ApplicationListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_NEEDED_SB|selectionStyle );
     objectsListBox->SetMinSize( wxSize( 200,250 ) );
-    
+
     listBoxSizer->Add( objectsListBox, 1, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
 
     objectsListSizer->Add( listBoxSizer, 1, wxEXPAND, 5 );
-    
+
     wxStaticBoxSizer* typesSizer;
     typesSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Types") ), wxVERTICAL );
-    
-    typesSizer->SetMinSize( wxSize( 110,-1 ) ); 
+
+    typesSizer->SetMinSize( wxSize( 110,-1 ) );
     meshesCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Meshes"), wxDefaultPosition, wxDefaultSize, 0 );
     meshesCheckBox->Show(AnySet(types & ObjectFilterType::MESH));
-    
+
     typesSizer->Add( meshesCheckBox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 
     planesCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Planes"), wxDefaultPosition, wxDefaultSize, 0 );
     planesCheckBox->Show(AnySet(types & ObjectFilterType::PLANE));
-    
+
     typesSizer->Add( planesCheckBox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     lightsCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Lights"), wxDefaultPosition, wxDefaultSize, 0 );
     lightsCheckBox->Show(AnySet(types & ObjectFilterType::LIGHT));
-    
+
     typesSizer->Add( lightsCheckBox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     camerasCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Cameras"), wxDefaultPosition, wxDefaultSize, 0 );
     camerasCheckBox->Show(AnySet(types & ObjectFilterType::CAMERA));
-    
+
     typesSizer->Add( camerasCheckBox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 
     otherCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Other"), wxDefaultPosition, wxDefaultSize, 0 );
     otherCheckBox->Show(AnySet(types & ObjectFilterType::OTHER));
-    
+
     typesSizer->Add( otherCheckBox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     objectsListSizer->Add( typesSizer, 0, wxEXPAND, 5 );
-    
+
     topSizer->Add( objectsListSizer, 1, wxEXPAND|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* buttonsSizer;
     buttonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     allButton = new wxButton( this, wxID_ANY, wxT("All"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( allButton, 0, wxALL, 5 );
-    
+
     noneButton = new wxButton( this, wxID_ANY, wxT("None"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( noneButton, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
-    
+
     invertButton = new wxButton( this, wxID_ANY, wxT("Invert"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( invertButton, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
-    
+
     if (singleSelection)
         buttonsSizer->Show(false);
 
     topSizer->Add( buttonsSizer, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT, 5 );
 
     this->nameTextBox->SetId(NAME_TEXT);
@@ -170,12 +170,12 @@ ChooseObjectsDialog::ChooseObjectsDialog
     this->lightsCheckBox->SetId(LIGHTS_CHECKBOX);
     this->camerasCheckBox->SetId(CAMERAS_CHECKBOX);
     this->otherCheckBox->SetId(OTHER_CHECKBOX);
-    
+
     SetGUIData();
 
     this->SetSizer( topSizer );
     this->SetMinSize(wxSize(380, 456));
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         this->Layout();
@@ -188,11 +188,11 @@ ChooseObjectsDialog::~ChooseObjectsDialog()
 }
 
 void ChooseObjectsDialog::SetGUIData()
-{   
+{
     //Check the appropriate checkboxes
     this->meshesCheckBox->SetValue(this->meshesCheckBox->IsShown());
     this->planesCheckBox->SetValue(this->planesCheckBox->IsShown());
-    this->lightsCheckBox->SetValue(this->lightsCheckBox->IsShown());        
+    this->lightsCheckBox->SetValue(this->lightsCheckBox->IsShown());
     this->camerasCheckBox->SetValue(this->camerasCheckBox->IsShown());
     this->otherCheckBox->SetValue(this->otherCheckBox->IsShown());
 
@@ -231,7 +231,7 @@ void ChooseObjectsDialog::FilterObjects(bool saveSelection)
 
     //Clear list box and filtered objects
     this->objectsListBox->Clear();
-    
+
     //Determine which types are currently selected
     auto typeFilter = ObjectFilterType::NONE;
     if (this->meshesCheckBox->GetValue())
@@ -256,7 +256,7 @@ void ChooseObjectsDialog::FilterObjects(bool saveSelection)
     for (size_t i = 0; i < this->filteredSceneObjects.size(); i++)
     {
         auto& filteredObject = this->filteredSceneObjects[i];
-        
+
         //Check type
         if (AnySet(filteredObject.type & typeFilter))
         {
@@ -268,12 +268,12 @@ void ChooseObjectsDialog::FilterObjects(bool saveSelection)
             {
                 int insertedAt = this->objectsListBox->Append(useFullNames ? object.GetFullName() : object.GetLocalName());
                 this->objectsListBox->SetClientData(insertedAt, &filteredObject);
-                
+
                 //Save index in selected objects array
                 if (std::find(selectedObjects.begin(), selectedObjects.end(), filteredObject) != selectedObjects.end())
                     selections.push_back((int)i);
             }
-        }        
+        }
     }
 
     if (saveSelection)
@@ -304,7 +304,7 @@ void ChooseObjectsDialog::HandleOK()
         if (selection >= 0)
         {
             this->chosenObjects.resize(1);
-            FilteredSceneObjects::FilteredObject* chosenObject = 
+            FilteredSceneObjects::FilteredObject* chosenObject =
                 (FilteredSceneObjects::FilteredObject*)this->objectsListBox->GetClientData(selection);
             this->chosenObjects[0] = chosenObject->object;
         }
@@ -317,7 +317,7 @@ void ChooseObjectsDialog::HandleOK()
         this->chosenObjects.resize(selections.GetCount());
         for (int i = 0; i < (int)selections.GetCount(); i++)
         {
-            FilteredSceneObjects::FilteredObject* chosenObject = 
+            FilteredSceneObjects::FilteredObject* chosenObject =
                 (FilteredSceneObjects::FilteredObject*)this->objectsListBox->GetClientData(selections[i]);
             this->chosenObjects[i] = chosenObject->object;
         }
@@ -341,7 +341,7 @@ void ChooseObjectsDialog::OnShowFullNamesCheckBox(wxCommandEvent& event)
 }
 
 void ChooseObjectsDialog::OnObjectsListDClick(wxCommandEvent& event)
-{    
+{
     HandleOK();
     EndModal(wxID_OK);
 }

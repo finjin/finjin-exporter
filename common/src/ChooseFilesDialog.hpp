@@ -19,31 +19,31 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "ObjectFilterType.hpp"
 #include "FilteredSceneObjects.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A dialog that displays files and allows the user to select them
-     * This is useful in situations where you don't want the 
+     * This is useful in situations where you don't want the
      */
     class ChooseFilesDialog : public FinjinDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* nameLabel;
         ApplicationTextCtrl* nameTextBox;
         wxListBox* filesListBox;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         struct FileName
         {
@@ -53,16 +53,16 @@ namespace Finjin { namespace Exporter {
 
         ChooseFilesDialog
             (
-            wxWindow* parent, 
-            bool singleSelection = true, 
+            wxWindow* parent,
+            bool singleSelection = true,
             const std::vector<FileName>* chooseFiles = nullptr,
             const wxString* chooseDirectory = nullptr,
             const std::vector<wxString>* chooseExtensions = nullptr,
-            wxWindowID id = wxID_ANY, 
-            const wxString& title = wxEmptyString, 
+            wxWindowID id = wxID_ANY,
+            const wxString& title = wxEmptyString,
             const wxPoint& pos = wxDefaultPosition
             );
-        ~ChooseFilesDialog();        
+        ~ChooseFilesDialog();
 
         enum
         {
@@ -73,7 +73,7 @@ namespace Finjin { namespace Exporter {
         void OnOK(wxCommandEvent& event);
         void OnNameTextChanged(wxCommandEvent& event);
         void OnFilesListDClick(wxCommandEvent& event);
-        
+
         void SetGUIData();
 
     private:
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
         std::vector<FileName> chosenFileNames;
 
     private:
-        std::vector<FileName> allFileNames;        
+        std::vector<FileName> allFileNames;
     };
 
 } }

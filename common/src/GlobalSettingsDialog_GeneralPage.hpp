@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GlobalSettingsDialog_GeneralPage : public SettingsPage
@@ -58,14 +58,14 @@ namespace Finjin { namespace Exporter {
         wxStaticText* exportDirectoryLabel;
         ApplicationTextCtrl* exportDirectoryText;
         wxRadioButton* finjinViewerButton;
-        wxCheckBox* runExternalViewerAfterExportCheckbox;        
+        wxCheckBox* runExternalViewerAfterExportCheckbox;
 
     public:
         GlobalSettingsDialog_GeneralPage(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
         ~GlobalSettingsDialog_GeneralPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
 
@@ -74,8 +74,8 @@ namespace Finjin { namespace Exporter {
         {
             FINJIN_VIEWER_RADIO_BUTTON
         };
-        
-        void OnFinjinViewerRadioButton(wxCommandEvent& event);        
+
+        void OnFinjinViewerRadioButton(wxCommandEvent& event);
     };
 
 } }

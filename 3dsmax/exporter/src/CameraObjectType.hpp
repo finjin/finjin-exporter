@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is a camera. */
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("camera")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Camera")); return name;}  
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Camera")); return name;}
             bool CanAttachToNode() const override {return true;}
             bool IsCamera() const override {return true;}
             bool IsMovableObject() const override {return true;}

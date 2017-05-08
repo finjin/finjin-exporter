@@ -25,13 +25,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 TransformAccessor::TransformAccessor() : transform(TRUE)
 {
     decomp_affine(this->transform, &this->affineParts);
 }
 
-TransformAccessor::TransformAccessor(const Matrix3& transform) 
+TransformAccessor::TransformAccessor(const Matrix3& transform)
 {
     this->transform = transform;
     decomp_affine(this->transform, &this->affineParts);
@@ -45,7 +45,7 @@ TransformAccessor::TransformAccessor(const TransformAccessor& transform, const C
 void TransformAccessor::Set(const TransformAccessor& transform, const CoordinateSystemConverter& coordinateConverter, float scale)
 {
     this->transform = transform.transform;
-    coordinateConverter.ConvertMatrix(this->transform);    
+    coordinateConverter.ConvertMatrix(this->transform);
     Point3 translation = this->transform.GetTrans();
     translation *= scale;
     this->transform.SetTrans(translation);
@@ -109,7 +109,7 @@ void TransformAccessor::GetRotationAngleAxis(float& angle, FinjinVector3& axis) 
     auto v = this->affineParts.q;
     v.Invert();
     AngAxis angleAxis(v);
-   
+
     angle = angleAxis.angle;
     axis.Set(angleAxis.axis.x, angleAxis.axis.y, angleAxis.axis.z);
 }
@@ -143,7 +143,7 @@ TransformAccessor TransformAccessor::GetNormalTransform() const
 }
 
 TransformAccessor TransformAccessor::GetRelativeTo(const TransformAccessor& parentTransform) const
-{            
+{
     return this->transform * Inverse(parentTransform.transform);
 }
 
@@ -175,7 +175,7 @@ void TransformAccessor::Concatenate(const MatrixAccessor& other)
     decomp_affine(this->transform, &this->affineParts);
 }
 
-const Matrix3& TransformAccessor::GetMatrix() const 
+const Matrix3& TransformAccessor::GetMatrix() const
 {
     return this->transform;
 }

@@ -18,7 +18,7 @@
 
 #ifdef WIN32
     #define WIN32_LEAN_AND_MEAN
-    #include <Windows.h>    
+    #include <Windows.h>
 #endif
 
 #include "CommonInstallerTypes.hpp"

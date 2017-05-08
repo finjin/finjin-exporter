@@ -30,7 +30,7 @@ using namespace Finjin::Exporter;
 
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void FinjinObjectSettingsAccessorBase::CopyFrom(FinjinObjectSettingsAccessorBase& other)
 {
     AllObjectSettings objectSettings;
@@ -48,12 +48,12 @@ void FinjinObjectSettingsAccessorBase::SetNodeAnimationSampling(double sampling,
     if (!sampleTypeValid)
     {
         SetNodeAnimationSampleInterval(0);
-        SetNodeAnimationSampleType(SampleType::INTERVAL);        
+        SetNodeAnimationSampleType(SampleType::INTERVAL);
     }
     else if (sampleType == SampleType::INTERVAL)
     {
         SetNodeAnimationSampleInterval(sampling);
-        SetNodeAnimationSampleType(SampleType::INTERVAL);        
+        SetNodeAnimationSampleType(SampleType::INTERVAL);
     }
     else if (sampleType == SampleType::RATE)
     {
@@ -75,7 +75,7 @@ void FinjinObjectSettingsAccessorBase::GetNodeAnimations(std::vector<FinjinNodeA
 }
 
 void FinjinObjectSettingsAccessorBase::GetNodeAnimationNames(std::vector<wxString>& names)
-{                
+{
     std::vector<FinjinNodeAnimationSettingsAccessor> animations;
     GetNodeAnimations(animations);
     names.resize(animations.size());
@@ -148,7 +148,7 @@ void FinjinObjectSettingsAccessorBase::GetMeshAnimations(std::vector<FinjinMeshA
 }
 
 void FinjinObjectSettingsAccessorBase::GetMeshAnimationNames(std::vector<wxString>& names)
-{                
+{
     std::vector<FinjinMeshAnimationSettingsAccessor> animations;
     GetMeshAnimations(animations);
     names.resize(animations.size());
@@ -161,7 +161,7 @@ ChildSortType FinjinObjectSettingsAccessorBase::GetChildSortingValue()
     auto childSorting = GetChildSorting();
 
     if (childSorting == wxT("name"))
-        return ChildSortType::BY_NAME;                            
+        return ChildSortType::BY_NAME;
     else if (childSorting == wxT("child-order"))
         return ChildSortType::BY_ORDER;
     else
@@ -169,7 +169,7 @@ ChildSortType FinjinObjectSettingsAccessorBase::GetChildSortingValue()
 }
 
 void FinjinObjectSettingsAccessorBase::GetNoteTracks(ObjectAccessor object, std::vector<FinjinNoteTrack>& noteTracks)
-{   
+{
     //Get the note tracks
     object.GetNoteTracks(noteTracks);
 
@@ -204,8 +204,8 @@ void FinjinObjectSettingsAccessorBase::GetMeshAnimationsByTrack(std::vector<Finj
     animations.reserve(count);
     for (int i = 0; i < count; i++)
     {
-        auto anim = GetMeshAnimation(i);        
-        auto animTrack = anim.GetTrack();        
+        auto anim = GetMeshAnimation(i);
+        auto animTrack = anim.GetTrack();
         if (animTrack == track)
             animations.push_back(anim);
     }
@@ -257,7 +257,7 @@ void FinjinObjectSettingsAccessorBase::GetManualLods(ObjectAccessor object, Manu
             manualLods[i].distance = (manualLods[i].object.GetNodeTransformation(currentTime).GetTranslation() - objectPosition).Length();
         manualLods[i].objectSettingsIndex = i;
     }
-    
+
     manualLods.Sort();
 }
 
@@ -270,13 +270,13 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
     objectSettings.extendedValues.clear();
     objectSettings.extendedValueIDs.clear();
     GetAllExtendedValues(objectSettings.extendedValues, &objectSettings.extendedValueIDs);
-    
+
     objectSettings.type = GetType();
     objectSettings.visibility = GetVisibility();
     objectSettings.visibilityAffectObjectOnly = GetVisibilityAffectObjectOnly();
     objectSettings.renderQueueName = GetRenderQueueName();
     objectSettings.renderingDistance = GetRenderingDistance();
-        
+
     objectSettings.exportedParent = GetExportedParent();
     objectSettings.useRootAsExportedParent = GetUseRootAsExportedParent();
     objectSettings.isAttachedObject = GetAttachedObject();
@@ -298,10 +298,10 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
         GetFlag(i, objectSettings.queryFlags[i].name);
         objectSettings.queryFlags[i].bit = -1;
     }
-    
+
     objectSettings.nodeAnimationSampleType = GetNodeAnimationSampleType();
     objectSettings.nodeAnimationSampleInterval = GetNodeAnimationSampleInterval();
-    
+
     std::vector<FinjinNodeAnimationSettingsAccessor> nodeAnimations;
     GetNodeAnimations(nodeAnimations);
     objectSettings.nodeAnimations.clear();
@@ -323,7 +323,7 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
         objectSettings.nodeAnimations[i].translationInterpolationType = nodeAnimations[i].GetTranslationInterpolationType();
         objectSettings.nodeAnimations[i].rotationInterpolationType = nodeAnimations[i].GetRotationInterpolationType();
     }
-    
+
     objectSettings.pointSize = GetPointSize();
     objectSettings.enableSky = GetEnableSky();
     objectSettings.embedSkeletonInMesh = GetEmbedSkeletonInMesh();
@@ -339,9 +339,9 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
     objectSettings.skeletonAnimationSampleType = GetSkeletonAnimationSampleType();
     objectSettings.skeletonAnimationSampleInterval = GetSkeletonAnimationSampleInterval();
     objectSettings.vertexAnimationSampleType = GetVertexAnimationSampleType();
-    objectSettings.vertexAnimationSampleInterval = GetVertexAnimationSampleInterval();    
+    objectSettings.vertexAnimationSampleInterval = GetVertexAnimationSampleInterval();
     objectSettings.animatedRoot = GetAnimatedRoot();
-    
+
     std::vector<FinjinMeshAnimationSettingsAccessor> meshAnimations;
     GetMeshAnimations(meshAnimations);
     objectSettings.meshAnimations.clear();
@@ -360,18 +360,18 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
         objectSettings.meshAnimations[i].useAnimationStartTime = meshAnimations[i].GetUseAnimationStartTime();
         objectSettings.meshAnimations[i].looped = meshAnimations[i].GetLooped();
         objectSettings.meshAnimations[i].sampleInterval = meshAnimations[i].GetSampleInterval();
-        objectSettings.meshAnimations[i].sampleType = meshAnimations[i].GetSampleType();        
+        objectSettings.meshAnimations[i].sampleType = meshAnimations[i].GetSampleType();
         objectSettings.meshAnimations[i].timeInterval = meshAnimations[i].GetTimeInterval();
         objectSettings.meshAnimations[i].embedAnimation = meshAnimations[i].GetEmbedAnimation();
-        objectSettings.meshAnimations[i].linkToMainObject = meshAnimations[i].GetLinkToMainObject();        
-                 
+        objectSettings.meshAnimations[i].linkToMainObject = meshAnimations[i].GetLinkToMainObject();
+
         objectSettings.meshAnimations[i].boneTranslationMasks.resize(meshAnimations[i].GetBoneTranslationMaskCount());
         for (size_t j = 0; j < objectSettings.meshAnimations[i].boneTranslationMasks.size(); j++)
         {
             meshAnimations[i].GetBoneTranslationMask
                 (
-                (int)j, 
-                objectSettings.meshAnimations[i].boneTranslationMasks[j].object, 
+                (int)j,
+                objectSettings.meshAnimations[i].boneTranslationMasks[j].object,
                 objectSettings.meshAnimations[i].boneTranslationMasks[j].mask
                 );
         }
@@ -381,14 +381,14 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
         {
             meshAnimations[i].GetAllowExportBone
                 (
-                (int)j, 
-                objectSettings.meshAnimations[i].allowExportBones[j].object, 
+                (int)j,
+                objectSettings.meshAnimations[i].allowExportBones[j].object,
                 objectSettings.meshAnimations[i].allowExportBones[j].allow,
                 objectSettings.meshAnimations[i].allowExportBones[j].recursive
                 );
         }
     }
-    
+
     objectSettings.exportMesh = GetExportMesh();
     objectSettings.meshName = GetMeshName();
     objectSettings.skeletonName = GetSkeletonName();
@@ -398,9 +398,9 @@ void FinjinObjectSettingsAccessorBase::GetAllSettings(AllObjectSettings& objectS
     objectSettings.exportBinormals = GetExportBinormals();
     objectSettings.animateBoundingVolumes = GetAnimateBoundingVolumes();
     objectSettings.checkMeshInstance = GetCheckMeshInstance();
-    objectSettings.useCustomSubmeshes = GetUseCustomSubmeshes();    
-    GetSubmeshesSettings(objectSettings.submeshesSettings);        
-    
+    objectSettings.useCustomSubmeshes = GetUseCustomSubmeshes();
+    GetSubmeshesSettings(objectSettings.submeshesSettings);
+
     objectSettings.manualLods.resize(GetManualLodCount());
     for (size_t i = 0; i < objectSettings.manualLods.size(); i++)
         GetManualLod((int)i, objectSettings.manualLods[i].object, objectSettings.manualLods[i].distance);
@@ -435,15 +435,15 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
     ClearNoteTrackNames();
     for (size_t i = 0; i < objectSettings.noteTrackNames.size(); i++)
         AddNoteTrackName(objectSettings.noteTrackNames[i]);
-    
+
     SetExportFlags(objectSettings.enableQueryFlags);
-    ClearFlags();    
+    ClearFlags();
     for (size_t i = 0; i < objectSettings.queryFlags.size(); i++)
         AddFlag(objectSettings.queryFlags[i].name);
-    
+
     SetNodeAnimationSampleType(objectSettings.nodeAnimationSampleType);
     SetNodeAnimationSampleInterval(objectSettings.nodeAnimationSampleInterval);
-    
+
     std::vector<FinjinNodeAnimationSettingsAccessor> nodeAnimations;
     GetNodeAnimations(nodeAnimations);
     for (size_t i = 0; i < nodeAnimations.size(); i++)
@@ -452,7 +452,7 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
     for (size_t i = 0; i < objectSettings.nodeAnimations.size(); i++)
     {
         auto nodeAnimation = AddNewNodeAnimation();
-        
+
         nodeAnimation.SetAnimationName(objectSettings.nodeAnimations[i].animationName);
         nodeAnimation.SetTimeScaleType(objectSettings.nodeAnimations[i].timeScaleType);
         nodeAnimation.SetTimeScale(objectSettings.nodeAnimations[i].timeScale);
@@ -484,9 +484,9 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
     SetSkeletonAnimationSampleType(objectSettings.skeletonAnimationSampleType);
     SetSkeletonAnimationSampleInterval(objectSettings.skeletonAnimationSampleInterval);
     SetVertexAnimationSampleType(objectSettings.vertexAnimationSampleType);
-    SetVertexAnimationSampleInterval(objectSettings.vertexAnimationSampleInterval);    
+    SetVertexAnimationSampleInterval(objectSettings.vertexAnimationSampleInterval);
     SetAnimatedRoot(objectSettings.animatedRoot);
-    
+
     std::vector<FinjinMeshAnimationSettingsAccessor> meshAnimations;
     GetMeshAnimations(meshAnimations);
     for (size_t i = 0; i < meshAnimations.size(); i++)
@@ -494,7 +494,7 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
     for (size_t i = 0; i < objectSettings.meshAnimations.size(); i++)
     {
         auto meshAnimation = AddNewMeshAnimation();
-        
+
         meshAnimation.SetTrack(objectSettings.meshAnimations[i].track);
         meshAnimation.SetAnimationName(objectSettings.meshAnimations[i].animationName);
         meshAnimation.SetTimeScaleType(objectSettings.meshAnimations[i].timeScaleType);
@@ -510,13 +510,13 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
         meshAnimation.SetSampleType(objectSettings.meshAnimations[i].sampleType);
         meshAnimation.SetTimeInterval(objectSettings.meshAnimations[i].timeInterval);
         meshAnimation.SetEmbedAnimation(objectSettings.meshAnimations[i].embedAnimation);
-        meshAnimation.SetLinkToMainObject(objectSettings.meshAnimations[i].linkToMainObject);        
-                
+        meshAnimation.SetLinkToMainObject(objectSettings.meshAnimations[i].linkToMainObject);
+
         for (size_t j = 0; j < objectSettings.meshAnimations[i].boneTranslationMasks.size(); j++)
         {
             meshAnimation.AddBoneTranslationMask
                 (
-                objectSettings.meshAnimations[i].boneTranslationMasks[j].object, 
+                objectSettings.meshAnimations[i].boneTranslationMasks[j].object,
                 objectSettings.meshAnimations[i].boneTranslationMasks[j].mask
                 );
         }
@@ -525,13 +525,13 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
         {
             meshAnimation.AddAllowExportBone
                 (
-                objectSettings.meshAnimations[i].allowExportBones[j].object, 
+                objectSettings.meshAnimations[i].allowExportBones[j].object,
                 objectSettings.meshAnimations[i].allowExportBones[j].allow,
                 objectSettings.meshAnimations[i].allowExportBones[j].recursive
                 );
         }
     }
-    
+
     SetExportMesh(objectSettings.exportMesh);
     SetMeshName(objectSettings.meshName);
     SetSkeletonName(objectSettings.skeletonName);
@@ -541,9 +541,9 @@ void FinjinObjectSettingsAccessorBase::SetAllSettings(const AllObjectSettings& o
     SetExportBinormals(objectSettings.exportBinormals);
     SetAnimateBoundingVolumes(objectSettings.animateBoundingVolumes);
     SetCheckMeshInstance(objectSettings.checkMeshInstance);
-    SetUseCustomSubmeshes(objectSettings.useCustomSubmeshes);    
-    SetSubmeshesSettings(objectSettings.submeshesSettings);    
-    
+    SetUseCustomSubmeshes(objectSettings.useCustomSubmeshes);
+    SetSubmeshesSettings(objectSettings.submeshesSettings);
+
     int manualLodCount = GetManualLodCount();
     for (int i = 0; i < manualLodCount; i++)
         RemoveManualLod(manualLodCount - i - 1);

@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "GenericBitmapFileName.hpp"
 #include "SceneExportSettings.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "MaterialAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Base class for handlers that export a material.
      */
     class MaterialExporterHandler
@@ -43,21 +43,21 @@ namespace Finjin { namespace Exporter {
          * @param sceneSettings [in] - The scene settings.
          * @param sceneExportSettings [in] - The scene export settings.
          * @param exportFlags [in] - Export flags.
-         * @param materialName [in] - The name of the material. If the REAL_TIME flag is 
+         * @param materialName [in] - The name of the material. If the REAL_TIME flag is
          * specified, this is not required.
          */
         void Initialize
             (
-            const MaterialAccessor& material, 
-            FinjinSceneSettingsAccessor sceneSettings, 
-            const SceneExportSettings& sceneExportSettings          
+            const MaterialAccessor& material,
+            FinjinSceneSettingsAccessor sceneSettings,
+            const SceneExportSettings& sceneExportSettings
             );
 
         /** Cleans up the handler. */
         void Shutdown() {}
 
-        /** 
-         * Indicates whether the handler, based on the material settings, needs a separate file. 
+        /**
+         * Indicates whether the handler, based on the material settings, needs a separate file.
          * @return If the material or handler settings require that the material be exported to
          * its own file, true is returned. Otherwise, false is returned, indicating that the
          * material can be exported into a file with other materials.

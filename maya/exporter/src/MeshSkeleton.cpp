@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static MObject GetJointForCluster(MObject& jointCluster)
 {
     MObject result;
@@ -36,13 +36,13 @@ static MObject GetJointForCluster(MObject& jointCluster)
     MObject attrJoint = fnNode.attribute("matrix");
     MPlug pJointPlug(jointCluster, attrJoint);
     MPlugArray conns;
-    if (pJointPlug.connectedTo(conns, true, false)) 
+    if (pJointPlug.connectedTo(conns, true, false))
         result = conns[0].node();
     return result;
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshSkeleton::MeshSkeleton(GeometryStateBase* geometryState) : MeshSkeletonBase(geometryState)
 {
 }
@@ -84,7 +84,7 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
         if (!this->smoothClusters.empty())
         {
             //Smooth skin
-            
+
             this->originalEnvelopes.resize(this->smoothClusters.size());
             for (auto smoothCluster = this->smoothClusters.begin();
                 smoothCluster != this->smoothClusters.end();
@@ -94,7 +94,7 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
 
                 //Hold onto initial envelope
                 this->originalEnvelopes[envelopeIndex++] = smoothSkin.envelope();
-                
+
                 //Get bones
                 MDagPathArray influenceObjects;
                 unsigned int influenceObjectCount = smoothSkin.influenceObjects(influenceObjects);
@@ -118,40 +118,40 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
                             float weight = weightArray[weightIndex];
                             if (weight > 0.001f)
                                 this->weightedVertices[vertexIndex].AddBoneInfluence(influenceObjects[weightIndex].node(), weight);
-                        }                    
+                        }
                     }
                 }
             }
         }
-        else 
+        else
         {
             //Rigid skin
-            
+
             this->originalEnvelopes.resize(this->rigidClusters.size());
             for (auto rigidCluster = this->rigidClusters.begin();
                 rigidCluster != this->rigidClusters.end();
                 ++rigidCluster)
-            {                
+            {
                 MFnWeightGeometryFilter jointCluster(rigidCluster->first);
                 MObject joint = rigidCluster->second;
                 MFnDependencyNode jointDepNode(joint);
-                                                
+
                 //Hold onto initial envelope
                 this->originalEnvelopes[envelopeIndex++] = jointCluster.envelope();
 
                 //Add the bone
                 AddBone(MeshBonePtr(new MeshBone(joint)));
-                
+
                 //Get influences
                 if (this->geometryState != nullptr)
                 {
                     MObject deformSet = jointCluster.deformerSet();
-                    MFnSet setFn(deformSet);                
+                    MFnSet setFn(deformSet);
                     MSelectionList clusterSetList;
                     setFn.getMembers(clusterSetList, true);
-                    for (unsigned int clusterSetIndex = 0; 
-                        clusterSetIndex < clusterSetList.length(); 
-                        clusterSetIndex++) 
+                    for (unsigned int clusterSetIndex = 0;
+                        clusterSetIndex < clusterSetList.length();
+                        clusterSetIndex++)
                     {
                         MDagPath skinpath;
                         MObject components;
@@ -161,9 +161,9 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
                         jointCluster.getWeights(skinpath, components, weights);
 
                         MItGeometry geomIter(skinpath, components);
-                        for (unsigned int weightIndex = 0; 
-                            !geomIter.isDone() && weightIndex < weights.length(); 
-                            geomIter.next(), weightIndex++) 
+                        for (unsigned int weightIndex = 0;
+                            !geomIter.isDone() && weightIndex < weights.length();
+                            geomIter.next(), weightIndex++)
                         {
                             float weight = weights[weightIndex];
                             if (weight > 0)
@@ -173,11 +173,11 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
                 }
             }
         }
-        
+
         //Initialize all the bone parents
         for (auto& bone : this->bones)
             InitializeBoneParent(bone.get());
-        
+
         //Set up for initializing bones
         MString savedPoseName;
         MTime savedPoseTime;
@@ -189,17 +189,17 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
             SelectBones();
             savedPose = SetBindPose(savedPoseName, savedPoseTime);
         }
-        
+
         //Set initial skin transformation
         ObjectAccessor objectAccessor(object);
         MMatrix skinMatrix;
         switch (this->referencePose.type)
         {
             case SkeletonReferencePose::BIND_POSE: MayaUtilities::GetFullWorldMatrix(objectAccessor.container, skinMatrix); break;
-            case SkeletonReferencePose::SPECIFIC_TIME: 
+            case SkeletonReferencePose::SPECIFIC_TIME:
             {
                 TimeChanger timeChanger(this->referencePose.time);
-                MayaUtilities::GetFullWorldMatrix(objectAccessor.container, skinMatrix); 
+                MayaUtilities::GetFullWorldMatrix(objectAccessor.container, skinMatrix);
                 break;
             }
         }
@@ -215,7 +215,7 @@ bool MeshSkeleton::Initialize(MObject object, const CoordinateSystemConverter& c
         if (this->geometryState != nullptr)
         {
             if (savedPose)
-                UnsetBindPose(savedPoseName, savedPoseTime);        
+                UnsetBindPose(savedPoseName, savedPoseTime);
             MGlobal::setActiveSelectionList(selectionList, MGlobal::kReplaceList);
         }
     }
@@ -267,7 +267,7 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
         }
         isChildBone = false;
     }
-    
+
     //Add parent if necessary
     if (isChildBone)
     {
@@ -278,7 +278,7 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
             {
                 auto parentBone = new MeshBone(parentBoneObject, false);
                 bone->parent = parentBone;
-                AddBone(MeshBonePtr(parentBone));            
+                AddBone(MeshBonePtr(parentBone));
             }
         }
 
@@ -295,14 +295,14 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
     }
     bone->initialWorldTransform.Set(mayaBoneTransform, coordinateConverter, scale);
     bone->SetInitialState(this->initialSkinTransform);
-    
+
     //Add children if necessary
     MFnDagNode dagNode(bone->object.container);
     unsigned int childCount = dagNode.childCount();
     for (unsigned int i = 0; i < childCount; i++)
     {
         MObject child = dagNode.child(i);
-        if (!HasBone(child) && 
+        if (!HasBone(child) &&
             (this->geometryState == nullptr || !ObjectAccessor(child).HasDescendant(this->geometryState->createObject)) &&
             HasBoneDescendant(child))
         {
@@ -329,7 +329,7 @@ void MeshSkeleton::Enable(bool enable)
 
             //Set constraints
             this->nodeMenuItemsState.Enable(enable);
-                
+
             //Set envelopes
             const float enableValue = enable ? 1 : 0;
             if (!this->smoothClusters.empty())
@@ -347,7 +347,7 @@ void MeshSkeleton::Enable(bool enable)
                 for (auto rigidCluster = this->rigidClusters.begin();
                     rigidCluster != this->rigidClusters.end();
                     ++rigidCluster)
-                {                
+                {
                     MFnWeightGeometryFilter jointCluster(rigidCluster->first);
                     jointCluster.setEnvelope(enableValue);
                 }
@@ -381,7 +381,7 @@ void MeshSkeleton::Restore()
                 for (auto rigidCluster = this->rigidClusters.begin();
                     rigidCluster != this->rigidClusters.end();
                     ++rigidCluster)
-                {                
+                {
                     MFnWeightGeometryFilter jointCluster(rigidCluster->first);
                     jointCluster.setEnvelope(this->originalEnvelopes[envelopeIndex++]);
                 }
@@ -389,9 +389,9 @@ void MeshSkeleton::Restore()
 
             //Restore constraints
             this->nodeMenuItemsState.Restore();
-        
+
             //Restore auto keyframing state
-            this->autoKeyState.Restore();        
+            this->autoKeyState.Restore();
         }
     }
 }
@@ -441,11 +441,11 @@ bool MeshSkeleton::FindMeshSkin(MFnMesh& mesh)
                         this->rigidClusters.push_back(std::make_pair(thisNode, joint));
                         result = true;
                     }
-                }                
+                }
             }
         }
     }
-    
+
     return result;
 }
 
@@ -465,7 +465,7 @@ void MeshSkeleton::SelectBones()
             if (DISPLAY_MAYA_COMMAND)
                 MGlobal::executeCommand("print \"Selecting bone: " + name + "\\n\"");
             MGlobal::selectByName(name, selectedCount == 0 ? MGlobal::kReplaceList : MGlobal::kAddToList);
-            
+
             selectedCount++;
         }
     }
@@ -476,7 +476,7 @@ void MeshSkeleton::SelectBones()
 bool MeshSkeleton::SetBindPose(MString& savedPoseName, MTime& savedPoseTime)
 {
     //FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(wxT("MeshSkeleton::SetBindPose()"));
-    
+
     bool savedPose = false;
     savedPoseName.clear();
 
@@ -492,9 +492,9 @@ bool MeshSkeleton::SetBindPose(MString& savedPoseName, MTime& savedPoseTime)
         {
             //Save the bones in their current state. This works on the current selection
             MGlobal::executeCommand("dagPose -save", savedPoseName, DISPLAY_MAYA_COMMAND);
-            
+
             //Restore the selected bones to their bind pose state
-            MGlobal::executeCommand("dagPose -restore -global -bindPose", DISPLAY_MAYA_COMMAND);    
+            MGlobal::executeCommand("dagPose -restore -global -bindPose", DISPLAY_MAYA_COMMAND);
 
             //FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, "Saved pose: %s", savedPoseName.asChar());
             //MGlobal::executeCommand("print \"Saved pose for setting bind pose: " + savedPoseName + "\\n\"");
@@ -504,9 +504,9 @@ bool MeshSkeleton::SetBindPose(MString& savedPoseName, MTime& savedPoseTime)
             savedPoseTime = MAnimControl::currentTime();
             MAnimControl::setCurrentTime(MAnimControl::minTime());
         }
-        
+
         savedPose = true;
-    }    
+    }
 
     return savedPose;
 }
@@ -524,7 +524,7 @@ void MeshSkeleton::UnsetBindPose(const MString& savedPoseName, MTime& savedPoseT
     }
     else
         MAnimControl::setCurrentTime(savedPoseTime);
-    
+
     Restore();
 }
 
@@ -535,7 +535,7 @@ bool MeshSkeleton::HasBoneAncestorInScene(MeshBone* bone) const
         parent = parent.GetParent())
     {
         if (HasBone(parent))
-            return true;        
+            return true;
     }
     return false;
 }

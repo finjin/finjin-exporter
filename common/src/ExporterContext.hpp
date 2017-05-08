@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExportableObjectBase.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "finjin/common/WxStreamingFileFormat.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ExporterHandler;
     class SceneExportSettings;
     class GeometryState;
-        
+
     /** A bone and all its attached objects. */
     struct BoneAndAttachments
     {
@@ -70,8 +70,8 @@ namespace Finjin { namespace Exporter {
         /** Gets a reference to all the objects in the scene. */
         ExportableObjectMap& GetAllObjects();
 
-        /** 
-         * Ensures the specified object has a unique name. 
+        /**
+         * Ensures the specified object has a unique name.
          * @param object [in/out] - The object whose name is checked for uniqueness. If the object's default name is
          * not unique, it is given a new name.
          */
@@ -113,7 +113,7 @@ namespace Finjin { namespace Exporter {
          */
         void GetBoneAttachments(AllBonesWithAttachments& allBonesWithAttachments, ExportableObject* exportableObject, GeometryState* geometryState);
 
-        /** 
+        /**
          * Replaces the object children with the root-most selected objects. Also,
          * the entire scene graph hierarchy is modified so that it only includes the selected
          * objects and whatever child objects may exist along the path between selected objects.
@@ -128,7 +128,7 @@ namespace Finjin { namespace Exporter {
         SceneExportSettings* sceneExportSettings;
         ExportableObjectMap allObjects;
         ObjectAccessorSet ignoreObjects;
-        
+
         /** All the object names, used when determining name uniqueness. */
         std::set<wxString> objectNames;
 

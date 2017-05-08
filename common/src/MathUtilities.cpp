@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool MathUtilities::IsPowerOfTwo(unsigned int value)
 {
     return (value & (value - 1)) == 0;
@@ -40,15 +40,15 @@ unsigned int MathUtilities::NextLargestPowerOfTwo(unsigned int value)
 }
 
 unsigned int MathUtilities::NextSmallestPowerOfTwo(unsigned int value)
-{    
+{
     if (!IsPowerOfTwo(value))
     {
         //Not a power of 2. Round value up to the next power of 2
         value = NextLargestPowerOfTwo(value);
     }
- 
+
     //The value is a power of 2. Shift downward to get the next smallest power of 2
-    return value >> 1;        
+    return value >> 1;
 }
 
 float MathUtilities::HorizontalToVerticalFOV(float fov, float aspectRatio)

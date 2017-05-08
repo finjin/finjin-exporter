@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SceneExportSettings.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "ProgressCalculator.hpp"
@@ -27,12 +27,12 @@
 #include "finjin/common/WxDataChunkWriter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * The Exporter class is the entry point for performing an export of a material.
-     * When exporting, it selects the appropriate exporter handler factory, creates a handler, and calls export on that handler. 
+     * When exporting, it selects the appropriate exporter handler factory, creates a handler, and calls export on that handler.
      * Before exporting, during the plugin's initialization, at least one exporter handler must be registered by calling MaterialExporter::RegisterHandlerFactory()
      */
     class MaterialExporter : public ProgressCalculator::ProgressChangeListener
@@ -44,7 +44,7 @@ namespace Finjin { namespace Exporter {
         void SetProgressCalculator(std::shared_ptr<ProgressCalculator> progress);
         void SetBitmapsProgressCalculator(std::shared_ptr<ProgressCalculator> progress);
 
-        /** 
+        /**
          * Exports a collection of materials.
          * @param materials [in] - The materials to export.
          * @param sceneSettings [in] - The scene settings.
@@ -56,17 +56,17 @@ namespace Finjin { namespace Exporter {
             (
             WxDataChunkWriter& writer,
             const MaterialAccessorMap<std::shared_ptr<MaterialExporterHandler> >& materials,
-            FinjinSceneSettingsAccessor sceneSettings, 
+            FinjinSceneSettingsAccessor sceneSettings,
             const SceneExportSettings& sceneExportSettings
-            ); 
+            );
 
         void ExportBitmaps
             (
             WxDataChunkWriter& writer,
-            FinjinSceneSettingsAccessor sceneSettings, 
-            const SceneExportSettings& sceneExportSettings,            
+            FinjinSceneSettingsAccessor sceneSettings,
+            const SceneExportSettings& sceneExportSettings,
             WxError& error
-            ); 
+            );
 
         /**
          * Prompts the user for a material file name, then exports all materials in the scene.
@@ -97,7 +97,7 @@ namespace Finjin { namespace Exporter {
         /** Gets the exporter handler factory for the specified material. */
         static MaterialExporterHandlerFactory* GetFactoryForMaterial(MaterialAccessor material);
 
-    protected:        
+    protected:
         /** Called when one of the WithDialog() functions are called. */
         void InitializeWithDialog();
 
@@ -111,7 +111,7 @@ namespace Finjin { namespace Exporter {
         static FactoryList factories;
 
         GenericBitmapFileNameSet bitmapFileNames;
-        
+
         /** Pointer to the active progress calculator. May be null. */
         std::shared_ptr<ProgressCalculator> materialsProgress;
         std::shared_ptr<ProgressCalculator> bitmapsProgress;

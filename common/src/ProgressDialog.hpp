@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "Strings.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -37,18 +37,18 @@ namespace Finjin { namespace Exporter {
      * 1) The total progress - This is the status of the entire task.
      * 2) The subtask progress - This is the status of some smaller task within the main task.
      *
-     * The dialog receives log messages by adding itself as a listener to Finjin::Logger. So, 
+     * The dialog receives log messages by adding itself as a listener to Finjin::Logger. So,
      * anything logged with Logger will be picked up by the progress dialog.
      *
      * There can only be one progress dialog in existance at any time. This dialog can be retreved globally
      * by calling ProgressDialog::GetInstance().
      */
-    class ProgressDialog : 
-        public FinjinDialog, 
+    class ProgressDialog :
+        public FinjinDialog,
         public LogListener
     {
     private:
-    
+
     protected:
         wxStaticText* totalProgressLabel;
         wxGauge* totalProgressGauge;
@@ -60,45 +60,45 @@ namespace Finjin { namespace Exporter {
         wxString totalProgressText;
 
         static ProgressDialog* instance;
-    
+
     public:
         DECLARE_EVENT_TABLE()
-        DECLARE_DYNAMIC_CLASS(ProgressDialog)    
+        DECLARE_DYNAMIC_CLASS(ProgressDialog)
 
         ProgressDialog
             (
-            const wxString& title = Strings::PROGRESS, 
-            LogMessageType logLevel = INFO_LOG_MESSAGE, 
+            const wxString& title = Strings::PROGRESS,
+            LogMessageType logLevel = INFO_LOG_MESSAGE,
             const wxString& totalProgressText = Strings::TOTAL_PROGRESS
             );
         ~ProgressDialog();
 
-        /** 
+        /**
          * Displays the dialog modally.
          * This will most likely never be called, but it's useful to have modal functionality for testing.
          * @return wxID_OK will always be returned.
          */
         int ShowModal();
-        
-        /** 
+
+        /**
          * Finishes the task for which the progress dialog was originally created.
          * @param totalProgressLabel [in] - The text to be displayed in the total progress label.
          */
         void FinishedTask(const wxString& totalProgressLabel);
-        
-        /** 
+
+        /**
          * Sets the total progress label.
          * @param text [in] - The text to be displayed in the total progress label.
          */
         void SetTotalProgressLabel(const wxString& text);
 
-        /** 
+        /**
          * Sets the sub-progress label.
          * @param text [in] - The text to be displayed in the sub-progress label.
          */
         void SetSubprogressLabel(const wxString& text);
 
-        /** 
+        /**
          * Updates the progress.
          * @param totalProgress [in] - The new total progress. This will be between 0 and 1, inclusive.
          * @param subprogress [in] - The new sub-progress. This will be between 0 and 1, inclusive.

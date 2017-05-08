@@ -23,8 +23,8 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
-bool BasicLocatorNode::isBounded() const 
+//Implementation----------------------------------------------------------------
+bool BasicLocatorNode::isBounded() const
 {
     return true;
 }
@@ -38,14 +38,14 @@ void BasicLocatorNode::draw(M3dView& view, const MDagPath& dagPath, M3dView::Dis
     view.endGL();
 }
 
-void BasicLocatorNode::DrawSphere(float r) 
+void BasicLocatorNode::DrawSphere(float r)
 {
     DrawCircleXY(r,30);
     DrawCircleXZ(r,30);
     DrawCircleYZ(r,30);
 }
 
-void BasicLocatorNode::DrawCrossXY(float w, float h) 
+void BasicLocatorNode::DrawCrossXY(float w, float h)
 {
     glBegin(GL_LINES);
         glVertex3f( -0.5f*w, 0, 0 );
@@ -55,7 +55,7 @@ void BasicLocatorNode::DrawCrossXY(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawCrossXZ(float w, float h) 
+void BasicLocatorNode::DrawCrossXZ(float w, float h)
 {
     glBegin(GL_LINES);
         glVertex3f( -0.5f*w, 0, 0 );
@@ -65,7 +65,7 @@ void BasicLocatorNode::DrawCrossXZ(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawCrossYZ(float w, float h) 
+void BasicLocatorNode::DrawCrossYZ(float w, float h)
 {
     glBegin(GL_LINES);
         glVertex3f( 0, -0.5f*w, 0 );
@@ -75,7 +75,7 @@ void BasicLocatorNode::DrawCrossYZ(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawQuadXY(float w, float h) 
+void BasicLocatorNode::DrawQuadXY(float w, float h)
 {
     glBegin(GL_LINE_LOOP);
         glVertex3f( -0.5f*w, -0.5f*h, 0 );
@@ -85,7 +85,7 @@ void BasicLocatorNode::DrawQuadXY(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawQuadXZ(float w, float h) 
+void BasicLocatorNode::DrawQuadXZ(float w, float h)
 {
     glBegin(GL_LINE_LOOP);
         glVertex3f( -0.5f*w, 0, -0.5f*h );
@@ -95,7 +95,7 @@ void BasicLocatorNode::DrawQuadXZ(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawQuadYZ(float w, float h) 
+void BasicLocatorNode::DrawQuadYZ(float w, float h)
 {
     glBegin(GL_LINE_LOOP);
         glVertex3f( 0, -0.5f*w, -0.5f*h );
@@ -105,7 +105,7 @@ void BasicLocatorNode::DrawQuadYZ(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawFilledQuadXY(float w, float h) 
+void BasicLocatorNode::DrawFilledQuadXY(float w, float h)
 {
     glBegin(GL_QUADS);
         glVertex3f( -0.5f*w, -0.5f*h, 0 );
@@ -115,7 +115,7 @@ void BasicLocatorNode::DrawFilledQuadXY(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawFilledQuadXZ(float w, float h) 
+void BasicLocatorNode::DrawFilledQuadXZ(float w, float h)
 {
     glBegin(GL_QUADS);
         glVertex3f( -0.5f*w, 0, -0.5f*h );
@@ -125,7 +125,7 @@ void BasicLocatorNode::DrawFilledQuadXZ(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawFilledQuadYZ(float w, float h) 
+void BasicLocatorNode::DrawFilledQuadYZ(float w, float h)
 {
     glBegin(GL_QUADS);
         glVertex3f( 0, -0.5f*w, -0.5f*h );
@@ -135,7 +135,7 @@ void BasicLocatorNode::DrawFilledQuadYZ(float w, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawCube(float w, float h, float d) 
+void BasicLocatorNode::DrawCube(float w, float h, float d)
 {
     glPushMatrix();
         glTranslatef(0,0,d/2);
@@ -165,7 +165,7 @@ void BasicLocatorNode::DrawCube(float w, float h, float d)
     glPopMatrix();
 }
 
-void BasicLocatorNode::DrawFilledCube(float w, float h, float d) 
+void BasicLocatorNode::DrawFilledCube(float w, float h, float d)
 {
     glPushMatrix();
         glTranslatef(0,0,d/2);
@@ -295,7 +295,7 @@ void BasicLocatorNode::DrawCylinderYZ(float r, float h)
     glEnd();
 }
 
-void BasicLocatorNode::DrawCircleXY(float r, int divs) 
+void BasicLocatorNode::DrawCircleXY(float r, int divs)
 {
     glBegin(GL_LINE_LOOP);
     for (int i = 0; i != divs; i++)
@@ -308,7 +308,7 @@ void BasicLocatorNode::DrawCircleXY(float r, int divs)
     glEnd();
 }
 
-void BasicLocatorNode::DrawCircleXZ(float r, int divs) 
+void BasicLocatorNode::DrawCircleXZ(float r, int divs)
 {
     glBegin(GL_LINE_LOOP);
     for (int i = 0; i != divs; i++)
@@ -321,7 +321,7 @@ void BasicLocatorNode::DrawCircleXZ(float r, int divs)
     glEnd();
 }
 
-void BasicLocatorNode::DrawCircleYZ(float r, int divs) 
+void BasicLocatorNode::DrawCircleYZ(float r, int divs)
 {
     glBegin(GL_LINE_LOOP);
     for (int i = 0; i != divs; i++)
@@ -334,7 +334,7 @@ void BasicLocatorNode::DrawCircleYZ(float r, int divs)
     glEnd();
 }
 
-void BasicLocatorNode::DrawFilledCircleXY(float r, int divs) 
+void BasicLocatorNode::DrawFilledCircleXY(float r, int divs)
 {
     glBegin(GL_POLYGON);
     for (int i = 0; i != divs; i++)
@@ -347,7 +347,7 @@ void BasicLocatorNode::DrawFilledCircleXY(float r, int divs)
     glEnd();
 }
 
-void BasicLocatorNode::DrawFilledCircleXZ(float r, int divs) 
+void BasicLocatorNode::DrawFilledCircleXZ(float r, int divs)
 {
     glBegin(GL_POLYGON);
     for (int i = 0; i != divs; i++)
@@ -360,7 +360,7 @@ void BasicLocatorNode::DrawFilledCircleXZ(float r, int divs)
     glEnd();
 }
 
-void BasicLocatorNode::DrawFilledCircleYZ(float r, int divs) 
+void BasicLocatorNode::DrawFilledCircleYZ(float r, int divs)
 {
     glBegin(GL_POLYGON);
     for (int i = 0; i != divs; i++)

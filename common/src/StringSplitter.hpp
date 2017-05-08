@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     enum class StringSplitterFlags
@@ -34,7 +34,7 @@ namespace Finjin { namespace Exporter {
 
     /** Class for splitting and rejoining strings. */
     class StringSplitter
-    {        
+    {
     public:
         /** Default constructor. */
         StringSplitter();
@@ -44,10 +44,10 @@ namespace Finjin { namespace Exporter {
 
         /** Constructor that splits the input text with a string of delimiters. */
         StringSplitter(const wxString& text, const wxString& delims, StringSplitterFlags flags = StringSplitterFlags::TRIM);
-        
+
         /** Finds the index of the line that matches the specified text. */
         int FindLine(const wxString& text, int startLine = 0) const;
-      
+
         /** Gets the total length, in characters, of all strings. */
         size_t TotalLength() const;
 
@@ -59,22 +59,22 @@ namespace Finjin { namespace Exporter {
 
         /** Splits the input text with a string of delimiters. */
         size_t Split(const wxString& text, const wxString& delims, StringSplitterFlags flags = StringSplitterFlags::TRIM);
-        
-        /** 
+
+        /**
          * Joins all the split strings.
          * @param joinChar [in] - The character used to join the strings.
          * @param startLine [in] - The index of the string to start with.
-         * @param lineCount [in] - The number of lines to join, starting with startLine. If < 0, 
+         * @param lineCount [in] - The number of lines to join, starting with startLine. If < 0,
          * all lines starting from startLine are joined.
          * @return A new string with all the joined strings is returned.
          */
         wxString Join(wxChar joinChar, int startLine = 0, int lineCount = -1);
 
-        /** 
+        /**
          * Joins all the split strings.
          * @param joinText [in] - The string used to join the strings.
          * @param startLine [in] - The index of the string to start with.
-         * @param lineCount [in] - The number of lines to join, starting with startLine. If < 0, 
+         * @param lineCount [in] - The number of lines to join, starting with startLine. If < 0,
          * all lines starting from startLine are joined.
          * @return A new string with all the joined strings is returned.
          */
@@ -94,7 +94,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the string at the specified index. */
         const wxString& operator [] (size_t i) const {return this->items[i];}
-            
+
         /** Gets all the split strings. */
         std::vector<wxString>& GetItems() {return this->items;}
 

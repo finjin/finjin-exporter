@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void AnimationUtilities::GetSampledKeyTimes(std::vector<WxTimeDuration>& sampleTimes, FinjinTimeInterval timeInterval, double sampleInterval)
 {
     //Calculate the number of sample intervals contained in the animation
@@ -37,11 +37,11 @@ void AnimationUtilities::GetSampledKeyTimes(std::vector<WxTimeDuration>& sampleT
     {
         //The sample interval does not divide the animation length evenly, so add an extra interval
         sampleIntervalCount++;
-    
+
         //Recalculate the sample interval so that the samples are evenly spaced in time
         sampleInterval = (animationLength / WxTimeDuration::Nanoseconds(sampleIntervalCount)).ToSecondsDouble();
     }
-    
+
     //Calculate the key times
     int sampleCount = sampleIntervalCount + 1;
     if (sampleCount <= 2)
@@ -53,13 +53,13 @@ void AnimationUtilities::GetSampledKeyTimes(std::vector<WxTimeDuration>& sampleT
     else
     {
         sampleTimes.resize(sampleCount);
-        
+
         //First key time
         sampleTimes[0] = timeInterval.start.GetDuration();
-        
+
         //Last key time
         sampleTimes[sampleCount - 1] = timeInterval.end.GetDuration();
-        
+
         //In between key times
         for (int keyIndex = 1; keyIndex < sampleCount - 1; keyIndex++)
             sampleTimes[keyIndex] = WxTimeDuration::Seconds(timeInterval.start.GetSeconds() + sampleInterval * keyIndex, APP_TIME_RESOLUTION_UNIT);
@@ -86,10 +86,10 @@ double AnimationUtilities::GetRealTimeScale(const wxString& scaleType, double sc
         if (animationIntervalSeconds > 0)
             animationScale = 1 / animationIntervalSeconds;
     }
-    
+
     if (animationScale <= 0)
         animationScale = 1;
-    
+
     return animationScale;
 }
 

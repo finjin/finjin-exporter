@@ -38,7 +38,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 /** This is needed to properly initialize wxWidgets */
 class DummyApp : public wxApp
 {
@@ -46,18 +46,18 @@ class DummyApp : public wxApp
 IMPLEMENT_APP_NO_MAIN(DummyApp)
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 static StaticVector<ClassDesc*, 50> classDescriptions;
 
 
-//Functions--------------------------------------------------------------------
+//Functions---------------------------------------------------------------------
 BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD reason, void*)
 {
     if (reason == DLL_PROCESS_ATTACH)
     {
         //3DS Max custom controls initialization
         DisableThreadLibraryCalls(hInstance);
-    
+
         //Initialize Explorer-style controls
         InitCommonControls();
 
@@ -69,11 +69,11 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD reason, void*)
         wxTheApp->CallOnInit();
 
         wxSystemOptions::SetOption(wxT("msw.staticbox.optimized-paint"), 0);
-                
+
         ApplicationAccessor::RegisterTypes();
 
         classDescriptions.push_back(FinjinGlobalUtilities::GetClassDesc());
-        classDescriptions.push_back(FinjinSceneExporter::GetClassDesc());        
+        classDescriptions.push_back(FinjinSceneExporter::GetClassDesc());
         classDescriptions.push_back(FinjinObjectSettingsObject::GetClassDesc());
         classDescriptions.push_back(FinjinSceneSettingsObject::GetClassDesc());
         classDescriptions.push_back(FinjinNodeAnimationSettingsObject::GetClassDesc());

@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExtendedValue.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * This class provides generic access to 'extended values' stored within an object.
-     * Extended values are similar to user data. The difference is that user data is 
+     * Extended values are similar to user data. The difference is that user data is
      * intended for USERS of the Finjin exporter, while extended values are intended
      * for DEVELOPERS working with the Finjin exporter source code. Finjin does not
      * store any of its own data in extended values.
@@ -38,10 +38,10 @@ namespace Finjin { namespace Exporter {
     public:
         virtual ~ExtendedValueAccessor() {}
 
-        /** 
+        /**
          * Gets all the extended values stored within the object.
          * @param values [out] - Array of values.
-         * @param ids [out] - Pointer to an array of identifiers, each one corresponding to a value. 
+         * @param ids [out] - Pointer to an array of identifiers, each one corresponding to a value.
          * If null, no identifiers are returned.
          */
         virtual void GetAllExtendedValues(std::vector<ExtendedValue>& values, std::vector<int>* ids = nullptr) = 0;
@@ -53,7 +53,7 @@ namespace Finjin { namespace Exporter {
          * @return If a value with the specified identifer is found, true is returned. Otherwise, false is returned.
          */
         virtual bool GetExtendedValue(int id, ExtendedValue& value) = 0;
-        
+
         /**
          * Sets one extended value.
          * @param id [in] - The identifier of the extended value to set.
@@ -61,23 +61,23 @@ namespace Finjin { namespace Exporter {
          */
         virtual void SetExtendedValue(int id, const ExtendedValue& value) = 0;
 
-        /** 
+        /**
          * Removes the extended value with the specified identifier.
          * @param id [in] - The identifier of the extended value to remove.
          * @return If a value with the specified identifer is removed, true is returned. Otherwise, false is returned.
          */
         virtual bool RemoveExtendedValue(int id) = 0;
 
-        /** 
+        /**
          * Removes all extended values.
          */
-        virtual void ClearExtendedValues() = 0;    
+        virtual void ClearExtendedValues() = 0;
     };
 
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 
 /** Common extended value accessor method declarations. */
 #define FINJIN_EXPORTER_DECLARE_EXTENDED_VALUE_ACCESSOR_METHODS \

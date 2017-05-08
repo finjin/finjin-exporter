@@ -33,7 +33,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MeshObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (GeometryState::CanHandle(context.object.obj))
@@ -41,9 +41,9 @@ void MeshObjectType::Detect(ObjectTypeDetectionContext& context)
 }
 
 void MeshObjectType::CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings)
-{    
+{
     tabPages.AddPage(new UserDataSettingsPage(tabPages.GetTabParentWindow(), objectSettings, UserDataUsage::OBJECT), UserDataSettingsPage::TITLE);
-    tabPages.AddPage(new ObjectSettingsDialog_NodeAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_NodeAnimationsPage::TITLE);    
+    tabPages.AddPage(new ObjectSettingsDialog_NodeAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_NodeAnimationsPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_MeshPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_MeshPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_SubmeshesPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_SubmeshesPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_MeshLodPage(tabPages.GetTabParentWindow(), object, objectSettings), ObjectSettingsDialog_MeshLodPage::TITLE);

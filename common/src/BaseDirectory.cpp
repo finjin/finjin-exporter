@@ -27,13 +27,13 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const int BaseDirectory::APPLICATION_DIRECTORY_CHOICE = 0;
 const int BaseDirectory::PROJECT_DIRECTORY_CHOICE = 1;
 const int BaseDirectory::CUSTOM_DIRECTORY_CHOICE = 2;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BaseDirectory::BaseDirectory()
 {
     this->type = APPLICATION;
@@ -62,33 +62,33 @@ BaseDirectory::BaseDirectory(wxChoice* baseDirectoryTypeChoice, ApplicationTextC
     int baseDirectoryChoice = *(int*)baseDirectoryTypeChoice->GetClientData(baseDirectoryChoiceIndex);
     switch (baseDirectoryChoice)
     {
-        case APPLICATION_DIRECTORY_CHOICE: 
+        case APPLICATION_DIRECTORY_CHOICE:
         {
             this->type = APPLICATION;
             break;
         }
-        case PROJECT_DIRECTORY_CHOICE: 
+        case PROJECT_DIRECTORY_CHOICE:
         {
             this->type = PROJECT;
             break;
         }
-        case CUSTOM_DIRECTORY_CHOICE: 
+        case CUSTOM_DIRECTORY_CHOICE:
         {
             this->customDirectory = baseDirectoryText->GetValue();
             this->type = !this->customDirectory.empty() ? CUSTOM : APPLICATION;
             break;
         }
-    }    
+    }
 
     Init();
 }
 
-const wxString& BaseDirectory::GetCustomDirectory() const 
+const wxString& BaseDirectory::GetCustomDirectory() const
 {
     return this->customDirectory;
 }
-        
-const wxString& BaseDirectory::GetBaseDirectory() const 
+
+const wxString& BaseDirectory::GetBaseDirectory() const
 {
     return this->baseDirectory;
 }
@@ -105,7 +105,7 @@ void BaseDirectory::SetGUIData(wxChoice* baseDirectoryTypeChoice, ApplicationTex
 
     //Add items
     baseDirectoryTypeChoice->Freeze();
-    baseDirectoryTypeChoice->Clear();    
+    baseDirectoryTypeChoice->Clear();
     int applicationDirectoryIndex = baseDirectoryTypeChoice->Append(ApplicationAccessor::APPLICATION_SHORT_NAME);
     baseDirectoryTypeChoice->SetClientData(applicationDirectoryIndex, (void*)&APPLICATION_DIRECTORY_CHOICE);
     int projectDirectoryIndex = -1;
@@ -129,9 +129,9 @@ void BaseDirectory::SetGUIData(wxChoice* baseDirectoryTypeChoice, ApplicationTex
     }
     else if (supportedType == PROJECT)
     {
-        baseDirectoryTypeChoice->SetSelection(projectDirectoryIndex);        
+        baseDirectoryTypeChoice->SetSelection(projectDirectoryIndex);
     }
-    
+
     //Base directory edit--------------------------
     baseDirectoryText->SetValue(this->baseDirectory);
 }
@@ -184,7 +184,7 @@ void BaseDirectory::Init()
             break;
         }
     }
-    
+
     if (!this->baseDirectory.empty())
         FileUtilities::EnsureTrailingPathSeparator(this->baseDirectory);
 }
@@ -194,7 +194,7 @@ BaseDirectory::Type BaseDirectory::GetSupportedType() const
     if (ApplicationAccessor::SupportsProjects())
     {
         //All types are supported
-        return (this->type == CUSTOM && !this->customDirectory.empty()) ? CUSTOM : this->type;    
+        return (this->type == CUSTOM && !this->customDirectory.empty()) ? CUSTOM : this->type;
     }
     else
     {
@@ -202,6 +202,6 @@ BaseDirectory::Type BaseDirectory::GetSupportedType() const
         if (this->type == PROJECT)
             return APPLICATION;
         else
-            return (this->type == CUSTOM && !this->customDirectory.empty()) ? CUSTOM : this->type;    
+            return (this->type == CUSTOM && !this->customDirectory.empty()) ? CUSTOM : this->type;
     }
 }

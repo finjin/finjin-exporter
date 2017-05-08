@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ObjectSettingsDialog;
@@ -67,7 +67,7 @@ namespace Finjin { namespace Exporter {
         ApplicationTextCtrl* noteTrackNamesText;
         wxButton* addFlagButton;
         ApplicationTextCtrl* flagsText;
-        
+
         ObjectAccessor object;
         FinjinObjectSettingsAccessor objectSettings;
         ObjectSettingsDialog* dialog;
@@ -87,19 +87,19 @@ namespace Finjin { namespace Exporter {
         };
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         void OnTypeChoice(wxCommandEvent& event);
         void OnVisibilityChoice(wxCommandEvent& event);
         void OnExportedParentButton(wxCommandEvent& event);
         void UseRootAsExportedParent(wxCommandEvent& event);
         void OnAddFlagButton(wxCommandEvent& event);
-        
+
         DetectableObjectType* UpdateObjectTypeDefaultText();
-        void UpdateVisibilityControls();        
+        void UpdateVisibilityControls();
         void UpdateExportedParentControls();
         void SortCustomParameterList();
-                
+
         DetectableObjectType* GetSelectedObjectType();
 
         static const wxString TITLE;

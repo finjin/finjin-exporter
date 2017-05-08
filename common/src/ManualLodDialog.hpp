@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "SpinnerControl.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -37,7 +37,7 @@ namespace Finjin { namespace Exporter {
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* objectLabel;
         ApplicationTextCtrl* objectEdit;
@@ -46,19 +46,19 @@ namespace Finjin { namespace Exporter {
         SpinnerControl* distanceSpinner;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         ManualLodDialog
             (
-            wxWindow* parent, 
-            const wxString& title, 
+            wxWindow* parent,
+            const wxString& title,
             ObjectAccessor baseObject,
-            ObjectAccessor object = ObjectAccessor(), 
+            ObjectAccessor object = ObjectAccessor(),
             float distance = 0,
             ObjectAccessorSet* excludedLodObjects = 0,
             bool autoDistance = false
             );
-        ~ManualLodDialog();        
+        ~ManualLodDialog();
 
         enum
         {

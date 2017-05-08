@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "UserDataSettingsAccessor.hpp"
 #include "UserDataTypes.hpp"
@@ -28,14 +28,14 @@
 #include "FinjinResourceManager.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
      * A settings page that manages the display of controls used to edit user data.
      */
-    class UserDataSettingsPage : 
-        public SettingsPage, 
+    class UserDataSettingsPage :
+        public SettingsPage,
         public FinjinResourceManager::UserDataTypesChangedListener
     {
     private:
@@ -45,13 +45,13 @@ namespace Finjin { namespace Exporter {
         wxStaticText* idLabel;
         ApplicationTextCtrl* idText;
         wxButton* generateIDButton;
-        
+
         wxStaticText* userDataClassLabel;
         ApplicationChoiceCtrl* userDataClassChoice;
         wxButton* configureUserDataClassButton;
         ApplicationTextCtrl* userDataText;
         wxScrolledWindow* userDataControlsWindow;
-        
+
         UserDataSettingsAccessor& settings;
         UserDataUsage classUsage;
         UserDataClassControls classControls;
@@ -60,8 +60,8 @@ namespace Finjin { namespace Exporter {
         FinjinSceneSettingsAccessor sceneSettings;
 
     public:
-        /** 
-         * Constructor. 
+        /**
+         * Constructor.
          * @param parent [in] - The parent window.
          * @param userDataSettings [in] - User data settings accessor.
          * @param classUsage [in] - Indicates what type of classes to allow.
@@ -69,13 +69,13 @@ namespace Finjin { namespace Exporter {
          */
         UserDataSettingsPage
             (
-            wxWindow* parent, 
-            UserDataSettingsAccessor& userDataSettings, 
-            UserDataUsage classUsage, 
+            wxWindow* parent,
+            UserDataSettingsAccessor& userDataSettings,
+            UserDataUsage classUsage,
             FinjinSceneSettingsAccessor sceneSettings = FinjinSceneSettingsAccessor()
             );
 
-        ~UserDataSettingsPage();    
+        ~UserDataSettingsPage();
 
         bool GetGUIData() override;
         bool SetGUIData() override;

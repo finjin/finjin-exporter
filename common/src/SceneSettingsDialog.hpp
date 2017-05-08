@@ -19,52 +19,52 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "TabControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * The object settings dialog.
-     * This dialog can be seen within the application by selecting 
+     * This dialog can be seen within the application by selecting
      * 'Scene Settings' from the Finjin menu.
      */
     class SceneSettingsDialog : public FinjinDialog
-    {    
+    {
     public:
         /** Default constructor. */
         SceneSettingsDialog();
 
-        /** 
+        /**
          * Constructor.
          * @param parent [in] - Parent window.
          * @param sceneSettings [in] - The scene settings.
-         * @param initialPageIndex [in] - Index of the initial page to show. -1 indicates that 
+         * @param initialPageIndex [in] - Index of the initial page to show. -1 indicates that
          * initialPageTitle should be used. If that's empty, then the last selected page is used.
          * @param initialPageTitle [in] - The title of the initial page to show. This is used if
          * initialPageIndex is -1. If this is empty, then the last selected page is used.
          */
         SceneSettingsDialog
             (
-            wxWindow* parent, 
-            FinjinSceneSettingsAccessor sceneSettings, 
-            int initialPageIndex = -1, 
+            wxWindow* parent,
+            FinjinSceneSettingsAccessor sceneSettings,
+            int initialPageIndex = -1,
             const wxString& initialPageTitle = wxEmptyString
             );
 
         bool Create
             (
-            wxWindow* parent, 
-            FinjinSceneSettingsAccessor sceneSettings, 
-            int initialPageIndex = -1, 
+            wxWindow* parent,
+            FinjinSceneSettingsAccessor sceneSettings,
+            int initialPageIndex = -1,
             const wxString& initialPageTitle = wxEmptyString
             );
 
-        void OnCloseWindow(wxCloseEvent& event);    
+        void OnCloseWindow(wxCloseEvent& event);
         void OnOK(wxCommandEvent& event);
         void OnNotebookPageChanged(wxNotebookEvent& event);
 

@@ -24,9 +24,9 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 StringSplitter::StringSplitter()
-{    
+{
 }
 
 StringSplitter::StringSplitter(const wxString& text, wxChar delim, StringSplitterFlags flags)
@@ -56,7 +56,7 @@ size_t StringSplitter::TotalLength() const
 
     for (size_t index = 0; index < this->items.size(); index++)
         length += this->items[index].Length();
-    
+
     return length;
 }
 
@@ -66,14 +66,14 @@ size_t StringSplitter::TotalLength(int startLine, int lineCount) const
 
     for (int index = startLine; index < startLine + lineCount; index++)
         length += this->items[index].Length();
-    
+
     return length;
 }
 
 size_t StringSplitter::Split(const wxString& text, wxChar delim, StringSplitterFlags flags)
 {
     const wxChar delims[] = {delim, 0};
-    return Split(text, delims, flags);    
+    return Split(text, delims, flags);
 }
 
 size_t StringSplitter::Split(const wxString& text, const wxString& delims, StringSplitterFlags flags)
@@ -86,10 +86,10 @@ size_t StringSplitter::Split(const wxString& text, const wxString& delims, Strin
     {
         auto token = tokens.GetNextToken();
         if (AnySet(flags & StringSplitterFlags::TRIM))
-            StringUtilities::TrimWhitespace(token);    
+            StringUtilities::TrimWhitespace(token);
         if (!token.empty() || NoneSet(flags & StringSplitterFlags::IGNORE_EMPTY))
             this->items.push_back(token);
-    }            
+    }
 
     return this->items.size();
 }
@@ -111,8 +111,8 @@ wxString StringSplitter::Join(const wxString& joinText, int startLine, int lineC
     {
         joined += this->items[startLine];
 
-        for (int index = startLine + 1; 
-            index < startLine + lineCount && index < (int)this->items.size(); 
+        for (int index = startLine + 1;
+            index < startLine + lineCount && index < (int)this->items.size();
             index++)
         {
             joined += joinText;

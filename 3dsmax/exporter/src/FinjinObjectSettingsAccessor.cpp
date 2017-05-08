@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FINJIN_EXPORTER_IMPLEMENT_USER_DATA_ACCESSOR_METHODS(FinjinObjectSettingsAccessor, object)
 
 FINJIN_EXPORTER_IMPLEMENT_EXTENDED_VALUE_ACCESSOR_METHODS(FinjinObjectSettingsAccessor, object)
@@ -129,8 +129,8 @@ int FinjinObjectSettingsAccessor::GetFlagCount()
 }
 
 void FinjinObjectSettingsAccessor::GetFlag(int i, wxString& name)
-{   
-    this->object->GetFlag(i, name);        
+{
+    this->object->GetFlag(i, name);
 }
 
 SampleType FinjinObjectSettingsAccessor::GetNodeAnimationSampleType()
@@ -307,7 +307,7 @@ void FinjinObjectSettingsAccessor::GetSubmeshesSettings(SubmeshesSettings& value
 
 int FinjinObjectSettingsAccessor::GetManualLodCount()
 {
-    return this->object->GetManualLODCount();    
+    return this->object->GetManualLODCount();
 }
 
 void FinjinObjectSettingsAccessor::GetManualLod(int i, ObjectAccessor& object, float& distance)
@@ -322,12 +322,12 @@ bool FinjinObjectSettingsAccessor::GetCalculateManualLodDistances()
 
 void FinjinObjectSettingsAccessor::SetType(wxString value)
 {
-    this->object->SetType(value);    
+    this->object->SetType(value);
 }
 
 void FinjinObjectSettingsAccessor::SetVisibility(wxString value)
 {
-    this->object->SetVisibility(value);        
+    this->object->SetVisibility(value);
 }
 
 void FinjinObjectSettingsAccessor::SetVisibilityAffectObjectOnly(bool value)
@@ -432,14 +432,14 @@ void FinjinObjectSettingsAccessor::SetNodeAnimationSampleInterval(double value)
 
 FinjinNodeAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNewNodeAnimation()
 {
-    FinjinNodeAnimationSettingsObject* animation = new FinjinNodeAnimationSettingsObject;    
+    FinjinNodeAnimationSettingsObject* animation = new FinjinNodeAnimationSettingsObject;
     this->object->AddNodeAnimation(animation);
     return animation;
 }
 
 FinjinNodeAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNodeAnimationCopy(int i)
-{   
-    FinjinNodeAnimationSettingsAccessor sourceAccessor = GetNodeAnimation(i);    
+{
+    FinjinNodeAnimationSettingsAccessor sourceAccessor = GetNodeAnimation(i);
     FinjinNodeAnimationSettingsObject* animation = (FinjinNodeAnimationSettingsObject*)sourceAccessor.object->Clone(DefaultRemapDir());
     this->object->AddNodeAnimation(animation);
     return animation;
@@ -537,14 +537,14 @@ void FinjinObjectSettingsAccessor::SetAnimatedRoot(ObjectAccessor value)
 
 FinjinMeshAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddNewMeshAnimation()
 {
-    auto animation = new FinjinMeshAnimationSettingsObject;    
+    auto animation = new FinjinMeshAnimationSettingsObject;
     this->object->AddMeshAnimation(animation);
     return animation;
 }
 
 FinjinMeshAnimationSettingsAccessor FinjinObjectSettingsAccessor::AddMeshAnimationCopy(int i)
-{   
-    FinjinMeshAnimationSettingsAccessor sourceAccessor = GetMeshAnimation(i);    
+{
+    FinjinMeshAnimationSettingsAccessor sourceAccessor = GetMeshAnimation(i);
     auto animation = (FinjinMeshAnimationSettingsObject*)sourceAccessor.object->Clone(DefaultRemapDir());
     this->object->AddMeshAnimation(animation);
     return animation;
@@ -574,12 +574,12 @@ void FinjinObjectSettingsAccessor::SetPrimitiveType(wxString value)
 {
     this->object->SetPrimitiveType(value);
 }
-    
+
 void FinjinObjectSettingsAccessor::SetExportVertexColors(bool value)
 {
     this->object->SetExportVertexColors(value);
 }
-    
+
 void FinjinObjectSettingsAccessor::SetExportTangents(bool value)
 {
     this->object->SetExportTangents(value);
@@ -609,7 +609,7 @@ void FinjinObjectSettingsAccessor::SetSubmeshesSettings(const SubmeshesSettings&
 {
     this->object->SetSubmeshesSettings(value);
 }
-    
+
 void FinjinObjectSettingsAccessor::AddManualLod(ObjectAccessor object, float distance)
 {
     this->object->AddManualLOD(object.node, distance);

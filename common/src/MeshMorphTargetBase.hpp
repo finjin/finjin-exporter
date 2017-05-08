@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 #include "MatrixAccessor.hpp"
 #include "ObjectAccessor.hpp"
@@ -27,7 +27,7 @@
 #include "MeshNormals.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryStateSubmesh;
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
     /**
      * A single target in a MeshMorpher.
      *
-     * This is collects the data and methods common to all the application-specific 
+     * This is collects the data and methods common to all the application-specific
      * MeshMorphTarget classes.
      */
     class MeshMorphTargetBase
@@ -43,8 +43,8 @@ namespace Finjin { namespace Exporter {
     public:
         virtual ~MeshMorphTargetBase() {}
 
-        /** 
-         * Gets the morph target's influence at the specified time. 
+        /**
+         * Gets the morph target's influence at the specified time.
          * @param t [in] - The time at which to sample the target influence.
          * @return The influence, a value in [0, 1], is returned.
          */
@@ -60,21 +60,21 @@ namespace Finjin { namespace Exporter {
             //Transform creation points
             for (size_t pointIndex = 0; pointIndex < this->creationPositions.size(); pointIndex++)
                 transformMatrix.TransformPoint(this->creationPositions[pointIndex]);
-            
+
             //Transform subtarget points
             for (size_t subtargetIndex = 0; subtargetIndex < this->subtargets.size(); subtargetIndex++)
             {
                 for (size_t offsetIndex = 0; offsetIndex < this->subtargets[subtargetIndex]->offsets.size(); offsetIndex++)
                 {
-                    this->subtargets[subtargetIndex]->offsets[offsetIndex].Transform(transformMatrix, normalTransformMatrix);                    
+                    this->subtargets[subtargetIndex]->offsets[offsetIndex].Transform(transformMatrix, normalTransformMatrix);
                 }
             }
         }
 
     public:
-        /** 
-         * The morph target object. 
-         * This may not be a valid object, since 3DS Max allows the object to be deleted. 
+        /**
+         * The morph target object.
+         * This may not be a valid object, since 3DS Max allows the object to be deleted.
          */
         ObjectAccessor object;
 
@@ -87,8 +87,8 @@ namespace Finjin { namespace Exporter {
         /** The morph target's object-space normals. */
         MeshNormals creationNormals;
 
-        /** 
-         * Contains all the information necessary to generate an offset for a morph target point. 
+        /**
+         * Contains all the information necessary to generate an offset for a morph target point.
          * The reason two object space points are maintained - and not just a single offset - is that
          * keeping the object space points allows the points to be transformed later, such as when
          * meshes are merged.
@@ -99,17 +99,17 @@ namespace Finjin { namespace Exporter {
 
             Offset
                 (
-                size_t index, 
-                const FinjinVector3& targetPosition, const FinjinVector3& targetNormal, const FinjinVector4& targetTangent, 
+                size_t index,
+                const FinjinVector3& targetPosition, const FinjinVector3& targetNormal, const FinjinVector4& targetTangent,
                 const FinjinVector3& meshPosition, const FinjinVector3& meshNormal, const FinjinVector4& meshTangent
                 )
             {
                 this->index = index;
-                
+
                 this->targetPosition = targetPosition;
                 this->targetNormal = targetNormal;
                 this->targetTangent = targetTangent;
-                
+
                 this->meshPosition = meshPosition;
                 this->meshNormal = meshNormal;
                 this->meshTangent = meshTangent;
@@ -121,11 +121,11 @@ namespace Finjin { namespace Exporter {
             {
                 transformMatrix.TransformPoint(this->targetPosition);
                 normalTransformMatrix.TransformNormal(this->targetNormal);
-                transformMatrix.TransformPoint(this->meshPosition);                    
+                transformMatrix.TransformPoint(this->meshPosition);
 
-                CalculateOffsets();                
+                CalculateOffsets();
             }
-            
+
             /** Index of the affected vertex in the submesh. */
             size_t index;
 
@@ -137,7 +137,7 @@ namespace Finjin { namespace Exporter {
             void CalculateOffsets()
             {
                 this->positionOffset = this->targetPosition - this->meshPosition;
-                
+
                 this->normalOffset = this->targetNormal - this->meshNormal;
                 this->normalOffset.Normalize();
 
@@ -159,7 +159,7 @@ namespace Finjin { namespace Exporter {
 
         /** A collection of offsets for a submesh. */
         struct Subtarget
-        {      
+        {
             Subtarget()
             {
                 this->submesh = nullptr;

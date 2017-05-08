@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
@@ -27,7 +27,7 @@
 #include "TextureCoordinateSetMappings.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Mesh page for the object settings dialog. */
@@ -48,16 +48,16 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* exportBinormalsCheckbox;
         wxCheckBox* checkMeshInstanceCheckbox;
         wxCheckBox* animateBoundingVolumesCheckbox;
-        
+
         ObjectAccessor object;
         FinjinObjectSettingsAccessor objectSettings;
-        
+
     public:
         ObjectSettingsDialog_MeshPage(wxWindow* parent, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 494,573 ), long style = wxTAB_TRAVERSAL );
         ~ObjectSettingsDialog_MeshPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
     };

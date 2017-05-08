@@ -19,40 +19,40 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectTypeDetectionContext.hpp"
 #include "DetectableObjectType.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
-    /** 
+
+    /**
      * Base class for detecting object types.
-     */ 
+     */
     class ObjectTypeDetectorBase
     {
     public:
         /** Constructor. */
         ObjectTypeDetectorBase() {this->selectedType = nullptr;}
-        
+
         /** Destructor. */
         virtual ~ObjectTypeDetectorBase() {}
 
-        /** 
+        /**
          * Called to prepare the object type detection context.
          * An overridden implementation can add some extra data to the context if necessary.
          */
         virtual void PrepareContext(ObjectTypeDetectionContext& context) {}
 
-        /** 
+        /**
          * Adds a disallowed type.
          * This should be called before calling Detect().
          */
         void AddDisallowedType(DetectableObjectType* type);
 
-        /** 
+        /**
          * Adds a mapped type.
          * This should be called before calling Detect().
          */
@@ -96,7 +96,7 @@ namespace Finjin { namespace Exporter {
         /** The selected type. */
         DetectableObjectType* selectedType;
 
-        /** 
+        /**
          * Contains all the types that the object can be assigned, including the selected type.
          * This will be valid after the type detection has occurred.
          */

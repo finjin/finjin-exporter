@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 /** Registers all the scene settings types. */
 void RegisterSceneSettingsTypes();

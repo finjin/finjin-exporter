@@ -51,7 +51,7 @@
 using namespace Finjin::Exporter;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 static FinjinGlobalSettings globalSettings;
 
 static const MString FINJIN_MENU_LABEL("Finjin");
@@ -70,19 +70,19 @@ static MCallbackId nodeAddedCallbackID = 0;
 static MCallbackId nodeRemovedCallbackID = 0;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void InitializeCommon()
 {
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("InitializeCommon()"));
 
     if (!ExporterSystem::IsInitialized())
-    {        
+    {
         //Initialize wxWidgets
     #if defined(__WXMSW__)
-        wxSetInstance(MhInstPlugin); 
+        wxSetInstance(MhInstPlugin);
     #endif
         wxInitialize();
-        
+
         ExporterSystem::Initialize();
     }
 }
@@ -101,7 +101,7 @@ static void ShutdownCommon()
 }
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 /** This is needed to properly initialize wxWidgets */
 class DummyApp : public wxApp
 {
@@ -126,11 +126,11 @@ public:
         if (args.length() == 0)
             Exporter::ExportWithDialog(false);
         else
-            Exporter::ExportWithFileName(ApplicationStringToWxString(args.asString(0)), false);        
+            Exporter::ExportWithFileName(ApplicationStringToWxString(args.asString(0)), false);
         return result;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ExportSceneCommand;
     }
@@ -139,7 +139,7 @@ public:
     {
         static const MString name("FinjinExportScene");
         return name;
-    }    
+    }
 };
 
 class ExportSelectedObjectsCommand : public ExportSceneCommand
@@ -155,7 +155,7 @@ public:
         return result;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ExportSelectedObjectsCommand;
     }
@@ -173,11 +173,11 @@ public:
     MStatus doIt(const MArgList& args) override
     {
         MaterialExporter::ExportSceneMaterialsWithDialog();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ExportSceneMaterialsCommand;
     }
@@ -194,12 +194,12 @@ class ExportSelectedHypershadeMaterialsCommand : public ExportSceneCommand
 public:
     MStatus doIt(const MArgList& args) override
     {
-        MaterialExporter::ExportSelectedMaterialsWithDialog();    
+        MaterialExporter::ExportSelectedMaterialsWithDialog();
 
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ExportSelectedHypershadeMaterialsCommand;
     }
@@ -222,7 +222,7 @@ public:
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new SceneSettingsCommand;
     }
@@ -240,11 +240,11 @@ public:
     MStatus doIt(const MArgList& args) override
     {
         Dialogs::ShowObjectSettingsDialog();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ObjectSettingsCommand;
     }
@@ -262,11 +262,11 @@ public:
     MStatus doIt(const MArgList& args) override
     {
         Dialogs::ShowGlobalSettingsDialog();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new GlobalSettingsCommand;
     }
@@ -284,11 +284,11 @@ public:
     MStatus doIt(const MArgList& args) override
     {
         ExporterSystem::RunExternalViewer();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new RunExternalViewerCommand;
     }
@@ -306,11 +306,11 @@ public:
     MStatus doIt(const MArgList& args) override
     {
         ExporterSystem::RunExternalViewerWithLastExportedFile();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new RunExternalViewerWithLastExportedFileCommand;
     }
@@ -347,7 +347,7 @@ public:
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinSyncSubmeshSettingsCommand;
     }
@@ -369,11 +369,11 @@ public:
         graphModifier.doIt();
         graphModifier.renameNode(object, FinjinCustomDummy::TYPE_NAME + "Transform");
         graphModifier.doIt();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new CreateCustomDummyCommand;
     }
@@ -395,11 +395,11 @@ public:
         graphModifier.doIt();
         graphModifier.renameNode(object, FinjinStaticGeometry::TYPE_NAME + "Transform");
         graphModifier.doIt();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new CreateStaticGeometryCommand;
     }
@@ -421,11 +421,11 @@ public:
         graphModifier.doIt();
         graphModifier.renameNode(object, FinjinInstancedGeometry::TYPE_NAME + "Transform");
         graphModifier.doIt();
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new CreateInstancedGeometryCommand;
     }
@@ -446,7 +446,7 @@ public:
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ViewLogCommand;
     }
@@ -467,7 +467,7 @@ public:
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new HelpCommand;
     }
@@ -488,7 +488,7 @@ public:
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new AboutCommand;
     }
@@ -527,7 +527,7 @@ public:
         }
         else
             filterType = ObjectFilterType::ALL;
-        
+
         if (filterType != ObjectFilterType::NONE)
         {
             auto appWindow = new wxApplicationWindow(true);
@@ -550,7 +550,7 @@ public:
                 }
             }
         }
-                
+
         return MS::kSuccess;
     }
 };
@@ -563,7 +563,7 @@ public:
         return ChooseObjectDialogCommandBase::doIt(args, HowMany::CHOOSE_ONE);
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ChooseObjectDialogCommand;
     }
@@ -583,7 +583,7 @@ public:
         return ChooseObjectDialogCommandBase::doIt(args, HowMany::CHOOSE_MANY);
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ChooseObjectsDialogCommand;
     }
@@ -607,17 +607,17 @@ public:
         if (prompt.ShowPrompt())
         {
             result.set("ok", 0);
-            result.set(WxStringToApplicationString(prompt.GetMaterial().GetFullName()), 1);            
+            result.set(WxStringToApplicationString(prompt.GetMaterial().GetFullName()), 1);
         }
         else
             result.set("cancel", 0);
-        
+
         setResult(result);
-        
+
         return MS::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new ChooseMaterialDialogCommand;
     }
@@ -637,12 +637,12 @@ public:
         MString nodeName = args.asString(0);
         MObject object = MayaUtilities::GetObjectByName(nodeName);
         if (!object.isNull())
-            FinjinCustomDummy::ChooseCustomIcon(object);            
+            FinjinCustomDummy::ChooseCustomIcon(object);
 
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinCustomDummyChooseCustomIconCommand;
     }
@@ -662,12 +662,12 @@ public:
         MString nodeName = args.asString(0);
         MObject object = MayaUtilities::GetObjectByName(nodeName);
         if (!object.isNull())
-            FinjinCustomDummy::UseDefaultIcon(object);            
-        
+            FinjinCustomDummy::UseDefaultIcon(object);
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinCustomDummyUseDefaultIconCommand;
     }
@@ -687,11 +687,11 @@ public:
         bool enable = args.length() > 0 ? args.asBool(0) : true;
 
         ExporterSystem::EnableDetailedLogging(enable);
-        
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinEnableDetailedLoggingCommand;
     }
@@ -710,11 +710,11 @@ public:
     {
         MString version = WxStringToApplicationString(FinjinVersion::VERSION_TEXT);
         setResult(version);
-        
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinGetVersionCommand;
     }
@@ -734,13 +734,13 @@ public:
         auto sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
         MFnDependencyNode depNode(sceneSettings.obj);
         MString name = depNode.name();
-        
+
         setResult(name);
 
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinGetSceneSettingsCommand;
     }
@@ -761,8 +761,8 @@ public:
 
         ObjectAccessor object;
         if (args.length() > 0)
-            object = ObjectAccessor::GetObjectByName(ApplicationStringToWxString(args.asString(0)));            
-        else 
+            object = ObjectAccessor::GetObjectByName(ApplicationStringToWxString(args.asString(0)));
+        else
         {
             std::vector<ObjectAccessor> selectedObjects;
             ObjectAccessor::GetSelectedObjects(selectedObjects);
@@ -778,11 +778,11 @@ public:
         }
 
         setResult(name);
-        
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinGetObjectSettingsCommand;
     }
@@ -816,11 +816,11 @@ public:
         }
 
         setResult(name);
-        
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinAddMeshAnimationCommand;
     }
@@ -854,11 +854,11 @@ public:
         }
 
         setResult(name);
-        
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new FinjinAddNodeAnimationCommand;
     }
@@ -876,11 +876,11 @@ public:
     MStatus doIt(const MArgList& args) override
     {
         Dialogs::ShowDuplicateObjectNamesDialog();
-        
+
         return MStatus::kSuccess;
     }
 
-    static void* Creator() 
+    static void* Creator()
     {
         return new CheckDuplicateObjectNamesCommand;
     }
@@ -893,7 +893,7 @@ public:
 };
 
 
-//Callbacks--------------------------------------------------------------------
+//Callbacks---------------------------------------------------------------------
 static void MayaExitingCallback(void* clientData)
 {
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("MayaExitingCallback()"));
@@ -933,16 +933,16 @@ static void AfterOpenSceneCallback(void* clientData)
 }
 
 static void BeforeSaveSceneCallback(void* clientData)
-{    
+{
 }
 
 static void AfterSaveSceneCallback(void* clientData)
-{    
+{
 }
 
 static void BeforeImportSceneCallback(void* clientData)
 {
-    ExporterSystem::OnBeforeMerge();    
+    ExporterSystem::OnBeforeMerge();
 }
 
 static void AfterImportSceneCallback(void* clientData)
@@ -952,11 +952,11 @@ static void AfterImportSceneCallback(void* clientData)
 }
 
 static void BeforeExportSceneCallback(void* clientData)
-{    
+{
 }
 
 static void AfterExportSceneCallback(void* clientData)
-{    
+{
 }
 
 static void NodeAddedCallback(MObject& nodeIterator, void* clientData)
@@ -975,7 +975,7 @@ static void NodeRemovedCallback(MObject& nodeIterator, void* clientData)
 MStatus initializePlugin(MObject obj)
 {
     MFnPlugin plugin(obj, "Finjin", FinjinVersion::VERSION_TEXT_CSTR, "Any");
- 
+
     InitializeCommon();
 
     //Register translators
@@ -1015,7 +1015,7 @@ MStatus initializePlugin(MObject obj)
     REGISTER_COMMAND(FinjinGetSceneSettingsCommand);
     REGISTER_COMMAND(FinjinGetObjectSettingsCommand);
     REGISTER_COMMAND(FinjinAddMeshAnimationCommand);
-    REGISTER_COMMAND(FinjinAddNodeAnimationCommand);    
+    REGISTER_COMMAND(FinjinAddNodeAnimationCommand);
     REGISTER_COMMAND(FinjinSyncSubmeshSettingsCommand);
     #undef REGISTER_COMMAND
 
@@ -1032,11 +1032,11 @@ MStatus initializePlugin(MObject obj)
         MGlobal::executeCommand("menuItem -tearOff true -subMenu true -label \"External Viewer\"");
             MGlobal::executeCommand(MString("menuItem -command \"") + RunExternalViewerWithLastExportedFileCommand::GetCommandName() + MString("\" -label \"Run With Last Exported File...\""));
             MGlobal::executeCommand(MString("menuItem -command \"") + RunExternalViewerCommand::GetCommandName() + MString("\" -label \"Run...\""));
-            MGlobal::executeCommand("setParent -menu ..");        
+            MGlobal::executeCommand("setParent -menu ..");
         MGlobal::executeCommand("menuItem -divider true");
         MGlobal::executeCommand(MString("menuItem -command \"") + GlobalSettingsCommand::GetCommandName() + MString("\" -label \"Global Settings...\""));
         MGlobal::executeCommand(MString("menuItem -command \"") + SceneSettingsCommand::GetCommandName() + MString("\" -label \"Scene Settings...\""));
-        MGlobal::executeCommand(MString("menuItem -command \"") + ObjectSettingsCommand::GetCommandName() + MString("\" -label \"Object Settings...\""));        
+        MGlobal::executeCommand(MString("menuItem -command \"") + ObjectSettingsCommand::GetCommandName() + MString("\" -label \"Object Settings...\""));
         MGlobal::executeCommand("menuItem -divider true");
         MGlobal::executeCommand(MString("menuItem -command \"") + CheckDuplicateObjectNamesCommand::GetCommandName() + MString("\" -label \"Check Duplicate Object Names\""));
         MGlobal::executeCommand("menuItem -divider true");
@@ -1070,8 +1070,8 @@ MStatus initializePlugin(MObject obj)
     afterExportCallbackID = MSceneMessage::addCallback(MSceneMessage::kAfterExport, AfterExportSceneCallback);
     nodeAddedCallbackID = MDGMessage::addNodeAddedCallback(NodeAddedCallback);
     nodeRemovedCallbackID = MDGMessage::addNodeRemovedCallback(NodeRemovedCallback);
-        
-    ApplicationAccessor::RegisterTypes();    
+
+    ApplicationAccessor::RegisterTypes();
 
     return MS::kSuccess;
 }
@@ -1115,18 +1115,18 @@ MStatus uninitializePlugin(MObject obj)
     plugin.deregisterCommand(FinjinGetSceneSettingsCommand::GetCommandName());
     plugin.deregisterCommand(FinjinGetObjectSettingsCommand::GetCommandName());
     plugin.deregisterCommand(FinjinAddMeshAnimationCommand::GetCommandName());
-    plugin.deregisterCommand(FinjinAddNodeAnimationCommand::GetCommandName());    
+    plugin.deregisterCommand(FinjinAddNodeAnimationCommand::GetCommandName());
     plugin.deregisterCommand(FinjinSyncSubmeshSettingsCommand::GetCommandName());
-    
+
     //Finjin menu
     MGlobal::executeCommand(MString("menu -deleteAllItems -label \"") + FINJIN_MENU_LABEL + MString("\""));
 
     //Node types
     plugin.deregisterNode(FinjinSceneSettingsNode::TYPE_ID);
     plugin.deregisterNode(FinjinCustomDummy::TYPE_ID);
-    plugin.deregisterNode(FinjinStaticGeometry::TYPE_ID);    
+    plugin.deregisterNode(FinjinStaticGeometry::TYPE_ID);
     plugin.deregisterNode(FinjinInstancedGeometry::TYPE_ID);
-    
+
     //Remove callbacks
     MMessage::removeCallback(mayaExitingCallbackID);
     MMessage::removeCallback(beforeNewCallbackID);
@@ -1140,7 +1140,7 @@ MStatus uninitializePlugin(MObject obj)
     MMessage::removeCallback(afterExportCallbackID);
     MMessage::removeCallback(nodeAddedCallbackID);
     MMessage::removeCallback(nodeRemovedCallbackID);
-                
+
     ShutdownCommon();
 
     return MS::kSuccess;

@@ -26,9 +26,9 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void PhysicalObjectType::CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings)
-{    
+{
     tabPages.AddPage(new UserDataSettingsPage(tabPages.GetTabParentWindow(), objectSettings, UserDataUsage::OBJECT), UserDataSettingsPage::TITLE);
     //tabPages.AddPage(new ObjectSettingsDialog_PhysicalPage(tabPages.GetTabParentWindow(), objectSettings), ObjectSettingsDialog_PhysicalPage::TITLE);
 }

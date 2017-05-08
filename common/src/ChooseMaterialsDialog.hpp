@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "MaterialAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A dialog that displays materials and allows the user to select them
      * This is needed in Maya and XSI since they don't have such a dialog
      */
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* nameLabel;
         wxTextCtrl* nameTextBox;
@@ -46,10 +46,10 @@ namespace Finjin { namespace Exporter {
         wxButton* invertButton;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         ChooseMaterialsDialog(wxWindow* parent, bool singleSelection = true, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition);
-        ~ChooseMaterialsDialog();        
+        ~ChooseMaterialsDialog();
 
         enum
         {
@@ -68,7 +68,7 @@ namespace Finjin { namespace Exporter {
         void OnSelectAllButton(wxCommandEvent& event);
         void OnSelectNoneButton(wxCommandEvent& event);
         void OnSelectInvertButton(wxCommandEvent& event);
-        
+
         void SetGUIData();
 
     private:
@@ -81,8 +81,8 @@ namespace Finjin { namespace Exporter {
     private:
         struct FilteredObject
         {
-            MaterialAccessor object;            
-            
+            MaterialAccessor object;
+
             bool operator < (const FilteredObject& other) const
             {
                 return this->object.GetFullName() < other.object.GetFullName();

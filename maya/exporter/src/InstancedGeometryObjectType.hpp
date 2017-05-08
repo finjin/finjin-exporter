@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is an instanced geometry container. */
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("instanced-geometry")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Instanced Geometry")); return name;}            
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Instanced Geometry")); return name;}
             bool IsContainer() const override {return true;}
             bool ConsumesAllChildren() const override {return true;}
         };

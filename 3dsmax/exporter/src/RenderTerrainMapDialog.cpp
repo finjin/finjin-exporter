@@ -32,12 +32,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 RenderTerrainMapDialog::Settings RenderTerrainMapDialog::lastTerrainMapSettings(512, 512);
 RenderTerrainMapDialog::Settings RenderTerrainMapDialog::lastHeightMapSettings(513, 513);
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 RenderTerrainMapDialog::RenderTerrainMapDialog(Mode mode)
 {
     this->mode = mode;
@@ -59,7 +59,7 @@ RenderTerrainMapDialog::RenderTerrainMapDialog(Mode mode)
     }
 
     this->width = this->lastActiveSettings->width;
-    this->height = this->lastActiveSettings->height;    
+    this->height = this->lastActiveSettings->height;
     this->destinationFileName = this->lastActiveSettings->destinationFileName;
     this->bytesPerPixel = this->lastActiveSettings->bytesPerPixel;
     this->isSquare = this->lastActiveSettings->isSquare;
@@ -92,7 +92,7 @@ INT_PTR RenderTerrainMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM l
             this->widthSpin = SetupIntSpinner(this->hDlg, IDC_WIDTH_SPIN, IDC_WIDTH_EDIT, 1, 4096, this->width);
             this->heightSpin = SetupIntSpinner(this->hDlg, IDC_HEIGHT_SPIN, IDC_HEIGHT_EDIT, 1, 4096, this->height);
             this->bytesPerPixelSpin = SetupIntSpinner(this->hDlg, IDC_BYTES_PER_PIXEL_SPIN, IDC_BYTES_PER_PIXEL_EDIT, 1, 2, this->bytesPerPixel);
-            
+
             CheckDlgButton(IDC_SQUARE_CHECK, this->isSquare);
             CheckDlgButton(IDC_ROTATE_90_DEGREES_COUNTERCLOCKWISE, this->rotate90DegreesClockwise);
 
@@ -119,7 +119,7 @@ INT_PTR RenderTerrainMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM l
 
             ReleaseISpinner(this->widthSpin);
             ReleaseISpinner(this->heightSpin);
-            ReleaseISpinner(this->bytesPerPixelSpin);            
+            ReleaseISpinner(this->bytesPerPixelSpin);
 
             break;
         }
@@ -142,19 +142,19 @@ INT_PTR RenderTerrainMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM l
                 case IDOK:
                 {
                     handled = true;
-                    
+
                     //Get values
                     GetDlgItemText(IDC_DESTINATION_FILE_EDIT, this->destinationFileName);
                     this->width = this->widthSpin->GetIVal();
                     this->height = this->heightSpin->GetIVal();
                     this->bytesPerPixel = this->bytesPerPixelSpin->GetIVal();
-                    
+
                     this->isSquare = IsDlgButtonChecked(IDC_SQUARE_CHECK);
                     if (this->isSquare)
                         this->height = this->width;
 
                     this->rotate90DegreesClockwise = IsDlgButtonChecked(IDC_ROTATE_90_DEGREES_COUNTERCLOCKWISE) ? true : false;
-                    
+
                     bool success = true;
 
                     if (this->destinationFileName.empty())
@@ -163,12 +163,12 @@ INT_PTR RenderTerrainMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM l
                         SetFocus(GetDlgItem(IDC_DESTINATION_FILE_EDIT));
                         success = false;
                     }
-                    
+
                     if (success)
-                    {                    
+                    {
                         //Store values for the next launch of the dialog
                         this->lastActiveSettings->width = this->width;
-                        this->lastActiveSettings->height = this->height;    
+                        this->lastActiveSettings->height = this->height;
                         this->lastActiveSettings->destinationFileName = this->destinationFileName;
                         this->lastActiveSettings->bytesPerPixel = this->bytesPerPixel;
                         this->lastActiveSettings->isSquare = this->isSquare;
@@ -210,8 +210,8 @@ INT_PTR RenderTerrainMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM l
                             SetDlgItemText(IDC_DESTINATION_FILE_EDIT, bitmapInfo.Name());
                     }
                     else
-                    {   
-                        //Only DDS files are allowed because the 3DS Max bitmap functions 
+                    {
+                        //Only DDS files are allowed because the 3DS Max bitmap functions
                         //seem to be incapable of saving a 8-bit or 16-bit per channel bitmap
 
                         wxAdoptedWindow window(this->hDlg);
@@ -223,7 +223,7 @@ INT_PTR RenderTerrainMapDialog::DialogProc(UINT message, WPARAM wParam, LPARAM l
                             SetDlgItemText(IDC_DESTINATION_FILE_EDIT, file);
                         }
                     }
-                        
+
                     break;
                 }
             }

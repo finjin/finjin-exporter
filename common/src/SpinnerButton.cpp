@@ -31,7 +31,7 @@ using namespace Finjin::Exporter;
 #endif
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 /**
  * Rounds the given value to precision, measured in decimal places.
  * precision < 0 indicates precision < +/- 10^(-precision)
@@ -44,7 +44,7 @@ static double Round(double value, int precision)
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 IMPLEMENT_DYNAMIC_CLASS(SpinnerButtonEvent, wxEvent)
 DEFINE_EVENT_TYPE(Finjin::Exporter::EVT_SPINNER_BUTTON_DRAG)
 DEFINE_EVENT_TYPE(Finjin::Exporter::EVT_SPINNER_BUTTON_DOWN)
@@ -60,7 +60,7 @@ BEGIN_EVENT_TABLE(SpinnerButton, wxStaticText)
     EVT_MOTION(SpinnerButton::OnMotion)
     EVT_ENTER_WINDOW(SpinnerButton::OnEnterWindow)
     EVT_LEAVE_WINDOW(SpinnerButton::OnLeaveWindow)
-    EVT_MOUSE_CAPTURE_LOST(SpinnerButton::OnCaptureLost)    
+    EVT_MOUSE_CAPTURE_LOST(SpinnerButton::OnCaptureLost)
 END_EVENT_TABLE()
 
 SpinnerButton::SpinnerButton()
@@ -76,7 +76,7 @@ SpinnerButton::SpinnerButton
     const wxSize& size,
     const wxString& name
     )
-{ 
+{
     Init();
 
     wxSize bs = DoGetBestSize();
@@ -84,11 +84,11 @@ SpinnerButton::SpinnerButton
 
     if (!wxControl::Create(parent, id, pos, sz, wxBORDER_NONE | wxTAB_TRAVERSAL, wxDefaultValidator, name))
         return;
-        
+
     this->value = 50;
     SetRange(0, 100);
 
-    SetSizeHints(bs.x, bs.y);    
+    SetSizeHints(bs.x, bs.y);
 }
 
 void SpinnerButton::SetValue(double value)
@@ -114,7 +114,7 @@ void SpinnerButton::OnEraseBackground(wxEraseEvent& event)
 
 void SpinnerButton::OnPaint(wxPaintEvent& event)
 {
-    wxPaintDC dc(this);  
+    wxPaintDC dc(this);
     DoDrawDragger(dc);
 }
 
@@ -154,33 +154,33 @@ void SpinnerButton::OnMotion(wxMouseEvent& event)
         wxPoint pos = event.GetPosition();
 
         //The accelerated mouse movement.
-        double h;      
-      
+        double h;
+
         if (this->acceleration == 1.0)
         {
             //Linear motion, no acceleration.  Base motion on the start
-            //position of the drag, which gives nice clean motion.    
+            //position of the drag, which gives nice clean motion.
             h = static_cast<double>(GetTotalDrag(pos) / this->quantum);
         }
         else
         {
             //Nonlinear motion, i.e., mouse acceleration. Base motion
-            //on the last position of the cursor.          
+            //on the last position of the cursor.
             int d = GetLastDrag(pos) / this->quantum;
             double m = pow(static_cast<double>(abs(d)), this->acceleration);
             h = d >= 0 ? m : - m;
         }
-    
+
         if (h != 0.0)
         {
             this->value = this->dragStartValue + h * this->scale;
-            
+
             this->dragLast = pos;
             if (this->acceleration > 1.0)
                 this->dragStartValue = this->value;
 
             LimitValue(this->value);
-            
+
             SpinnerButtonEvent dragEvent(EVT_SPINNER_BUTTON_DRAG, GetId());
             dragEvent.SetValue(GetValue());
             wxPostEvent(GetParent(),dragEvent);
@@ -195,7 +195,7 @@ void SpinnerButton::OnSize(wxSizeEvent& event)
 
 void SpinnerButton::OnEnterWindow(wxMouseEvent& event)
 {
-    this->lastCursor = GetCursor();     
+    this->lastCursor = GetCursor();
     SetCursor(wxCursor(RESIZE_CURSOR));
 }
 
@@ -237,7 +237,7 @@ void SpinnerButton::DoDrawDragger(wxPaintDC& dc)
         buttonBitmap = &GetStyledBitmap(this->disabledBitmap, this->disabledStyle);
     else
         buttonBitmap = &GetStyledBitmap(this->normalBitmap, this->normalStyle);
-    
+
     dc.DrawBitmap(*buttonBitmap, 0, 0, false);
 }
 
@@ -312,7 +312,7 @@ void SpinnerButton::SetPrecision(int precision)
     int sigFigs = precision + magnitude;
     if (sigFigs > this->maxSigFigs)
         precision = this->maxSigFigs - magnitude;
-    
+
     this->precision = precision;
     if (this->precision < this->minPrecision)
         this->precision = this->minPrecision;
@@ -326,7 +326,7 @@ void SpinnerButton::SetMaxSigFigs(int n)
 {
     if (n < 1)
         n = 1;
-    
+
     this->maxSigFigs = n;
 
     SetPrecision(this->precision);
@@ -413,9 +413,9 @@ wxBitmap& SpinnerButton::GetStyledBitmap(wxBitmap& bitmap, const DragButtonStyle
     int h;
     GetClientSize(&w, &h);
 
-    if (bitmap.Ok() && bitmap.GetWidth() == w && bitmap.GetHeight() == h)    
+    if (bitmap.Ok() && bitmap.GetWidth() == w && bitmap.GetHeight() == h)
         return bitmap;
-    
+
     bitmap = RenderBitmap(style, w, h);
 
     return bitmap;
@@ -435,5 +435,5 @@ void SpinnerButton::LimitValue(double& value)
     if (value < this->minValue)
         value = this->minValue;
     else if (value > this->maxValue)
-        value = this->maxValue;    
+        value = this->maxValue;
 }

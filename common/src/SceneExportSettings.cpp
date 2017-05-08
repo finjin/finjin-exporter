@@ -38,11 +38,11 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //SceneExportSettings::EmbeddedAndLinkingHint
 SceneExportSettings::EmbeddedAndLinkingHint::EmbeddedAndLinkingHint() : isEmbedded(false), linkToMainObject(false)
-{    
+{
 }
 
 SceneExportSettings::EmbeddedAndLinkingHint::EmbeddedAndLinkingHint(const wxString& isEmbedded, const wxString& linkToMainObject) : isEmbedded(false), linkToMainObject(false)
@@ -61,8 +61,8 @@ SceneExportSettings::EmbeddedAndLinkingHint::EmbeddedAndLinkingHint(bool isEmbed
 }
 
 //SceneExportSettings
-SceneExportSettings::SceneExportSettings() 
-{    
+SceneExportSettings::SceneExportSettings()
+{
     this->currentFormatData = nullptr;
     this->time = TimeAccessor();
     this->conversionManager.Initialize(UpAxis::Y);
@@ -71,26 +71,26 @@ SceneExportSettings::SceneExportSettings()
     this->copyBitmaps = false;
     this->convertBitmapsToTextures = false;
     this->includeParentMaterialInName = false;
-        
+
     this->byteOrder = ByteOrder::NATIVE;
 }
 
 void SceneExportSettings::Initialize(FinjinSceneSettingsAccessor sceneSettings, SceneExportSettingsFlags flags)
 {
-    wxString value; //Temporary value 
+    wxString value; //Temporary value
 
     if (AnySet(flags & SceneExportSettingsFlags::USE_CURRENT_TIME))
         this->time = TimeAccessor::GetCurrentTime();
     else
         this->time = ApplicationAccessor::GetAnimationRange().start;
 
-    this->scale = sceneSettings.GetSceneScaleValue();    
+    this->scale = sceneSettings.GetSceneScaleValue();
     this->scaledWorldUnitsPerMeter = this->scale / ApplicationAccessor::GetMasterScaleMeters();
-    
+
     this->noMaterialName = sceneSettings.GetNoMaterialName();
     if (this->noMaterialName.empty())
         this->noMaterialName = Strings::NO_MATERIAL_NAME;
-    
+
     auto& globalSettings = FinjinGlobalSettings::GetInstance();
 
     this->byteOrder = globalSettings.binaryByteOrder;
@@ -101,7 +101,7 @@ void SceneExportSettings::Initialize(FinjinSceneSettingsAccessor sceneSettings, 
     if (globalSettings.embedMeshes)
         this->embeddedAssetTypes.push_back(AssetClass::MESH);
     if (globalSettings.embedMaterials)
-        this->embeddedAssetTypes.push_back(AssetClass::MATERIAL);        
+        this->embeddedAssetTypes.push_back(AssetClass::MATERIAL);
     if (globalSettings.embedTextures)
         this->embeddedAssetTypes.push_back(AssetClass::TEXTURE);
     if (globalSettings.embedPrefabs)
@@ -111,7 +111,7 @@ void SceneExportSettings::Initialize(FinjinSceneSettingsAccessor sceneSettings, 
 }
 
 void SceneExportSettings::MakeExportPaths(AssetClass defaultAssetType, const wxString& exportFilePath)
-{    
+{
     this->defaultAssetType = defaultAssetType;
     auto defaultExportDirectoryPath = FileUtilities::GetDirectoryPath(exportFilePath);
     auto defaultExtNoDot = FileUtilities::GetExtension(exportFilePath, false);
@@ -149,7 +149,7 @@ void SceneExportSettings::MakeExportPaths(AssetClass defaultAssetType, const wxS
                 else
                 {
                     formatData.assetDirectories[i] = FileUtilities::JoinPath(defaultExportDirectoryPath, globalExportDirectory);
-                    formatData.assetDirectories[i] = FileUtilities::JoinPath(formatData.assetDirectories[i], AssetClassUtilities::ToString(i, true));            
+                    formatData.assetDirectories[i] = FileUtilities::JoinPath(formatData.assetDirectories[i], AssetClassUtilities::ToString(i, true));
                 }
             }
             else
@@ -214,15 +214,15 @@ wxString SceneExportSettings::GetMaterialName(MaterialAccessor material) const
 wxString SceneExportSettings::GetAssetName(ExportableObject* exportableObject, GeometryStateBase* geometryState) const
 {
     wxString objectName;
-    
+
     objectName = geometryState->meshName;
-    
+
     if (objectName.empty())
         objectName = geometryState->createObject.GetLocalName(true);
 
     if (objectName.empty())
         objectName = exportableObject->object.GetLocalName(true);
-    
+
     ExporterUtilities::FixObjectName(objectName);
     return objectName;
 }
@@ -283,14 +283,14 @@ AssetReference SceneExportSettings::GetAssetReference(AssetClass assetType, cons
         return AssetReference::ForObject(objectName);
     else
     {
-        auto assetFilePaths = GetAssetFilePaths(assetType, objectName);    
+        auto assetFilePaths = GetAssetFilePaths(assetType, objectName);
         FileUtilities::CreateFileDirectoryRecursive(assetFilePaths.absolutePath);
         return AssetReference::ForObjectInLocalFile(assetFilePaths.relativePath, objectName);
     }
 }
 
 AssetReference SceneExportSettings::GetAssetFileReference(AssetClass assetType, const AssetPaths& fileName, EmbeddedAndLinkingHint hint) const
-{     
+{
     auto objectName = fileName.relativePath;
     FileUtilities::UnifySeparators(objectName);
 
@@ -307,7 +307,7 @@ AssetReference SceneExportSettings::GetAssetFileReference(AssetClass assetType, 
         if (assetType == AssetClass::TEXTURE)
             return AssetReference::ForObjectInLocalFile(fileName.relativePath, ExporterUtilities::GetTextureName(objectName));
         else
-            return AssetReference::ForObjectInLocalFile(fileName.relativePath, objectName);        
+            return AssetReference::ForObjectInLocalFile(fileName.relativePath, objectName);
     }
 }
 
@@ -323,9 +323,9 @@ AssetPaths SceneExportSettings::GetAssetFilePaths(AssetClass assetType, const wx
 
     result.relativePath = objectName;
     AppendAssetExtension(result.relativePath, assetType);
-    
+
     result.absolutePath = GetCurrentAssetDirectory(assetType);
-    result.absolutePath = FileUtilities::JoinPath(result.absolutePath, result.relativePath);    
+    result.absolutePath = FileUtilities::JoinPath(result.absolutePath, result.relativePath);
 
     if (!IsEmbeddedAssetType(assetType, hint))
         FileUtilities::CreateFileDirectoryRecursive(result.absolutePath);
@@ -338,7 +338,7 @@ AssetPaths SceneExportSettings::ResolveAssetPaths(AssetClass assetType, const wx
     AssetPaths result;
 
     auto fileNameNoExtension = FileUtilities::GetFileNameNoExtension(fileName);
-    auto ext = FileUtilities::GetExtension(fileName, true);    
+    auto ext = FileUtilities::GetExtension(fileName, true);
 
     auto objectName = fileNameNoExtension;
     ExporterUtilities::FixObjectName(objectName);
@@ -347,18 +347,18 @@ AssetPaths SceneExportSettings::ResolveAssetPaths(AssetClass assetType, const wx
     if (fileName.StartsWith(projectPath))
     {
         auto fileDirectory = FileUtilities::RemoveFileName(fileName);
-        
+
         wxString tempRelativePath = fileDirectory.substr(projectPath.length());
         FileUtilities::UnifySeparators(tempRelativePath);
         FileUtilities::RemoveLeadingSeparators(tempRelativePath);
-                
-        result.relativePath = FileUtilities::JoinPath(tempRelativePath, objectName);        
+
+        result.relativePath = FileUtilities::JoinPath(tempRelativePath, objectName);
     }
     else
     {
-        result.relativePath = objectName;        
+        result.relativePath = objectName;
     }
-    
+
     if (assetType == AssetClass::TEXTURE && this->convertBitmapsToTextures)
     {
         result.relativePath += wxT(".");
@@ -366,9 +366,9 @@ AssetPaths SceneExportSettings::ResolveAssetPaths(AssetClass assetType, const wx
     }
     else
         result.relativePath += ext;
-    
+
     result.absolutePath = GetCurrentAssetDirectory(assetType);
-    result.absolutePath = FileUtilities::JoinPath(result.absolutePath, result.relativePath);    
+    result.absolutePath = FileUtilities::JoinPath(result.absolutePath, result.relativePath);
 
     if (!IsEmbeddedAssetType(assetType, hint))
         FileUtilities::CreateFileDirectoryRecursive(result.absolutePath);
@@ -478,7 +478,7 @@ WxChunkPropertyName SceneExportSettings::AssetTypeToAssetReferencePropertyName(A
 SceneDataChunkWriterController::SceneDataChunkWriterController(SceneExportSettings* sceneExportSettings)
 {
     this->objectIndex = 0;
-        
+
     this->sceneExportSettings = sceneExportSettings;
 }
 
@@ -495,10 +495,10 @@ bool SceneDataChunkWriterController::RequiresNewOutput(const WxDataChunkWriter& 
 }
 
 std::unique_ptr<WxDocumentWriterOutput> SceneDataChunkWriterController::AddOutput(WxDataChunkWriter& writer, const WxChunkName& chunkName, WxError& error)
-{   
+{
     AssetClass assetType;
     SceneExportSettings::ChunkNameToAssetType(chunkName, assetType);
-                
+
     //Determine object name
     auto objectName = writer.GetContextString(WxDataChunkWriter::ContextIndex::OBJECT_NAME);
     if (objectName.empty())
@@ -508,7 +508,7 @@ std::unique_ptr<WxDocumentWriterOutput> SceneDataChunkWriterController::AddOutpu
         FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, Strings::ENCOUNTERED_CHUNK_WITHOUT_OBJECT_NAME_FORMAT, objectName.wx_str());
     }
 
-    auto filePaths = this->sceneExportSettings->GetAssetFilePaths(assetType, objectName);        
+    auto filePaths = this->sceneExportSettings->GetAssetFilePaths(assetType, objectName);
     auto outputStream = CreateOutputFileStream(filePaths.absolutePath, error);
     if (error)
     {
@@ -551,6 +551,6 @@ std::unique_ptr<WxDocumentWriterOutput> SceneDataChunkWriterController::AddOutpu
             }
         }
     }
-        
+
     return outputStream;
 }

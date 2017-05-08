@@ -30,16 +30,16 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 bool ApplicationAccessorBase::exportEnabled = false;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 wxString ApplicationAccessorBase::GetUserHomeApplicationDirectory()
 {
     wxString appName = wxT("FinjinExporter/");
     appName += APP_VERSION_NAME;
-    
+
     wxString dir = FileUtilities::JoinPath(wxStandardPaths::Get().GetUserLocalDataDir(), appName);
     FileUtilities::EnsureTrailingPathSeparator(dir);
     FileUtilities::CreateFileDirectoryRecursive(dir);
@@ -49,7 +49,7 @@ wxString ApplicationAccessorBase::GetUserHomeApplicationDirectory()
 void ApplicationAccessorBase::RegisterTypes()
 {
     RegisterSceneSettingsTypes();
-    RegisterDetectableObjectTypes();    
+    RegisterDetectableObjectTypes();
     RegisterExporterHandlerFactories();
     RegisterMaterialExporterHandlerFactories();
 }

@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MeshAnimationTracksDetector::Detect(ObjectAccessor object)
 {
     struct TrackInfo
@@ -39,8 +39,8 @@ void MeshAnimationTracksDetector::Detect(ObjectAccessor object)
     //Get all the usable track locations
     auto skinModifier = MaxUtilities::FindSkinModifier(object.node);
     auto physiqueModifier = MaxUtilities::FindPhysiqueModifier(object.node);
-    auto morpherModifier = MaxUtilities::FindMorpherModifier(object.node);    
-    TrackInfo tracks[TRACK_TYPE_COUNT] = 
+    auto morpherModifier = MaxUtilities::FindMorpherModifier(object.node);
+    TrackInfo tracks[TRACK_TYPE_COUNT] =
         {
         {true, wxEmptyString, Strings::OBJECT},
         {morpherModifier != nullptr, PropertyValues::MeshAnimationTrack::MORPHER, Strings::MORPHER},
@@ -88,8 +88,8 @@ bool MeshAnimationTracksDetector::IsObjectBased(const wxString& trackType)
 
 bool MeshAnimationTracksDetector::IsSkeletonBased(const wxString& trackType)
 {
-    return 
-        trackType == PropertyValues::MeshAnimationTrack::SKIN || 
+    return
+        trackType == PropertyValues::MeshAnimationTrack::SKIN ||
         trackType == PropertyValues::MeshAnimationTrack::PHYSIQUE;
 }
 

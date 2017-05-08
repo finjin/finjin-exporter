@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
 #if FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_3DSMAX || FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_MOTIONBUILDER
 
-    /** 
+    /**
      * This accessor set is pretty much just an alias for std::set, and assumes that
      * T has properly supports the < comparison operator
      */
@@ -40,7 +40,7 @@ namespace Finjin { namespace Exporter {
         }
     };
 
-    /** 
+    /**
      * This accessor set is pretty much just an alias for std::map, and assumes that
      * T has properly supports the < comparison operator
      */
@@ -50,8 +50,8 @@ namespace Finjin { namespace Exporter {
     };
 
 #else
-    
-    /** 
+
+    /**
      * This accessor provides an interface that looks like std::set but uses
      * T's equality operator
      */
@@ -62,27 +62,27 @@ namespace Finjin { namespace Exporter {
         typedef typename std::list<T> base;
         typedef typename base::iterator iterator;
         typedef typename base::const_iterator const_iterator;
-        
+
         iterator begin()
         {
             return base::begin();
         }
-        
+
         const_iterator begin() const
         {
             return base::begin();
         }
-        
+
         iterator end()
         {
             return base::end();
         }
-        
+
         const_iterator end() const
         {
             return base::end();
         }
-        
+
         void insert(const T& object)
         {
             if (find(object) == end())
@@ -109,13 +109,13 @@ namespace Finjin { namespace Exporter {
             return end();
         }
 
-        void erase(const T& object) 
+        void erase(const T& object)
         {
             iterator i = find(object);
             if (i != end())
                 i = std::list<T>::erase(i);
         }
-        
+
         iterator erase(iterator i)
         {
             return std::list<T>::erase(i);
@@ -148,7 +148,7 @@ namespace Finjin { namespace Exporter {
         }
     };
 
-    /** 
+    /**
      * This accessor provides an interface that looks like std::map but uses
      * T's equality operator
      */
@@ -159,32 +159,32 @@ namespace Finjin { namespace Exporter {
         typedef typename std::list<AccessorMapItem<K, V> > base;
         typedef typename base::iterator iterator;
         typedef typename base::const_iterator const_iterator;
-        
+
         iterator begin()
         {
             return base::begin();
         }
-        
+
         const_iterator begin() const
         {
             return base::begin();
         }
-        
+
         iterator end()
         {
             return base::end();
         }
-        
+
         const_iterator end() const
         {
             return base::end();
         }
-        
+
         AccessorMapItem<K, V>& back()
         {
             return base::back();
         }
-        
+
         AccessorMapItem<K, V>& operator [] (const K& key)
         {
             iterator i = find(key);
@@ -199,7 +199,7 @@ namespace Finjin { namespace Exporter {
             }
         }
 
-        iterator find(const K& key) 
+        iterator find(const K& key)
         {
             for (iterator i = begin(); i != end(); ++i)
             {
@@ -219,13 +219,13 @@ namespace Finjin { namespace Exporter {
             return end();
         }
 
-        void erase(const K& key) 
+        void erase(const K& key)
         {
             iterator i = find(key);
             if (i != end())
                 erase(i);
         }
-        
+
         iterator erase(iterator i)
         {
             return base::erase(i);

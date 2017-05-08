@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 #if defined(__WXMSW__)
 wxString SystemUtilities::GetKeyStringValue(const wxString& key, const wxString& valueName, HKEY hRootKey)
 {
@@ -46,7 +46,7 @@ wxString SystemUtilities::GetKeyStringValue(const wxString& key, const wxString&
             //Success
             value = valueChars;
         }
-        
+
         //Close key
         RegCloseKey(hKey);
     }
@@ -66,7 +66,7 @@ wxString SystemUtilities::FindSubkey(const wxString& baseKey, const wxString& de
         do
         {
             auto subkeyName = keyEnumerator.GetSubkey();
-            
+
             //Key opened. See if it matches desiredSubkey
             if (_tcsicmp(subkeyName.wx_str(), desiredSubkey.wx_str()) == 0)
             {
@@ -94,7 +94,7 @@ wxString SystemUtilities::FindSubkeyStartingWith(const wxString& baseKey, const 
         {
             wxString subkeyName = keyEnumerator.GetSubkey();
             wxString subkeyNameLower = subkeyName.Lower();
-                        
+
             //Key opened. See if it has 'startingWith' at the beginning of its name
             if (_tcsstr(subkeyNameLower.wx_str(), startingWithLower.wx_str()) == subkeyNameLower.wx_str())
             {

@@ -19,10 +19,10 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
-    /** 
+
+    /**
      * Manages access to a Win32 list control.
      * This class does not create the control. The control will typically be
      * created automatically as part of the creation of a dialog window from
@@ -32,8 +32,8 @@ namespace Finjin { namespace Exporter {
     {
     public:
         ListControl();
-                 
-        /** 
+
+        /**
          * Attaches to the specifed list control.
          * @param hList [in] - The list control. This control is modified
          * to have the LVS_EX_GRIDLINES and LVS_EX_FULLROWSELECT properties.
@@ -43,21 +43,21 @@ namespace Finjin { namespace Exporter {
         /** Removes all the items from the list control. */
         void Reset();
 
-        /** 
+        /**
          * Inserts a column into the list control.
          * @param columnStringID [in] - Resource identifier of the string used
          * as the column's label.
-         * @param column [in] - Index of the column to insert. This index should exist, 
-         * which means that during initialization columns should be created 
+         * @param column [in] - Index of the column to insert. This index should exist,
+         * which means that during initialization columns should be created
          * sequentially: 0, 1, and so on.
          * @param width [in] - The width of the column.
          */
         void InsertColumn(int columnStringID, int column, int width = 50);
 
-        /** 
+        /**
          * Inserts a new item into the specified row, possibly creating a new row.
          * @param row [in] - The index of the row to modify/add.
-         * @param column [in] - The index of the column to insert. If this is 0, 
+         * @param column [in] - The index of the column to insert. If this is 0,
          * a new row is inserted.
          * @param text [in] - The text to set/add.
          * @param data [in] - Data to associate with the item. This is ignored if
@@ -65,10 +65,10 @@ namespace Finjin { namespace Exporter {
          */
         void InsertItem(int row, int column, const wxString& text = wxEmptyString, LPARAM data = 0);
 
-        /** 
+        /**
          * Adds a new row.
          * @param text [in] - The text to set into the first column.
-         * @param data [in] - Data to associate with the item. 
+         * @param data [in] - Data to associate with the item.
          * @return Index of the added row.
          */
         int AddItem(const wxString& text = wxEmptyString, LPARAM data = 0);

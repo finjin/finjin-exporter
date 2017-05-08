@@ -30,19 +30,19 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static wxString GetConfigSettingsFileName()
 {
     return FileUtilities::JoinPath(ApplicationAccessor::GetFinjinHomeDirectory(true), FINJIN_EXPORTER_GLOBAL_SETTINGS_FILE_NAME);
 }
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const double FinjinGlobalSettings::DEFAULT_SAMPLE_INTERVAL = .25;
 static FinjinGlobalSettings* instance = nullptr;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinGlobalSettings::FinjinGlobalSettings()
 {
     if (instance == nullptr)
@@ -91,13 +91,13 @@ FinjinGlobalSettings::~FinjinGlobalSettings()
 void FinjinGlobalSettings::GetSceneSettingsDefaults(FinjinSceneSettingsAccessor& sceneSettings)
 {
     sceneSettings.SetSceneScaleUnit(this->sceneScaleUnit);
-    sceneSettings.SetSceneScaleDivide(this->sceneScaleDivide);    
+    sceneSettings.SetSceneScaleDivide(this->sceneScaleDivide);
 }
 
 FinjinGlobalSettings& FinjinGlobalSettings::GetInstance()
 {
     static FinjinGlobalSettings globalInstance; //This will initialize the global instance if it hasn't already been initialized
-    
+
     instance->Load();
 
     return *instance;
@@ -120,7 +120,7 @@ void FinjinGlobalSettings::Save()
     //Binary byte order
     if (this->binaryByteOrder != ByteOrder::NATIVE)
         writer.WriteKeyAndValue(wxT("binary-byte-order"), this->binaryByteOrder == ByteOrder::LITTLE ? wxT("little") : wxT("big"));
-    
+
     //"Additional export" files
     writer.WriteKeyAndValue(wxT("additional-export-json-files"), StringUtilities::ToString(this->additionalExportJsonFiles));
     writer.WriteKeyAndValue(wxT("additional-export-text-files"), StringUtilities::ToString(this->additionalExportTextFiles));
@@ -132,7 +132,7 @@ void FinjinGlobalSettings::Save()
     writer.WriteKeyAndValue(wxT("embed-materials"), StringUtilities::ToString(this->embedMaterials));
     writer.WriteKeyAndValue(wxT("embed-textures"), StringUtilities::ToString(this->embedTextures));
     writer.WriteKeyAndValue(wxT("embed-prefabs"), StringUtilities::ToString(this->embedPrefabs));
-    
+
     //Export flags
     writer.WriteKeyAndValue(wxT("export-author"), StringUtilities::ToString(this->exportAuthor));
     writer.WriteKeyAndValue(wxT("export-application-name"), StringUtilities::ToString(this->exportApplicationName));
@@ -148,11 +148,11 @@ void FinjinGlobalSettings::Save()
         maxBytesPerLineText << maxBytesPerLine;
         writer.WriteKeyAndValue(wxT("max-bytes-per-line"), maxBytesPerLineText);
     }
-    
+
     //Scene scale
-    writer.WriteScopeStart(wxT("sceneScale"));    
+    writer.WriteScopeStart(wxT("sceneScale"));
     {
-        writer.WriteKeyAndValue(wxT("unit"), this->sceneScaleUnit);        
+        writer.WriteKeyAndValue(wxT("unit"), this->sceneScaleUnit);
 
         wxString divide;
         divide << this->sceneScaleDivide;
@@ -174,7 +174,7 @@ void FinjinGlobalSettings::Save()
     writer.WriteScopeStart(wxT("vertex-animation-sampling"));
     {
         writer.WriteKeyAndValue(wxT("type"), this->vertexAnimationSampleType == SampleType::INTERVAL ? wxT("interval") : wxT("rate"));
-        
+
         wxString interval;
         interval << this->skeletonAnimationSampleInterval;
         writer.WriteKeyAndValue(wxT("interval"), interval);
@@ -184,7 +184,7 @@ void FinjinGlobalSettings::Save()
     writer.WriteScopeStart(wxT("node-animation-sampling"));
     {
         writer.WriteKeyAndValue(wxT("type"), this->nodeAnimationSampleType == SampleType::INTERVAL ? wxT("interval") : wxT("rate"));
-        
+
         wxString interval;
         interval << this->skeletonAnimationSampleInterval;
         writer.WriteKeyAndValue(wxT("interval"), interval);
@@ -204,7 +204,7 @@ void FinjinGlobalSettings::Save()
     //Meshes
     writer.WriteKeyAndValue(wxT("submesh-naming"), this->submeshNaming);
     writer.WriteKeyAndValue(wxT("submesh-custom-name"), this->submeshCustomName);
-    
+
     writer.WriteKeyAndValue(wxT("base-vertex-format-directory-type"), BaseDirectory::ToString(this->baseVertexFormatDirectoryType));
     writer.WriteKeyAndValue(wxT("base-vertex-format-directory"), this->baseVertexFormatDirectory);
     writer.WriteKeyAndValue(wxT("vertex-format-path"), this->vertexFormatPath);
@@ -225,7 +225,7 @@ void FinjinGlobalSettings::Save()
 
     //Run external viewer after export
     writer.WriteKeyAndValue(wxT("run-external-viewer-after-export"), StringUtilities::ToString(this->runExternalViewerAfterExport));
-    
+
     //User data types
     writer.WriteKeyAndValue(wxT("base-user-data-types-directory-type"), BaseDirectory::ToString(this->baseUserDataTypesDirectoryType));
     writer.WriteKeyAndValue(wxT("base-user-data-types-directory"), this->baseUserDataTypesDirectory);
@@ -233,7 +233,7 @@ void FinjinGlobalSettings::Save()
     {
         for (auto& location : this->userDataTypesLocations)
             writer.WriteKeyAndValue(location.GetTypeString(), location.name);
-    }   
+    }
     writer.WriteScopeEnd();
 
     //Flags
@@ -243,7 +243,7 @@ void FinjinGlobalSettings::Save()
         {
             writer.WriteKeyAndValue(f.name, StringUtilities::ToString(f.bit));
         }
-    }   
+    }
     writer.WriteScopeEnd();
 }
 
@@ -264,7 +264,7 @@ void FinjinGlobalSettings::Load()
     {
         switch (line->GetType())
         {
-            case WxConfigDocumentLine::Type::SECTION: 
+            case WxConfigDocumentLine::Type::SECTION:
             {
                 currentSectionName = line->GetSectionName();
                 break;
@@ -355,10 +355,10 @@ void FinjinGlobalSettings::Load()
                 else if (key == wxT("export-directory"))
                 {
                     this->exportDirectory = value;
-                }                    
+                }
                 else if (key == wxT("max-bytes-per-line"))
                 {
-                    this->maxBytesPerLine = StringUtilities::ToUInt(value);                    
+                    this->maxBytesPerLine = StringUtilities::ToUInt(value);
                     if (this->maxBytesPerLine < FINJIN_EXPORTER_MIN_BYTES_PER_LINE)
                         this->maxBytesPerLine = FINJIN_EXPORTER_MIN_BYTES_PER_LINE;
                 }
@@ -378,7 +378,7 @@ void FinjinGlobalSettings::Load()
                 }
                 else if (currentSectionName == wxT("vertex-animation-sampling") && key == wxT("interval"))
                 {
-                    this->vertexAnimationSampleInterval = StringUtilities::ToDouble(value);                    
+                    this->vertexAnimationSampleInterval = StringUtilities::ToDouble(value);
                     if (this->vertexAnimationSampleInterval <= 0)
                         this->vertexAnimationSampleInterval = DEFAULT_SAMPLE_INTERVAL;
                 }
@@ -388,10 +388,10 @@ void FinjinGlobalSettings::Load()
                 }
                 else if (currentSectionName == wxT("node-animation-sampling") && key == wxT("interval"))
                 {
-                    this->nodeAnimationSampleInterval = StringUtilities::ToDouble(value);                    
+                    this->nodeAnimationSampleInterval = StringUtilities::ToDouble(value);
                     if (this->nodeAnimationSampleInterval <= 0)
                         this->nodeAnimationSampleInterval = DEFAULT_SAMPLE_INTERVAL;
-                }                
+                }
                 else if (key == wxT("node-animation-translation-interpolation"))
                 {
                     this->nodeTranslationInterpolationType = value;
@@ -410,7 +410,7 @@ void FinjinGlobalSettings::Load()
                 }
                 else if (key == wxT("base-vertex-format-directory-type"))
                 {
-                    this->baseVertexFormatDirectoryType = BaseDirectory::ParseType(value);                    
+                    this->baseVertexFormatDirectoryType = BaseDirectory::ParseType(value);
                 }
                 else if (key == wxT("base-vertex-format-directory"))
                 {
@@ -418,7 +418,7 @@ void FinjinGlobalSettings::Load()
                 }
                 else if (key == wxT("vertex-format-path"))
                 {
-                    this->vertexFormatPath = value;                    
+                    this->vertexFormatPath = value;
                 }
                 else if (key == wxT("no-material-name"))
                 {
@@ -439,7 +439,7 @@ void FinjinGlobalSettings::Load()
                 else if (key == wxT("convert-bitmaps-to-textures"))
                 {
                     this->convertBitmapsToTextures = StringUtilities::ToBool(value);
-                }                    
+                }
                 else if (key == wxT("external-viewer"))
                 {
                     if (value == wxT("FinjinViewer"))
@@ -453,7 +453,7 @@ void FinjinGlobalSettings::Load()
                 }
                 else if (key == wxT("base-user-data-types-directory-type"))
                 {
-                    this->baseUserDataTypesDirectoryType = BaseDirectory::ParseType(value);                    
+                    this->baseUserDataTypesDirectoryType = BaseDirectory::ParseType(value);
                 }
                 else if (key == wxT("base-user-data-types-directory"))
                 {

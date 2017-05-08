@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 PhysicalObjectExportSettings::PhysicalObjectExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Physical(scene)
 {
 }
@@ -39,7 +39,7 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
 
     //Item type
     this->type = objectSettings.GetItemType();
-    
+
     //Bounding volume
     FinjinIVector2 unusedSegmentCount;
     FinjinVector3 size;
@@ -59,17 +59,17 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
     else if (MayaUtilities::GetSphereRadiusAndSegmentCount(this->shape.radius, unusedSegmentCount, object.obj))
     {
         //Sphere bounding volume
-        
+
         //Type
         this->shape.type = Shape::SPHERE;
 
         //Radius
-        this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;        
+        this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;
     }
     else if (MayaUtilities::GetBoxSize(size, object.obj))
-    {   
+    {
         //Box bounding volume
-        
+
         //Type
         this->shape.type = Shape::BOX;
 
@@ -79,9 +79,9 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
         this->shape.size.Set(size.x, size.y, size.z);
     }
     else if (MayaUtilities::GetCylinderRadiusAndLength(this->shape.radius, this->shape.size.x, object.obj))
-    {   
+    {
         //Cylinder bounding volume
-                
+
         //Type
         this->shape.type = Shape::CYLINDER;
 
@@ -91,7 +91,7 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
         //Radius
         this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;
     }
-    else if 
+    else if
         (
         geometryState.Create(wxEmptyString, object, finjinExporterContext.GetSceneExportSettings()->conversionManager, finjinExporterContext.GetSceneExportSettings()->scale, finjinExporterContext.GetSceneExportSettings()->time, GeometryStateFlags::FAST_VERTICES) &&
         geometryState.submeshes.front()->geometryType == GeometryStateSubmesh::MESH
@@ -116,7 +116,7 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
             for (size_t vertexIndex = 0; vertexIndex < 3; vertexIndex++)
             {
                 this->shape.meshFaces[faceIndex].vertex[vertexIndex] = vertexIterator->position;
-                ++vertexIterator;                    
+                ++vertexIterator;
             }
         }
     }

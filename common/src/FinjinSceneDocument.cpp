@@ -35,7 +35,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static bool ChildOrderLess(const std::shared_ptr<FinjinSceneDocument_Item>& item1, const std::shared_ptr<FinjinSceneDocument_Item>& item2)
 {
     return item1->childOrder < item2->childOrder;
@@ -45,7 +45,7 @@ template <size_t count>
 std::array<float, count> ParseFloats(const wxString& value)
 {
     std::array<float, count> values;
-    
+
     StringSplitter splitValues(value, wxT(FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR));
     auto valueCount = std::min(count, splitValues.size());
     for (size_t i = 0; i < valueCount; i++)
@@ -57,7 +57,7 @@ std::array<float, count> ParseFloats(const wxString& value)
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //FinjinSceneDocument_Item::UserData
 void FinjinSceneDocument_Item::UserData::operator = (const wxString& rawData)
@@ -78,7 +78,7 @@ void FinjinSceneDocument_Item::UserData::operator = (const wxString& rawData)
     {
         switch (line->GetType())
         {
-            case WxConfigDocumentLine::Type::SECTION: 
+            case WxConfigDocumentLine::Type::SECTION:
             {
                 if (this->className.empty())
                 {
@@ -120,13 +120,13 @@ void FinjinSceneDocument_Item::UserData::operator = (const wxString& rawData)
                                 newPropInstance.prop = &prop;
                                 break;
                             }
-                        }                        
+                        }
                     }
 
                     //Normalize newlines if necessary
                     if (newPropInstance.prop == nullptr || newPropInstance.prop->type.type == UserDataTypes::DataType::STRING_DATA_TYPE)
                         newPropInstance.value.Replace(wxT("\r\n"), wxT("\n"));
-                    
+
                     this->propertyInstances.push_back(newPropInstance);
                 }
 
@@ -138,14 +138,14 @@ void FinjinSceneDocument_Item::UserData::operator = (const wxString& rawData)
 }
 
 //FinjinSceneDocument_Item
-FinjinSceneDocument_Item::FinjinSceneDocument_Item(FinjinSceneDocument* sceneDocument) 
+FinjinSceneDocument_Item::FinjinSceneDocument_Item(FinjinSceneDocument* sceneDocument)
 {
     this->sceneDocument = sceneDocument;
     this->parent = nullptr;
     this->childOrder = 0;
 }
 
-FinjinSceneDocument_Item::~FinjinSceneDocument_Item() 
+FinjinSceneDocument_Item::~FinjinSceneDocument_Item()
 {
 }
 
@@ -178,7 +178,7 @@ void FinjinSceneDocument_Item::Write(WxDataChunkWriter& writer, ExportFlags flag
 
     //Type
     if (flags & EXPORT_TYPE)
-    {        
+    {
         if (!this->typeName.empty())
         {
             writer.WriteString(StandardAssetDocumentPropertyNames::TYPE, this->typeName, error);
@@ -188,7 +188,7 @@ void FinjinSceneDocument_Item::Write(WxDataChunkWriter& writer, ExportFlags flag
 
     //Name
     if (flags & EXPORT_NAME)
-    {        
+    {
         if (!this->name.empty())
         {
             writer.WriteString(StandardAssetDocumentPropertyNames::NAME, this->name, error);
@@ -211,7 +211,7 @@ void FinjinSceneDocument_Item::Write(WxDataChunkWriter& writer, ExportFlags flag
     }
 
     //User data
-    if (flags & EXPORT_USER_DATA) 
+    if (flags & EXPORT_USER_DATA)
     {
         ExportUserData(writer, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -226,13 +226,13 @@ void FinjinSceneDocument_Item::Write(WxDataChunkWriter& writer, ExportFlags flag
 
     //Flags
     if (flags & EXPORT_FLAGS)
-    {        
+    {
         if (!this->namedFlags.empty())
         {
             writer.WriteChunk(StandardAssetDocumentChunkNames::FLAGS, [this](WxDataChunkWriter& writer, WxError& error)
             {
                 FINJIN_WX_ERROR_METHOD_START(error);
-            
+
                 //Count
                 writer.WriteCount(StandardAssetDocumentPropertyNames::COUNT, this->namedFlags.size(), error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -272,7 +272,7 @@ void FinjinSceneDocument_Item::ExportUserData(WxDataChunkWriter& writer, WxError
                 writer.WriteCount(StandardAssetDocumentPropertyNames::USER_DATA_STRING_PROPERTY_COUNT, this->userData.propertyInstances.size(), error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }
-            
+
             writer.WriteString(StandardAssetDocumentPropertyNames::USER_DATA_CLASS_NAME, this->userData.className, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
@@ -285,7 +285,7 @@ void FinjinSceneDocument_Item::ExportUserData(WxDataChunkWriter& writer, WxError
                 {
                     switch (propInstance.prop->type.type)
                     {
-                        case UserDataTypes::DataType::STRING_DATA_TYPE: 
+                        case UserDataTypes::DataType::STRING_DATA_TYPE:
                         {
                             if (!propInstance.value.empty())
                             {
@@ -343,7 +343,7 @@ void FinjinSceneDocument_Item::ExportUserData(WxDataChunkWriter& writer, WxError
         {
             wxString className;
             wxString currentSectionName;
-            
+
             auto userDataUtf8 = this->userData.rawData.ToUTF8();
             auto userDataUtf8Length = strlen(userDataUtf8.data());
             WxConfigDocumentReader reader;
@@ -351,7 +351,7 @@ void FinjinSceneDocument_Item::ExportUserData(WxDataChunkWriter& writer, WxError
             {
                 switch (line->GetType())
                 {
-                    case WxConfigDocumentLine::Type::SECTION: 
+                    case WxConfigDocumentLine::Type::SECTION:
                     {
                         if (className.empty())
                         {
@@ -429,7 +429,7 @@ void FinjinSceneDocument_Item::ExportNoteTracks(WxDataChunkWriter& writer, WxErr
                     writer.WriteString(StandardAssetDocumentPropertyNames::NAME, noteTrack.name, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }
-                
+
                 //Keys
                 if (!noteTrack.keys.empty())
                 {
@@ -455,7 +455,7 @@ void FinjinSceneDocument_Item::ExportNoteTracks(WxDataChunkWriter& writer, WxErr
 
                                 //Text
                                 writer.WriteString(StandardAssetDocumentPropertyNames::CONTENT, key.text, error);
-                                FINJIN_WX_DEFAULT_ERROR_CHECK(error)                    
+                                FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                             }, error);
                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                         }
@@ -510,12 +510,12 @@ void FinjinSceneDocument_Camera::Write(WxDataChunkWriter& writer, WxError& error
 
     Super::Write
         (
-        writer, 
+        writer,
         EXPORT_TYPE |
-        EXPORT_NAME | 
-        EXPORT_ID | 
-        EXPORT_USER_DATA | 
-        EXPORT_NOTE_TRACKS, 
+        EXPORT_NAME |
+        EXPORT_ID |
+        EXPORT_USER_DATA |
+        EXPORT_NOTE_TRACKS,
         error
         );
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -551,7 +551,7 @@ void FinjinSceneDocument_Camera::Write(WxDataChunkWriter& writer, WxError& error
 FinjinSceneDocument_Light::FinjinSceneDocument_Light(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
 {
     this->typeName = StandardAssetDocumentPropertyValues::TypeName::LIGHT;
-    
+
     this->isOn = false;
     this->lightType = LightType::DIRECTIONAL_LIGHT;
     this->castShadows = false;
@@ -567,12 +567,12 @@ void FinjinSceneDocument_Light::Write(WxDataChunkWriter& writer, WxError& error)
 
     Super::Write
         (
-        writer, 
+        writer,
         EXPORT_TYPE |
-        EXPORT_NAME | 
-        EXPORT_ID | 
-        EXPORT_USER_DATA | 
-        EXPORT_NOTE_TRACKS, 
+        EXPORT_NAME |
+        EXPORT_ID |
+        EXPORT_USER_DATA |
+        EXPORT_NOTE_TRACKS,
         error
         );
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -590,7 +590,7 @@ void FinjinSceneDocument_Light::Write(WxDataChunkWriter& writer, WxError& error)
         writer.WriteString(StandardAssetDocumentPropertyNames::LIGHT_TYPE, lightType, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Active?
     writer.WriteBool(StandardAssetDocumentPropertyNames::ACTIVE, this->isOn, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -606,7 +606,7 @@ void FinjinSceneDocument_Light::Write(WxDataChunkWriter& writer, WxError& error)
     //Diffuse color
     writer.WriteFloats(StandardAssetDocumentPropertyNames::COLOR, &this->color.r, 4, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    
+
     //Light range
     if (this->range[1] > 0)
     {
@@ -625,7 +625,7 @@ void FinjinSceneDocument_Light::Write(WxDataChunkWriter& writer, WxError& error)
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 }
 
-bool FinjinSceneDocument_Light::HasEffect(bool checkOn) const 
+bool FinjinSceneDocument_Light::HasEffect(bool checkOn) const
 {
     return (!checkOn || this->isOn) && this->power > 0 && !this->color.IsBlack();
 }
@@ -681,17 +681,17 @@ void FinjinSceneDocument_RenderableMovableObject::Write(WxDataChunkWriter& write
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
     }
-    
+
     //Rendering distance
     if (flags & EXPORT_RENDERING_DISTANCE)
     {
-        if (this->renderingDistance != 0)        
+        if (this->renderingDistance != 0)
         {
-            writer.WriteFloat(StandardAssetDocumentPropertyNames::RENDER_DISTANCE, this->renderingDistance, error);            
+            writer.WriteFloat(StandardAssetDocumentPropertyNames::RENDER_DISTANCE, this->renderingDistance, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
     }
-    
+
     //Casts shadows?
     if (flags & EXPORT_CAST_SHADOWS)
     {
@@ -731,7 +731,7 @@ void FinjinSceneDocument_RenderableMovableObject::WriteObjectVisibility(WxDataCh
 
 //FinjinSceneDocument_BoneAttachment
 FinjinSceneDocument_BoneAttachment::FinjinSceneDocument_BoneAttachment(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{   
+{
 }
 
 void FinjinSceneDocument_BoneAttachment::Write(WxDataChunkWriter& writer, WxError& error)
@@ -749,14 +749,14 @@ void FinjinSceneDocument_BoneAttachment::Write(WxDataChunkWriter& writer, WxErro
     //Transform
     ExporterUtilities::WriteTransformProperties(writer, this->transform, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        
+
     Super::Write(writer, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 }
 
 //FinjinSceneDocument_BoneAttachments
 FinjinSceneDocument_BoneAttachments::FinjinSceneDocument_BoneAttachments(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{       
+{
 }
 
 void FinjinSceneDocument_BoneAttachments::Write(WxDataChunkWriter& writer, WxError& error)
@@ -777,7 +777,7 @@ void FinjinSceneDocument_BoneAttachments::Write(WxDataChunkWriter& writer, WxErr
             auto attachment = std::static_pointer_cast<FinjinSceneDocument_BoneAttachment>(this->childItems[attachmentIndex]);
             WxChunkName chunkName(StandardAssetDocumentChunkNames::BONE_ATTACHMENT, attachmentIndex);
             writer.WriteChunk(chunkName, [attachment](WxDataChunkWriter& writer, WxError& error)
-            {   
+            {
                 FINJIN_WX_ERROR_METHOD_START(error);
 
                 attachment->Write(writer, error);
@@ -791,7 +791,7 @@ void FinjinSceneDocument_BoneAttachments::Write(WxDataChunkWriter& writer, WxErr
 
 //FinjinSceneDocument_Entity
 FinjinSceneDocument_Entity::FinjinSceneDocument_Entity(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{   
+{
     this->typeName = StandardAssetDocumentPropertyValues::TypeName::ENTITY;
 }
 
@@ -812,7 +812,7 @@ void FinjinSceneDocument_Entity::Write(WxDataChunkWriter& writer, WxError& error
         EXPORT_USER_DATA |
         EXPORT_FLAGS |
         EXPORT_VISIBILITY |
-        EXPORT_RENDER_QUEUE | 
+        EXPORT_RENDER_QUEUE |
         EXPORT_RENDER_PRIORITY |
         EXPORT_RENDERING_DISTANCE |
         EXPORT_NOTE_TRACKS |
@@ -848,7 +848,7 @@ void FinjinSceneDocument_Entity::Write(WxDataChunkWriter& writer, WxError& error
                     //Material ref
                     writer.WriteString(StandardAssetDocumentPropertyNames::MATERIAL_REF, this->subentities[subentityIndex].materialRef().ToUriString(), error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                        
+
                     //Render queue
                     if (!this->subentities[subentityIndex].renderQueue.empty())
                     {
@@ -881,7 +881,7 @@ void FinjinSceneDocument_Entity::Write(WxDataChunkWriter& writer, WxError& error
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
             //Each manual LOD
-            for (size_t manualLodIndex = 0; manualLodIndex < this->manualLods.size(); manualLodIndex++) 
+            for (size_t manualLodIndex = 0; manualLodIndex < this->manualLods.size(); manualLodIndex++)
             {
                 auto& manualLod = this->manualLods[manualLodIndex];
 
@@ -955,7 +955,7 @@ void FinjinSceneDocument_StaticAndInstancedGeometryEntity::Write(WxDataChunkWrit
     /*
     DataElementPtr entityElement = documentSet.AddChildElement(StandardAssetDocumentPropertyNames::ENTITY);
     documentSet.PushDataElement(entityElement);
-        
+
     //Mesh file
     entityElement->SetAttribute(StandardAssetDocumentPropertyNames::MESH_FILE, this->meshFile);
 
@@ -969,7 +969,7 @@ void FinjinSceneDocument_StaticAndInstancedGeometryEntity::Write(WxDataChunkWrit
             subentityElement->SetAttribute(StandardAssetDocumentPropertyNames::INDEX, i);
             subentityElement->SetAttribute(StandardAssetDocumentPropertyNames::MATERIAL_NAME, this->subentityMaterialNames[i]);
         }
-    }        
+    }
 
     //Position/rotation/scale
     entityElement->AddChildElement(StandardAssetDocumentPropertyNames::POSITION, this->position);
@@ -983,7 +983,7 @@ void FinjinSceneDocument_StaticAndInstancedGeometryEntity::Write(WxDataChunkWrit
 
 //FinjinSceneDocument_Entities
 FinjinSceneDocument_Entities::FinjinSceneDocument_Entities(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{       
+{
 }
 
 void FinjinSceneDocument_Entities::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1003,7 +1003,7 @@ void FinjinSceneDocument_Entities::Write(WxDataChunkWriter& writer, WxError& err
 
 //FinjinSceneDocument_StaticGeometry
 FinjinSceneDocument_StaticGeometry::FinjinSceneDocument_StaticGeometry(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{   
+{
     this->isVisible = true;
 }
 
@@ -1043,8 +1043,8 @@ void FinjinSceneDocument_StaticGeometry::Write(WxDataChunkWriter& writer, WxErro
         (
         documentSet,
         EXPORT_TYPE |
-        EXPORT_NAME | 
-        EXPORT_RENDER_QUEUE | 
+        EXPORT_NAME |
+        EXPORT_RENDER_QUEUE |
         EXPORT_RENDER_PRIORITY |
         EXPORT_RENDERING_DISTANCE |
         EXPORT_CAST_SHADOWS
@@ -1058,7 +1058,7 @@ void FinjinSceneDocument_StaticGeometry::Write(WxDataChunkWriter& writer, WxErro
 
 //FinjinSceneDocument_StaticGeometries
 FinjinSceneDocument_StaticGeometries::FinjinSceneDocument_StaticGeometries(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{    
+{
 }
 
 void FinjinSceneDocument_StaticGeometries::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1075,7 +1075,7 @@ void FinjinSceneDocument_StaticGeometries::Write(WxDataChunkWriter& writer, WxEr
 
 //FinjinSceneDocument_InstancedGeometry
 FinjinSceneDocument_InstancedGeometry::FinjinSceneDocument_InstancedGeometry(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{   
+{
     this->isVisible = true;
     this->batchCount = 0;
 }
@@ -1120,8 +1120,8 @@ void FinjinSceneDocument_InstancedGeometry::Write(WxDataChunkWriter& writer, WxE
         (
         documentSet,
         EXPORT_TYPE |
-        EXPORT_NAME | 
-        EXPORT_RENDER_QUEUE | 
+        EXPORT_NAME |
+        EXPORT_RENDER_QUEUE |
         EXPORT_RENDER_PRIORITY |
         EXPORT_RENDERING_DISTANCE |
         EXPORT_CAST_SHADOWS
@@ -1135,7 +1135,7 @@ void FinjinSceneDocument_InstancedGeometry::Write(WxDataChunkWriter& writer, WxE
 
 //FinjinSceneDocument_InstancedGeometries
 FinjinSceneDocument_InstancedGeometries::FinjinSceneDocument_InstancedGeometries(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{    
+{
 }
 
 void FinjinSceneDocument_InstancedGeometries::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1152,7 +1152,7 @@ void FinjinSceneDocument_InstancedGeometries::Write(WxDataChunkWriter& writer, W
 
 //FinjinSceneDocument_Sky
 FinjinSceneDocument_Sky::FinjinSceneDocument_Sky(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{    
+{
     this->typeName = StandardAssetDocumentPropertyValues::TypeName::SKY;
     this->enable = true;
 }
@@ -1175,8 +1175,8 @@ void FinjinSceneDocument_Sky::AddAnimation(std::shared_ptr<FinjinSceneDocument_N
 void FinjinSceneDocument_Sky::AddChildItem(std::shared_ptr<FinjinSceneDocument_Item> item)
 {
     if (item != nullptr)
-    {        
-        if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_NodeAnimations))            
+    {
+        if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_NodeAnimations))
             SetAnimations(std::static_pointer_cast<FinjinSceneDocument_NodeAnimations>(animations));
         else if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_NodeAnimation))
             AddAnimation(std::static_pointer_cast<FinjinSceneDocument_NodeAnimation>(item));
@@ -1211,12 +1211,12 @@ void FinjinSceneDocument_Sky::Write(WxDataChunkWriter& writer, WxError& error)
         //Export
         this->animations->Write(writer, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    }    
+    }
 }
 
 //FinjinSceneDocument_Clipping
 FinjinSceneDocument_Clipping::FinjinSceneDocument_Clipping(FinjinSceneDocument* sceneDocument, float nearClip, float farClip)
-{        
+{
     this->nearClip = nearClip;
     this->farClip = farClip;
 }
@@ -1248,7 +1248,7 @@ void FinjinSceneDocument_Shadows::Write(WxDataChunkWriter& writer, WxError& erro
             //Far distance
             writer.WriteFloat(StandardAssetDocumentPropertyNames::FAR_DISTANCE, this->farDistance, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-            
+
             //Color
             writer.WriteFloats(StandardAssetDocumentPropertyNames::COLOR, &this->color.r, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -1260,14 +1260,14 @@ void FinjinSceneDocument_Shadows::Write(WxDataChunkWriter& writer, WxError& erro
 //FinjinSceneDocument_Fog
 FinjinSceneDocument_Fog::FinjinSceneDocument_Fog
     (
-    FinjinSceneDocument* sceneDocument, 
-    FogMode mode, 
-    float expDensity, 
-    float linearStart, 
+    FinjinSceneDocument* sceneDocument,
+    FogMode mode,
+    float expDensity,
+    float linearStart,
     float linearEnd,
     const FinjinColor& color
     ) : Super(sceneDocument)
-{        
+{
     this->mode = mode;
     this->expDensity = expDensity;
     this->linearStart = linearStart;
@@ -1356,7 +1356,7 @@ void FinjinSceneDocument_Environment::AddSky(std::shared_ptr<FinjinSceneDocument
         sky->parent = this;
     }
 }
-        
+
 void FinjinSceneDocument_Environment::AddChildItem(std::shared_ptr<FinjinSceneDocument_Item> item)
 {
     if (item != nullptr)
@@ -1371,7 +1371,7 @@ void FinjinSceneDocument_Environment::AddChildItem(std::shared_ptr<FinjinSceneDo
             AddSky(std::static_pointer_cast<FinjinSceneDocument_Sky>(item));
         else
             Super::AddChildItem(item);
-    }            
+    }
 }
 
 void FinjinSceneDocument_Environment::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1385,7 +1385,7 @@ void FinjinSceneDocument_Environment::Write(WxDataChunkWriter& writer, WxError& 
         //Ambient light color
         writer.WriteFloats(StandardAssetDocumentPropertyNames::AMBIENT_COLOR, &this->ambientLightColor.r, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        
+
         //Background color
         writer.WriteFloats(StandardAssetDocumentPropertyNames::BACKGROUND_COLOR, &this->backgroundColor.r, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -1437,7 +1437,7 @@ void FinjinSceneDocument_Environment::Write(WxDataChunkWriter& writer, WxError& 
                         sky->Write(writer, error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                     }, error);
-                    FINJIN_WX_DEFAULT_ERROR_CHECK(error)                    
+                    FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }
             }, error);
             FINJIN_WX_ERROR_METHOD_START(error);
@@ -1485,7 +1485,7 @@ void FinjinSceneDocument_TrackTarget::Write(WxDataChunkWriter& writer, WxError& 
 
 //FinjinSceneDocument_Physical
 FinjinSceneDocument_Physical::FinjinSceneDocument_Physical(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{    
+{
     this->typeName = StandardAssetDocumentPropertyValues::TypeName::PHYSICAL;
 }
 
@@ -1496,7 +1496,7 @@ void FinjinSceneDocument_Physical::Write(WxDataChunkWriter& writer, WxError& err
     writer.WriteChunk(StandardAssetDocumentChunkNames::PHYSICAL, [this](WxDataChunkWriter& writer, WxError& error)
     {
         FINJIN_WX_ERROR_METHOD_START(error);
-        
+
         Super::Write
             (
             writer,
@@ -1597,7 +1597,7 @@ void FinjinSceneDocument_Physical::Write(WxDataChunkWriter& writer, WxError& err
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                
+
                 break;
             }
             case Shape::MESH:
@@ -1637,9 +1637,9 @@ void FinjinSceneDocument_Physical::Write(WxDataChunkWriter& writer, WxError& err
 
 //FinjinSceneDocument_NodeAnimation
 FinjinSceneDocument_NodeAnimation::FinjinSceneDocument_NodeAnimation(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{   
+{
     this->enable = false;
-    this->loop = false;    
+    this->loop = false;
 }
 
 void FinjinSceneDocument_NodeAnimation::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1685,18 +1685,18 @@ void FinjinSceneDocument_NodeAnimation::Write(WxDataChunkWriter& writer, WxError
 
             //Node transformations
             writer.WriteStridedFloats(StandardAssetDocumentPropertyNames::TRANSFORM, &firstKey.m44[0][0], this->keys.size() * 16, WxDataChunkWriteStride(16, sizeof(Key)), error);
-            FINJIN_WX_DEFAULT_ERROR_CHECK(error)            
+            FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
 
     Super::Write(writer, error);
-    FINJIN_WX_DEFAULT_ERROR_CHECK(error)    
+    FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 }
 
 //FinjinSceneDocument_NodeAnimations
 FinjinSceneDocument_NodeAnimations::FinjinSceneDocument_NodeAnimations(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{    
+{
 }
 
 void FinjinSceneDocument_NodeAnimations::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1718,14 +1718,14 @@ void FinjinSceneDocument_NodeAnimations::Write(WxDataChunkWriter& writer, WxErro
 
             WxChunkName animationChunkName(StandardAssetDocumentChunkNames::NODE_ANIMATION, animationIndex);
             writer.WriteChunk(animationChunkName, [animation](WxDataChunkWriter& writer, WxError& error)
-            {   
+            {
                 FINJIN_WX_ERROR_METHOD_START(error);
 
                 animation->Write(writer, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        }        
+        }
 
     }, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -1775,10 +1775,10 @@ void FinjinSceneDocument_SceneNode::AddAnimation(std::shared_ptr<FinjinSceneDocu
 void FinjinSceneDocument_SceneNode::AddChildItem(std::shared_ptr<FinjinSceneDocument_Item> item)
 {
     if (item != nullptr)
-    {        
+    {
         if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_MovableObject))
             AddAttachedObject(std::static_pointer_cast<FinjinSceneDocument_MovableObject>(item));
-        else if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_NodeAnimations))            
+        else if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_NodeAnimations))
             SetAnimations(std::static_pointer_cast<FinjinSceneDocument_NodeAnimations>(animations));
         else if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_NodeAnimation))
             AddAnimation(std::static_pointer_cast<FinjinSceneDocument_NodeAnimation>(item));
@@ -1841,18 +1841,18 @@ void FinjinSceneDocument_SceneNode::Write(WxDataChunkWriter& writer, WxError& er
         }
         default: break;
     }
-    
+
     //Instanced prefab name
     if (this->prefabRef != nullptr)
-    {        
+    {
         writer.WriteString(StandardAssetDocumentPropertyNames::PREFAB_REF, this->prefabRef().ToUriString(), error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
 
     //Position/rotation/scale
     ExporterUtilities::WriteTransformProperties(writer, this->transform, error);
-    FINJIN_WX_DEFAULT_ERROR_CHECK(error)        
-    
+    FINJIN_WX_DEFAULT_ERROR_CHECK(error)
+
     //Attached objects
     if (!this->attachedObjects.empty())
     {
@@ -1869,9 +1869,9 @@ void FinjinSceneDocument_SceneNode::Write(WxDataChunkWriter& writer, WxError& er
 
                 WxChunkName objectChunkName(StandardAssetDocumentChunkNames::OBJECT, objIndex);
                 writer.WriteChunk(objectChunkName, [attachedObject](WxDataChunkWriter& writer, WxError& error)
-                {   
+                {
                     FINJIN_WX_ERROR_METHOD_START(error);
-    
+
                     attachedObject->Write(writer, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }, error);
@@ -1880,7 +1880,7 @@ void FinjinSceneDocument_SceneNode::Write(WxDataChunkWriter& writer, WxError& er
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Animations
     if (this->animations != nullptr)
     {
@@ -1944,7 +1944,7 @@ FinjinSceneDocument_SceneNode* FinjinSceneDocument_SceneNode::GetPrefabRoot()
 
 //FinjinSceneDocument_SceneNodes
 FinjinSceneDocument_SceneNodes::FinjinSceneDocument_SceneNodes(FinjinSceneDocument* sceneDocument) : Super(sceneDocument)
-{    
+{
 }
 
 void FinjinSceneDocument_SceneNodes::Write(WxDataChunkWriter& writer, WxError& error)
@@ -1952,7 +1952,7 @@ void FinjinSceneDocument_SceneNodes::Write(WxDataChunkWriter& writer, WxError& e
     FINJIN_WX_ERROR_METHOD_START(error);
 
     if (!this->childItems.empty())
-    {            
+    {
         writer.WriteChunk(StandardAssetDocumentChunkNames::SCENE_NODES, [this](WxDataChunkWriter& writer, WxError& error)
         {
             FINJIN_WX_ERROR_METHOD_START(error);
@@ -1965,25 +1965,25 @@ void FinjinSceneDocument_SceneNodes::Write(WxDataChunkWriter& writer, WxError& e
             for (size_t nodeIndex = 0; nodeIndex < this->childItems.size(); nodeIndex++)
             {
                 auto node = std::static_pointer_cast<FinjinSceneDocument_SceneNode>(this->childItems[nodeIndex]);
-                
+
                 WxChunkName sceneNodeChunkName(StandardAssetDocumentChunkNames::SCENE_NODE, nodeIndex);
                 writer.WriteChunk(sceneNodeChunkName, [node](WxDataChunkWriter& writer, WxError& error)
-                {   
+                {
                     FINJIN_WX_ERROR_METHOD_START(error);
-                    
+
                     node->Write(writer, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                 }, error);
-                FINJIN_WX_DEFAULT_ERROR_CHECK(error)                
-            }        
+                FINJIN_WX_DEFAULT_ERROR_CHECK(error)
+            }
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    }    
+    }
 }
-    
+
 //FinjinSceneDocument
 FinjinSceneDocument::FinjinSceneDocument()
-{        
+{
     this->unitsPerMeter = 1;
 }
 
@@ -2011,7 +2011,7 @@ void FinjinSceneDocument::AddNode(std::shared_ptr<FinjinSceneDocument_SceneNode>
         //Prefab root
         node->parent = this;
         node->nodeIndex = this->prefabs.size();
-        this->prefabs.push_back(std::shared_ptr<FinjinSceneDocument_Item>(node));            
+        this->prefabs.push_back(std::shared_ptr<FinjinSceneDocument_Item>(node));
     }
     else if (prefabRoot != nullptr)
     {
@@ -2062,7 +2062,7 @@ void FinjinSceneDocument::AddInstancedGeometry(std::shared_ptr<FinjinSceneDocume
 void FinjinSceneDocument::AddChildItem(std::shared_ptr<FinjinSceneDocument_Item> item)
 {
     if (item != nullptr)
-    {                
+    {
         if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_SceneNode))
             AddNode(std::static_pointer_cast<FinjinSceneDocument_SceneNode>(item));
         else if (FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(item.get(), FinjinSceneDocument_Environment))
@@ -2126,7 +2126,7 @@ void FinjinSceneDocument::Write(WxDataChunkWriter& writer, WxError& error)
                             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
                         }, error);
                         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                        
+
                         //Descendant nodes
                         for (auto prefabChildNode : prefabNode->prefabChildTable)
                         {
@@ -2181,7 +2181,7 @@ void FinjinSceneDocument::Write(WxDataChunkWriter& writer, WxError& error)
                 {
                     writer.WriteUuid(StandardAssetDocumentPropertyNames::ID, parsedID, error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                }            
+                }
             }
 
             //User data and flags
@@ -2224,9 +2224,9 @@ void FinjinSceneDocument::Write(WxDataChunkWriter& writer, WxError& error)
             }
 
             Super::Write(writer, error);
-            FINJIN_WX_DEFAULT_ERROR_CHECK(error)            
+            FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }, error);
-    FINJIN_WX_DEFAULT_ERROR_CHECK(error)    
+    FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 }

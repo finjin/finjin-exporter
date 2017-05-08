@@ -19,9 +19,9 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** The Finjin static geometry container object. */
     class FinjinStaticGeometry : public HelperObject
     {
@@ -45,11 +45,11 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         int CanConvertToType(Class_ID obtype) override        {return FALSE;}
-        Object* ConvertToType(TimeValue t, Class_ID obtype) override {return nullptr;}        
+        Object* ConvertToType(TimeValue t, Class_ID obtype) override {return nullptr;}
         void GetWorldBoundBox(TimeValue t, INode* inode, ViewExp* vpt, Box3& box) override;
         void GetLocalBoundBox(TimeValue t, INode* inode, ViewExp* vpt, Box3& box) override;
         int DoOwnSelectHilite() override                        {return TRUE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -69,21 +69,21 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         float GetWidth(TimeValue t = 0);
         void SetWidth(float value, TimeValue t = 0);
 
         float GetLength(TimeValue t = 0);
         void SetLength(float value, TimeValue t = 0);
-        
+
         float GetHeight(TimeValue t = 0);
         void SetHeight(float value, TimeValue t = 0);
 
         BOOL GetAlwaysFaceView();
 
         bool GetCastShadows(TimeValue t = 0);
-                
+
         Point3 GetSize(TimeValue t = 0);
         Matrix3 GetSizeMatrix(TimeValue t = 0);
 
@@ -114,7 +114,7 @@ namespace Finjin { namespace Exporter {
 
         IObjParam* ip;
 
-        bool suspendSnap;        
+        bool suspendSnap;
     };
 
 } }

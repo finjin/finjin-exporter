@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void RegisterSceneSettingsTypes()
 {
     SceneSettingsTypes::RegisterType(GeneralSceneSettingsType::GetInstance());
@@ -40,5 +40,5 @@ void RegisterSceneSettingsTypes()
     SceneSettingsTypes::RegisterType(MeshesSceneSettingsType::GetInstance());
     SceneSettingsTypes::RegisterType(MaterialsSceneSettingsType::GetInstance());
     SceneSettingsTypes::RegisterType(BitmapsSceneSettingsType::GetInstance());
-    SceneSettingsTypes::RegisterType(EnvironmentSceneSettingsType::GetInstance());    
+    SceneSettingsTypes::RegisterType(EnvironmentSceneSettingsType::GetInstance());
 }

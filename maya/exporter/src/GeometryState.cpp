@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 struct OrderedUVSetName
 {
     OrderedUVSetName(const MString& name)
@@ -44,9 +44,9 @@ struct OrderedUVSetName
     bool isValid;
 };
 typedef std::vector<OrderedUVSetName> OrderedUVSetNames;
-        
 
-//Local functions--------------------------------------------------------------
+
+//Local functions---------------------------------------------------------------
 static MaterialAccessor::Culling GetCulling(MFnMesh& mesh)
 {
     MaterialAccessor::Culling culling = MaterialAccessor::DEFAULT_CULLING;
@@ -56,16 +56,16 @@ static MaterialAccessor::Culling GetCulling(MFnMesh& mesh)
         MPlug backfaceCullingPlug = mesh.findPlug("backfaceCulling");
         MPlug doubleSidedPlug = mesh.findPlug("doubleSided");
         MPlug oppositePlug = mesh.findPlug("opposite");
-    
+
         if (!backfaceCullingPlug.isNull() && !doubleSidedPlug.isNull() && !oppositePlug.isNull())
         {
             short backfaceCulling = backfaceCullingPlug.asShort();
             bool doubleSided = doubleSidedPlug.asBool();
-            bool opposite = oppositePlug.asBool();            
+            bool opposite = oppositePlug.asBool();
             if (doubleSided && backfaceCulling == 0)
             {
                 //Double-sided and backface culling off
-                culling = MaterialAccessor::NO_CULLING;        
+                culling = MaterialAccessor::NO_CULLING;
             }
             else if (!doubleSided && opposite)
             {
@@ -85,7 +85,7 @@ static bool HasColors(MObject& meshObject)
     {
         MIntArray faceIndices;
         faceIter.getVertices(faceIndices);
-        
+
         int triangleCount;
         faceIter.numTriangles(triangleCount);
         for (int triangleIndex = 0; triangleIndex < triangleCount; triangleIndex++)
@@ -94,7 +94,7 @@ static bool HasColors(MObject& meshObject)
             MPointArray trianglePoints;
             MIntArray triangleIndices;
             faceIter.getTriangle(triangleIndex, trianglePoints, triangleIndices);
-            
+
             //Convert triangle-indices to face-relative indices
             MIntArray localTriangleIndices;
             MayaUtilities::GetLocalMeshIndices(localTriangleIndices, faceIndices, triangleIndices);
@@ -115,20 +115,20 @@ static void GetMeshEdges(MObject& meshObject, FinjinEdgeSet& allMeshEdges)
     MStatus status;
     MFnMesh mesh(meshObject, &status);
     if (status == MStatus::kSuccess)
-    {    
-        //Get all mesh edges    
+    {
+        //Get all mesh edges
         int2 edgeVertexIndices;
         unsigned int edgeCount = mesh.numEdges();
         for (unsigned int edgeIndex = 0; edgeIndex < edgeCount; edgeIndex++)
         {
             mesh.getEdgeVertices(edgeIndex, edgeVertexIndices);
-            allMeshEdges.insert(FinjinEdge(edgeVertexIndices[0], edgeVertexIndices[1]));            
+            allMeshEdges.insert(FinjinEdge(edgeVertexIndices[0], edgeVertexIndices[1]));
         }
     }
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool GeometryState::CanHandle(ObjectAccessor object, TimeAccessor time)
 {
     if (object.obj.hasFn(MFn::kMesh) || object.obj.hasFn(MFn::kNurbsSurface) || object.obj.hasFn(MFn::kNurbsCurve))
@@ -143,7 +143,7 @@ bool GeometryState::CanHandle(ObjectAccessor object, TimeAccessor time)
 void GeometryState::GetSubmeshesSettings(ObjectAccessor object, SubmeshesSettings& submeshesSettings, GeometryStateFlags flags)
 {
     submeshesSettings.clear();
-    
+
     //Get the mesh, converting from a NURBs surface if necessary
     MObject meshObject;
     MFnMesh mesh;
@@ -153,25 +153,25 @@ void GeometryState::GetSubmeshesSettings(ObjectAccessor object, SubmeshesSetting
         MFnNurbsSurface nurbsSurface(object.obj);
         MObject tesselatedMeshTransform = nurbsSurface.tesselate();
         tesselatedMeshTransformNode.setObject(tesselatedMeshTransform);
-        meshObject = tesselatedMeshTransformNode.child(0);        
+        meshObject = tesselatedMeshTransformNode.child(0);
     }
     else if (object.obj.hasFn(MFn::kMesh))
-        meshObject = object.obj;        
- 
+        meshObject = object.obj;
+
     if (!meshObject.isNull())
     {
         mesh.setObject(meshObject);
 
         auto culling = MaterialAccessor::DEFAULT_CULLING;
         if (NoneSet(flags & GeometryStateFlags::NO_EXTRA_MATERIALS))
-            culling = GetCulling(mesh);        
+            culling = GetCulling(mesh);
 
         //Get submesh materials
         MaterialAccessorVector submeshMaterials;
         MaterialAccessorSet materialSet;
         MObjectArray shaders;
         MIntArray shaderPolygonIndices;
-        mesh.getConnectedShaders(0, shaders, shaderPolygonIndices);                
+        mesh.getConnectedShaders(0, shaders, shaderPolygonIndices);
         for (unsigned int i = 0; i < shaderPolygonIndices.length(); i++)
         {
             MObject shader;
@@ -192,8 +192,8 @@ void GeometryState::GetSubmeshesSettings(ObjectAccessor object, SubmeshesSetting
         MStringArray uvSetNames;
         mesh.getUVSetNames(uvSetNames);
         textureCoordinateSets.resize(uvSetNames.length());
-        for (size_t textureCoordinateSetIndex = 0; 
-            textureCoordinateSetIndex < uvSetNames.length(); 
+        for (size_t textureCoordinateSetIndex = 0;
+            textureCoordinateSetIndex < uvSetNames.length();
             textureCoordinateSetIndex++)
         {
             textureCoordinateSets[textureCoordinateSetIndex].source.name = ApplicationStringToWxString(uvSetNames[textureCoordinateSetIndex]);
@@ -211,10 +211,10 @@ void GeometryState::GetSubmeshesSettings(ObjectAccessor object, SubmeshesSetting
 bool GeometryState::Create
     (
     const wxString& meshName,
-    ObjectAccessor object, 
-    const CoordinateSystemConverter& coordinateConverter, 
+    ObjectAccessor object,
+    const CoordinateSystemConverter& coordinateConverter,
     float scale,
-    TimeAccessor time, 
+    TimeAccessor time,
     GeometryStateFlags flags,
     SubmeshesSettings* submeshesSettings,
     const SkeletonReferencePose* referencePose
@@ -241,17 +241,17 @@ bool GeometryState::Create
         MFnNurbsSurface nurbsSurface(object.obj);
         MObject tesselatedMeshTransform = nurbsSurface.tesselate();
         tesselatedMeshTransformNode.setObject(tesselatedMeshTransform);
-        meshObject = tesselatedMeshTransformNode.child(0);        
+        meshObject = tesselatedMeshTransformNode.child(0);
     }
     else if (object.obj.hasFn(MFn::kMesh))
-        meshObject = object.obj;        
+        meshObject = object.obj;
     else if (object.obj.hasFn(MFn::kNurbsCurve))
         nurbsCurve.setObject(object.obj);
-    
+
     //Maya has issues when an ANIMATED skeleton is attached to the mesh:
     //  -Calling mesh.getConnectedShaders() causes mesh.numVertices() to return 0
     //  -Using MItMeshPolygon causes mesh.numVertices() to return 0
-    //  -Calling mesh.getEdgeVertices() after using MItMeshPolygon will cause Maya to crash, even though 
+    //  -Calling mesh.getEdgeVertices() after using MItMeshPolygon will cause Maya to crash, even though
     //   mesh.numEdges() returns a valid value
     //To avoid these issues, get the necessary data before initializing the MFnMesh that is used for
     //the duration of this function
@@ -260,13 +260,13 @@ bool GeometryState::Create
     int numVerts = 0;
     if (!meshObject.isNull())
     {
-        hasRealVertexColors = HasColors(meshObject); 
+        hasRealVertexColors = HasColors(meshObject);
         GetMeshEdges(meshObject, allMeshEdges);
-        
-        mesh.setObject(meshObject);        
-        
+
+        mesh.setObject(meshObject);
+
         numVerts = mesh.numVertices();
-    }    
+    }
 
     this->submeshProperties.vertexFormatElements.push_back(WxGpuVertexFormatStructUtilities::CreateElement(WxGpuVertexFormatStructMetadata::ElementID::POSITION, WxNumericStructElementType::FLOAT3));
 
@@ -276,17 +276,17 @@ bool GeometryState::Create
         this->submeshProperties.vertexFormatElements.push_back(WxGpuVertexFormatStructUtilities::CreateElement(WxGpuVertexFormatStructMetadata::ElementID::NORMAL, WxNumericStructElementType::FLOAT3));
 
         this->geometryType = GeometryStateSubmesh::MESH;
-        this->submeshProperties.hasVertexColors = hasRealVertexColors || AnySet(flags & GeometryStateFlags::FORCE_WHITE_VERTEX_COLORS);        
+        this->submeshProperties.hasVertexColors = hasRealVertexColors || AnySet(flags & GeometryStateFlags::FORCE_WHITE_VERTEX_COLORS);
     }
     else if (!nurbsCurve.object().isNull())
     {
         this->geometryType = GeometryStateSubmesh::SHAPE;
         this->submeshProperties.hasNormals = false;
-        this->submeshProperties.requiresDummyBone = true;        
+        this->submeshProperties.requiresDummyBone = true;
     }
     auto culling = MaterialAccessor::DEFAULT_CULLING;
     if (NoneSet(flags & GeometryStateFlags::NO_EXTRA_MATERIALS))
-        culling = GetCulling(mesh);        
+        culling = GetCulling(mesh);
 
     //Create the submeshes that faces will be placed into
     std::vector<bool> explodedEdgeVisibilities;
@@ -299,13 +299,13 @@ bool GeometryState::Create
 
         if (this->geometryType == GeometryStateSubmesh::MESH)
         {
-            //Get shaders and face-to-shader info, creating a "default" submesh if 
+            //Get shaders and face-to-shader info, creating a "default" submesh if
             //at least one face doesn't have a shader associated with it
             MObjectArray shaders;
             MIntArray shaderPolygonIndices;
             mesh.getConnectedShaders(0, shaders, shaderPolygonIndices);
             primitiveSubmeshes.resize(shaderPolygonIndices.length());
-            
+
             for (unsigned int i = 0; i < shaderPolygonIndices.length(); i++)
             {
                 MObject shader;
@@ -337,7 +337,7 @@ bool GeometryState::Create
     int textureCoordinateSetIndexForTangents = -1;
 
     //Get all faces and vertices, putting them into the appropriate submeshes
-    GeometryStateSubmesh::SubmeshesTextureCoordSetDimensionArray submeshesTextureCoordSetDimensions; 
+    GeometryStateSubmesh::SubmeshesTextureCoordSetDimensionArray submeshesTextureCoordSetDimensions;
     if (this->geometryType == GeometryStateSubmesh::MESH)
     {
         //Get all vertices and normals
@@ -390,7 +390,7 @@ bool GeometryState::Create
 
             //Submesh mapping index
             submesh->mappingIndex = foundMappingIndex;
-            
+
             if (submesh->submeshProperties.useCustomSubmeshes)
             {
                 //Render queue settings
@@ -400,7 +400,7 @@ bool GeometryState::Create
 
             //Texture coordinate sets
             auto& textureCoordinateSetMappings = submeshSettings.textureCoordinateSetMappings;
-            
+
             auto& textureCoordSetDimensions = submeshesTextureCoordSetDimensions[submeshIndex];
             textureCoordSetDimensions.resize(textureCoordinateSetMappings.size());
 
@@ -433,10 +433,10 @@ bool GeometryState::Create
         {
             int foundMappingIndex = submeshesSettings->FindIndexOfMaterial(submesh->material);
             auto& submeshSettings = (*submeshesSettings)[foundMappingIndex];
-        
+
             auto& textureCoordinateSetMappings = submeshSettings.textureCoordinateSetMappings;
             auto& textureCoordSetDimensions = submeshesTextureCoordSetDimensions[submeshIndex];
-        
+
             //Tangent/binormal
             if (this->submeshProperties.generateTangents && textureCoordinateSetIndexForTangents >= 0)
             {
@@ -450,7 +450,7 @@ bool GeometryState::Create
 
             //Texture coordinates
             for (size_t textureCoordinateSetIndex = 0; textureCoordinateSetIndex < textureCoordinateSetMappings.size(); textureCoordinateSetIndex++)
-            {            
+            {
                 submesh->submeshProperties.vertexFormatElements.push_back(WxGpuVertexFormatStructUtilities::CreateTextureCoordinate(textureCoordinateSetIndex, textureCoordSetDimensions[textureCoordinateSetIndex]));
             }
 
@@ -464,7 +464,7 @@ bool GeometryState::Create
 
             submeshIndex++;
         }
-        
+
         //Process faces
         MItMeshPolygon faceIter(mesh.object());
         this->meshNormals.normalFaces.resize(faceIter.count());
@@ -527,7 +527,7 @@ bool GeometryState::Create
                     vertex.originalCornerIndex = vertexIndex;
                     vertex.originalFaceVertexIndex = triangleIndices[vertexIndex];
                     vertex.originalFaceIndex = faceIndex;
-                    
+
                     //Position
                     MPoint position(points[faceIter.vertexIndex(localTriangleVertexIndices[vertexIndex])]);
                     coordinateConverter.ConvertPoint(position);
@@ -549,7 +549,7 @@ bool GeometryState::Create
                         //vertex.tangent.w = mesh.isRightHandedTangent(tangentID, &orderedUVSetNames[textureCoordinateSetIndexForTangents]) ? 1.0f : -1.0f;
                         coordinateConverter.ConvertPoint((FinjinVector3&)vertex.tangent);
                     }
-                    
+
                     //Point size
                     if (submesh->submeshProperties.primitiveType == PrimitiveType::POINTS)
                         vertex.pointSize = submesh->submeshProperties.pointSize;
@@ -558,14 +558,14 @@ bool GeometryState::Create
                     if (faceIter.hasColor(localTriangleVertexIndices[vertexIndex]))
                     {
                         MColor color;
-                        faceIter.getColor(color, localTriangleVertexIndices[vertexIndex]);                        
+                        faceIter.getColor(color, localTriangleVertexIndices[vertexIndex]);
                         vertex.SetColor(color.r, color.g, color.b, color.a);
                     }
 
                     //Texture coordinates
                     float2 uv;
-                    for (size_t textureCoordinateSetIndex = 0; 
-                        textureCoordinateSetIndex < orderedUVSetNames.size(); 
+                    for (size_t textureCoordinateSetIndex = 0;
+                        textureCoordinateSetIndex < orderedUVSetNames.size();
                         textureCoordinateSetIndex++)
                     {
                         if (orderedUVSetNames[textureCoordinateSetIndex].isValid)
@@ -594,7 +594,7 @@ bool GeometryState::Create
         MPointArray controlPoints;
         nurbsCurve.getCVs(controlPoints);
         int controlPointCount = controlPoints.length();
-        
+
         //Reserve an appropriate number of indices
         int totalControlPointCount = controlPointCount;
         submesh->indices.reserve(totalControlPointCount * 2);
@@ -619,13 +619,13 @@ bool GeometryState::Create
             auto isNewVertex = false;
             unsigned int actualVertexIndex = submesh->vertexList.Add(vertex, &isNewVertex, fastVertices);
             controlPointIndices.push_back(actualVertexIndex);
-            
+
             //Initialize/update bounds
             UpdateBounds(controlPointIndex == 0, isNewVertex, vertex.position);
         }
 
         //Determine the line segment count
-        int segmentCount = controlPointCount;            
+        int segmentCount = controlPointCount;
         if (nurbsCurve.form() == MFnNurbsCurve::kOpen)
             segmentCount--;
 
@@ -649,7 +649,7 @@ bool GeometryState::Create
 
 bool GeometryState::SamplePoints
     (
-    std::vector<FinjinVector3>& points, 
+    std::vector<FinjinVector3>& points,
     const CoordinateSystemConverter& coordinateConverter,
     float scale,
     TimeAccessor time,
@@ -685,7 +685,7 @@ bool GeometryState::SamplePoints
         //Get the points
         MPointArray meshPoints;
         mesh.getPoints(meshPoints, GET_POINTS_NORMALS_SPACE);
-        
+
         points.resize(meshPoints.length());
         MPoint previousPoint(0, 0, 0);
         for (unsigned int pointIndex = 0; pointIndex < meshPoints.length(); pointIndex++)
@@ -693,18 +693,18 @@ bool GeometryState::SamplePoints
             MPoint point(meshPoints[pointIndex]);
             auto isPointValid = true;
 
-            //Every once in a great while Maya will return one or two points that are entirely not-a-number (NaN). 
-            //If any are NaN, use the previous point. 
+            //Every once in a great while Maya will return one or two points that are entirely not-a-number (NaN).
+            //If any are NaN, use the previous point.
             //It's not correct but it's better than having bad numbers
             if (point.x != point.x || point.y != point.y || point.z != point.z) //NaN testing
             {
                 isPointValid = false;
-                point = previousPoint;                
+                point = previousPoint;
             }
-            
+
             coordinateConverter.ConvertPoint(point);
             points[pointIndex].Set(point.x * scale, point.y * scale, point.z * scale);
-            
+
             //Only update the 'previous' point if the current one is valid
             if (isPointValid)
                 previousPoint = meshPoints[pointIndex];
@@ -714,16 +714,16 @@ bool GeometryState::SamplePoints
         if (normals != nullptr)
             normals->Create(mesh, coordinateConverter);
 
-        result = true;        
+        result = true;
     }
     else if (!nurbsCurve.object().isNull())
     {
         MPointArray controlPoints;
         nurbsCurve.getCVs(controlPoints);
         int controlPointCount = controlPoints.length();
-        
+
         int totalControlPointCount = controlPointCount;
-        
+
         //Get the points
         points.reserve(totalControlPointCount);
         for (unsigned int controlPointIndex = 0; controlPointIndex < controlPoints.length(); controlPointIndex++)
@@ -737,13 +737,13 @@ bool GeometryState::SamplePoints
 
         result = true;
     }
-    
+
     //Clean up
     if (!tesselatedMeshTransformNode.object().isNull())
         MayaUtilities::DeleteObject(tesselatedMeshTransformNode);
 
     this->meshSkeleton.Restore();
     this->meshMorpher.Restore();
-    
+
     return result;
 }

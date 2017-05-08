@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void RegisterMaterialExporterHandlerFactories()
 {
     MaterialExporter::ClearHandlerFactories();

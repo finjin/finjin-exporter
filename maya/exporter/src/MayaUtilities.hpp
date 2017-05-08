@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MayaPlug.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class AimTarget
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
         MObject targetObject;
         FinjinVector3 aimVector;
         FinjinVector3 upVector;
-        
+
         enum WorldUpType
         {
             SCENE_UP = 0,
@@ -56,7 +56,7 @@ namespace Finjin { namespace Exporter {
     {
     public:
         /**
-         * Converts the triangle-relative indices to face-relative indices. This 
+         * Converts the triangle-relative indices to face-relative indices. This
          * is used during triangulation, to get the indices of the original mesh vertices.
          * @param localIndex [out] - The output face-relative indices.
          * @param faceIndices [in] - Face-relative vertex indices. These indices map
@@ -66,8 +66,8 @@ namespace Finjin { namespace Exporter {
          */
         static void GetLocalMeshIndices
             (
-            MIntArray& localIndex, 
-            const MIntArray& faceIndices, 
+            MIntArray& localIndex,
+            const MIntArray& faceIndices,
             const MIntArray& triangleIndices
             );
 
@@ -80,7 +80,7 @@ namespace Finjin { namespace Exporter {
         /** Deletes the object with the specified name. */
         static void DeleteObject(const MString& name);
 
-        /** 
+        /**
          * Determines if the specified object is a camera used in one of the standard viewports.
          * This determination is done by checking the camera's name against Maya's standard names.
          * @param obj [in] - The camera object.
@@ -96,11 +96,11 @@ namespace Finjin { namespace Exporter {
 
         /** Gets an object by name. */
         static MObject GetObjectByName(const MString& name);
-        
+
         /** Determines whether the specified object contains some kind of mesh or curve object without any vertices. */
         static bool IsEmptyMeshOrCurve(MObject obj);
 
-        /** 
+        /**
          * Determines whether the specified object is some kind of Maya plane.
          * @param obj [in] - The object to check.
          * @param axisPlugs [out] - Collection of plugs that can be used to be used to
@@ -120,13 +120,13 @@ namespace Finjin { namespace Exporter {
          * @param size [out] - The retrieved plane size.
          * @param segmentCount [out] - The plane segment count.
          * @param object [in] - The plane object.
-         * @return If the object was a plane and its size and segment count were retrieved, true is returned. 
+         * @return If the object was a plane and its size and segment count were retrieved, true is returned.
          * Otherwise, false is returned.
          */
         static bool GetPlaneSizeAndSegmentCount
             (
-            FinjinVector2& size, 
-            FinjinIVector2& segmentCount, 
+            FinjinVector2& size,
+            FinjinIVector2& segmentCount,
             MObject object
             );
 
@@ -135,13 +135,13 @@ namespace Finjin { namespace Exporter {
          * @param radius [out] - The retrieved sphere radius.
          * @param segmentCount [out] - The sphere segment count.
          * @param object [in] - The sphere object.
-         * @return If the object was a sphere and its radius and segment count were retrieved, true is returned. 
+         * @return If the object was a sphere and its radius and segment count were retrieved, true is returned.
          * Otherwise, false is returned.
          */
         static bool GetSphereRadiusAndSegmentCount
             (
-            float& radius, 
-            FinjinIVector2& segmentCount, 
+            float& radius,
+            FinjinIVector2& segmentCount,
             MObject object
             );
 
@@ -164,7 +164,7 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetCylinderRadiusAndLength(float& radius, float& length, MObject object);
 
-        /** 
+        /**
          * Gets the object's world matrix at the current time.
          * @param object [in] - The object whose world matrix should be retrieved.
          * @param worldMatrix [out] - The retrieved world matrix.
@@ -173,31 +173,31 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetFullWorldMatrix(MObject& object, MMatrix& worldMatrix);
 
-        /** 
-         * Gets the pivot point for the specified object at the specified time. 
+        /**
+         * Gets the pivot point for the specified object at the specified time.
          * The pivot point is the average of the rotate and scale pivots. Ideally, these two
          * should be the same.
          */
         static MVector GetPivotPoint(MObject obj, TimeAccessor time);
 
-        /** 
-         * Gets the pivot point for the specified object at the current time. 
+        /**
+         * Gets the pivot point for the specified object at the current time.
          * The pivot point is the average of the rotate and scale pivots. Ideally, these two
          * should be the same.
          */
         static MVector GetPivotPoint(MObject obj);
 
         static bool GetAimTarget(MObject obj, AimTarget& aimTarget);
-        
-        /** 
-         * Computes the inverse-transpose of the specified matrix. 
+
+        /**
+         * Computes the inverse-transpose of the specified matrix.
          * If the translation component is zero, this matrix can be used to transform normals.
          * @param m [in] - The matrix for which the inverse-transpose is computed.
          * @return The inverse-transpose is returned.
          */
         static MMatrix InverseTranspose(const MMatrix& m);
 
-        /** 
+        /**
          * Gets the best material for the shader object.
          * The 'best' material is the one that is either a Finjin material object, or non-null.
          */

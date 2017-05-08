@@ -25,11 +25,11 @@
 using namespace Finjin::Exporter;
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define FAST_CONVERSION 1 //1 = special-case point conversion. 0 = generic
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 CoordinateSystemConverter::CoordinateSystemConverter()
 {
     Initialize(UpAxis::Y);
@@ -44,7 +44,7 @@ void CoordinateSystemConverter::Initialize(UpAxis upAxis)
 {
     this->upAxis = upAxis;
 
-    //Determine world direction vectors and conversion matrix 
+    //Determine world direction vectors and conversion matrix
     this->rightVector = Point3(1,0,0);
     if (this->upAxis == UpAxis::Z)
     {
@@ -52,12 +52,12 @@ void CoordinateSystemConverter::Initialize(UpAxis upAxis)
         this->upVector = Point3(0,0,1);
         this->upVectorPerpendicular = Point3(0,1,0);
 
-        this->maxToOutputMatrix.IdentityMatrix();        
+        this->maxToOutputMatrix.IdentityMatrix();
     }
     else
     {
         this->forwardVector = Point3(0,0,1);
-        this->upVector = Point3(0,1,0);        
+        this->upVector = Point3(0,1,0);
         this->upVectorPerpendicular = Point3(0,0,-1);
 
         this->maxToOutputMatrix = RotateXMatrix(Max::PI/2);
@@ -90,7 +90,7 @@ void CoordinateSystemConverter::ConvertPoint(FinjinVector3& point) const
 }
 
 void CoordinateSystemConverter::ConvertMatrix(Matrix3& matrix) const
-{   
+{
     matrix = this->maxToOutputMatrix * matrix * this->maxToOutputMatrixInverse;
 }
 

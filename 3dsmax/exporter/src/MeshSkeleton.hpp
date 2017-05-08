@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaxModifier.hpp"
 #include "MeshSkeletonBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class MeshSkeleton : public MeshSkeletonBase
@@ -34,7 +34,7 @@ namespace Finjin { namespace Exporter {
 
         void Clear();
 
-        /** 
+        /**
          * Initializes the skeleton data.
          * @param maxNode [in] - The object that may contain a Skin or Physique modifier.
          * @param coordinateConverter [in] - The coordinate converter used to convert transformations.
@@ -42,8 +42,8 @@ namespace Finjin { namespace Exporter {
          */
         bool Initialize
             (
-            INode* maxNode, 
-            const CoordinateSystemConverter& coordinateConverter, 
+            INode* maxNode,
+            const CoordinateSystemConverter& coordinateConverter,
             float scale,
             const SkeletonReferencePose* referencePose
             );
@@ -51,15 +51,15 @@ namespace Finjin { namespace Exporter {
         /** Determines whether there are skeleton bones. */
         bool IsValid() const override;
 
-        /** 
-         * Enables/disables the skeleton. 
+        /**
+         * Enables/disables the skeleton.
          * Enabling it means that it has an effect on the target mesh object.
          * Disabling it means that the target mesh data appears as though there is no skeleton.
          */
         void Enable(bool enable);
 
-        /** 
-         * Disables the skeleton. 
+        /**
+         * Disables the skeleton.
          * Disabling it means that the target mesh data appears as though there is no skeleton.
          */
         void Disable() {Enable(false);}
@@ -69,13 +69,13 @@ namespace Finjin { namespace Exporter {
 
         /** Determines whether the specified object has skeleton data. */
         static bool HasSkeleton(ObjectAccessor object);
-        
+
     private:
-        bool InitializeBone(MeshBone* bone, const CoordinateSystemConverter& coordinateConverter, float scale);        
+        bool InitializeBone(MeshBone* bone, const CoordinateSystemConverter& coordinateConverter, float scale);
 
     public:
         MaxModifier physiqueModifier;
-        MaxModifier skinModifier;        
+        MaxModifier skinModifier;
         ObjectAccessor meshObject;
     };
 

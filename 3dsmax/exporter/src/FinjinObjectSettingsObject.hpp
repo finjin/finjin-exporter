@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectTypeDetector.hpp"
 #include "UserDataParameters.hpp"
 #include "ExtendedValueParameters.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class FinjinSceneSettingsObject;
     class FinjinNodeAnimationSettingsObject;
     class FinjinMeshAnimationSettingsObject;
@@ -48,7 +48,7 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         BOOL IsRenderable() override                          {return FALSE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -68,7 +68,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         static Class_ID GetClassClassID();
         static ClassDesc* GetClassDesc();
@@ -120,7 +120,7 @@ namespace Finjin { namespace Exporter {
         int GetMeshAnimationCount();
         FinjinMeshAnimationSettingsObject* GetMeshAnimation(int index);
         FinjinMeshAnimationSettingsObject* GetMeshAnimation(const wxString& name, int* foundAt = nullptr);
-        void GetMeshAnimationNames(std::vector<wxString>& names);        
+        void GetMeshAnimationNames(std::vector<wxString>& names);
         bool GetExportFlags();
         int GetFlagCount();
         void GetFlag(int index, wxString& name);
@@ -145,7 +145,7 @@ namespace Finjin { namespace Exporter {
         bool GetAttachedObject();
         INode* GetExportedParent();
         bool GetUseRootAsExportedParent();
-                
+
         void SetType(wxString value);
         void SetVisibility(wxString value);
         void SetVisibilityAffectObjectOnly(bool value);
@@ -200,7 +200,7 @@ namespace Finjin { namespace Exporter {
         void SetAttachedObject(bool value);
         void SetExportedParent(INode* value);
         void SetUseRootAsExportedParent(bool value);
-                
+
     public:
         enum
         {
@@ -219,30 +219,30 @@ namespace Finjin { namespace Exporter {
             PB_IS_PREFAB,
             PB_IS_PREFAB_INSTANCE,
             PB_PREFAB_NAME,
-            PB_NODE_ANIMATION_SAMPLE_INTERVAL,            
+            PB_NODE_ANIMATION_SAMPLE_INTERVAL,
             PB_NODE_ANIMATION_SAMPLE_TYPE,
             PB_NOTE_TRACK_NAMES,
             PB_RENDER_QUEUE_NAME,
             PB_RENDER_QUEUE_PRIORITY,
-            
+
             PB_TEXTURE_COORDINATE_SET_COUNT,
-            
+
             PB_MESH_NAME,
-                        
+
             PB_SKELETON_NAME,
             PB_MESH_ANIMATION_TYPE,
             PB_SKELETON_ANIMATION_SAMPLE_INTERVAL,
             PB_SKELETON_ANIMATION_SAMPLE_TYPE,
             PB_VERTEX_ANIMATION_SAMPLE_INTERVAL,
             PB_VERTEX_ANIMATION_SAMPLE_TYPE,
-            
+
             PB_PRIMITIVE_TYPE,
             PB_EXPORT_VERTEX_COLORS,
             PB_EXPORT_TANGENTS,
             PB_EXPORT_BINORMALS,
-            
+
             PB_ITEM_TYPE,
-            
+
             PB_ENABLE_SKY,
 
             PB_POINT_SIZE,
@@ -255,7 +255,7 @@ namespace Finjin { namespace Exporter {
             PB_MESH_ANIMATIONS,
 
             PB_FLAG_NAMES,
-            
+
             PB_LOD_TYPE,
             PB_LOD_NODES,
             PB_LOD_DISTANCES,
@@ -269,10 +269,10 @@ namespace Finjin { namespace Exporter {
 
             PB_EMBED_SKELETON_IN_MESH,
             PB_LINK_SKELETON_TO_MESH,
-            
+
             PB_IS_ATTACHED_OBJECT,
             PB_ANIMATED_ROOT,
-            
+
             PB_USE_CUSTOM_SUBMESHES,
             PB_SUBMESHES_SETTINGS,
 
@@ -297,7 +297,7 @@ namespace Finjin { namespace Exporter {
             PB_USE_ROOT_AS_EXPORTED_PARENT,
 
             PB_EXPORT_FLAGS,
-            
+
             PB_SKELETON_REFERENCE_POSE_TYPE,
             PB_SKELETON_REFERENCE_POSE_TIME
         };

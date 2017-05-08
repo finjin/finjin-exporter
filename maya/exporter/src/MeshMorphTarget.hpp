@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshMorphTargetBase.hpp"
 #include "TimeChanger.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class MeshMorphTarget : public MeshMorphTargetBase
@@ -35,10 +35,10 @@ namespace Finjin { namespace Exporter {
             this->blendShapeDeformer.setObject(blendShapeDeformer);
             this->blendShapeIndex = blendShapeIndex;
             this->name = targetObject.GetLocalName();
-            this->object = targetObject;                        
+            this->object = targetObject;
         }
 
-        float GetInfluence(TimeAccessor t) 
+        float GetInfluence(TimeAccessor t)
         {
             if (!this->blendShapeDeformer.object().isNull())
             {
@@ -48,8 +48,8 @@ namespace Finjin { namespace Exporter {
             else
                 return 0;
         }
-        
-    public:        
+
+    public:
         /** The blend shape deformer for the mesh. */
         MFnBlendShapeDeformer blendShapeDeformer;
 

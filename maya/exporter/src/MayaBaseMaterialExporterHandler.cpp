@@ -32,7 +32,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MayaBaseMaterialExporterHandler::WriteDiffuseMap(WxDataChunkWriter& writer, size_t& mapIndex, TextureSlot textureSlot, WxError& error)
 {
     FINJIN_WX_ERROR_METHOD_START(error);
@@ -200,7 +200,7 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
 
         //Store the file name reference
         AddBitmapFileName(textureFileName);
-            
+
         //Texture file name
         auto resolvedPaths = this->sceneExportSettings->ResolveAssetPaths(AssetClass::TEXTURE, textureFileName);
         auto assetRef = this->sceneExportSettings->GetAssetFileReference(AssetClass::TEXTURE, resolvedPaths);
@@ -246,8 +246,8 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
             }
         }*/
 
-        //Addressing mode                
-        wxString addressModes[3] = 
+        //Addressing mode
+        wxString addressModes[3] =
             {
             StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP,
             StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP,
@@ -259,14 +259,14 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
         place2dTexture.findPlug("mirrorU").getValue(mirrorU);
         if (mirrorU)
             addressModes[0] = StandardAssetDocumentPropertyValues::TextureAddressMode::MIRROR;
-            
+
         //V addressing mode
         bool mirrorV;
         //place2dTexture.findPlug("wrapV").getValue(wrapV);
         place2dTexture.findPlug("mirrorV").getValue(mirrorV);
         if (mirrorV)
             addressModes[1] = StandardAssetDocumentPropertyValues::TextureAddressMode::MIRROR;
-            
+
         //Texture scaling
         double coverage[2];
         place2dTexture.findPlug("coverageU").getValue(coverage[0]);
@@ -286,7 +286,7 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
             exportedScale[1] = repeat[1];
         }
         exportedScale[2] = 1.0f;
-            
+
         //Texture scrolling
         double translation[2];
         place2dTexture.findPlug("translateFrameU").getValue(translation[0]);
@@ -306,7 +306,7 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
             exportedScroll[1] = -offset[1];
         }
         exportedScroll[2] = 0.0f;
-            
+
         //Texture rotation
         double rotateFrame;
         place2dTexture.findPlug("rotateFrame").getValue(rotateFrame);
@@ -326,7 +326,7 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
         }
 
         if (exportedRotation != 0)
-        {                
+        {
             writer.WriteFloat(StandardAssetDocumentPropertyNames::TEXTURE_ROTATION, exportedRotation, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
@@ -337,8 +337,8 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
 
-        if (addressModes[0] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP || 
-            addressModes[1] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP || 
+        if (addressModes[0] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP ||
+            addressModes[1] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP ||
             addressModes[2] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP)
         {
             writer.WriteStrings(StandardAssetDocumentPropertyNames::TEXTURE_ADDRESS_MODE, addressModes, 3, error);
@@ -350,7 +350,7 @@ void MayaBaseMaterialExporterHandler::HandleTexture(WxDataChunkWriter& writer, T
 MObject MayaBaseMaterialExporterHandler::FindFileTexture(MFnDependencyNode& shader, MString texturePlugName)
 {
     MObject textureSlot;
-    
+
     MPlugArray colorInputs;
     shader.findPlug(texturePlugName).connectedTo(colorInputs, true, false);
     for (unsigned int i = 0; i < colorInputs.length() && textureSlot.isNull(); i++)
@@ -359,7 +359,7 @@ MObject MayaBaseMaterialExporterHandler::FindFileTexture(MFnDependencyNode& shad
         if (maybeTexture.hasFn(MFn::kFileTexture))
             textureSlot = maybeTexture;
     }
-    
+
     return textureSlot;
 }
 
@@ -379,7 +379,7 @@ void MayaBaseMaterialExporterHandler::FindFileTextures(std::vector<Texture>& tex
             for (int inputIndex = (int)inputsPlug.evaluateNumElements() - 1; inputIndex >= 0; inputIndex--)
             {
                 MPlug inputPlug = inputsPlug[inputIndex];
-                
+
                 MPlugArray moreColorInputs;
                 inputPlug.child(0).connectedTo(moreColorInputs, true, false);
                 for (unsigned int colorInputIndex = 0; colorInputIndex < moreColorInputs.length(); colorInputIndex++)
@@ -390,8 +390,8 @@ void MayaBaseMaterialExporterHandler::FindFileTextures(std::vector<Texture>& tex
 
                         MPlug blendModePlug = MayaPlug::FindChildPlug(inputPlug, "bm");
                         if (!blendModePlug.isNull())
-                            textureSlot.blendMode = (MayaBlendMode)blendModePlug.asShort();                            
-                        
+                            textureSlot.blendMode = (MayaBlendMode)blendModePlug.asShort();
+
                         textures.push_back(textureSlot);
 
                         break;
@@ -399,5 +399,5 @@ void MayaBaseMaterialExporterHandler::FindFileTextures(std::vector<Texture>& tex
                 }
             }
         }
-    }    
+    }
 }

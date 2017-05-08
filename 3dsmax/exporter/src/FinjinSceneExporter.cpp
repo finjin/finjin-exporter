@@ -32,8 +32,8 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes-----------------------------------------------------------------
-class FinjinSceneExporterClassDesc : public ClassDesc 
+//Local types-------------------------------------------------------------------
+class FinjinSceneExporterClassDesc : public ClassDesc
 {
 public:
     int IsPublic() override                        {return TRUE;}
@@ -106,23 +106,23 @@ unsigned int FinjinSceneExporter::Version()
 }
 
 void FinjinSceneExporter::ShowAbout(HWND hWnd)
-{    
+{
     Dialogs::ShowAboutDialog();
 }
 
 int FinjinSceneExporter::DoExport
     (
-    const TCHAR* fileName, 
-    ExpInterface* exportInterface, 
-    Interface* maxInterface, 
-    BOOL suppressPrompts, 
+    const TCHAR* fileName,
+    ExpInterface* exportInterface,
+    Interface* maxInterface,
+    BOOL suppressPrompts,
     DWORD options
     )
 {
     Exporter::ExportWithFileName
         (
-        ApplicationStringToWxString(fileName), 
-        (options & SCENE_EXPORT_SELECTED) ? true : false, 
+        ApplicationStringToWxString(fileName),
+        (options & SCENE_EXPORT_SELECTED) ? true : false,
         &FinjinSceneExporterHandlerFactory::GetInstance(),
         suppressPrompts ? false : true
         );
@@ -130,7 +130,7 @@ int FinjinSceneExporter::DoExport
 }
 
 BOOL FinjinSceneExporter::SupportsOptions(int ext, DWORD options)
-{    
+{
     if (options & SCENE_EXPORT_SELECTED)
         return TRUE;
     else

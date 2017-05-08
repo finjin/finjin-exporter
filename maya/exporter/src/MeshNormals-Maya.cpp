@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshNormals::MeshNormals()
 {
 }
@@ -47,12 +47,12 @@ void MeshNormals::Create(MFnMesh& mesh, const CoordinateSystemConverter& coordin
         uvSetName = uvSetNames[0];
         foundUV = true;
     }
-    
+
     MItMeshPolygon faceIter(mesh.object());
     this->normalFaces.resize(faceIter.count());
     if (foundUV)
         this->tangentFaces.resize(this->normalFaces.size());
-    
+
     //Get all normals and tangents
     MFloatVectorArray normals;
     mesh.getNormals(normals, GET_POINTS_NORMALS_SPACE);
@@ -75,7 +75,7 @@ void MeshNormals::Create(MFnMesh& mesh, const CoordinateSystemConverter& coordin
             FinjinVector3 normal(normalArray[cornerIndex].x, normalArray[cornerIndex].y, normalArray[cornerIndex].z);
             coordinateConverter.ConvertPoint(normal);
             this->normalFaces[faceIndex].Set(cornerIndex, faceIter.normalIndex(cornerIndex), normal);
-            
+
             if (foundUV)
             {
                 auto tangentIndex = faceIter.tangentIndex(cornerIndex);

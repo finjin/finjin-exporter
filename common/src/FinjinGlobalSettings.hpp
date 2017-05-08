@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "finjin/common/WxDataChunkWriter.hpp"
 #include "BaseDirectory.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinSceneSettingsAccessor;
-    
+
     class FinjinGlobalSettings
     {
     public:
@@ -45,20 +45,20 @@ namespace Finjin { namespace Exporter {
         void GetFlags(std::vector<wxString>& names, std::vector<int>& bits);
         void GetFlag(int i, wxString& name, int& bit);
         int GetFlagBit(const wxString& name);
-        
+
         wxString GetWorkingBaseUserDataTypesDirectory() const;
         wxString GetWorkingVertexFormatFilePath() const;
 
         bool GetExportAnyDocumentCreationData() const;
 
-        static const double DEFAULT_SAMPLE_INTERVAL;          
-        
+        static const double DEFAULT_SAMPLE_INTERVAL;
+
     private:
         void Load();
 
     public:
         bool loaded;
-        bool detailedLogging;        
+        bool detailedLogging;
         WxDataChunkBlobTextFormat blobTextFormat;
         ByteOrder binaryByteOrder;
         bool additionalExportJsonFiles;
@@ -85,7 +85,7 @@ namespace Finjin { namespace Exporter {
         double nodeAnimationSampleInterval;
         wxString submeshNaming;
         wxString submeshCustomName;
-        
+
         BaseDirectory::Type baseVertexFormatDirectoryType;
         wxString baseVertexFormatDirectory;
         wxString vertexFormatPath;
@@ -97,8 +97,8 @@ namespace Finjin { namespace Exporter {
         bool convertBitmapsToTextures;
         wxString nodeTranslationInterpolationType;
         wxString nodeRotationInterpolationType;
-        
-        enum ExternalViewer 
+
+        enum ExternalViewer
         {
             FINJIN_VIEWER
         };

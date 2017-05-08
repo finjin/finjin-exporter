@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is a cube map helper. */
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("cube-map-helper")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Cube Map Helper")); return name;}            
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Cube Map Helper")); return name;}
         };
 
         static Descriptor& GetTypeDescriptor()

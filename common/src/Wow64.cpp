@@ -23,15 +23,15 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BOOL Wow64::IsWow64()
 {
     BOOL isWow64 = FALSE;
 
     typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS)(HANDLE, PBOOL);
-    LPFN_ISWOW64PROCESS IsWow64ProcessPtr = (LPFN_ISWOW64PROCESS)GetProcAddress(GetModuleHandle(_T("kernel32")), "IsWow64Process");  
+    LPFN_ISWOW64PROCESS IsWow64ProcessPtr = (LPFN_ISWOW64PROCESS)GetProcAddress(GetModuleHandle(_T("kernel32")), "IsWow64Process");
     if (IsWow64ProcessPtr != nullptr)
         IsWow64ProcessPtr(GetCurrentProcess(), &isWow64);
-    
+
     return isWow64;
 }

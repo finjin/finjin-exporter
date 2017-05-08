@@ -19,26 +19,26 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "FinjinGlobalSettings.hpp"
 #include "TabControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A modal dialog used to edit the global settings.
      * This dialog can be seen within the application by selecting 'Global Settings' from the Finjin menu.
      */
-    class GlobalSettingsDialog : public FinjinDialog 
+    class GlobalSettingsDialog : public FinjinDialog
     {
-    protected:        
+    protected:
 
     public:
         GlobalSettingsDialog(wxWindow* parent, int initialPageIndex, const wxString& initialPageTitle);
-        
+
         bool Create(wxWindow* parent, int initialPageIndex, const wxString& initialPageTitle);
 
         void CreateControls(int initialPageIndex, const wxString& initialPageTitle);
@@ -47,7 +47,7 @@ namespace Finjin { namespace Exporter {
 
         int GetGUIData();
         void SetGUIData();
-        
+
         void OnOK(wxCommandEvent& event);
         void OnCancel(wxCommandEvent& event);
         void OnCloseWindow(wxCloseEvent& event);
@@ -64,7 +64,7 @@ namespace Finjin { namespace Exporter {
         bool initializingPages;
 
         FinjinGlobalSettings originalSettings;
-        
+
     };
 
 } }

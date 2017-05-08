@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is a sky. */
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("sky")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Sky")); return name;}            
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Sky")); return name;}
             bool IsSky() const override {return true;}
             bool CanBePrefab() const override {return false;}
             bool ConsumesAllChildren() const override {return true;}

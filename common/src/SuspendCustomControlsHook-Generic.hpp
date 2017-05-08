@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -31,7 +31,7 @@ namespace Finjin { namespace Exporter {
     public:
         /** Explicitly restores the custom styling. */
         void Unsuspend() {}
-        
+
         /** Indicates whether the styling is suspended. */
         bool IsSuspended() const {return false;}
     };

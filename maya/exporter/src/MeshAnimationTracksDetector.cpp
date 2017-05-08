@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MeshAnimationTracksDetector::Detect(ObjectAccessor object)
 {
     struct TrackInfo
@@ -40,7 +40,7 @@ void MeshAnimationTracksDetector::Detect(ObjectAccessor object)
     //Get all the usable track locations
     MeshAnimationTypeDetector typeDetector;
     typeDetector.Detect(object, 0, true, FinjinObjectSettingsAccessor());
-    TrackInfo tracks[TRACK_TYPE_COUNT] = 
+    TrackInfo tracks[TRACK_TYPE_COUNT] =
         {
         {true, wxEmptyString, Strings::OBJECT},
         {typeDetector.hasMorpher, PropertyValues::MeshAnimationTrack::MORPHER, Strings::SHAPE},
@@ -50,7 +50,7 @@ void MeshAnimationTracksDetector::Detect(ObjectAccessor object)
     {
         if (tracks[i].isValid)
             AddTrack(i, tracks[i].name, tracks[i].displayName);
-    }    
+    }
 }
 
 const wxString& MeshAnimationTracksDetector::GetTrackName(TrackType trackType)

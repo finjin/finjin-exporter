@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const MString ExtendedValueAttributes::ARRAY_ATTRIBUTE_NAME = "ExtendedValues";
 
 const MString ExtendedValueAttributes::ID_ATTRIBUTE_NAME = "ExtendedValueID";
@@ -36,20 +36,20 @@ const MString ExtendedValueAttributes::STRINGS_ATTRIBUTE_NAME = "ExtendedValueAt
 const MString ExtendedValueAttributes::OBJECTS_ATTRIBUTE_NAME = "ExtendedValueAttributesObjects";
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void GetExtendedPlugValue
     (
-    MPlug& extendedValuePlug, 
-    const MString& attributeNamePrefix, 
-    ExtendedValue& value, 
+    MPlug& extendedValuePlug,
+    const MString& attributeNamePrefix,
+    ExtendedValue& value,
     int* id = 0
     )
 {
     if (id != nullptr)
         *id = MayaPlug::FindChildPlug(extendedValuePlug, attributeNamePrefix + ExtendedValueAttributes::ID_ATTRIBUTE_NAME).asInt();
-    
+
     wxString typeString = ApplicationStringToWxString(MayaPlug::FindChildPlug(extendedValuePlug, attributeNamePrefix + ExtendedValueAttributes::TYPE_ATTRIBUTE_NAME).asString());
-    ExtendedValue::Type type = ExtendedValue::ParseType(typeString);                
+    ExtendedValue::Type type = ExtendedValue::ParseType(typeString);
 
     switch (type)
     {
@@ -57,19 +57,19 @@ static void GetExtendedPlugValue
         case ExtendedValue::EXTENDED_FLOAT:
         {
             MPlug floatsPlug = MayaPlug::FindChildPlug(extendedValuePlug, attributeNamePrefix + ExtendedValueAttributes::FLOATS_ATTRIBUTE_NAME);
-            
+
             std::vector<float> floats;
             floats.resize(floatsPlug.evaluateNumElements());
             for (size_t i = 0; i < floats.size(); i++)
                 floats[i] = floatsPlug[(unsigned int)i].asFloat();
             value.Set(floats);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_COLOR:
         {
             MPlug floatsPlug = MayaPlug::FindChildPlug(extendedValuePlug, attributeNamePrefix + ExtendedValueAttributes::FLOATS_ATTRIBUTE_NAME);
-            
+
             std::vector<FinjinColor> colors;
             colors.resize(floatsPlug.evaluateNumElements() / 4);
             size_t floatIndex = 0;
@@ -81,13 +81,13 @@ static void GetExtendedPlugValue
                 colors[i].a = floatsPlug[(unsigned int)floatIndex++].asFloat();
             }
             value.Set(colors);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_STRING:
         {
             MPlug stringsPlug = MayaPlug::FindChildPlug(extendedValuePlug, attributeNamePrefix + ExtendedValueAttributes::STRINGS_ATTRIBUTE_NAME);
-            
+
             std::vector<wxString> strings;
             strings.resize(stringsPlug.evaluateNumElements());
             for (size_t i = 0; i < strings.size(); i++)
@@ -96,7 +96,7 @@ static void GetExtendedPlugValue
 
             break;
         }
-        case ExtendedValue::EXTENDED_OBJECT: 
+        case ExtendedValue::EXTENDED_OBJECT:
         case ExtendedValue::EXTENDED_MATERIAL:
         {
             MPlug objectsPlug = MayaPlug::FindChildPlug(extendedValuePlug, attributeNamePrefix + ExtendedValueAttributes::OBJECTS_ATTRIBUTE_NAME);
@@ -129,7 +129,7 @@ static void GetExtendedPlugValue
             break;
         }
         default: value.SetNone(); break;
-    }    
+    }
 }
 
 static void SetExtendedPlugValue(MPlug& extendedValuePlug, const MString& attributeNamePrefix, const ExtendedValue& value, int id)
@@ -158,7 +158,7 @@ static void SetExtendedPlugValue(MPlug& extendedValuePlug, const MString& attrib
             value.Get(floats);
             for (size_t i = 0; i < floats.size(); i++)
                 MayaPlug::AddAttributeElementValue(floatsPlug, floats[i]);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_COLOR:
@@ -172,7 +172,7 @@ static void SetExtendedPlugValue(MPlug& extendedValuePlug, const MString& attrib
                 MayaPlug::AddAttributeElementValue(floatsPlug, colors[i].b);
                 MayaPlug::AddAttributeElementValue(floatsPlug, colors[i].a);
             }
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_STRING:
@@ -185,7 +185,7 @@ static void SetExtendedPlugValue(MPlug& extendedValuePlug, const MString& attrib
 
             break;
         }
-        case ExtendedValue::EXTENDED_OBJECT: 
+        case ExtendedValue::EXTENDED_OBJECT:
         case ExtendedValue::EXTENDED_MATERIAL:
         {
             if (value.GetType() == ExtendedValue::EXTENDED_OBJECT)
@@ -225,15 +225,15 @@ static bool FindExtendedValue(MPlug& value, MPlug& extendedValuesPlug, const MSt
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void ExtendedValueAttributes::CreateExtendedValueAttributes
     (
-    NodeAttributeAdder& adder, 
+    NodeAttributeAdder& adder,
     const MString& attributeNamePrefix
     )
 {
     struct Attributes
-    {    
+    {
         MObject extendedValueID;
         MObject extendedValueType;
         MObject extendedValueFloats;
@@ -253,9 +253,9 @@ void ExtendedValueAttributes::CreateExtendedValueAttributes
     attributesList.push_back(attributes.extendedValueFloats = adder.AddFloatArray(attributeNamePrefix + FLOATS_ATTRIBUTE_NAME));
     attributesList.push_back(attributes.extendedValueStrings = adder.AddStringArray(attributeNamePrefix + STRINGS_ATTRIBUTE_NAME));
     attributesList.push_back(attributes.extendedValueObjects = adder.AddObjectReferenceArray(attributeNamePrefix + OBJECTS_ATTRIBUTE_NAME));
-    
+
     adder.add = oldAdd;
-    
+
     this->extendedValues = adder.AddCompoundArray(attributeNamePrefix + ARRAY_ATTRIBUTE_NAME, attributesList);
 
     adder.hidden = oldHidden;
@@ -263,8 +263,8 @@ void ExtendedValueAttributes::CreateExtendedValueAttributes
 
 void ExtendedValueAttributes::CreateExtendedValueAttributes
     (
-    std::list<MObject>& attributesList, 
-    NodeAttributeAdder& adder, 
+    std::list<MObject>& attributesList,
+    NodeAttributeAdder& adder,
     const MString& attributeNamePrefix)
 {
     CreateExtendedValueAttributes(adder, attributeNamePrefix);
@@ -273,9 +273,9 @@ void ExtendedValueAttributes::CreateExtendedValueAttributes
 
 void ExtendedValueAttributes::GetAllExtendedValues
     (
-    MPlug extendedValuesPlug, 
-    const MString& attributeNamePrefix, 
-    std::vector<ExtendedValue>& values, 
+    MPlug extendedValuesPlug,
+    const MString& attributeNamePrefix,
+    std::vector<ExtendedValue>& values,
     std::vector<int>* ids
     )
 {
@@ -291,9 +291,9 @@ void ExtendedValueAttributes::GetAllExtendedValues
 
 bool ExtendedValueAttributes::GetExtendedValue
     (
-    MPlug extendedValuesPlug, 
-    const MString& attributeNamePrefix, 
-    int id, 
+    MPlug extendedValuesPlug,
+    const MString& attributeNamePrefix,
+    int id,
     ExtendedValue& value
     )
 {
@@ -306,25 +306,25 @@ bool ExtendedValueAttributes::GetExtendedValue
 
 void ExtendedValueAttributes::SetExtendedValue
     (
-    MPlug extendedValuesPlug, 
-    const MString& attributeNamePrefix, 
-    int id, 
+    MPlug extendedValuesPlug,
+    const MString& attributeNamePrefix,
+    int id,
     const ExtendedValue& value
     )
 {
     MPlug valuePlug;
     if (!FindExtendedValue(valuePlug, extendedValuesPlug, attributeNamePrefix, id))
     {
-        int addedIndex = MayaPlug::AddAttributeElement(extendedValuesPlug, ApplicationStringToWxString(attributeNamePrefix + ID_ATTRIBUTE_NAME));        
-        valuePlug = extendedValuesPlug[addedIndex];        
+        int addedIndex = MayaPlug::AddAttributeElement(extendedValuesPlug, ApplicationStringToWxString(attributeNamePrefix + ID_ATTRIBUTE_NAME));
+        valuePlug = extendedValuesPlug[addedIndex];
     }
     SetExtendedPlugValue(valuePlug, attributeNamePrefix, value, id);
 }
 
 bool ExtendedValueAttributes::RemoveExtendedValue
     (
-    MPlug extendedValuesPlug, 
-    const MString& attributeNamePrefix, 
+    MPlug extendedValuesPlug,
+    const MString& attributeNamePrefix,
     int id
     )
 {

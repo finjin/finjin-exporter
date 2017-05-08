@@ -36,7 +36,7 @@
 using namespace Finjin::Exporter;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 static const wxChar* TIME_SCALING_TEXT[] = {wxT("None"), wxT("Scale"), wxT("Length"), wxT("Normalize")};
 static const wxChar* TIME_SCALING_VALUE[] = {wxT(""), wxT(""), wxT("length"), wxT("normalize")};
 static const int TIME_SCALING_COUNT = FINJIN_COUNT_OF(TIME_SCALING_VALUE);
@@ -56,12 +56,12 @@ static const int INHERITED_BOOLS_VALUE[] = {INHERITED_USE_PARENT_BOOL, INHERITED
 static const int INHERITED_BOOL_COUNT = FINJIN_COUNT_OF(INHERITED_BOOLS_VALUE);
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void SetSampleValue(double& sampleInterval, SampleType& sampleType, double value, SampleType inputSampleType)
 {
     sampleType = SampleType::INTERVAL;
     sampleInterval = 0;
-    
+
     if (inputSampleType == SampleType::INTERVAL)
         sampleInterval = value;
     else if (inputSampleType == SampleType::RATE)
@@ -91,9 +91,9 @@ static void SetTimeScale(double& scale, wxString& scaleType, double value, const
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(MeshAnimationSettingsDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, MeshAnimationSettingsDialog::OnOK)        
+    EVT_BUTTON(wxID_OK, MeshAnimationSettingsDialog::OnOK)
     EVT_CHOICE(MeshAnimationSettingsDialog::TRACK_CHOICE, MeshAnimationSettingsDialog::OnTrackChoice)
     EVT_CHOICE(MeshAnimationSettingsDialog::TIME_SCALE_CHOICE, MeshAnimationSettingsDialog::OnTimeScaleChoice)
     EVT_CHOICE(MeshAnimationSettingsDialog::SAMPLING_TYPE_CHOICE, MeshAnimationSettingsDialog::OnSamplingTypeChoice)
@@ -117,7 +117,7 @@ MeshAnimationSettingsDialog::Settings::Settings()
     this->linkToObject = true;
     this->looped = false;
     this->sampleInterval = 0;
-    this->sampleType = SampleType::INTERVAL;    
+    this->sampleType = SampleType::INTERVAL;
 }
 
 void MeshAnimationSettingsDialog::Settings::GetSettings(FinjinMeshAnimationSettingsAccessor& anim)
@@ -137,8 +137,8 @@ void MeshAnimationSettingsDialog::Settings::GetSettings(FinjinMeshAnimationSetti
     anim.SetLooped(this->looped);
     anim.SetSampleInterval(this->sampleInterval);
     anim.SetSampleType(this->sampleType);
-    anim.SetTimeInterval(this->interval);    
-    
+    anim.SetTimeInterval(this->interval);
+
     anim.ClearBoneTranslationMasks();
     for (size_t i = 0; i < this->boneTranslationMasks.size(); i++)
         anim.AddBoneTranslationMask(this->boneTranslationMasks[i].object, this->boneTranslationMasks[i].mask);
@@ -166,11 +166,11 @@ void MeshAnimationSettingsDialog::Settings::SetSettings(FinjinMeshAnimationSetti
     this->sampleInterval = anim.GetSampleInterval();
     this->sampleType = anim.GetSampleType();
     this->interval = anim.GetTimeInterval();
-    
+
     int boneTranslationMaskCount = anim.GetBoneTranslationMaskCount();
     this->boneTranslationMasks.resize(boneTranslationMaskCount);
     for (int i = 0; i < boneTranslationMaskCount; i++)
-        anim.GetBoneTranslationMask(i, this->boneTranslationMasks[i].object, this->boneTranslationMasks[i].mask);        
+        anim.GetBoneTranslationMask(i, this->boneTranslationMasks[i].object, this->boneTranslationMasks[i].mask);
 
     int allowExportBonesCount = anim.GetAllowExportBoneCount();
     this->allowExportBones.resize(allowExportBonesCount);
@@ -180,8 +180,8 @@ void MeshAnimationSettingsDialog::Settings::SetSettings(FinjinMeshAnimationSetti
 
 MeshAnimationSettingsDialog::MeshAnimationSettingsDialog
     (
-    wxWindow* parent, 
-    const wxString& title, 
+    wxWindow* parent,
+    const wxString& title,
     const ObjectAccessorSet& meshBones,
     const std::vector<wxString>& allAnimationNames,
     const std::vector<MeshAnimationTrack>& tracks,
@@ -198,31 +198,31 @@ MeshAnimationSettingsDialog::MeshAnimationSettingsDialog
     this->settings = settings;
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxFlexGridSizer* gridSizer;
     gridSizer = new wxFlexGridSizer( 8, 2, 0, 0 );
     gridSizer->SetFlexibleDirection( wxBOTH );
     gridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     nameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
     nameLabel->Wrap( -1 );
     gridSizer->Add( nameLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* nameSizer;
     nameSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     nameText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 200,-1 ), 0 );
     nameSizer->Add( nameText, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     gridSizer->Add( nameSizer, 1, wxEXPAND, 5 );
-    
+
     trackLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Track"), wxDefaultPosition, wxDefaultSize, 0 );
     trackLabel->Wrap( -1 );
     gridSizer->Add( trackLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* trackSizer;
     trackSizer = new wxBoxSizer( wxHORIZONTAL );
 
@@ -232,58 +232,58 @@ MeshAnimationSettingsDialog::MeshAnimationSettingsDialog
     trackSizer->Add( trackChoice, 0, wxLEFT|wxRIGHT|wxTOP, 5 );
 
     gridSizer->Add( trackSizer, 1, wxEXPAND, 5 );
-    
+
     startEndFramesLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Start/End ") + TimeAccessor::GetUIUnit(), wxDefaultPosition, wxDefaultSize, 0 );
     startEndFramesLabel->Wrap( -1 );
     gridSizer->Add( startEndFramesLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* framesSizer;
     framesSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     startFrameSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, animationRange.start.GetValue(), animationRange.end.GetValue(), SpinnerControl::UI_TIME_UNIT);
     framesSizer->Add( startFrameSpinner, 0, wxTOP|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     inBetweenFrameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("-"), wxDefaultPosition, wxDefaultSize, 0 );
     inBetweenFrameLabel->Wrap( -1 );
     framesSizer->Add( inBetweenFrameLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     endFrameSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, animationRange.start.GetValue(), animationRange.end.GetValue(), SpinnerControl::UI_TIME_UNIT);
     framesSizer->Add( endFrameSpinner, 0, wxTOP|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     gridSizer->Add( framesSizer, 1, wxEXPAND, 5 );
-    
+
     timeScalingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Time Scaling"), wxDefaultPosition, wxDefaultSize, 0 );
     timeScalingLabel->Wrap( -1 );
     gridSizer->Add( timeScalingLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* timeScalingSizer;
     timeScalingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxArrayString timeScalingChoiceChoices;
     timeScalingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, timeScalingChoiceChoices, 0 );
     timeScalingChoice->SetSelection( 0 );
     timeScalingSizer->Add( timeScalingChoice, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     timeScalingSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(60, -1), 0, 0, 100, SpinnerControl::FLOAT_UNIT, 2);
     timeScalingSizer->Add( timeScalingSpinner, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     gridSizer->Add( timeScalingSizer, 1, wxEXPAND, 5 );
-    
+
     samplingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Sampling"), wxDefaultPosition, wxDefaultSize, 0 );
     samplingLabel->Wrap( -1 );
     gridSizer->Add( samplingLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* samplingSizer;
     samplingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     samplingText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
     samplingSizer->Add( samplingText, 0, wxTOP|wxLEFT, 5 );
-    
+
     wxArrayString samplingChoiceChoices;
     samplingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, samplingChoiceChoices, 0 );
     samplingChoice->SetSelection( 0 );
     samplingSizer->Add( samplingChoice, 0, wxTOP|wxLEFT|wxRIGHT, 5 );
-    
+
     gridSizer->Add( samplingSizer, 1, wxEXPAND, 5 );
 
     morphWholeObjectLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Morph Whole Object"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -294,90 +294,90 @@ MeshAnimationSettingsDialog::MeshAnimationSettingsDialog
     morphWholeObjectChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, generateCombinedMorphsChoiceChoices, 0 );
     morphWholeObjectChoice->SetSelection( 0 );
     gridSizer->Add( morphWholeObjectChoice, 0, wxLEFT|wxTOP|wxBOTTOM, 5 );
-    
+
     topSizer->Add( gridSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* checkBoxesSizer;
     checkBoxesSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* embedSizer;
     embedSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     embedAnimationCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Embed Animation"), wxDefaultPosition, wxDefaultSize, 0 );
     embedSizer->Add( embedAnimationCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     linkToObjectCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Link to Object"), wxDefaultPosition, wxDefaultSize, 0 );
     embedSizer->Add( linkToObjectCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
-    
+
+
     checkBoxesSizer->Add( embedSizer, 0, wxEXPAND, 5 );
 
-    copyFirstAnimationKeyToLastCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Copy First Animation Key to Last"), wxDefaultPosition, wxDefaultSize, 0 );    
+    copyFirstAnimationKeyToLastCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Copy First Animation Key to Last"), wxDefaultPosition, wxDefaultSize, 0 );
     checkBoxesSizer->Add( copyFirstAnimationKeyToLastCheckbox, 0, wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     exportAsMorphCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export as Morph"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     checkBoxesSizer->Add( exportAsMorphCheckbox, 0, wxLEFT|wxRIGHT|wxTOP, 5 );
 
     wxBoxSizer* animatedRootStartFrameSizer;
     animatedRootStartFrameSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     overrideAnimatedRootStartTimeCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Override Animated Root Start ") + TimeAccessor::GetUIUnit(false), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     animatedRootStartFrameSizer->Add( overrideAnimatedRootStartTimeCheckbox, 0, wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     animatedRootStartTimeSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, animationRange.start.GetValue(), animationRange.end.GetValue(), SpinnerControl::UI_TIME_UNIT);
     animatedRootStartFrameSizer->Add( animatedRootStartTimeSpinner, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     checkBoxesSizer->Add( animatedRootStartFrameSizer, 1, wxEXPAND, 5 );
 
     topSizer->Add(checkBoxesSizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
-    
+
     skeletonAnimationSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Skeleton Animation") ), wxVERTICAL );
-    
+
     wxGridSizer* removeBoneTranslationsSizer;
     removeBoneTranslationsSizer = new wxGridSizer( 1, 2, 0, 0 );
-    
+
     removeBoneTranslationsLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Remove Bone Translations"), wxDefaultPosition, wxDefaultSize, 0 );
     removeBoneTranslationsLabel->Wrap( -1 );
     removeBoneTranslationsSizer->Add( removeBoneTranslationsLabel, 0, wxALIGN_BOTTOM|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     addRemoveTranslationsBoneButton = new wxButton( this, wxID_ANY, wxT("Add Bone..."), wxDefaultPosition, wxDefaultSize, 0 );
     removeBoneTranslationsSizer->Add( addRemoveTranslationsBoneButton, 0, wxALIGN_RIGHT|wxRIGHT|wxLEFT, 5 );
-    
+
     skeletonAnimationSizer->Add( removeBoneTranslationsSizer, 0, wxEXPAND, 5 );
-    
+
     removeBoneTranslationsText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,100 ), wxTE_DONTWRAP|wxTE_MULTILINE );
     skeletonAnimationSizer->Add( removeBoneTranslationsText, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     wxGridSizer* includedExcludeBonesSizer;
     includedExcludeBonesSizer = new wxGridSizer( 1, 2, 0, 0 );
-    
+
     includeExcludeBonesLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Include/Exclude Bones"), wxDefaultPosition, wxDefaultSize, 0 );
     includeExcludeBonesLabel->Wrap( -1 );
     includedExcludeBonesSizer->Add( includeExcludeBonesLabel, 0, wxALIGN_BOTTOM|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     includeExcludeBonesButton = new wxButton( this, wxID_ANY, wxT("Add Bone..."), wxDefaultPosition, wxDefaultSize, 0 );
     includedExcludeBonesSizer->Add( includeExcludeBonesButton, 0, wxALIGN_RIGHT|wxRIGHT|wxLEFT, 5 );
-    
+
     skeletonAnimationSizer->Add( includedExcludeBonesSizer, 0, wxEXPAND, 5 );
-    
+
     includeExcludeBonesText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,200 ), wxTE_DONTWRAP|wxTE_MULTILINE );
     skeletonAnimationSizer->Add( includeExcludeBonesText, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( skeletonAnimationSizer, 1, wxEXPAND|wxRIGHT|wxLEFT|wxTOP, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT, 5 );
-    
+
     SetGUIData();
 
     this->trackChoice->SetId(TRACK_CHOICE);
@@ -389,7 +389,7 @@ MeshAnimationSettingsDialog::MeshAnimationSettingsDialog
     this->embedAnimationCheckbox->SetId(EMBED_ANIMATION_CHECKBOX);
 
     SetSizer(topSizer);
-        
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -423,13 +423,13 @@ void MeshAnimationSettingsDialog::GetGUIData()
     //Morph whole object
     int morphWholeObjectIndex = this->morphWholeObjectChoice->GetSelection();
     this->settings.morphWholeObject = (InheritedBool)*(int*)this->morphWholeObjectChoice->GetClientData(morphWholeObjectIndex);
-    
+
     //Time scaling type
     float scale = this->timeScalingSpinner->GetValue();
     int selectedTimeScaleIndex = this->timeScalingChoice->GetSelection();
     wxString scaleType = (wxChar*)this->timeScalingChoice->GetClientData(selectedTimeScaleIndex);
     SetTimeScale(this->settings.scale, this->settings.scaleType, scale, scaleType);
-        
+
     //Copy-first-key-to-last
     this->settings.copyFirstKeyToLast = this->copyFirstAnimationKeyToLastCheckbox->GetValue();
 
@@ -463,7 +463,7 @@ void MeshAnimationSettingsDialog::GetGUIData()
             if (mask.object.IsValid())
             {
                 mask.mask = StringUtilities::ToRemoveXYZVector3(xyz);
-                this->settings.boneTranslationMasks.push_back(mask);                
+                this->settings.boneTranslationMasks.push_back(mask);
             }
         }
     }
@@ -484,7 +484,7 @@ void MeshAnimationSettingsDialog::GetGUIData()
             if (allow.object.IsValid())
             {
                 allow.allow = allowText == INCLUDE_TEXT;
-            
+
                 if (bonePrefixKey == BONE_KEY)
                 {
                     allow.recursive = false;
@@ -534,7 +534,7 @@ void MeshAnimationSettingsDialog::SetGUIData()
     this->samplingChoice->Thaw();
     if (this->settings.sampleInterval == 0 || this->samplingChoice->GetSelection() < 0)
         this->samplingChoice->SetSelection(0);
-    
+
     //Morph whole object
     this->morphWholeObjectChoice->Freeze();
     for (int i = 0; i < INHERITED_BOOL_COUNT; i++)
@@ -547,7 +547,7 @@ void MeshAnimationSettingsDialog::SetGUIData()
     this->morphWholeObjectChoice->Thaw();
     if (this->morphWholeObjectChoice->GetSelection() < 0)
         this->morphWholeObjectChoice->SetSelection(0);
-    
+
     //Time scaling type
     this->timeScalingChoice->Freeze();
     for (int i = 0; i < TIME_SCALING_COUNT; i++)
@@ -562,7 +562,7 @@ void MeshAnimationSettingsDialog::SetGUIData()
         this->timeScalingChoice->SetSelection(0);
     if (this->settings.scale > 0 && this->timeScalingChoice->GetSelection() == 0)
         this->timeScalingChoice->SetSelection(TIME_SCALING_SCALE_INDEX);
-    
+
     //Time scaling
     this->timeScalingSpinner->SetValue(this->settings.scale);
 
@@ -591,8 +591,8 @@ void MeshAnimationSettingsDialog::SetGUIData()
         removeBoneTranslationsText += wxT("=");
         removeBoneTranslationsText += StringUtilities::ToRemoveXYZString(this->settings.boneTranslationMasks[i].mask);
         removeBoneTranslationsText += wxT("\n");
-    }        
-    this->removeBoneTranslationsText->SetValue(removeBoneTranslationsText); 
+    }
+    this->removeBoneTranslationsText->SetValue(removeBoneTranslationsText);
 
     //Exclude/include bones
     wxString exportBonesText;
@@ -605,13 +605,13 @@ void MeshAnimationSettingsDialog::SetGUIData()
         else
             StringUtilities::AppendPrefixedKeyAndValue(exportBonesText, BONE_KEY, this->settings.allowExportBones[i].object.GetFullName(), allow, wxT("\n"));
     }
-    this->includeExcludeBonesText->SetValue(exportBonesText);    
+    this->includeExcludeBonesText->SetValue(exportBonesText);
 
     //Final updates
     this->nameText->SetFocus();
     UpdateTrackControls(false);
     UpdateTimeScaleEdit(false);
-    UpdateSamplingTypeEdit(false);    
+    UpdateSamplingTypeEdit(false);
     Layout();
 }
 
@@ -626,11 +626,11 @@ void MeshAnimationSettingsDialog::UpdateTrackControls(bool layout)
 
     bool isSkeletonBased = MeshAnimationTracksDetector::IsSkeletonBased(track->location);
 
-    bool showExportAsMorph = 
-        isSkeletonBased || 
+    bool showExportAsMorph =
+        isSkeletonBased ||
         MeshAnimationTracksDetector::IsMorpherBased(track->location);
     this->exportAsMorphCheckbox->Enable(showExportAsMorph);
-    
+
     this->addRemoveTranslationsBoneButton->Enable(isSkeletonBased);
     this->removeBoneTranslationsText->Enable(isSkeletonBased);
 
@@ -647,8 +647,8 @@ void MeshAnimationSettingsDialog::UpdateTimeScaleEdit(bool layout)
 {
     int selectedTimeScaleIndex = this->timeScalingChoice->GetSelection();
     bool show = selectedTimeScaleIndex == 1 || selectedTimeScaleIndex == 2;
-    this->timeScalingSpinner->Show(show);    
-    
+    this->timeScalingSpinner->Show(show);
+
     if (layout)
         Layout();
 }
@@ -658,7 +658,7 @@ void MeshAnimationSettingsDialog::UpdateSamplingTypeEdit(bool layout)
     int selectedSamplingTypeIndex = this->samplingChoice->GetSelection();
     bool show = selectedSamplingTypeIndex > 0;
     this->samplingText->Show(show);
-    
+
     if (layout)
         Layout();
 }
@@ -728,7 +728,7 @@ void MeshAnimationSettingsDialog::OnTimeScaleChoice(wxCommandEvent& event)
 
 void MeshAnimationSettingsDialog::OnSamplingTypeChoice(wxCommandEvent& event)
 {
-    UpdateSamplingTypeEdit();    
+    UpdateSamplingTypeEdit();
 }
 
 void MeshAnimationSettingsDialog::OnOverrideAnimatedRootStartTimeCheckbox(wxCommandEvent& event)
@@ -746,9 +746,9 @@ void MeshAnimationSettingsDialog::OnRemoveBoneTranslationButton(wxCommandEvent& 
         wxString removeBoneTranslationsText = this->removeBoneTranslationsText->GetValue();
         StringUtilities::AppendKeyAndValue
             (
-            removeBoneTranslationsText, 
-            dialog.boneObject.GetFullName(), 
-            StringUtilities::ToRemoveXYZString(dialog.mask), 
+            removeBoneTranslationsText,
+            dialog.boneObject.GetFullName(),
+            StringUtilities::ToRemoveXYZString(dialog.mask),
             wxT("\n")
             );
         this->removeBoneTranslationsText->SetValue(removeBoneTranslationsText);
@@ -764,7 +764,7 @@ void MeshAnimationSettingsDialog::OnAddIncludeExcludeBoneButton(wxCommandEvent& 
     {
         const wxString& prefix = dialog.isTree ? BONE_TREE_KEY : BONE_KEY;
         const wxString& allow = dialog.include ? INCLUDE_TEXT : EXCLUDE_TEXT;
-        
+
         wxString exportBonesText = this->includeExcludeBonesText->GetValue();
         StringUtilities::AppendPrefixedKeyAndValue(exportBonesText, prefix, dialog.boneObject.GetFullName(), allow, wxT("\n"));
         this->includeExcludeBonesText->SetValue(exportBonesText);

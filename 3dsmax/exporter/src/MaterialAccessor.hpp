@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to a material. */
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
 
         /** Constructor that takes a material accessor. */
         MaterialAccessor(const MaterialAccessor& other);
-        
+
         /** Accesses the native material. */
         operator Mtl* ();
 
@@ -72,20 +72,20 @@ namespace Finjin { namespace Exporter {
         /** Determines whether the material is valid. */
         bool IsValid() const;
 
-        /** 
-         * Resolves the material. 
+        /**
+         * Resolves the material.
          * This is necessary for external materials.
          */
         void Resolve();
 
-        /** 
+        /**
          * Expands this material's submaterials.
          * @param materials [out] - The expanded materials. If the material
          * has submaterials, the submaterials will be output. Otherwise,
          * just the material will be output.
          */
         void Expand(std::vector<MaterialAccessor>& materials);
-        
+
         /** Gets a material by name. */
         static MaterialAccessor GetMaterialByName(const wxString& name);
 
@@ -103,5 +103,5 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Includes----------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialAccessorExtras.hpp"

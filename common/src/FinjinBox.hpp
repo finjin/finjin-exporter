@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A 3D bounding box. */
@@ -60,8 +60,8 @@ namespace Finjin { namespace Exporter {
 
         bool operator == (const FinjinBox3& other) const
         {
-            return 
-                this->min == other.min && 
+            return
+                this->min == other.min &&
                 this->max == other.max
                 ;
         }
@@ -74,7 +74,7 @@ namespace Finjin { namespace Exporter {
         /** Determines if the box is equal to another box, within some tolerance. */
         bool AlmostEquals(const FinjinBox3& v, float tolerance = 0.0001f) const
         {
-            return 
+            return
                 (this->min - v.min).AlmostZero(tolerance) &&
                 (this->max - v.max).AlmostZero(tolerance);
         }
@@ -104,7 +104,7 @@ namespace Finjin { namespace Exporter {
             this->min.Set(halfSize - center.x, halfSize - center.y, halfSize - center.z);
             this->max.Set(halfSize + center.x, halfSize + center.y, halfSize + center.z);
         }
-        
+
         /** Gets the center of the box. */
         FinjinVector3 GetCenter() const
         {
@@ -130,8 +130,8 @@ namespace Finjin { namespace Exporter {
                 this->max.z = point.z;
         }
 
-        /** 
-         * Modifies the box to include the specified points. 
+        /**
+         * Modifies the box to include the specified points.
          * @param points [in] - An array of points.
          * @param count [in] - The number of points in the array.
          * @param initialize [in] - Indicates whether this is being called to initialize the box.
@@ -163,10 +163,10 @@ namespace Finjin { namespace Exporter {
             IncludePoint(box.max);
         }
 
-        /** 
+        /**
          * Gets the corners of the box as points.
          * @param points [out] - An array of points. This array must have at least 8 elements.
-         */ 
+         */
         void GetCornerPoints(FinjinVector3* points) const
         {
             points[0].Set(min.x, min.y, min.z);
@@ -179,10 +179,10 @@ namespace Finjin { namespace Exporter {
             points[7].Set(min.x, max.y, max.z);
         }
 
-        /** 
+        /**
          * Gets the corners of the box as points.
          * @param points [out] - An array of points. This array must have at least 6 elements.
-         */ 
+         */
         void GetSpherePoints(FinjinVector3* points) const
         {
             points[0].Set(min.x, 0, 0);
@@ -196,7 +196,7 @@ namespace Finjin { namespace Exporter {
             for (int i = 0; i < 6; i++)
                 points[i] += center;
         }
-        
+
         FinjinVector3 min;
         FinjinVector3 max;
     };

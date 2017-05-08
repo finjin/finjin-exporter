@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 SimpleUri::SimpleUri()
 {
 }
@@ -138,7 +138,7 @@ wxString SimpleUri::ToString() const
         if (!this->fragment.empty())
         {
             result += wxT("#");
-            result += this->fragment;            
+            result += this->fragment;
         }
     }
 

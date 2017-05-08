@@ -67,7 +67,7 @@
 #include <maya/MArgList.h>
 #include <maya/MPxData.h>
 #include <maya/MFnPluginData.h>
-#include <maya/MPxNode.h> 
+#include <maya/MPxNode.h>
 #include <maya/MFnTypedAttribute.h>
 #include <maya/MFnNumericAttribute.h>
 #include <maya/MFnGenericAttribute.h>
@@ -110,7 +110,7 @@ namespace Maya
 #include "CommonTypes.hpp"
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define UI_UNIT_TYPE MDistance::uiUnit()
 #define INTERNAL_UNIT_TYPE MDistance::internalUnit()
 

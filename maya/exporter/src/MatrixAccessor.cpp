@@ -23,13 +23,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
-MatrixAccessor::MatrixAccessor() 
+//Implementation----------------------------------------------------------------
+MatrixAccessor::MatrixAccessor()
 {
     this->matrix.setToIdentity();
 }
 
-MatrixAccessor::MatrixAccessor(const MMatrix& matrix) 
+MatrixAccessor::MatrixAccessor(const MMatrix& matrix)
 {
     this->matrix = matrix;
 }

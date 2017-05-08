@@ -25,26 +25,26 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
-MaterialAccessor::MaterialAccessor() 
+//Implementation----------------------------------------------------------------
+MaterialAccessor::MaterialAccessor()
 {
     this->parentMtl = nullptr;
     this->mtl = nullptr;
 }
 
-MaterialAccessor::MaterialAccessor(Mtl* mtl) 
+MaterialAccessor::MaterialAccessor(Mtl* mtl)
 {
     this->parentMtl = nullptr;
     this->mtl = mtl;
 }
 
-MaterialAccessor::MaterialAccessor(const MaterialAccessor& other) 
+MaterialAccessor::MaterialAccessor(const MaterialAccessor& other)
 {
     this->parentMtl = other.parentMtl;
-    this->mtl = other.mtl;    
+    this->mtl = other.mtl;
 }
 
-MaterialAccessor::operator Mtl* () 
+MaterialAccessor::operator Mtl* ()
 {
     return this->mtl;
 }
@@ -58,24 +58,24 @@ void MaterialAccessor::operator = (Mtl* mtl)
 void MaterialAccessor::operator = (const MaterialAccessor& other)
 {
     this->parentMtl = other.parentMtl;
-    this->mtl = other.mtl;    
+    this->mtl = other.mtl;
 }
 
-bool MaterialAccessor::operator == (const MaterialAccessor& other) const 
+bool MaterialAccessor::operator == (const MaterialAccessor& other) const
 {
     return this->parentMtl == other.parentMtl && this->mtl == other.mtl;
 }
 
-bool MaterialAccessor::operator != (const MaterialAccessor& other) const 
+bool MaterialAccessor::operator != (const MaterialAccessor& other) const
 {
     return this->parentMtl != other.parentMtl || this->mtl != other.mtl;
 }
 
-bool MaterialAccessor::operator < (const MaterialAccessor& other) const  
+bool MaterialAccessor::operator < (const MaterialAccessor& other) const
 {
     if (this->parentMtl < other.parentMtl)
         return true;
-    
+
     return this->mtl < other.mtl;
 }
 
@@ -94,12 +94,12 @@ wxString MaterialAccessor::GetLocalName() const
     return IsValid() ? ApplicationStringToWxString(this->mtl->GetName()) : wxEmptyString;
 }
 
-wxString MaterialAccessor::GetFullName() const 
+wxString MaterialAccessor::GetFullName() const
 {
     return GetLocalName();
 }
 
-bool MaterialAccessor::IsValid() const 
+bool MaterialAccessor::IsValid() const
 {
     return this->mtl != nullptr;
 }
@@ -116,20 +116,20 @@ void MaterialAccessor::Resolve()
 void MaterialAccessor::Expand(MaterialAccessorVector& materials)
 {
     if (this->mtl != nullptr)
-    {        
+    {
         if (MaxMaterialUtilities::IsMultiMaterial(this->mtl))
         {
             materials.resize(this->mtl->NumSubMtls());
             for (int i = 0; i < (int)materials.size(); i++)
             {
                 materials[i].parentMtl = this->mtl;
-                materials[i].mtl = this->mtl->GetSubMtl(i);                
+                materials[i].mtl = this->mtl->GetSubMtl(i);
             }
         }
         else
         {
             materials.resize(1);
-            materials[0].mtl = this->mtl;            
+            materials[0].mtl = this->mtl;
         }
     }
     else
@@ -145,7 +145,7 @@ MaterialAccessor MaterialAccessor::GetMaterialByName(const wxString& name)
 void MaterialAccessor::GetAllMaterials(MaterialAccessorVector& materials)
 {
     Tab<MtlBaseHandle>& materialTab = *GetCOREInterface()->GetSceneMtls();
-    
+
     materials.resize(materialTab.Count());
     for (int i = 0; i < materialTab.Count(); i++)
         materials[i] = (Mtl*)materialTab[i];
@@ -153,7 +153,7 @@ void MaterialAccessor::GetAllMaterials(MaterialAccessorVector& materials)
 
 void MaterialAccessor::GetSelectedMaterials(MaterialAccessorVector& materials)
 {
-    MtlBase* selectedMaterial = MaxMaterialUtilities::GetSelectedMaterialEditorMaterial();    
+    MtlBase* selectedMaterial = MaxMaterialUtilities::GetSelectedMaterialEditorMaterial();
     if (selectedMaterial != nullptr)
     {
         materials.resize(1);

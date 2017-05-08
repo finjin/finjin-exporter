@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessorBase.hpp"
 #include "UserDataSettingsAccessor.hpp"
 #include "UserDataAttributes.hpp"
 #include "ExtendedValueAttributes.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to a Finjin object settings object. */
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
     public:
         FinjinObjectSettingsAccessor() {}
         FinjinObjectSettingsAccessor(MPlug rootPlug) {this->rootPlug = rootPlug;}
-        
+
         bool IsValid() const {return !this->rootPlug.isNull();}
 
         FINJIN_EXPORTER_DECLARE_EXTENDED_VALUE_ACCESSOR_METHODS_OVERRIDE
@@ -97,7 +97,7 @@ namespace Finjin { namespace Exporter {
         bool GetUseCustomSubmeshes() override;
         void GetSubmeshesSettings(SubmeshesSettings& value) override;
         int GetManualLodCount() override;
-        void GetManualLod(int i, ObjectAccessor& object, float& distance) override;        
+        void GetManualLod(int i, ObjectAccessor& object, float& distance) override;
         bool GetCalculateManualLodDistances() override;
 
         void SetType(wxString value) override;
@@ -121,7 +121,7 @@ namespace Finjin { namespace Exporter {
         void ClearFlags() override;
         void AddFlag(wxString name) override;
         void SetNodeAnimationSampleType(SampleType value) override;
-        void SetNodeAnimationSampleInterval(double value) override;        
+        void SetNodeAnimationSampleInterval(double value) override;
         FinjinNodeAnimationSettingsAccessor AddNewNodeAnimation() override;
         FinjinNodeAnimationSettingsAccessor AddNodeAnimationCopy(int i) override;
         void RemoveNodeAnimation(FinjinNodeAnimationSettingsAccessor value) override;
@@ -165,7 +165,7 @@ namespace Finjin { namespace Exporter {
         static MPlug GetObjectSettings(ObjectAccessor object);
 
         void Upgrade();
-        
+
     private:
         MPlug Child(MObject attribute, const MString& name);
         int ChildInt(MObject attribute, const MString& name, int defaultValue = 0);
@@ -198,7 +198,7 @@ namespace Finjin { namespace Exporter {
             MObject renderQueuePriority;
             MObject exportFlags;
             MObject flagNames;
-                        
+
             MObject exportMesh;
             MObject meshName;
             MObject animateBoundingVolumes;
@@ -210,7 +210,7 @@ namespace Finjin { namespace Exporter {
             MObject skeletonReferencePoseTime;
             MObject exportPoses;
             MObject removeBonesWithNoVertexInfluence;
-            
+
             MObject skeletonName;
             MObject meshAnimationType;
             MObject skeletonAnimationSampleInterval;
@@ -220,7 +220,7 @@ namespace Finjin { namespace Exporter {
             MObject animatedSkeletonRoot;
             MObject exportMeshAnimationsToSeparateFile;
             MObject linkMeshAnimationsToMainObject;
-            
+
             MObject primitiveType;
             MObject exportVertexColors;
             MObject exportTangents;
@@ -234,14 +234,14 @@ namespace Finjin { namespace Exporter {
             MObject calculateManualLodDistances;
 
             MObject itemType;
-            
+
             MObject enableSky;
-            
+
             MObject scale;
-            
+
             MObject embedSkeletonInMesh;
             MObject linkSkeletonToMesh;
-            
+
             MObject exportedParent;
             MObject useRootAsExportedParent;
             MObject isAttachedObject;
@@ -250,12 +250,12 @@ namespace Finjin { namespace Exporter {
             MObject childOrder;
 
             MObject renderingDistance;
-            
+
             MObject nodeAnimations;
             MObject meshAnimations;
 
             struct SubmeshesAttributes
-            {    
+            {
                 MObject textureCoordinateSetSubmeshName;
                 MObject textureCoordinateSetMaterial;
                 MObject textureCoordinateSetMaterialObject;

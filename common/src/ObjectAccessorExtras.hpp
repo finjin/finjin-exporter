@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "AccessorSetAndMap.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     typedef AccessorSet<ObjectAccessor> ObjectAccessorSet;
@@ -60,7 +60,7 @@ namespace Finjin { namespace Exporter {
     }
 
     inline void GetObjectTree(ObjectAccessor object, ObjectAccessorSet& treeObjects)
-    {    
+    {
         treeObjects.insert(object);
 
         ObjectAccessorVector children;

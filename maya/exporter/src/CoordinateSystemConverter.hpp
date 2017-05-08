@@ -19,20 +19,20 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class TransformAccessor;
 
-    /** 
+    /**
      * Performs conversion from application coordinates to some other coordinate system.
      */
     class CoordinateSystemConverter
-    {    
+    {
     public:
         /** Initializes the conversion manager with the 'y up' axis. */
         CoordinateSystemConverter();
@@ -48,7 +48,7 @@ namespace Finjin { namespace Exporter {
 
         /** Converts the specified point. */
         void ConvertPoint(FinjinVector3& point) const;
-        
+
         /** Converts the specified rotation. */
         void ConvertRotation(MQuaternion& rotation) const;
 
@@ -64,7 +64,7 @@ namespace Finjin { namespace Exporter {
         /** Converts the specified transformation. */
         void ConvertTransformation(TransformAccessor& transformation) const;
 
-        /** 
+        /**
          * Converts the specified translation mask.
          * @param mask [in/out] - The translation mask. A translation mask is vector of boolean values (0 or 1)
          * indicating which translations to remove (0 value) or keep (1 value). The mask is assumed to
@@ -77,14 +77,14 @@ namespace Finjin { namespace Exporter {
 
         /** Converts the specified light rotation. */
         void ConvertLightRotation(FinjinVector4& q) const;
-        
+
         /** Converts the specified camera rotation. */
         void ConvertCameraRotation(MQuaternion& q) const;
 
         /** Converts the specified light rotation. */
         void ConvertLightRotation(MQuaternion& q) const;
-        
-        /** 
+
+        /**
          * Gets one of the axis vectors.
          * @param axis [in] - Zero-based index of the axis to retrieve:
          *   0 - Right axis
@@ -108,8 +108,8 @@ namespace Finjin { namespace Exporter {
         /** Gets the up vector relative to the specified normal. */
         FinjinVector3 GetUpVector(const FinjinVector3& normal) const;
 
-        /** 
-         * Determines if the current conversion setting requires vertices, normals, etc 
+        /**
+         * Determines if the current conversion setting requires vertices, normals, etc
          * to be converted. This is provided so that callers can have some optimized
          * code paths that don't do conversion.
          */
@@ -117,7 +117,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the up axis that was used to initialize the conversion manager. */
         UpAxis GetUpAxis() const;
-        
+
     private:
         MMatrix mayaToOutputMatrix;
         MMatrix mayaToOutputMatrixInverse;

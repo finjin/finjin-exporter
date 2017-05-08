@@ -23,6 +23,6 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 IMPLEMENT_DYNAMIC_CLASS(SpinnerControlEvent, wxEvent)
 DEFINE_EVENT_TYPE(Finjin::Exporter::EVT_SPINNER_CONTROL_VALUE_CHANGED)

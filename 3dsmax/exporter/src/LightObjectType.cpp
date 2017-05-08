@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void LightObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (context.maxObject != nullptr && context.maxObject->SuperClassID() == LIGHT_CLASS_ID)
@@ -36,9 +36,9 @@ void LightObjectType::Detect(ObjectTypeDetectionContext& context)
 }
 
 void LightObjectType::CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings)
-{    
+{
     tabPages.AddPage(new UserDataSettingsPage(tabPages.GetTabParentWindow(), objectSettings, UserDataUsage::OBJECT), UserDataSettingsPage::TITLE);
-    tabPages.AddPage(new ObjectSettingsDialog_NodeAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_NodeAnimationsPage::TITLE);    
+    tabPages.AddPage(new ObjectSettingsDialog_NodeAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_NodeAnimationsPage::TITLE);
 }
 
 void LightObjectType::GetDependencies(ExportableObject* exportableObject, ExporterContext& context)

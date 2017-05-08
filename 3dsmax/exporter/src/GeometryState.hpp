@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "GeometryStateBase.hpp"
 #include "CoordinateSystemConverter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryState : public GeometryStateBase
@@ -44,7 +44,7 @@ namespace Finjin { namespace Exporter {
          */
         static void GetSubmeshesSettings
             (
-            ObjectAccessor object, 
+            ObjectAccessor object,
             SubmeshesSettings& submeshTextureCoordinateSetMappings,
             GeometryStateFlags flags = GeometryStateFlags::NONE
             );
@@ -52,21 +52,21 @@ namespace Finjin { namespace Exporter {
         bool Create
             (
             const wxString& meshName,
-            ObjectAccessor object, 
+            ObjectAccessor object,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE,
             SubmeshesSettings* submeshesSettings = nullptr,
             const SkeletonReferencePose* referencePose = nullptr
-            ) override;        
+            ) override;
 
         bool SamplePoints
             (
-            std::vector<FinjinVector3>& positions, 
+            std::vector<FinjinVector3>& positions,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE,
             MeshNormals* normals = nullptr
             ) override;

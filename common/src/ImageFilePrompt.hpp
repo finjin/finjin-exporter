@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -44,13 +44,13 @@ namespace Finjin { namespace Exporter {
 
         /**
          * Gets the file name that the user selected.
-         */ 
+         */
         const wxString& GetFileName() const;
 
     private:
         wxWindow* parent;
         bool saving;
-        wxString fileName;        
+        wxString fileName;
     };
 
 } }

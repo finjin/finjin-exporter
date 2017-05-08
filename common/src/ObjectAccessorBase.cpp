@@ -21,4 +21,3 @@
 #include "ObjectAccessorBase.hpp"
 
 using namespace Finjin::Exporter;
-

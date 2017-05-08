@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString Strings::FINJIN(wxT("Finjin"));
 const wxString Strings::SCENE_SETTINGS(wxT("Scene Settings"));
 
@@ -221,7 +221,7 @@ const wxString Strings::PHYSIQUE_DATA_CANNOT_BE_EXPORTED(wxT("Physique data cann
 const wxString Strings::ENCOUNTERED_CHUNK_WITHOUT_OBJECT_NAME_FORMAT(wxT("Unexpectedly encountered object without a data chunk writer object name. Using '%s' instead."));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 wxString Strings::FormatTime(wxDateTime time)
 {
     //Example: August 24, 2008 at 12:34:56 PM
@@ -254,6 +254,6 @@ wxString Strings::FormatElapsedTime(wxTimeSpan elapsedTime)
         //Format as floating point minutes
         elapsedTimeText = wxString::Format(FLOAT_MINUTES_FORMAT, elapsedMinutes);
     }
-    
+
     return elapsedTimeText;
 }

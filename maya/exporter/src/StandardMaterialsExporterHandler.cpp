@@ -32,7 +32,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 StandardMaterialsExporterHandler::StandardMaterialsExporterHandler()
 {
 }
@@ -48,30 +48,30 @@ void StandardMaterialsExporterHandler::CalculateRequirements()
     if (this->material.obj.hasFn(MFn::kPhong))
     {
         MFnPhongShader shader(this->material.obj);
-        
+
         //Texture
         FindFileTextures(this->colorTextures, shader, "color");
 
         //Self illumination texture
-        incandescenceTexture = FindFileTexture(shader, "incandescence");        
+        incandescenceTexture = FindFileTexture(shader, "incandescence");
     }
     else if (this->material.obj.hasFn(MFn::kBlinn))
     {
         MFnBlinnShader shader(this->material.obj);
-        
+
         //Texture
         FindFileTextures(this->colorTextures, shader, "color");
-        
+
         //Self illumination texture
         incandescenceTexture = FindFileTexture(shader, "incandescence");
     }
     else if (this->material.obj.hasFn(MFn::kLambert))
     {
         MFnLambertShader shader(this->material.obj);
-        
+
         //Texture
         FindFileTextures(this->colorTextures, shader, "color");
-        
+
         //Self illumination texture
         incandescenceTexture = FindFileTexture(shader, "incandescence");
     }
@@ -110,7 +110,7 @@ void StandardMaterialsExporterHandler::CalculateRequirements()
             case MAYA_BLEND_DESATURATE: break; //Not handled
             case MAYA_BLEND_ADD: //Fall through
             case MAYA_BLEND_LIGHTEN: //Fall through
-            case MAYA_BLEND_ILLUMINATE: 
+            case MAYA_BLEND_ILLUMINATE:
             {
                 if (this->textures[TexMapIndex::SELF_ILLUMINATION].isNull())
                     this->textures[TexMapIndex::SELF_ILLUMINATION].obj = incandescenceTexture;
@@ -137,7 +137,7 @@ bool StandardMaterialsExporterHandler::CanHandle(MaterialAccessor material)
         else if (material.obj.hasFn(MFn::kBlinn))
             result = true;
         else if (material.obj.hasFn(MFn::kLambert))
-            result = true;                        
+            result = true;
     }
 
     return result;
@@ -167,14 +167,14 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
     if (this->material.obj.hasFn(MFn::kPhong))
     {
         MFnPhongShader shader(this->material.obj);
-        
+
         //Diffuse color
         if (this->textures[TexMapIndex::DIFFUSE].isNull())
             diffuse = shader.color();
-        
+
         //Ambient color
         ambient = shader.ambientColor();
-        
+
         //Specular color and shininess
         specular = shader.specularColor();
         shininess = shader.cosPower() * 1.28;
@@ -191,14 +191,14 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
     else if (this->material.obj.hasFn(MFn::kBlinn))
     {
         MFnBlinnShader shader(this->material.obj);
-        
+
         //Diffuse color
         if (this->textures[TexMapIndex::DIFFUSE].isNull())
             diffuse = shader.color();
-        
+
         //Ambient color
         ambient = shader.ambientColor();
-        
+
         //Specular color and shininess
         specular = shader.specularColor();
         shininess = 1 - shader.eccentricity();
@@ -215,14 +215,14 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
     else if (this->material.obj.hasFn(MFn::kLambert))
     {
         MFnLambertShader shader(this->material.obj);
-        
+
         //Diffuse color
         if (this->textures[TexMapIndex::DIFFUSE].isNull())
             diffuse = shader.color();
-        
+
         //Ambient color
         ambient = shader.ambientColor();
-        
+
         //Emissive color
         if (this->textures[TexMapIndex::SELF_ILLUMINATION].isNull())
             emissive = shader.incandescence();
@@ -232,7 +232,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         float opacity = 1 - transparency;
         transparencyEnabled = !MathUtilities::AlmostOne(opacity);
     }
-    
+
     //Ambient color
     {
         float colorArray[4] = {ambient.r, ambient.g, ambient.b, 1};
@@ -246,7 +246,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Specular color
     {
         float colorArray[4] = {specular.r, specular.g, specular.b, 1};
@@ -257,7 +257,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
     //Shininess
     writer.WriteFloat(StandardAssetDocumentPropertyNames::SHININESS, shininess, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        
+
     //Emissive color
     if (emissive.r != 0 || emissive.g != 0 || emissive.b != 0)
     {
@@ -265,16 +265,16 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         writer.WriteFloats(StandardAssetDocumentPropertyNames::SELF_ILLUMINATION_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-        
+
     //Culling mode
     if (this->material.culling == MaterialAccessor::NO_CULLING)
     {
-        writer.WriteString(StandardAssetDocumentPropertyNames::CULL_MODE, wxT("none"), error);            
+        writer.WriteString(StandardAssetDocumentPropertyNames::CULL_MODE, wxT("none"), error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
     else if (this->material.culling == MaterialAccessor::OPPOSITE_CULLING)
     {
-        writer.WriteString(StandardAssetDocumentPropertyNames::CULL_MODE, wxT("opposite"), error);            
+        writer.WriteString(StandardAssetDocumentPropertyNames::CULL_MODE, wxT("opposite"), error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
 
@@ -317,7 +317,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
             //Opacity
             WriteOpacityMap(writer, mapIndex, this->textures[TexMapIndex::OPACITY], error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-                
+
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }

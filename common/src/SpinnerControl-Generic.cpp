@@ -27,7 +27,7 @@
 #define DEFAULT_CONTROL_HEIGHT 19
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 Finjin::Exporter::SpinnerControl::SpinnerControl
     (
     wxWindow* parent,
@@ -36,8 +36,8 @@ Finjin::Exporter::SpinnerControl::SpinnerControl
     const wxPoint& pos,
     const wxSize& sz,
     double initial,
-    double minValue, 
-    double maxValue, 
+    double minValue,
+    double maxValue,
     UnitType unitType,
     int precision,
     const wxString& name
@@ -60,7 +60,7 @@ Finjin::Exporter::SpinnerControl::SpinnerControl
         }
         case UI_TIME_UNIT:
         {
-            if (!TimeAccessor::IsUIUnitTimeBased())                
+            if (!TimeAccessor::IsUIUnitTimeBased())
                 precision = 0;
         }
         default: break;
@@ -78,9 +78,9 @@ Finjin::Exporter::SpinnerControl::SpinnerControl
 
     wxSize size = sz;
     if (size.GetHeight() < 0)
-        size.SetHeight(DEFAULT_CONTROL_HEIGHT);                 
+        size.SetHeight(DEFAULT_CONTROL_HEIGHT);
     if (size.GetWidth() < 0)
-       size.SetWidth(DEFAULT_CONTROL_WIDTH);       
+       size.SetWidth(DEFAULT_CONTROL_WIDTH);
 
     //Create the text control
     if (textCtrlId == wxID_ANY)
@@ -104,15 +104,15 @@ Finjin::Exporter::SpinnerControl::SpinnerControl
     wxRegisterId(dragButtonId);
 
     this->spinnerButton = new SpinnerButton
-        ( 
+        (
         this,
         dragButtonId,
         wxPoint(size.GetWidth() - BUTTON_WIDTH, 0),
         wxSize(BUTTON_WIDTH, size.GetHeight()),
         wxEmptyString
-        );            
+        );
     this->spinnerButton->SetRange(this->minValue, this->maxValue);
-    this->spinnerButton->SetPrecision(precision);  
+    this->spinnerButton->SetPrecision(precision);
 
     //Connect event handlers to the spinner button
     Connect(this->spinnerButton->GetId(), EVT_SPINNER_BUTTON_DRAG, SpinnerButtonEventHandler(Finjin::Exporter::SpinnerControl::OnDrag));
@@ -120,11 +120,11 @@ Finjin::Exporter::SpinnerControl::SpinnerControl
     Connect(this->spinnerButton->GetId(), EVT_SPINNER_BUTTON_UP, SpinnerButtonEventHandler(Finjin::Exporter::SpinnerControl::OnUp));
 
     //Create sizers
-    wxBoxSizer* box = new wxBoxSizer(wxHORIZONTAL); 
+    wxBoxSizer* box = new wxBoxSizer(wxHORIZONTAL);
     box->Add(this->textCtrl);
     box->Add(this->spinnerButton);
 
-    wxBoxSizer* topSizer = new wxBoxSizer(wxHORIZONTAL); 
+    wxBoxSizer* topSizer = new wxBoxSizer(wxHORIZONTAL);
     topSizer->Add(box);
     SetSizer(topSizer);
 
@@ -136,9 +136,9 @@ Finjin::Exporter::SpinnerControl::SpinnerControl
     wxCommandEvent enter_event(wxEVT_COMMAND_TEXT_ENTER, GetId());
     wxPostEvent(GetParent(), enter_event);
 }
-                
+
 Finjin::Exporter::SpinnerControl::~SpinnerControl()
-{  
+{
 }
 
 int Finjin::Exporter::SpinnerControl::GetIntValue()
@@ -147,7 +147,7 @@ int Finjin::Exporter::SpinnerControl::GetIntValue()
     return value;
 }
 
-double Finjin::Exporter::SpinnerControl::GetValue()  
+double Finjin::Exporter::SpinnerControl::GetValue()
 {
     double value = GetUIValue();
     if (this->unitType == WORLD_UNIT)
@@ -171,7 +171,7 @@ double Finjin::Exporter::SpinnerControl::GetUIValue()
     double value = 0;
 
     //Get text value
-    wxString s = this->textCtrl->GetValue();      
+    wxString s = this->textCtrl->GetValue();
 
     //Find the index of the first character that can't be parsed as a number
     const size_t length = s.Length();
@@ -184,9 +184,9 @@ double Finjin::Exporter::SpinnerControl::GetUIValue()
             //Do nothing
         }
         else
-            break;        
+            break;
     }
-    
+
     //Get the number
     wxString numericText = s.substr(0, i);
 
@@ -211,7 +211,7 @@ void Finjin::Exporter::SpinnerControl::SetUIValue(double value, bool generateEve
     this->spinnerButton->SetValue(value);
 
     //Convert the current button value to text
-    wxString textValue = SpinnerButton::ToString(this->spinnerButton->GetValue(), this->spinnerButton->GetPrecision());      
+    wxString textValue = SpinnerButton::ToString(this->spinnerButton->GetValue(), this->spinnerButton->GetPrecision());
     if (this->unitType == WORLD_UNIT)
         textValue += !this->unit.empty() ? this->unit : ApplicationAccessor::GetDefaultUnitType(true);
 
@@ -219,7 +219,7 @@ void Finjin::Exporter::SpinnerControl::SetUIValue(double value, bool generateEve
     this->textCtrl->SetValue(textValue);
 
     //Put the current value back into the button
-    double v = GetUIValue();    
+    double v = GetUIValue();
     this->spinnerButton->SetValue(v);
 
     if (generateEvent)
@@ -236,9 +236,9 @@ void Finjin::Exporter::SpinnerControl::SetUnitType(UnitType unitType)
     this->unitType = unitType;
 }
 
-int Finjin::Exporter::SpinnerControl::GetPrecision() const 
+int Finjin::Exporter::SpinnerControl::GetPrecision() const
 {
-    return this->spinnerButton->GetPrecision();  
+    return this->spinnerButton->GetPrecision();
 }
 
 void Finjin::Exporter::SpinnerControl::SetPrecision(int precision)
@@ -261,14 +261,14 @@ void Finjin::Exporter::SpinnerControl::SetRange(double a, double b)
     this->spinnerButton->SetRange(a, b);
 }
 
-double Finjin::Exporter::SpinnerControl::GetMin() const 
+double Finjin::Exporter::SpinnerControl::GetMin() const
 {
-    return this->spinnerButton->GetMin();  
+    return this->spinnerButton->GetMin();
 }
 
-double Finjin::Exporter::SpinnerControl::GetMax() const 
+double Finjin::Exporter::SpinnerControl::GetMax() const
 {
-    return this->spinnerButton->GetMax();  
+    return this->spinnerButton->GetMax();
 }
 
 void Finjin::Exporter::SpinnerControl::OnEnter(wxCommandEvent& WXUNUSED(event))
@@ -278,22 +278,22 @@ void Finjin::Exporter::SpinnerControl::OnEnter(wxCommandEvent& WXUNUSED(event))
 
 void Finjin::Exporter::SpinnerControl::OnTextLoseFocus(wxFocusEvent& event)
 {
-    HandleTextChange(true);    
+    HandleTextChange(true);
 }
 
 void Finjin::Exporter::SpinnerControl::OnDrag(SpinnerButtonEvent& event)
-{          
+{
     //Convert the current button value to text
-    wxString textValue = SpinnerButton::ToString(this->spinnerButton->GetValue(), this->spinnerButton->GetPrecision());      
+    wxString textValue = SpinnerButton::ToString(this->spinnerButton->GetValue(), this->spinnerButton->GetPrecision());
     if (this->unitType == WORLD_UNIT)
         textValue += !this->unit.empty() ? this->unit : ApplicationAccessor::GetDefaultUnitType(true);
-    
+
     //Put the text value into the text control
     this->textCtrl->SetValue(textValue);
 
     //Put the current value back into the button
     this->spinnerButton->SetValue(GetUIValue());
-    
+
     //Generate value changed event
     SendValueChangedEvent();
 }
@@ -320,9 +320,9 @@ void Finjin::Exporter::SpinnerControl::HandleTextChange(bool generateValueChange
 {
     //Put the new value into the drag button
     this->spinnerButton->SetValue(GetUIValue());
-    
+
     //Convert the value to text
-    wxString textValue = SpinnerButton::ToString(this->spinnerButton->GetValue(), this->spinnerButton->GetPrecision());    
+    wxString textValue = SpinnerButton::ToString(this->spinnerButton->GetValue(), this->spinnerButton->GetPrecision());
     if (this->unitType == WORLD_UNIT)
         textValue += !this->unit.empty() ? this->unit : ApplicationAccessor::GetDefaultUnitType(true);
 
@@ -334,13 +334,13 @@ void Finjin::Exporter::SpinnerControl::HandleTextChange(bool generateValueChange
         SendValueChangedEvent();
 }
 
-bool Finjin::Exporter::SpinnerControl::IsEnabled() const 
+bool Finjin::Exporter::SpinnerControl::IsEnabled() const
 {
     return this->textCtrl->IsEnabled();
 }
 
-bool Finjin::Exporter::SpinnerControl::Enable(bool enable) 
-{    
+bool Finjin::Exporter::SpinnerControl::Enable(bool enable)
+{
     this->textCtrl->Enable(enable);
     this->spinnerButton->Enable(enable);
     return true;
@@ -353,7 +353,7 @@ void Finjin::Exporter::SpinnerControl::Disable()
 
 bool Finjin::Exporter::SpinnerControl::HasWindowID(wxWindowID id) const
 {
-    return 
+    return
         GetId() == id ||
         this->textCtrl->GetId() == id ||
         this->spinnerButton->GetId() == id;
@@ -361,7 +361,7 @@ bool Finjin::Exporter::SpinnerControl::HasWindowID(wxWindowID id) const
 
 wxSize Finjin::Exporter::SpinnerControl::DoGetBestSize() const
 {
-    return GetSize();    
+    return GetSize();
 }
 
 void Finjin::Exporter::SpinnerControl::SendValueChangedEvent()
@@ -369,5 +369,5 @@ void Finjin::Exporter::SpinnerControl::SendValueChangedEvent()
     SpinnerControlEvent event(EVT_SPINNER_CONTROL_VALUE_CHANGED, GetId());
     event.SetEventObject(this);
     event.SetValue(GetValue());
-    GetEventHandler()->ProcessEvent(event);    
+    GetEventHandler()->ProcessEvent(event);
 }

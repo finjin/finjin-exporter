@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class ExtendedValueObjectClassDesc : public ClassDesc2
 {
 public:
@@ -46,20 +46,20 @@ public:
 ExtendedValueObjectClassDesc ExtendedValueObjectClassDesc::instance;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {EXTENDED_VALUE_SETTINGS_PARAM_BLOCK_ID = 0};
 enum {EXTENDED_VALUE_SETTINGS_VERSION = 1};
 
 static ParamBlockDesc2 ExtendedValueObjectParamBlock
     (
-    EXTENDED_VALUE_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &ExtendedValueObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT, 
-    
+    EXTENDED_VALUE_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &ExtendedValueObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT,
+
     //Version
     EXTENDED_VALUE_SETTINGS_VERSION,
-    
+
     //Reference number
-    ExtendedValueObject::PARAM_BLOCK_REF, 
-    
+    ExtendedValueObject::PARAM_BLOCK_REF,
+
     //Parameters
     ExtendedValueObject::PB_ID, _M("ID"), TYPE_INT, 0, IDS_ID,
         p_end,
@@ -78,7 +78,7 @@ static ParamBlockDesc2 ExtendedValueObjectParamBlock
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ExtendedValueObject::ExtendedValueObject()
 {
     this->pblock = nullptr;
@@ -86,7 +86,7 @@ ExtendedValueObject::ExtendedValueObject()
 }
 
 ExtendedValueObject::~ExtendedValueObject()
-{    
+{
 }
 
 CreateMouseCallBack* ExtendedValueObject::GetCreateMouseCallBack()
@@ -104,18 +104,18 @@ void ExtendedValueObject::InitNodeName(MSTR& s)
     s = _M("FinjinExtendedValue");
 }
 
-Class_ID ExtendedValueObject::ClassID() 
+Class_ID ExtendedValueObject::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID ExtendedValueObject::GetClassClassID()
 {
     return FinjinMaxClassID::ExtendedValueObject;
 }
 
-SClass_ID ExtendedValueObject::SuperClassID() 
-{ 
+SClass_ID ExtendedValueObject::SuperClassID()
+{
     return REF_TARGET_CLASS_ID;
 }
 
@@ -130,25 +130,25 @@ RefTargetHandle ExtendedValueObject::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
-int ExtendedValueObject::NumSubs() 
-{ 
-    return NUM_REFS; 
+int ExtendedValueObject::NumSubs()
+{
+    return NUM_REFS;
 }
 
-MSTR ExtendedValueObject::SubAnimName(int i) 
+MSTR ExtendedValueObject::SubAnimName(int i)
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return MaxUtilities::GetString(IDS_PARAMETERS);
+}
 
-Animatable* ExtendedValueObject::SubAnim(int i) 
+Animatable* ExtendedValueObject::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
 RefResult ExtendedValueObject::NotifyRefChanged(const Interval& changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message, BOOL propagate)
@@ -156,19 +156,19 @@ RefResult ExtendedValueObject::NotifyRefChanged(const Interval& changeInt, RefTa
     return REF_SUCCEED;
 }
 
-int ExtendedValueObject::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle ExtendedValueObject::GetReference(int i) 
+int ExtendedValueObject::NumRefs()
 {
-    return this->pblock; 
+    return NUM_REFS;
 }
 
-void ExtendedValueObject::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+RefTargetHandle ExtendedValueObject::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void ExtendedValueObject::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* ExtendedValueObject::GetClassDesc()
@@ -189,7 +189,7 @@ void ExtendedValueObject::SetID(int id)
 void ExtendedValueObject::GetValue(ExtendedValue& value)
 {
     wxString typeString = ApplicationStringToWxString(this->pblock->GetStr(PB_TYPE));
-    ExtendedValue::Type type = ExtendedValue::ParseType(typeString);                
+    ExtendedValue::Type type = ExtendedValue::ParseType(typeString);
     switch (type)
     {
         case ExtendedValue::EXTENDED_INT:
@@ -200,7 +200,7 @@ void ExtendedValueObject::GetValue(ExtendedValue& value)
             for (size_t i = 0; i < floats.size(); i++)
                 floats[i] = this->pblock->GetFloat(PB_FLOATS, 0, (int)i);
             value.Set(floats);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_COLOR:
@@ -216,7 +216,7 @@ void ExtendedValueObject::GetValue(ExtendedValue& value)
                 colors[i].a = this->pblock->GetFloat(PB_FLOATS, 0, floatIndex++);
             }
             value.Set(colors);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_STRING:
@@ -229,7 +229,7 @@ void ExtendedValueObject::GetValue(ExtendedValue& value)
 
             break;
         }
-        case ExtendedValue::EXTENDED_OBJECT: 
+        case ExtendedValue::EXTENDED_OBJECT:
         {
             std::vector<ObjectAccessor> objects;
             objects.resize(this->pblock->Count(PB_NODES));
@@ -250,7 +250,7 @@ void ExtendedValueObject::GetValue(ExtendedValue& value)
             break;
         }
         default: value.SetNone(); break;
-    }    
+    }
 }
 
 void ExtendedValueObject::SetValue(const ExtendedValue& value)
@@ -268,7 +268,7 @@ void ExtendedValueObject::SetValue(const ExtendedValue& value)
             value.Get(floats);
             if (!floats.empty())
                 this->pblock->Append(PB_FLOATS, (int)floats.size(), &floats[0]);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_COLOR:
@@ -279,7 +279,7 @@ void ExtendedValueObject::SetValue(const ExtendedValue& value)
             value.Get(colors);
             for (size_t i = 0; i < colors.size(); i++)
                 this->pblock->Append(PB_FLOATS, 4, &colors[i].r);
-            
+
             break;
         }
         case ExtendedValue::EXTENDED_STRING:
@@ -298,7 +298,7 @@ void ExtendedValueObject::SetValue(const ExtendedValue& value)
 
             break;
         }
-        case ExtendedValue::EXTENDED_OBJECT: 
+        case ExtendedValue::EXTENDED_OBJECT:
         {
             this->pblock->ZeroCount(PB_NODES);
 
@@ -325,6 +325,6 @@ void ExtendedValueObject::SetValue(const ExtendedValue& value)
             }
 
             break;
-        }        
-    }    
+        }
+    }
 }

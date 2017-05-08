@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessorBase.hpp"
 #include "UserDataSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinObjectSettingsObject;
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
     public:
         FinjinObjectSettingsAccessor() {this->object = nullptr;}
         FinjinObjectSettingsAccessor(FinjinObjectSettingsObject* object) {this->object = object;}
-        
+
         bool IsValid() const {return this->object != nullptr;}
 
         FINJIN_EXPORTER_DECLARE_USER_DATA_ACCESSOR_METHODS_OVERRIDE
@@ -97,7 +97,7 @@ namespace Finjin { namespace Exporter {
         bool GetUseCustomSubmeshes() override;
         void GetSubmeshesSettings(SubmeshesSettings& value) override;
         int GetManualLodCount() override;
-        void GetManualLod(int i, ObjectAccessor& object, float& distance) override;        
+        void GetManualLod(int i, ObjectAccessor& object, float& distance) override;
         bool GetCalculateManualLodDistances() override;
 
         void SetType(wxString value) override;
@@ -118,10 +118,10 @@ namespace Finjin { namespace Exporter {
         void ClearNoteTrackNames() override;
         void AddNoteTrackName(wxString value) override;
         void SetExportFlags(bool value) override;
-        void ClearFlags() override;        
+        void ClearFlags() override;
         void AddFlag(wxString name) override;
         void SetNodeAnimationSampleType(SampleType value) override;
-        void SetNodeAnimationSampleInterval(double value) override;        
+        void SetNodeAnimationSampleInterval(double value) override;
         FinjinNodeAnimationSettingsAccessor AddNewNodeAnimation() override;
         FinjinNodeAnimationSettingsAccessor AddNodeAnimationCopy(int i) override;
         void RemoveNodeAnimation(FinjinNodeAnimationSettingsAccessor value) override;
@@ -160,7 +160,7 @@ namespace Finjin { namespace Exporter {
         void SetManualLod(int i, ObjectAccessor object, float distance) override;
         void RemoveManualLod(int i) override;
         void SetCalculateManualLodDistances(bool value) override;
-        
+
     public:
         FinjinObjectSettingsObject* object;
     };

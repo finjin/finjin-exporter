@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base handler for exporting materials. */
@@ -52,7 +52,7 @@ namespace Finjin { namespace Exporter {
             Texmap* texmap;
             float amount;
         };
-        
+
         Texmap* GetDiffuseMap(Texmap* texmap);
         void WriteDiffuseMap(WxDataChunkWriter& writer, size_t& mapIndex, TexMapSlot texmapSlot, WxError& error);
 
@@ -73,9 +73,9 @@ namespace Finjin { namespace Exporter {
 
         Texmap* GetSelfIlluminationMap(Texmap* texmap);
         void WriteSelfIlluminationMap(WxDataChunkWriter& writer, size_t& mapIndex, TexMapSlot texmapSlot, WxError& error);
-        
+
         Texmap* GetOpacityMap(Texmap* texmap);
-        void WriteOpacityMap(WxDataChunkWriter& writer, size_t& mapIndex, TexMapSlot texmapSlot, WxError& error);        
+        void WriteOpacityMap(WxDataChunkWriter& writer, size_t& mapIndex, TexMapSlot texmapSlot, WxError& error);
 
         Texmap* GetShininessMap(Texmap* texmap);
         void WriteShininessMap(WxDataChunkWriter& writer, size_t& mapIndex, TexMapSlot texmapSlot, WxError& error);
@@ -83,9 +83,9 @@ namespace Finjin { namespace Exporter {
         Texmap* GetEnvironmentMap(Texmap* texmap);
         void WriteEnvironmentMap(WxDataChunkWriter& writer, size_t& mapIndex, TexMapSlot texmapSlot, WxError& error);
 
-        void WriteTexmap(WxDataChunkWriter& writer, TexMapSlot texmapSlot, const wxString& type, WxError& error);        
-        
+        void WriteTexmap(WxDataChunkWriter& writer, TexMapSlot texmapSlot, const wxString& type, WxError& error);
+
         Texmap* GetExportableBitmapTexmap(Texmap* texmap);
-    };    
+    };
 
 } }

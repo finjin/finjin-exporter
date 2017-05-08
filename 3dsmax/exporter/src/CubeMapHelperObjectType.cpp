@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void CubeMapHelperObjectType::Detect(ObjectTypeDetectionContext& context)
 {
 #if defined(FINJIN_EXPORTER_ENABLE_D3D_FUNCTIONALITY)

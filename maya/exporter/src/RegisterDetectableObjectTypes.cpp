@@ -35,7 +35,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void RegisterDetectableObjectTypes()
 {
     //Universal types
@@ -43,14 +43,14 @@ void RegisterDetectableObjectTypes()
     ObjectTypeDetector::RegisterType(IgnoreObjectType::GetInstance());
     ObjectTypeDetector::RegisterType(PrefabInstanceObjectType::GetInstance());
     ObjectTypeDetector::RegisterType(PhysicalObjectType::GetInstance());
-    
+
     //Non-universal types
     ObjectTypeDetector::RegisterType(StaticGeometryObjectType::GetInstance());
     ObjectTypeDetector::RegisterType(InstancedGeometryObjectType::GetInstance());
-    ObjectTypeDetector::RegisterType(LightObjectType::GetInstance());    
-    ObjectTypeDetector::RegisterType(CameraObjectType::GetInstance());    
-    ObjectTypeDetector::RegisterType(MeshObjectType::GetInstance());    
-    ObjectTypeDetector::RegisterType(SubmeshObjectType::GetInstance());    
+    ObjectTypeDetector::RegisterType(LightObjectType::GetInstance());
+    ObjectTypeDetector::RegisterType(CameraObjectType::GetInstance());
+    ObjectTypeDetector::RegisterType(MeshObjectType::GetInstance());
+    ObjectTypeDetector::RegisterType(SubmeshObjectType::GetInstance());
     ObjectTypeDetector::RegisterType(SkyObjectType::GetInstance());
     ObjectTypeDetector::RegisterType(RootObjectType::GetInstance());
 }

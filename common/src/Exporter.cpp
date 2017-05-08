@@ -36,13 +36,13 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 Exporter::FactoryList Exporter::factories;
 wxString Exporter::fileFilter;
 wxString Exporter::lastInputFileName;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static bool RunExportSequence
     (
     ExporterHandlerFactory* factory,
@@ -65,7 +65,7 @@ static bool RunExportSequence
         auto formattedStartTime = Strings::FormatTime(startTime);
         FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, Strings::STARTED_EXPORT_ON_FORMAT, formattedStartTime.wx_str());
     }
-    
+
     //Initialize the export handler
     {
         std::unique_ptr<ExporterHandler> exportHandler(factory->CreateHandler());
@@ -106,20 +106,20 @@ static bool RunExportSequence
 
     //Update progress dialog
     if (ProgressDialog::GetInstance() != nullptr)
-        ProgressDialog::GetInstance()->FinishedTask(resultMessage);        
-    
+        ProgressDialog::GetInstance()->FinishedTask(resultMessage);
+
     ApplicationAccessor::EnableExport(false);
 
     return result;
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool Exporter::ExportWithFileName
     (
-    const wxString& fileName, 
-    bool selected, 
-    ExporterHandlerFactory* factory, 
+    const wxString& fileName,
+    bool selected,
+    ExporterHandlerFactory* factory,
     bool allowStatusDialogs
     )
 {
@@ -134,7 +134,7 @@ bool Exporter::ExportWithFileName
         if (gotSaveFileName)
             exportedFileName = fileName;
     }
-    
+
     //Do the export
     auto result = false;
     if (gotSaveFileName)
@@ -156,21 +156,21 @@ bool Exporter::ExportWithFileName
 
 bool Exporter::ExportWithDialog
     (
-    bool selected, 
-    bool forceSaveDialog, 
+    bool selected,
+    bool forceSaveDialog,
     ExporterHandlerFactory* factory
     )
 {
     wxString exportedFileName;
     auto gotSaveFileName = false;
-    
+
     auto sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
-    
+
     //If the default scene file name didn't work, try to get the file name from the user
     if (!gotSaveFileName)
     {
         SUSPEND_CUSTOM_CONTROLS;
-        
+
         wxApplicationWindow appWindow;
         auto defaultDirectory = FileUtilities::GetDirectoryPath(lastInputFileName);
         auto defaultFile = FileUtilities::GetFileName(lastInputFileName, false);
@@ -185,10 +185,10 @@ bool Exporter::ExportWithDialog
         }
 
         if (dialog.ShowModal() == wxID_OK)
-        {        
+        {
             gotSaveFileName = true;
             exportedFileName = dialog.GetPath();
-        }   
+        }
     }
 
     //Do the export
@@ -239,15 +239,15 @@ const wxString& Exporter::GetFileFilter()
             for (int i = 0; i < factory->GetExtensionCount(); i++)
             {
                 factory->GetExtension(i, extension, &description);
-                
+
                 if (!fileFilter.empty())
                     fileFilter += wxT("|");
 
                 fileFilter += wxString::Format
                     (
-                    wxT("%s (*%s)|*%s"), 
-                    description.wx_str(), 
-                    extension.wx_str(), 
+                    wxT("%s (*%s)|*%s"),
+                    description.wx_str(),
+                    extension.wx_str(),
                     extension.wx_str()
                     );
             }
@@ -259,8 +259,8 @@ const wxString& Exporter::GetFileFilter()
 
 bool Exporter::Export
     (
-    const wxString& fileName, 
-    bool selected, 
+    const wxString& fileName,
+    bool selected,
     FinjinSceneSettingsAccessor sceneSettings,
     ExporterFlags exportFlags,
     ExporterHandlerFactory* factory
@@ -293,12 +293,12 @@ bool Exporter::Export
         //Show progress dialog
         if (NoneSet(exportFlags & ExporterFlags::NO_STATUS_DIALOGS))
         {
-            //Create the progress dialog as a modeless dialog. 
+            //Create the progress dialog as a modeless dialog.
             //The dialog takes care of deleting itself when closed
             SUSPEND_CUSTOM_CONTROLS;
             auto progressTitle = wxString::Format(Strings::EXPORT_PROGRESS_DIALOG_TITLE_FORMAT, factory->GetDisplayName().wx_str());
             auto progressDialog = new ProgressDialog(progressTitle, LogListener::DEFAULT_LOG_LEVEL, Strings::EXPORTING_SCENE);
-            progressDialog->Show();                        
+            progressDialog->Show();
         }
 
         //The factory was chosen with a case-insensitive extension comparison
@@ -308,9 +308,9 @@ bool Exporter::Export
             FileUtilities::EnsureExtension(fileNameWithExtension, factory->GetExtension(extensionIndex));
 
         //Run the export
-        result = RunExportSequence(factory, fileNameWithExtension, selected, sceneSettings);        
+        result = RunExportSequence(factory, fileNameWithExtension, selected, sceneSettings);
     }
-    
+
     return result;
 }
 
@@ -346,7 +346,7 @@ ExporterHandlerFactory* Exporter::GetFactoryForFileName(const wxString& fileName
 
 int Exporter::GetFilterIndexForFileName(const wxString& fileName)
 {
-    int filterIndex = 0;    
+    int filterIndex = 0;
     for (auto factory : factories)
     {
         for (int i = 0; i < factory->GetExtensionCount(); i++)
@@ -367,6 +367,6 @@ void Exporter::RunExternalViewerAfterExport()
     if (wxFileExists(lastInputFileName) &&
         FinjinGlobalSettings::GetInstance().runExternalViewerAfterExport)
     {
-        ExporterSystem::RunExternalViewer(lastInputFileName);    
+        ExporterSystem::RunExternalViewer(lastInputFileName);
     }
 }

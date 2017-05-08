@@ -21,7 +21,7 @@
 #include "FileVersionInfo.hpp"
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FileVersionInfo::FileVersionInfo()
 {
     Reset();
@@ -62,7 +62,7 @@ BOOL FileVersionInfo::GetTranslationId(void* dataBytes, UINT blockSize, WORD lan
 bool FileVersionInfo::Create(HMODULE hModule)
 {
     TCHAR path[_MAX_PATH + 1];
-    GetModuleFileName(hModule, path, _MAX_PATH);    
+    GetModuleFileName(hModule, path, _MAX_PATH);
     return Create(path);
 }
 
@@ -76,7 +76,7 @@ bool FileVersionInfo::Create(const TCHAR* fileName)
     DWORD fileVersionInfoSize = GetFileVersionInfoSize(fileName, &handle);
     if (fileVersionInfoSize > 0)
     {
-        BYTE* dataBytes = new BYTE[fileVersionInfoSize];    
+        BYTE* dataBytes = new BYTE[fileVersionInfoSize];
         if (GetFileVersionInfo(fileName, handle, fileVersionInfoSize, dataBytes))
         {
             result = true;
@@ -92,7 +92,7 @@ bool FileVersionInfo::Create(const TCHAR* fileName)
 
             //Find best matching language and codepage
             VerQueryValue(dataBytes, wxT("\\VarFileInfo\\Translation"), &infoPointer, &infoLength);
-            
+
             DWORD langCode = 0;
             if (!GetTranslationId(infoPointer, infoLength, GetUserDefaultLangID(), langCode, FALSE))
             {
@@ -106,12 +106,12 @@ bool FileVersionInfo::Create(const TCHAR* fileName)
                     }
                 }
             }
-            
+
 
             TCHAR subBlockChars[500];
             _stprintf(subBlockChars, wxT("\\StringFileInfo\\%04X%04X\\"), langCode&0x0000FFFF, (langCode&0xFFFF0000)>>16);
             wxString subBlock = subBlockChars;
-            
+
             //Get string table
             if (VerQueryValue(dataBytes, (TCHAR*)(subBlock+wxT("CompanyName")).wx_str(), &infoPointer, &infoLength))
                 this->companyName = (TCHAR*)infoPointer;

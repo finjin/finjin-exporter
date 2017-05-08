@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
@@ -27,13 +27,13 @@
 #include "ExportableObjectBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ExporterContext;
     class SceneExportSettings;
-    
-    /** 
+
+    /**
      * This class is used in the construction of a scene graph that is appropriate for export, which is
      * easier to deal with than the native application's scene graph.
      */
@@ -43,22 +43,22 @@ namespace Finjin { namespace Exporter {
         ExportableObject();
         virtual ~ExportableObject();
 
-        /** 
+        /**
          * Constructor for scene root object. This constructor recursively creates the scene graph.
          * @param object [in] - The scene root object.
          * @param exporterContext [in/out] - The context in use.
          */
         virtual void Initialize(ObjectAccessor object, ExporterContext& exporterContext);
 
-        /** 
-         * Equivalent to calling InitializeStart(), if that method were public. 
+        /**
+         * Equivalent to calling InitializeStart(), if that method were public.
          * This method is useful when exportable objects need to be created outside of the normal
          * way, such as what occurs with XSI when dealing with the light and camera interest objects.
          */
         void Initialize
             (
             ExportableObject* parent,
-            ObjectAccessor object, 
+            ObjectAccessor object,
             FinjinObjectSettingsAccessor objectSettings,
             ExporterContext& context
             );
@@ -110,14 +110,14 @@ namespace Finjin { namespace Exporter {
          */
         TransformAccessor GetConvertedLocalNodeTransformation(TimeAccessor time, CoordinateSystemConverter& conversionManager, float scale, FinjinVector4* objectRotation = nullptr);
 
-        /** 
+        /**
          * Resolves the object's dependencies.
          * @param context [in] - The context in use.
          */
         virtual void ResolveDependencies(ExporterContext& context);
 
-        /** 
-         * Gets the closest object when moving up the hierarchy with a type that indicates it is a container. 
+        /**
+         * Gets the closest object when moving up the hierarchy with a type that indicates it is a container.
          * @return The closest object with a type indicating it is a container is returned. If this object
          * is a container, it is returned.
          */
@@ -126,7 +126,7 @@ namespace Finjin { namespace Exporter {
         /** Determines if this object is consumed by its parent. */
         bool IsConsumedByParent();
 
-        /** 
+        /**
          * Removes this object from its parent.
          * Note that if this is called as a result of ResolveDependencies() being called, the removal from the parent
          * will be deferred until the dependency resolution is complete.
@@ -139,15 +139,15 @@ namespace Finjin { namespace Exporter {
         /** Adds the child object to this object. */
         void AddChild(ExportableObjectPtr child);
 
-        /** 
-         * Removes the specified child from this object. 
-         * This should not be called during dependency resolution. 
+        /**
+         * Removes the specified child from this object.
+         * This should not be called during dependency resolution.
          */
         void RemoveChild(ExportableObject* child);
 
-        /** 
-         * Removes the all the children from this object. 
-         * This should not be called during dependency resolution. 
+        /**
+         * Removes the all the children from this object.
+         * This should not be called during dependency resolution.
          */
         void RemoveChildren();
 
@@ -157,7 +157,7 @@ namespace Finjin { namespace Exporter {
         /** Gets the shared pointer for the specified child. */
         ExportableObjectPtr GetChildPtr(ExportableObject* child);
 
-        /** 
+        /**
          * Gets the number of children.
          * @param recursive [in] - Determines whether the count should be determined recursively.
          * @return The number of children is returned.
@@ -171,7 +171,7 @@ namespace Finjin { namespace Exporter {
          */
         ExportableObjectPtr GetDependentExportableObject(ObjectAccessor dependentObject);
 
-        /** 
+        /**
          * Adds a dependency.
          * @param object [in] - The dependent object.
          * @param tag [in] - A string tag for the object.
@@ -195,9 +195,9 @@ namespace Finjin { namespace Exporter {
                 /** Indicates that the iteration should continue. */
                 CONTINUE_ITERATION,
 
-                /** 
-                 * Indicates that the iteration should skip the object. 
-                 * This is only useful when recursively iterating over the children. 
+                /**
+                 * Indicates that the iteration should skip the object.
+                 * This is only useful when recursively iterating over the children.
                  */
                 SKIP_ITERATION,
 
@@ -212,8 +212,8 @@ namespace Finjin { namespace Exporter {
              */
             virtual Result HandleObject(ExportableObjectPtr exportableObject) = 0;
         };
-        
-        /** 
+
+        /**
          * Iterates of the child objects, calling the specified callback at each step.
          * @param callback [in] - The callback to call.
          * @param recursive [in] - Indicates whether the child iteration occurs recursively.
@@ -222,7 +222,7 @@ namespace Finjin { namespace Exporter {
         IterateCallback::Result IterateChildren(IterateCallback& callback, bool recursive = true);
 
     private:
-        /** 
+        /**
          * Initializes non-root objects. This recursively creates the scene graph.
          * @param parent [in] - The parent of the object.
          * @param object [in] - The object.
@@ -232,7 +232,7 @@ namespace Finjin { namespace Exporter {
         virtual void InitializeStart
             (
             ExportableObject* parent,
-            ObjectAccessor object, 
+            ObjectAccessor object,
             FinjinObjectSettingsAccessor objectSettings,
             ExporterContext& exporterContext
             );
@@ -266,7 +266,7 @@ namespace Finjin { namespace Exporter {
 
         /** The detected object type. */
         DetectableObjectType* detectedObjectType;
-     
+
         /** Children of this object. Matches the application's notion of a child. */
         std::list<ExportableObjectPtr> initializedChildObjects;
 
@@ -299,7 +299,7 @@ namespace Finjin { namespace Exporter {
         /** A list is used for dependent objects so that order is maintained. */
         typedef std::list<Dependency> DependentObjects;
 
-        /** 
+        /**
          * A list of objects that this object dependent on.
          * Objects added to this list will be mapped, if possible, to exportable objects and
          * entered into the 'dependentObjectMap' member.

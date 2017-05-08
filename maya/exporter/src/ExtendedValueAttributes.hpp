@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExtendedValue.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class NodeAttributeAdder;
@@ -32,18 +32,18 @@ namespace Finjin { namespace Exporter {
     struct ExtendedValueAttributes
     {
     public:
-        /** 
+        /**
          * Creates the extended attributes.
          * @param adder [in] - Used to create the attributes.
          * @param attributeNamePrefix [in] - Prefix to prepend to attribute names.
          */
         void CreateExtendedValueAttributes
             (
-            NodeAttributeAdder& adder, 
+            NodeAttributeAdder& adder,
             const MString& attributeNamePrefix = ""
             );
 
-        /** 
+        /**
          * Creates the extended attributes and puts the created attributes into the specified list.
          * @param attributesList [out] - Receives the created attributes.
          * @param adder [in] - Used to create the attributes.
@@ -51,8 +51,8 @@ namespace Finjin { namespace Exporter {
          */
         void CreateExtendedValueAttributes
             (
-            std::list<MObject>& attributesList, 
-            NodeAttributeAdder& adder, 
+            std::list<MObject>& attributesList,
+            NodeAttributeAdder& adder,
             const MString& attributeNamePrefix = ""
             );
 
@@ -65,9 +65,9 @@ namespace Finjin { namespace Exporter {
          */
         static void GetAllExtendedValues
             (
-            MPlug extendedValuesPlug, 
-            const MString& attributeNamePrefix, 
-            std::vector<ExtendedValue>& values, 
+            MPlug extendedValuesPlug,
+            const MString& attributeNamePrefix,
+            std::vector<ExtendedValue>& values,
             std::vector<int>* ids = nullptr
             );
 
@@ -81,12 +81,12 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetExtendedValue
             (
-            MPlug extendedValuesPlug, 
-            const MString& attributeNamePrefix, 
-            int id, 
+            MPlug extendedValuesPlug,
+            const MString& attributeNamePrefix,
+            int id,
             ExtendedValue& value
             );
-        
+
         /**
          * Sets an extended value with the specified identifier.
          * If a value with the specified identifier already exists, it is overwritten.
@@ -98,9 +98,9 @@ namespace Finjin { namespace Exporter {
          */
         static void SetExtendedValue
             (
-            MPlug extendedValuesPlug, 
-            const MString& attributeNamePrefix, 
-            int id, 
+            MPlug extendedValuesPlug,
+            const MString& attributeNamePrefix,
+            int id,
             const ExtendedValue& value
             );
 
@@ -113,8 +113,8 @@ namespace Finjin { namespace Exporter {
          */
         static bool RemoveExtendedValue
             (
-            MPlug extendedValuesPlug, 
-            const MString& attributeNamePrefix, 
+            MPlug extendedValuesPlug,
+            const MString& attributeNamePrefix,
             int id
             );
 
@@ -141,7 +141,7 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define IMPLEMENT_STATIC_ATTRIBUTE_EXTENDED_VALUE_ACCESSOR_METHODS_PREFIXED(className, member, attributes, attributeNamePrefix)\
     void className::GetAllExtendedValues(std::vector<ExtendedValue>& values, std::vector<int>* ids) {ExtendedValueAttributes::GetAllExtendedValues(MPlug(this->member, attributes.extendedValues), attributeNamePrefix, values, ids);}\
     bool className::GetExtendedValue(int id, ExtendedValue& value) {return ExtendedValueAttributes::GetExtendedValue(MPlug(this->member, attributes.extendedValues), attributeNamePrefix, id, value);}\

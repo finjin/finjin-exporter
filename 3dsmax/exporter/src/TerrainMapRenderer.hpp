@@ -20,11 +20,11 @@
 
 #if defined(FINJIN_EXPORTER_ENABLE_D3D_FUNCTIONALITY)
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Renders a terrain maps to a file. 
+    /**
+     * Renders a terrain maps to a file.
      * The objects that are rendered can be specified explicitly, or not at all.
      * If no explicit objects are used, the entire scene is used.
      */
@@ -41,16 +41,16 @@ namespace Finjin { namespace Exporter {
             HEIGHT_MAP
         };
 
-        /** Constructor that takes a rendering mode. */ 
+        /** Constructor that takes a rendering mode. */
         TerrainMapRenderer(Mode mode);
-        
+
         /** Adds the selected scene nodes to the render list. */
         void AddSelectedNodes();
 
         /** Adds the specified scene node to the render list. */
         void AddNode(INode* node);
 
-        /** 
+        /**
          * Performs the render.
          * @param fileName [in] - The file to which the cube map is rendered.
          * @param width [in] - The width of the rendered image.
@@ -61,7 +61,7 @@ namespace Finjin { namespace Exporter {
          */
         void RenderToFile
             (
-            const wxString& fileName, 
+            const wxString& fileName,
             int width,
             int height,
             int bytesPerPixel,

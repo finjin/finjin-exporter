@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void FileFinder::AddDirectory(const wxString& directory)
 {
     this->directories.push_back(directory);
@@ -34,7 +34,7 @@ wxString FileFinder::FindFile(const wxString& fileName)
 {
     wxString baseName = FileUtilities::GetFileName(fileName);
     wxString result;
-    
+
     for (std::list<wxString>::iterator directoryIterator = this->directories.begin();
         directoryIterator != this->directories.end();
         ++directoryIterator)
@@ -52,7 +52,7 @@ wxString FileFinder::FindFileInDirectory(const wxString& baseName, const wxStrin
 {
     wxArrayString files;
     wxDir::GetAllFiles(directory, &files, baseName, wxDIR_FILES | wxDIR_DIRS | wxDIR_HIDDEN);
-    
+
     wxString result;
     if (!files.empty())
         result = files[0];

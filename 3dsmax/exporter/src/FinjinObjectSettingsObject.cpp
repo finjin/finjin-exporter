@@ -33,7 +33,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinObjectSettingsObjectClassDesc : public ClassDesc2
 {
 public:
@@ -52,20 +52,20 @@ public:
 FinjinObjectSettingsObjectClassDesc FinjinObjectSettingsObjectClassDesc::instance;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {OBJECT_SETTINGS_PARAM_BLOCK_ID = 0};
 enum {OBJECT_SETTINGS_VERSION = 1};
 
 static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
     (
-    OBJECT_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinObjectSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT, 
-    
+    OBJECT_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinObjectSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT,
+
     //Version
     OBJECT_SETTINGS_VERSION,
-    
+
     //Reference number
-    FinjinObjectSettingsObject::PARAM_BLOCK_REF, 
-    
+    FinjinObjectSettingsObject::PARAM_BLOCK_REF,
+
     //Parameters
 
     USER_DATA_PARAMETER_BLOCK_PARAMETERS(FinjinObjectSettingsObject),
@@ -98,10 +98,10 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
         p_end,
     FinjinObjectSettingsObject::PB_EXPORT_FLAGS, _M("ExportFlags"), TYPE_BOOL, 0, IDS_EXPORT_FLAGS,
         p_default, TRUE,
-        p_end,        
+        p_end,
     FinjinObjectSettingsObject::PB_FLAG_NAMES, _M("FlagNames"), TYPE_STRING_TAB, 0, P_VARIABLE_SIZE, IDS_FLAG_NAMES,
         p_end,
-    
+
     FinjinObjectSettingsObject::PB_EXPORT_MESH, _M("ExportMesh"), TYPE_BOOL, 0, IDS_EXPORT_MESH,
         p_default, TRUE,
         p_end,
@@ -110,8 +110,8 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
     FinjinObjectSettingsObject::PB_ANIMATE_BOUNDING_VOLUMES, _M("AnimateBoundingVolumes"), TYPE_BOOL, 0, IDS_ANIMATE_BOUNDING_VOLUMES,
         p_end,
     FinjinObjectSettingsObject::PB_TEXTURE_COORDINATE_TYPE, _M("TextureCoordinateType"), TYPE_STRING, 0, IDS_TEXTURE_COORDINATE_TYPE,
-        p_end,        
-    
+        p_end,
+
     FinjinObjectSettingsObject::PB_SKELETON_NAME, _M("SkeletonName"), TYPE_STRING, 0, IDS_SKELETON_NAME,
         p_end,
     FinjinObjectSettingsObject::PB_MESH_ANIMATION_TYPE, _M("MeshAnimationType"), TYPE_STRING, 0, IDS_MESH_ANIMATION_TYPE,
@@ -126,7 +126,7 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
         p_end,
     FinjinObjectSettingsObject::PB_ANIMATED_ROOT, _M("AnimatedRoot"), TYPE_INODE, 0, IDS_ANIMATED_ROOT,
         p_end,
-    
+
     FinjinObjectSettingsObject::PB_PRIMITIVE_TYPE, _M("PrimitiveType"), TYPE_STRING, 0, IDS_PRIMITIVE_TYPE,
         p_end,
     FinjinObjectSettingsObject::PB_EXPORT_VERTEX_COLORS, _M("ExportVertexColors"), TYPE_BOOL, 0, IDS_EXPORT_VERTEX_COLORS,
@@ -137,22 +137,22 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
         p_end,
     FinjinObjectSettingsObject::PB_CHECK_MESH_INSTANCE, _M("CheckMeshInstance"), TYPE_BOOL, 0, IDS_CHECK_MESH_INSTANCE,
         p_end,
-    FinjinObjectSettingsObject::PB_USE_CUSTOM_SUBMESHES, _M("UseCustomSubmeshes"), TYPE_BOOL, 0, IDS_USE_CUSTOM_SUBMESHES,    
+    FinjinObjectSettingsObject::PB_USE_CUSTOM_SUBMESHES, _M("UseCustomSubmeshes"), TYPE_BOOL, 0, IDS_USE_CUSTOM_SUBMESHES,
         p_end,
     FinjinObjectSettingsObject::PB_SUBMESHES_SETTINGS, _M("SubmeshSettings"), TYPE_REFTARG_TAB, 0, P_VARIABLE_SIZE, IDS_SUBMESHES_SETTINGS,
-        p_end,    
+        p_end,
 
     FinjinObjectSettingsObject::PB_ITEM_TYPE, _M("ItemType"), TYPE_STRING, 0, IDS_ITEM_TYPE,
         p_end,
-    
+
     FinjinObjectSettingsObject::PB_ENABLE_SKY, _M("EnableSky"), TYPE_BOOL, 0, IDS_ENABLE_SKY,
         p_default, TRUE,
         p_end,
-    
+
     FinjinObjectSettingsObject::PB_POINT_SIZE, _M("PointSize"), TYPE_FLOAT, 0, IDS_POINT_SIZE,
         p_default, 10.0f,
         p_end,
-    
+
     FinjinObjectSettingsObject::PB_IGNORE_CHILDREN, _M("IgnoreChildren"), TYPE_BOOL, 0, IDS_IGNORE_CHILDREN,
         p_end,
     FinjinObjectSettingsObject::PB_CHILD_SORTING, _M("ChildSorting"), TYPE_STRING, 0, IDS_CHILD_SORTING,
@@ -166,14 +166,14 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
         p_end,
     FinjinObjectSettingsObject::PB_EXPORT_SKELETON, _M("ExportSkeleton"), TYPE_BOOL, 0, IDS_EXPORT_SKELETON,
         p_default, TRUE,
-        p_end,        
+        p_end,
     FinjinObjectSettingsObject::PB_EXPORTED_MESH_DEFORMED_BY_SKELETON, _M("ExportedMeshDeformedBySkeleton"), TYPE_BOOL, 0, IDS_EXPORTED_MESH_DEFORMED_BY_SKELETON,
         p_default, TRUE,
         p_end,
     FinjinObjectSettingsObject::PB_SKELETON_REFERENCE_POSE_TYPE, _M("SkeletonReferencePoseType"), TYPE_STRING, 0, IDS_SKELETON_REFERENCE_POSE_TYPE,
-        p_end,        
+        p_end,
     FinjinObjectSettingsObject::PB_SKELETON_REFERENCE_POSE_TIME, _M("SkeletonReferencePoseTime"), TYPE_TIMEVALUE, 0, IDS_SKELETON_REFERENCE_POSE_TIME,
-        p_end,    
+        p_end,
     FinjinObjectSettingsObject::PB_EXPORT_POSES, _M("ExportPoses"), TYPE_BOOL, 0, IDS_EXPORT_POSES,
         p_default, TRUE,
         p_end,
@@ -192,21 +192,21 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
         p_end,
     FinjinObjectSettingsObject::PB_CALCULATE_MANUAL_LOD_DISTANCES, _M("CalculateManualLODDistances"), TYPE_BOOL, 0, IDS_CALCULATE_MANUAL_LOD_DISTANCES,
         p_end,
-    
+
     FinjinObjectSettingsObject::PB_RENDERING_DISTANCE, _M("RenderingDistance"), TYPE_FLOAT, 0, IDS_RENDERING_DISTANCE,
-        p_end,        
+        p_end,
 
     FinjinObjectSettingsObject::PB_EMBED_SKELETON_IN_MESH, _M("EmbedSkeletonInMesh"), TYPE_BOOL, 0, IDS_EMBED_SKELETON_IN_MESH,
         p_default, TRUE,
-        p_end,    
+        p_end,
     FinjinObjectSettingsObject::PB_LINK_SKELETON_TO_MESH, _M("LinkSkeletonToMesh"), TYPE_BOOL, 0, IDS_LINK_SKELETON_TO_MESH,
         p_default, TRUE,
-        p_end,    
-    
+        p_end,
+
     FinjinObjectSettingsObject::PB_EXPORTED_PARENT, _M("ExportedParent"), TYPE_INODE, 0, IDS_EXPORTED_PARENT,
-        p_end,    
+        p_end,
     FinjinObjectSettingsObject::PB_IS_ATTACHED_OBJECT, _M("IsAttachedObject"), TYPE_BOOL, 0, IDS_IS_ATTACHED_OBJECT,
-        p_end,    
+        p_end,
 
     FinjinObjectSettingsObject::PB_USE_ROOT_AS_EXPORTED_PARENT, _M("UseRootAsExportedParent"), TYPE_BOOL, 0, IDS_USE_ROOT_AS_EXPORTED_PARENT,
         p_end,
@@ -215,7 +215,7 @@ static ParamBlockDesc2 FinjinObjectSettingsObjectParamBlock
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinObjectSettingsObject::FinjinObjectSettingsObject()
 {
     this->pblock = nullptr;
@@ -223,7 +223,7 @@ FinjinObjectSettingsObject::FinjinObjectSettingsObject()
 }
 
 FinjinObjectSettingsObject::~FinjinObjectSettingsObject()
-{    
+{
 }
 
 CreateMouseCallBack* FinjinObjectSettingsObject::GetCreateMouseCallBack()
@@ -241,18 +241,18 @@ void FinjinObjectSettingsObject::InitNodeName(MSTR& s)
     s = _M("FinjinObjectSettings");
 }
 
-Class_ID FinjinObjectSettingsObject::ClassID() 
+Class_ID FinjinObjectSettingsObject::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinObjectSettingsObject::GetClassClassID()
 {
     return FinjinMaxClassID::ObjectSettings;
 }
 
-SClass_ID FinjinObjectSettingsObject::SuperClassID() 
-{ 
+SClass_ID FinjinObjectSettingsObject::SuperClassID()
+{
     return REF_TARGET_CLASS_ID;
 }
 
@@ -267,9 +267,9 @@ RefTargetHandle FinjinObjectSettingsObject::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -280,13 +280,13 @@ RefResult FinjinObjectSettingsObject::NotifyRefChanged(const Interval& changeInt
         case REFMSG_CONTAINER_ELEMENT_NULLED:
         {
             int tabIndex;
-            
+
             auto lastNotifyID = this->pblock->LastNotifyParamID(tabIndex);
             switch (lastNotifyID)
             {
                 EXTENDED_VALUE_NOTIFY_NULLED_CASE(lastNotifyID, tabIndex)
                 case PB_NODE_ANIMATIONS:
-                case PB_MESH_ANIMATIONS: 
+                case PB_MESH_ANIMATIONS:
                 {
                     this->pblock->Delete(lastNotifyID, tabIndex, 1);
                     break;
@@ -299,39 +299,39 @@ RefResult FinjinObjectSettingsObject::NotifyRefChanged(const Interval& changeInt
             }
 
             break;
-        }        
+        }
     }
     return REF_SUCCEED;
 }
 
-int FinjinObjectSettingsObject::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinObjectSettingsObject::SubAnimName(int i) 
+int FinjinObjectSettingsObject::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinObjectSettingsObject::SubAnim(int i) 
+MSTR FinjinObjectSettingsObject::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinObjectSettingsObject::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinObjectSettingsObject::GetReference(int i) 
+Animatable* FinjinObjectSettingsObject::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinObjectSettingsObject::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinObjectSettingsObject::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinObjectSettingsObject::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinObjectSettingsObject::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinObjectSettingsObject::GetClassDesc()
@@ -341,7 +341,7 @@ ClassDesc* FinjinObjectSettingsObject::GetClassDesc()
 
 void FinjinObjectSettingsObject::CopyFrom(FinjinObjectSettingsObject* other)
 {
-    ReplaceReference(PARAM_BLOCK_REF, other->pblock->Clone(DefaultRemapDir()));    
+    ReplaceReference(PARAM_BLOCK_REF, other->pblock->Clone(DefaultRemapDir()));
 }
 
 FINJIN_EXPORTER_IMPLEMENT_USER_DATA_OBJECT_METHODS(FinjinObjectSettingsObject)
@@ -587,7 +587,7 @@ int FinjinObjectSettingsObject::GetFlagCount()
 
 void FinjinObjectSettingsObject::GetFlag(int index, wxString& name)
 {
-    name = this->pblock->GetStr(PB_FLAG_NAMES, 0, index);    
+    name = this->pblock->GetStr(PB_FLAG_NAMES, 0, index);
 }
 
 void FinjinObjectSettingsObject::GetFlagNames(std::set<wxString>& names)
@@ -603,12 +603,12 @@ void FinjinObjectSettingsObject::GetFlagNames(std::set<wxString>& names)
 
 void FinjinObjectSettingsObject::SetExportFlags(bool value)
 {
-    this->pblock->SetValue(PB_EXPORT_FLAGS, 0, (int)value);    
+    this->pblock->SetValue(PB_EXPORT_FLAGS, 0, (int)value);
 }
 
 void FinjinObjectSettingsObject::ClearFlags()
 {
-    this->pblock->ZeroCount(PB_FLAG_NAMES);    
+    this->pblock->ZeroCount(PB_FLAG_NAMES);
 }
 
 int FinjinObjectSettingsObject::GetManualLODCount()
@@ -658,7 +658,7 @@ void FinjinObjectSettingsObject::GetSubmeshesSettings(SubmeshesSettings& value)
     value.resize(this->pblock->Count(PB_SUBMESHES_SETTINGS));
     for (int i = 0; i < (int)value.size(); i++)
     {
-        FinjinSubmeshSettingsObject* settings = 
+        FinjinSubmeshSettingsObject* settings =
             (FinjinSubmeshSettingsObject*)this->pblock->GetReferenceTarget(PB_SUBMESHES_SETTINGS, 0, i);
         settings->GetValue(value[i]);
     }
@@ -840,7 +840,7 @@ void FinjinObjectSettingsObject::SetItemType(wxString value)
 {
     this->pblock->SetValue(PB_ITEM_TYPE, 0, WxStringToApplicationStringM(value));
 }
-    
+
 void FinjinObjectSettingsObject::SetEnableSky(bool value)
 {
     this->pblock->SetValue(PB_ENABLE_SKY, 0, (int)value);
@@ -948,7 +948,7 @@ void FinjinObjectSettingsObject::SetSubmeshesSettings(const SubmeshesSettings& v
     {
         FinjinSubmeshSettingsObject* settings = new FinjinSubmeshSettingsObject;
         settings->SetValue(value[i]);
-        
+
         ReferenceTarget* values[1] = {settings};
         this->pblock->Append(PB_SUBMESHES_SETTINGS, 1, values);
     }

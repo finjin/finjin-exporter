@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Various utility functions for dealing with materials in 3DS Max.*/
     class MaxMaterialUtilities
     {
-    public:    
+    public:
         /** Determines if the specified material is a DMTL_CLASS_ID or DMTL2_CLASS_ID material. */
         static bool IsStandardMaterial(Mtl* mtl);
 
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
         /** Gets the selected material in the material editor. */
         static Mtl* GetSelectedMaterialEditorMaterial();
 
-        /** 
+        /**
          * Gets the submaterial at the specified index.
          * @param mtl [in] - A material that is presumed to have submaterials. If it
          * doesn't have submaterials, then it is returned.
@@ -45,7 +45,7 @@ namespace Finjin { namespace Exporter {
          */
         static Mtl* GetMtl(Mtl* mtl, MtlID index);
 
-        /** 
+        /**
          * Gets the submaterial at the specified index.
          * @param mtl [in] - A material that is presumed to have submaterials. If it
          * doesn't have submaterials, then it is returned.

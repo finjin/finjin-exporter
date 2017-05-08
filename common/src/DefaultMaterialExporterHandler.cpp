@@ -28,7 +28,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void DefaultMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxError& error)
 {
     FINJIN_WX_ERROR_METHOD_START(error);

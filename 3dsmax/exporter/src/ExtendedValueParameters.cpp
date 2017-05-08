@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static ExtendedValueObject* FindExtendedValue(IParamBlock2* pblock, int paramID, int id, int* foundIndex = nullptr)
 {
     if (foundIndex != nullptr)
@@ -34,7 +34,7 @@ static ExtendedValueObject* FindExtendedValue(IParamBlock2* pblock, int paramID,
     int count = pblock->Count(paramID);
     for (int valueIndex = 0; valueIndex < count && foundObject == nullptr; valueIndex++)
     {
-        ExtendedValueObject* extendedValueObject = (ExtendedValueObject*)pblock->GetReferenceTarget(paramID, 0, valueIndex);        
+        ExtendedValueObject* extendedValueObject = (ExtendedValueObject*)pblock->GetReferenceTarget(paramID, 0, valueIndex);
         if (id == extendedValueObject->GetID())
         {
             if (foundIndex != nullptr)
@@ -47,7 +47,7 @@ static ExtendedValueObject* FindExtendedValue(IParamBlock2* pblock, int paramID,
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void ExtendedValueParameters::GetAllExtendedValues(IParamBlock2* pblock, int paramID, std::vector<ExtendedValue>& values, std::vector<int>* ids)
 {
     values.resize(pblock->Count(paramID));
@@ -56,7 +56,7 @@ void ExtendedValueParameters::GetAllExtendedValues(IParamBlock2* pblock, int par
     for (size_t i = 0; i < values.size(); i++)
     {
         ExtendedValueObject* extendedValueObject = (ExtendedValueObject*)pblock->GetReferenceTarget(paramID, 0, (int)i);
-        
+
         if (ids != nullptr)
             (*ids)[i] = extendedValueObject->GetID();
 
@@ -79,7 +79,7 @@ void ExtendedValueParameters::SetExtendedValue(IParamBlock2* pblock, int paramID
     if (extendedValueObject == nullptr)
     {
         extendedValueObject = new ExtendedValueObject;
-        
+
         ReferenceTarget* extendedValueObjects[1] = {extendedValueObject};
         pblock->Append(paramID, 1, extendedValueObjects);
     }

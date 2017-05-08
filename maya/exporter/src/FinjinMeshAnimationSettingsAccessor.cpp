@@ -26,21 +26,21 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinMeshAnimationSettingsAccessor::Attributes FinjinMeshAnimationSettingsAccessor::attributes;
 
 
-//Implementation---------------------------------------------------------------
-FinjinMeshAnimationSettingsAccessor::FinjinMeshAnimationSettingsAccessor() 
+//Implementation----------------------------------------------------------------
+FinjinMeshAnimationSettingsAccessor::FinjinMeshAnimationSettingsAccessor()
 {
 }
 
-FinjinMeshAnimationSettingsAccessor::FinjinMeshAnimationSettingsAccessor(MPlug rootPlug) 
+FinjinMeshAnimationSettingsAccessor::FinjinMeshAnimationSettingsAccessor(MPlug rootPlug)
 {
     this->rootPlug = rootPlug;
 }
 
-bool FinjinMeshAnimationSettingsAccessor::operator == (const FinjinMeshAnimationSettingsAccessor& other) const 
+bool FinjinMeshAnimationSettingsAccessor::operator == (const FinjinMeshAnimationSettingsAccessor& other) const
 {
     return this->rootPlug == other.rootPlug;
 }
@@ -142,7 +142,7 @@ int FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMaskCount()
 void FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMask(int index, ObjectAccessor& object, FinjinVector3& mask)
 {
     object = MayaPlug::GetObjectReference(Child(attributes.boneTranslationMaskObjects, "MeshAnimation_BoneTranslationMaskObjects")[index]);
-    mask = MayaPlug::GetVector3(Child(attributes.boneTranslationMaskObjects, "MeshAnimation_BoneTranslationMasks")[index]);    
+    mask = MayaPlug::GetVector3(Child(attributes.boneTranslationMaskObjects, "MeshAnimation_BoneTranslationMasks")[index]);
 }
 
 FinjinVector3 FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMask(ObjectAccessor object)
@@ -162,7 +162,7 @@ FinjinVector3 FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMask(Object
 }
 
 int FinjinMeshAnimationSettingsAccessor::GetAllowExportBoneCount()
-{   
+{
     std::vector<int> deletedIndices;
     int count = MayaPlug::GetObjectReferenceCount(Child(attributes.allowExportBonesObjects, "MeshAnimation_AllowExportBones"), &deletedIndices);
     if (!deletedIndices.empty())
@@ -230,7 +230,7 @@ void FinjinMeshAnimationSettingsAccessor::SetMorphWholeObject(InheritedBool valu
 
 void FinjinMeshAnimationSettingsAccessor::SetOverrideAnimatedRootStartTime(bool value)
 {
-    Child(attributes.overrideAnimatedRootStartTime, "MeshAnimation_OverrideAnimatedRootStartTime").setValue(value);    
+    Child(attributes.overrideAnimatedRootStartTime, "MeshAnimation_OverrideAnimatedRootStartTime").setValue(value);
 }
 
 void FinjinMeshAnimationSettingsAccessor::SetAnimatedRootStartTime(TimeAccessor value)
@@ -277,13 +277,13 @@ void FinjinMeshAnimationSettingsAccessor::SetLinkToMainObject(bool value)
 void FinjinMeshAnimationSettingsAccessor::ClearBoneTranslationMasks()
 {
     MayaPlug::RemoveAttributeElements(Child(attributes.boneTranslationMaskObjects, "MeshAnimation_BoneTranslationMaskObjects"));
-    MayaPlug::RemoveAttributeElements(Child(attributes.boneTranslationMasks, "MeshAnimation_BoneTranslationMasks"));    
+    MayaPlug::RemoveAttributeElements(Child(attributes.boneTranslationMasks, "MeshAnimation_BoneTranslationMasks"));
 }
 
 void FinjinMeshAnimationSettingsAccessor::AddBoneTranslationMask(ObjectAccessor object, FinjinVector3 mask)
 {
     MayaPlug::AddObjectReference(Child(attributes.boneTranslationMaskObjects, "MeshAnimation_BoneTranslationMaskObjects"), object.obj);
-    MayaPlug::AddAttributeElementValue(Child(attributes.boneTranslationMasks, "MeshAnimation_BoneTranslationMasks"), mask);    
+    MayaPlug::AddAttributeElementValue(Child(attributes.boneTranslationMasks, "MeshAnimation_BoneTranslationMasks"), mask);
 }
 
 void FinjinMeshAnimationSettingsAccessor::ClearAllowExportBones()
@@ -304,7 +304,7 @@ MPlug FinjinMeshAnimationSettingsAccessor::Child(MObject attribute, const MStrin
 {
     MPlug result;
 
-    if (this->rootPlug.isDynamic())    
+    if (this->rootPlug.isDynamic())
     {
         MString plugName;
         unsigned int count = this->rootPlug.numChildren();
@@ -321,7 +321,7 @@ MPlug FinjinMeshAnimationSettingsAccessor::Child(MObject attribute, const MStrin
     }
     else
         result = this->rootPlug.child(attribute);
-    
+
     return result;
 }
 
@@ -384,13 +384,13 @@ MObject FinjinMeshAnimationSettingsAccessor::CreateSettingsArrayAttribute(NodeAt
     attributesList.push_back(attributes.sampleType = adder.AddInt("MeshAnimation_SampleType", (int)SampleType::USE_PARENT));
     attributesList.push_back(attributes.embedAnimation = adder.AddBool("MeshAnimation_EmbedAnimation"));
     attributesList.push_back(attributes.linkToMainObject = adder.AddBool("MeshAnimation_LinkToMainObject"));
-    
+
     attributesList.push_back(attributes.boneTranslationMaskObjects = adder.AddStringArray("MeshAnimation_BoneTranslationMaskObjects"));
     attributesList.push_back(attributes.boneTranslationMasks = adder.AddFloat3Array("MeshAnimation_BoneTranslationMasks"));
-    
+
     attributesList.push_back(attributes.allowExportBonesObjects = adder.AddStringArray("MeshAnimation_AllowExportBonesObjects"));
     attributesList.push_back(attributes.allowExportBoneAllows = adder.AddIntArray("MeshAnimation_AllowExportBoneAllows"));
     attributesList.push_back(attributes.allowExportBoneRecursives = adder.AddIntArray("MeshAnimation_AllowExportBoneRecursives"));
- 
+
     return adder.AddCompoundArray(name, attributesList);
 }

@@ -30,27 +30,27 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString UserDataSettingsPage::TITLE(wxT("User Data"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(UserDataSettingsPage, SettingsPage)
     EVT_CHOICE(UserDataSettingsPage::CLASS_CHOICE, UserDataSettingsPage::OnClassChoice)
-    EVT_BUTTON(UserDataSettingsPage::GENERATE_ID_BUTTON, UserDataSettingsPage::OnGenerateIDButton)        
-    EVT_BUTTON(UserDataSettingsPage::CONFIGURE_BUTTON, UserDataSettingsPage::OnConfigureButton)        
+    EVT_BUTTON(UserDataSettingsPage::GENERATE_ID_BUTTON, UserDataSettingsPage::OnGenerateIDButton)
+    EVT_BUTTON(UserDataSettingsPage::CONFIGURE_BUTTON, UserDataSettingsPage::OnConfigureButton)
 END_EVENT_TABLE()
 
 UserDataSettingsPage::UserDataSettingsPage
     (
-    wxWindow* parent, 
-    UserDataSettingsAccessor& userDataSettings, 
-    UserDataUsage classUsage, 
+    wxWindow* parent,
+    UserDataSettingsAccessor& userDataSettings,
+    UserDataUsage classUsage,
     FinjinSceneSettingsAccessor sceneSettings
-    ) : 
+    ) :
     SettingsPage(parent, wxID_ANY, wxDefaultPosition, wxSize( 500,458 ), wxTAB_TRAVERSAL), settings(userDataSettings)
 {
-    this->classUsage = classUsage;    
+    this->classUsage = classUsage;
     this->sceneSettings = sceneSettings;
     if (!this->sceneSettings.IsValid())
         this->sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
@@ -58,53 +58,53 @@ UserDataSettingsPage::UserDataSettingsPage
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* idReferenceSizer;
     idReferenceSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     idLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("ID"), wxDefaultPosition, wxDefaultSize, 0 );
     idLabel->Wrap( -1 );
     idReferenceSizer->Add( idLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     idText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 240,-1 ), 0 );
     idReferenceSizer->Add( idText, 0, wxRIGHT, 5 );
-    
+
     generateIDButton = new wxButton( this, wxID_ANY, wxT("Generate"), wxDefaultPosition, wxDefaultSize, 0 );
     idReferenceSizer->Add( generateIDButton, 0, 0, 5 );
-    
+
     idReferenceSizer->Add( 0, 0, 1, 0, 5 );
-    
+
     topSizer->Add( idReferenceSizer, 0, wxEXPAND|wxTOP|wxBOTTOM, 5 );
-    
+
     wxBoxSizer* userDataClassSizer;
     userDataClassSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     userDataClassLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("User Data Class"), wxDefaultPosition, wxDefaultSize, 0 );
     userDataClassLabel->Wrap( -1 );
     userDataClassSizer->Add( userDataClassLabel, 0, wxALL, 5 );
-    
+
     wxArrayString userDataClassChoiceChoices;
     userDataClassChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, userDataClassChoiceChoices, 0 );
     userDataClassChoice->SetSelection( 0 );
     userDataClassSizer->Add( userDataClassChoice, 1, 0, 5 );
-    
+
     configureUserDataClassButton = new wxButton( this, wxID_ANY, wxT("Configure..."), wxDefaultPosition, wxDefaultSize, 0 );
     userDataClassSizer->Add( configureUserDataClassButton, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( userDataClassSizer, 0, wxEXPAND, 5 );
-    
+
     userDataText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
     topSizer->Add( userDataText, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     userDataControlsWindow = new wxScrolledWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHSCROLL|wxVSCROLL|wxTAB_TRAVERSAL );
     userDataControlsWindow->SetScrollRate( 5, 5 );
     this->userDataControlsWindow->Connect(wxID_ANY, wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(UserDataSettingsPage::OnCheckBox), 0, this);
     topSizer->Add( userDataControlsWindow, 1, wxEXPAND | wxALL, 5 );
-    
+
     this->userDataClassChoice->SetId(CLASS_CHOICE);
     this->generateIDButton->SetId(GENERATE_ID_BUTTON);
     this->configureUserDataClassButton->SetId(CONFIGURE_BUTTON);
-    
+
     SetGUIData();
 
     SetSizer(topSizer);
@@ -135,7 +135,7 @@ bool UserDataSettingsPage::GetGUIData()
         auto classType = userDataTypes.GetClass(curSel - 1, this->classUsage);
         this->settings.SetUserDataClass(classType->name);
         this->lastSelectedClassName = classType->name;
-        
+
         //Data
         wxString userData;
         this->classControls.GetGUIData(userData);
@@ -159,13 +159,13 @@ bool UserDataSettingsPage::SetGUIData()
     //User data class and data
     this->lastSelectedClassName = wxEmptyString;
     this->userDataText->SetValue(this->settings.GetUserData());
-    int curSel = FillClassComboBox(this->settings.GetUserDataClass());    
+    int curSel = FillClassComboBox(this->settings.GetUserDataClass());
     if (curSel > 0)
     {
         //A class is selected. Initialize its controls
         InitializeClassControls(curSel - 1);
     }
-    
+
     UpdateDataGUIVisibilityAndLayout();
 
     return true;
@@ -184,11 +184,11 @@ void UserDataSettingsPage::OnClassChoice(wxCommandEvent& event)
     else
     {
         //No class is selected. Initialize the plain text edit control
-        
+
         //Class
         this->lastSelectedClassName.clear();
     }
-    
+
     UpdateDataGUIVisibilityAndLayout();
 }
 
@@ -201,7 +201,7 @@ void UserDataSettingsPage::OnConfigureButton(wxCommandEvent& event)
 {
     this->classControls.GetGUIData();
 
-    Dialogs::ShowUserDataClassSettingsDialog(this);    
+    Dialogs::ShowUserDataClassSettingsDialog(this);
 }
 
 void UserDataSettingsPage::OnCheckBox(wxCommandEvent& event)
@@ -235,13 +235,13 @@ void UserDataSettingsPage::UpdateDataGUIVisibilityAndLayout()
 int UserDataSettingsPage::FillClassComboBox(const wxString& selectedClass)
 {
     int selectedComboItem = 0;
-    
+
     //Clear combo box
     this->userDataClassChoice->Clear();
-    
+
     //Clear list of class names
     this->comboBoxClassNames.clear();
-    
+
     //Add "None"
     this->userDataClassChoice->Freeze();
     this->userDataClassChoice->Append(Strings::NONE);
@@ -252,13 +252,13 @@ int UserDataSettingsPage::FillClassComboBox(const wxString& selectedClass)
     for (auto classIterator = userDataTypes.classes.begin(); classIterator != userDataTypes.classes.end(); ++classIterator)
     {
         auto classType = classIterator->second;
-        
+
         //Make sure the class is supported by this tab page's usage
         if (classType->IsSupportedUsage(this->classUsage))
         {
             //Add class display name to combo box
             int currentItemIndex = this->userDataClassChoice->Append(classType->displayName);
-            
+
             //Add class name to internal list
             this->comboBoxClassNames.push_back(classType->name);
 
@@ -279,7 +279,7 @@ void UserDataSettingsPage::InitializeClassControls(int classIndex)
     this->lastSelectedClassName = classType->name;
 
     this->classControls.Initialize(classType, this->userDataControlsWindow, this->userDataText->GetValue());
-        
+
     Layout();
 }
 
@@ -305,7 +305,7 @@ void UserDataSettingsPage::UserDataTypesChanged()
         //The previously selected class was found. Update the controls
         InitializeClassControls(curSel - 1);
     }
-    
+
     //Perform a general GUI update
-    UpdateDataGUIVisibilityAndLayout();    
+    UpdateDataGUIVisibilityAndLayout();
 }

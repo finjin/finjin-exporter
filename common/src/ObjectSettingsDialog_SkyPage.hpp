@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Sky box page for the object settings dialog. */
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
 
     protected:
         wxCheckBox* enableCheckbox;
-        
+
         FinjinObjectSettingsAccessor objectSettings;
 
     public:
@@ -43,7 +43,7 @@ namespace Finjin { namespace Exporter {
         ~ObjectSettingsDialog_SkyPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
     };

@@ -23,12 +23,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 static const int ENUM_MIN = SHRT_MIN;
 static const int ENUM_MAX = SHRT_MAX;
 
-    
-//Implementation---------------------------------------------------------------
+
+//Implementation----------------------------------------------------------------
 NodeAttributeAdder::NodeAttributeAdder()
 {
     this->add = true;
@@ -37,14 +37,14 @@ NodeAttributeAdder::NodeAttributeAdder()
     this->readable = true;
     this->writable = true;
     this->storable = true;
-    this->keyable = false;    
+    this->keyable = false;
 }
 
 void NodeAttributeAdder::MakeInput(bool keyable)
 {
     this->readable = true;
     this->writable = true;
-    this->storable = true;    
+    this->storable = true;
     this->keyable = keyable;
 }
 
@@ -73,7 +73,7 @@ void NodeAttributeAdder::AddAttribute(MObject& attr)
             if (this->object.hasFn(MFn::kDependencyNode))
             {
                 MFnDependencyNode depNode(this->object);
-                depNode.addAttribute(attr);                
+                depNode.addAttribute(attr);
             }
         }
         else
@@ -133,7 +133,7 @@ MObject NodeAttributeAdder::AddEnum(const MString& name, short defaultValue, int
     {
         char* fieldName = va_arg(args, char*);
         int fieldValue = va_arg(args, int);
-        enumAttribute.addField(fieldName, fieldValue);    
+        enumAttribute.addField(fieldName, fieldValue);
     }
     va_end(args);
 
@@ -160,7 +160,7 @@ MObject NodeAttributeAdder::AddEnumArray(const MString& name, short defaultValue
     {
         char* fieldName = va_arg(args, char*);
         int fieldValue = va_arg(args, int);
-        enumAttribute.addField(fieldName, fieldValue);    
+        enumAttribute.addField(fieldName, fieldValue);
     }
     va_end(args);
 
@@ -340,7 +340,7 @@ MObject NodeAttributeAdder::AddMatrix(const MString& name)
 
 MObject NodeAttributeAdder::AddMatrixArray(const MString& name)
 {
-    static const float defaultMatrixValues[4][4] = 
+    static const float defaultMatrixValues[4][4] =
         {
         {std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max()},
         {std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max()},
@@ -362,10 +362,10 @@ MObject NodeAttributeAdder::AddMatrixArray(const MString& name)
 }
 
 MObject NodeAttributeAdder::AddString(const MString& name, const MString& defaultValue)
-{    
+{
     MFnTypedAttribute typedAttribute;
     MFnStringData stringData;
-    MObject attr = typedAttribute.create(name, name, MFnData::kString, stringData.create(defaultValue)); 
+    MObject attr = typedAttribute.create(name, name, MFnData::kString, stringData.create(defaultValue));
     SetUp(typedAttribute);
     AddAttribute(attr);
 
@@ -375,7 +375,7 @@ MObject NodeAttributeAdder::AddString(const MString& name, const MString& defaul
 MObject NodeAttributeAdder::AddStringArray(const MString& name)
 {
     MFnTypedAttribute typedAttribute;
-    MObject attr = typedAttribute.create(name, name, MFnData::kString); 
+    MObject attr = typedAttribute.create(name, name, MFnData::kString);
     typedAttribute.setDefault(MObject::kNullObj);
     SetUp(typedAttribute);
     typedAttribute.setArray(true);
@@ -389,7 +389,7 @@ MObject NodeAttributeAdder::AddStringArray(const MString& name)
 MObject NodeAttributeAdder::AddTypedObject(const MString& name, const MTypeId& typeID)
 {
     MFnTypedAttribute typedAttribute;
-    MObject attr = typedAttribute.create(name, name, typeID); 
+    MObject attr = typedAttribute.create(name, name, typeID);
     SetUp(typedAttribute);
     AddAttribute(attr);
 
@@ -399,7 +399,7 @@ MObject NodeAttributeAdder::AddTypedObject(const MString& name, const MTypeId& t
 MObject NodeAttributeAdder::AddObjectReference(const MString& name)
 {
     MFnMessageAttribute messageAttribute;
-    MObject attr = messageAttribute.create(name, name); 
+    MObject attr = messageAttribute.create(name, name);
     SetUp(messageAttribute);
     AddAttribute(attr);
 
@@ -409,7 +409,7 @@ MObject NodeAttributeAdder::AddObjectReference(const MString& name)
 MObject NodeAttributeAdder::AddObjectReferenceArray(const MString& name)
 {
     MFnMessageAttribute messageAttribute;
-    MObject attr = messageAttribute.create(name, name); 
+    MObject attr = messageAttribute.create(name, name);
     SetUp(messageAttribute);
     messageAttribute.setArray(true);
     messageAttribute.setUsesArrayDataBuilder(true);
@@ -423,10 +423,10 @@ MObject NodeAttributeAdder::AddCompound(const MString& name, int attributeCount,
 {
     MFnCompoundAttribute compoundAttribute;
     MObject attr = compoundAttribute.create(name, name);
-    
+
     for (int i = 0; i < attributeCount; i++)
         compoundAttribute.addChild(attributes[i]);
-    
+
     SetUp(compoundAttribute);
     AddAttribute(attr);
 
@@ -439,9 +439,9 @@ MObject NodeAttributeAdder::AddCompound(const MString& name, const std::list<MOb
 
     MFnCompoundAttribute compoundAttribute;
     MObject attr = compoundAttribute.create(name, name);
-    
+
     for (std::list<MObject>::const_iterator i = attributes.begin(); i != attributes.end(); ++i)
-        compoundAttribute.addChild(*i);     
+        compoundAttribute.addChild(*i);
 
     SetUp(compoundAttribute);
     AddAttribute(attr);
@@ -453,10 +453,10 @@ MObject NodeAttributeAdder::AddCompoundArray(const MString& name, int attributeC
 {
     MFnCompoundAttribute compoundAttribute;
     MObject attr = compoundAttribute.create(name, name);
-    
+
     for (int i = 0; i < attributeCount; i++)
         compoundAttribute.addChild(attributes[i]);
-    
+
     SetUp(compoundAttribute);
     compoundAttribute.setArray(true);
     compoundAttribute.setUsesArrayDataBuilder(true);
@@ -470,10 +470,10 @@ MObject NodeAttributeAdder::AddCompoundArray(const MString& name, const std::lis
 {
     MFnCompoundAttribute compoundAttribute;
     MObject attr = compoundAttribute.create(name, name);
-    
+
     for (std::list<MObject>::const_iterator i = attributes.begin(); i != attributes.end(); ++i)
-        compoundAttribute.addChild(*i);        
-            
+        compoundAttribute.addChild(*i);
+
     SetUp(compoundAttribute);
     compoundAttribute.setArray(true);
     compoundAttribute.setUsesArrayDataBuilder(true);
@@ -487,8 +487,8 @@ MObject NodeAttributeAdder::AddPixelFormat(const MString& name, short defaultVal
 {
     return AddEnum
         (
-        name, 
-        defaultValue, 
+        name,
+        defaultValue,
         33,
         "Default", 0,
         "L8", 1,
@@ -523,5 +523,5 @@ MObject NodeAttributeAdder::AddPixelFormat(const MString& name, short defaultVal
         "SHORT_RGBA", 30,
         "SHORT_GR", 31,
         "SHORT_RGB", 32
-        );    
+        );
 }

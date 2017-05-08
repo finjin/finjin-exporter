@@ -32,7 +32,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 
 /** Aids in the construction of an exportable hierarchy for the selected scene objects. */
 class SelectedHierarchy
@@ -41,7 +41,7 @@ class SelectedHierarchy
     {
     public:
         Node(ExportableObject* exportableObject, bool isSelected = false)
-        {            
+        {
             this->exportableObject = exportableObject;
             this->isSelected = isSelected;
         }
@@ -95,9 +95,9 @@ class SelectedHierarchy
                 ExportableObjectPtr obj = this->exportableObject->GetSharedPtr();
                 if (obj != nullptr)
                     objects.push_back(obj);
-                this->exportableObject->parent = newParent;                
+                this->exportableObject->parent = newParent;
             }
-            
+
             //Remove child objects should not be exported
             for (auto i = this->exportableObject->childObjects.begin(); i != this->exportableObject->childObjects.end();)
             {
@@ -107,7 +107,7 @@ class SelectedHierarchy
                 else
                     ++i;
             }
-            
+
             //Finalize children recursively
             for (auto& node : this->children)
                 node.FinalizeNode(objects);
@@ -137,8 +137,8 @@ class SelectedHierarchy
     };
 
 public:
-    SelectedHierarchy(ExporterContext& context, ExportableObject* rootExportableObject) : 
-        exporterContext(context), 
+    SelectedHierarchy(ExporterContext& context, ExportableObject* rootExportableObject) :
+        exporterContext(context),
         root(rootExportableObject)
     {
     }
@@ -150,7 +150,7 @@ public:
 
     void Finalize()
     {
-        this->root.Finalize();        
+        this->root.Finalize();
     }
 
 private:
@@ -168,17 +168,17 @@ private:
 };
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ExporterContext::ExporterContext(ExporterHandler* handler, FinjinSceneSettingsAccessor sceneSettings, SceneExportSettings* sceneExportSettings)
 {
-    this->handler = handler;    
+    this->handler = handler;
     this->sceneSettings = sceneSettings;
     this->sceneSettings.TouchReferences();
-    this->sceneExportSettings = sceneExportSettings;    
+    this->sceneExportSettings = sceneExportSettings;
 }
 
 ExporterContext::~ExporterContext()
-{    
+{
 }
 
 ExportableObjectMap& ExporterContext::GetAllObjects()
@@ -231,13 +231,13 @@ void ExporterContext::EnsureUniqueExportableObjectName(ObjectAccessor& object)
 
 void ExporterContext::AddExportableObject(ObjectAccessor object, ExportableObjectPtr exportableObject)
 {
-    this->allObjects[object] = exportableObject;    
+    this->allObjects[object] = exportableObject;
 }
 
 ExportableObjectPtr ExporterContext::FindExportableObject(ObjectAccessor object)
 {
     ExportableObjectPtr result;
-    auto foundIterator = this->allObjects.find(object);    
+    auto foundIterator = this->allObjects.find(object);
     if (foundIterator != this->allObjects.end())
         result = foundIterator->second;
     return result;
@@ -298,7 +298,7 @@ void ExporterContext::AddMeshDependencies(ExportableObject* exportableObject)
     FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Adding manual LODs"));
     for (size_t i = 0; i < exportableObject->objectExportSettings.manualLods.size(); i++)
     {
-        auto& object = exportableObject->objectExportSettings.manualLods[i].object;    
+        auto& object = exportableObject->objectExportSettings.manualLods[i].object;
         exportableObject->AddDependency(object, wxT("manualLod"));
     }
 }
@@ -312,7 +312,7 @@ void ExporterContext::ResolveMeshDependencies(ExportableObject* exportableObject
         auto& object = exportableObject->objectExportSettings.manualLods[i].object;
         ExportableObjectPtr manualLodPtr = exportableObject->dependentObjectMap[object];
         manualLodPtr->RemoveFromParent();
-    }        
+    }
 }
 
 void ExporterContext::GetBoneAttachments(AllBonesWithAttachments& allBonesWithAttachments, ExportableObject* exportableObject, GeometryState* geometryState)
@@ -328,7 +328,7 @@ void ExporterContext::GetBoneAttachments(AllBonesWithAttachments& allBonesWithAt
         BoneAndAttachments boneAndAttachments;
         boneAndAttachments.bone = FindExportableObject(meshBone->object);
         if (boneAndAttachments.bone != nullptr)
-        {        
+        {
             ObjectAccessorVector attachedObjects;
             geometryState->meshSkeleton.GetBoneAttachedObjects(meshBone.get(), attachedObjects);
             for (size_t attachedObjectIndex = 0; attachedObjectIndex < attachedObjects.size(); attachedObjectIndex++)
@@ -368,7 +368,7 @@ void ExporterContext::ReplaceChildrenWithSelectedObjects(ExportableObject* expor
     {
         ExportableObjectMap::iterator foundObject = this->allObjects.find(selectedObjects[i]);
         if (foundObject != allObjects.end() && !ShouldIgnoreObject(foundObject->second.get(), true))
-        {            
+        {
             selectedHierarchy.Add(foundObject->second.get());
         }
     }

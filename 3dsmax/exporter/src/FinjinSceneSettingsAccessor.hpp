@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "FinjinSceneSettingsAccessorBase.hpp"
 #include "BaseDirectory.hpp"
 #include "UserDataSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinSceneSettingsObject;
@@ -34,14 +34,14 @@ namespace Finjin { namespace Exporter {
     /** Access to a Finjin scene settings object. */
     class FinjinSceneSettingsAccessor : public FinjinSceneSettingsAccessorBase
     {
-    public:    
+    public:
         FinjinSceneSettingsAccessor() {this->object = nullptr;}
         FinjinSceneSettingsAccessor(FinjinSceneSettingsObject* object) {this->object = object;}
-        
+
         bool IsValid() const {return this->object != nullptr;}
 
         static FinjinSceneSettingsAccessor GetSceneSettings(bool createIfNecessary = true, bool* newInstance = nullptr);
-        
+
         FinjinObjectSettingsAccessor GetObjectSettings(ObjectAccessor object, bool createIfNecessary = true, bool* newInstance = nullptr) override;
 
         static void MergeSceneSettings();
@@ -110,7 +110,7 @@ namespace Finjin { namespace Exporter {
         wxString GetShadowTechnique() override;
         FinjinColor GetShadowColor() override;
         float GetShadowFarDistance() override;
-                
+
         void SetSceneScaleUnit(wxString value) override;
         void SetSceneScaleDivide(float value) override;
         void SetExportHierarchy(bool value) override;
@@ -146,11 +146,11 @@ namespace Finjin { namespace Exporter {
         void ClearAdditionalMaterials() override;
         void AddAdditionalMaterial(MaterialAccessor value) override;
         void ClearDisallowedMaterials() override;
-        void AddDisallowedMaterial(MaterialAccessor value) override;        
+        void AddDisallowedMaterial(MaterialAccessor value) override;
         void ClearRenameBitmaps() override;
         void AddRenameBitmap(wxString from, wxString to) override;
         void ClearRenameBitmapExtensions() override;
-        void AddRenameBitmapExtension(wxString from, wxString to) override;        
+        void AddRenameBitmapExtension(wxString from, wxString to) override;
         void SetExportEnvironment(bool value) override;
         void SetAmbientLightColor(FinjinColor value) override;
         void SetAmbientLightColorSync(ValueSourceSync value) override;
@@ -168,7 +168,7 @@ namespace Finjin { namespace Exporter {
         void SetShadowTechnique(wxString value) override;
         void SetShadowColor(FinjinColor value) override;
         void SetShadowFarDistance(float value) override;
-        
+
     public:
         FinjinSceneSettingsObject* object;
     };

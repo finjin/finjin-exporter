@@ -19,21 +19,21 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base class for a mouse creation callback that creates objects from a center point. */
-    class CenteredCreateMouseCallback : public CreateMouseCallBack 
+    class CenteredCreateMouseCallback : public CreateMouseCallBack
     {
     public:
         /** The callback procedure. */
         int proc(ViewExp* vpt, int msg, int point, int flags, IPoint2 m, Matrix3& mat)
         {
             vpt->SnapPreview(m, m, nullptr, SNAP_IN_3D);
-        
-            if (msg == MOUSE_POINT || msg == MOUSE_MOVE) 
+
+            if (msg == MOUSE_POINT || msg == MOUSE_MOVE)
             {
-                switch (point) 
+                switch (point)
                 {
                     case 0:
                     {
@@ -47,21 +47,21 @@ namespace Finjin { namespace Exporter {
                     {
                         this->sp1 = m;
                         this->p1 = vpt->SnapPoint(m, m, nullptr, SNAP_IN_3D);
-                                            
+
                         float scale = std::max(Length(this->p1 - this->p0), 0.05f);
-                        SetCreationSize(scale);                                        
-                        
-                        if (msg == MOUSE_POINT) 
+                        SetCreationSize(scale);
+
+                        if (msg == MOUSE_POINT)
                         {
                             SuspendSnap(false);
                             return CREATE_STOP;
                         }
-                        break;            
+                        break;
                     }
                 }
-            } 
-            else if (msg == MOUSE_ABORT) 
-            {        
+            }
+            else if (msg == MOUSE_ABORT)
+            {
                 return CREATE_ABORT;
             }
 
@@ -69,16 +69,16 @@ namespace Finjin { namespace Exporter {
         }
 
     protected:
-        /** 
+        /**
          * Called as the user creates the object.
          * Overridden by derived classes.
          * @param size [in] - The current size of the object.
          */
         virtual void SetCreationSize(float size)
-        {        
+        {
         }
 
-        /** 
+        /**
          * Called when the snapping should be suspended/enabled.
          * Overridden by derived classes.
          * @param suspend [in] - Indicates whether snapping is suspended/enabled.

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "BasicLocatorNode.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** The Finjin custom dummy locator. */
@@ -31,7 +31,7 @@ namespace Finjin { namespace Exporter {
     {
     public:
         FinjinCustomDummy();
-        ~FinjinCustomDummy(); 
+        ~FinjinCustomDummy();
 
         MStatus compute(const MPlug& plug, MDataBlock& data);
 
@@ -44,17 +44,17 @@ namespace Finjin { namespace Exporter {
 
         static void ChooseCustomIcon(MObject& object);
         static void UseDefaultIcon(MObject& object);
-        
+
     private:
         static MStatus AddAttributes();
-                
+
     public:
         static const MString TYPE_NAME;
         static const MTypeId TYPE_ID;
 
         struct Attributes
         {
-            MObject size;            
+            MObject size;
             MObject alwaysFaceView;
             MObject text;
             MObject color;

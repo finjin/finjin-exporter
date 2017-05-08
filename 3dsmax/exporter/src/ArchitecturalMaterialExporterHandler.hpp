@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaxBaseMaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Handler for exporting Architectural materials. */
@@ -48,7 +48,7 @@ namespace Finjin { namespace Exporter {
 
             COUNT
         };
-        EnumValues<TexMapIndex, TexMapIndex::COUNT, TexMapSlot> texmaps;
+        EnumArray<TexMapIndex, TexMapIndex::COUNT, TexMapSlot> texmaps;
         size_t texmapCount;
     };
 

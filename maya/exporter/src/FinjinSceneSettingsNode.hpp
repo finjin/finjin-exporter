@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "UserDataAttributes.hpp"
 #include "ExtendedValueAttributes.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** The scene settings object. */
@@ -32,7 +32,7 @@ namespace Finjin { namespace Exporter {
     {
     public:
         FinjinSceneSettingsNode();
-        ~FinjinSceneSettingsNode(); 
+        ~FinjinSceneSettingsNode();
 
         MStatus compute(const MPlug& plug, MDataBlock& block) {return MStatus::kSuccess;}
 
@@ -44,10 +44,10 @@ namespace Finjin { namespace Exporter {
         static MObject GetSceneSettingsByIndex(int index);
 
         static bool IsSceneSettingsNode(MObject& obj);
-        
+
     private:
         static MStatus AddAttributes();
-                        
+
     public:
         static const MString TYPE_NAME;
         static const MTypeId TYPE_ID;
@@ -70,11 +70,11 @@ namespace Finjin { namespace Exporter {
             MObject fogStart;
             MObject fogEnd;
             MObject fogColor;
-            
+
             MObject shadowTechnique;
             MObject shadowColor;
             MObject shadowFarDistance;
-                
+
             MObject sceneScaleUnit;
             MObject sceneScaleDivide;
 
@@ -98,16 +98,16 @@ namespace Finjin { namespace Exporter {
             MObject exportTangents;
             MObject exportBinormals;
             MObject animateBoundingVolumes;
-            MObject checkMeshInstances;            
+            MObject checkMeshInstances;
             MObject alwaysCreateNewSubmeshesWhenMerging;
             MObject vertexColorFormat;
             MObject useExplicitVertexColor;
-            
+
             MObject exportMaterials;
             MObject additionalMaterials;
             MObject disallowedMaterials;
             MObject createExtraMaterials;
-            MObject includeParentMaterialName;            
+            MObject includeParentMaterialName;
             MObject noMaterialName;
 
             MObject renameBitmapsFrom;
@@ -118,7 +118,7 @@ namespace Finjin { namespace Exporter {
 
             MObject exportFlags;
             MObject flagNames;
-            
+
             MObject resourcesChanged;
 
             MObject objectSettings;

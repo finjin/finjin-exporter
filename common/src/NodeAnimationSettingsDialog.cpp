@@ -38,7 +38,7 @@
 using namespace Finjin::Exporter;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 static const wxChar* TIME_SCALING_TEXT[] = {wxT("None"), wxT("Scale"), wxT("Length"), wxT("Normalize")};
 static const wxChar* TIME_SCALING_VALUE[] = {wxT(""), wxT(""), wxT("length"), wxT("normalize")};
 static const int TIME_SCALING_COUNT = FINJIN_COUNT_OF(TIME_SCALING_VALUE);
@@ -57,12 +57,12 @@ static const wxChar* ROTATION_INTERPOLATION_TYPES_VALUE[] = {wxT(""), wxT("spher
 static const int ROTATION_INTERPOLATION_TYPE_COUNT = FINJIN_COUNT_OF(ROTATION_INTERPOLATION_TYPES_VALUE);
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void SetSampleValue(double& sampleInterval, SampleType& sampleType, double value, SampleType inputSampleType)
 {
     sampleType = SampleType::INTERVAL;
     sampleInterval = 0;
-    
+
     if (inputSampleType == SampleType::INTERVAL)
         sampleInterval = value;
     else if (inputSampleType == SampleType::RATE)
@@ -92,9 +92,9 @@ static void SetTimeScale(double& scale, wxString& scaleType, double value, const
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(NodeAnimationSettingsDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, NodeAnimationSettingsDialog::OnOK)        
+    EVT_BUTTON(wxID_OK, NodeAnimationSettingsDialog::OnOK)
     EVT_CHOICE(NodeAnimationSettingsDialog::TIME_SCALE_CHOICE, NodeAnimationSettingsDialog::OnTimeScaleChoice)
     EVT_CHOICE(NodeAnimationSettingsDialog::SAMPLING_TYPE_CHOICE, NodeAnimationSettingsDialog::OnSamplingTypeChoice)
     EVT_CHECKBOX(NodeAnimationSettingsDialog::EMBED_ANIMATION_CHECKBOX, NodeAnimationSettingsDialog::OnEmbedCheckbox)
@@ -152,8 +152,8 @@ void NodeAnimationSettingsDialog::Settings::SetSettings(FinjinNodeAnimationSetti
 
 NodeAnimationSettingsDialog::NodeAnimationSettingsDialog
     (
-    wxWindow* parent, 
-    const wxString& title, 
+    wxWindow* parent,
+    const wxString& title,
     const std::vector<wxString>& allAnimationNames,
     Settings settings
     ) : FinjinDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize( DIALOG_WIDTH,DIALOG_HEIGHT ), wxDEFAULT_DIALOG_STYLE, wxT("NodeAnimationSettingsDialog"))
@@ -167,148 +167,148 @@ NodeAnimationSettingsDialog::NodeAnimationSettingsDialog
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxFlexGridSizer* gridSizer;
     gridSizer = new wxFlexGridSizer( 4, 2, 0, 0 );
     gridSizer->SetFlexibleDirection( wxBOTH );
     gridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     nameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
     nameLabel->Wrap( -1 );
     gridSizer->Add( nameLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     wxBoxSizer* nameSizer;
     nameSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     nameText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 200,-1 ), 0 );
     nameSizer->Add( nameText, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     gridSizer->Add( nameSizer, 1, wxEXPAND, 5 );
-    
+
     startEndFramesLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Start/End ") + TimeAccessor::GetUIUnit(), wxDefaultPosition, wxDefaultSize, 0 );
     startEndFramesLabel->Wrap( -1 );
     gridSizer->Add( startEndFramesLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     wxBoxSizer* framesSizer;
     framesSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     startFrameSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, animationRange.start.GetValue(), animationRange.end.GetValue(), SpinnerControl::UI_TIME_UNIT);
     framesSizer->Add( startFrameSpinner, 0, wxTOP|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     inBetweenFrameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("-"), wxDefaultPosition, wxDefaultSize, 0 );
     inBetweenFrameLabel->Wrap( -1 );
     framesSizer->Add( inBetweenFrameLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     endFrameSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, animationRange.start.GetValue(), animationRange.end.GetValue(), SpinnerControl::UI_TIME_UNIT);
     framesSizer->Add( endFrameSpinner, 0, wxTOP|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     gridSizer->Add( framesSizer, 1, wxEXPAND, 5 );
-    
+
     timeScalingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Time Scaling"), wxDefaultPosition, wxDefaultSize, 0 );
     timeScalingLabel->Wrap( -1 );
     gridSizer->Add( timeScalingLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     wxBoxSizer* timeScalingSizer;
     timeScalingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxArrayString timeScalingChoiceChoices;
     timeScalingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, timeScalingChoiceChoices, 0 );
     timeScalingChoice->SetSelection( 0 );
     timeScalingSizer->Add( timeScalingChoice, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     timeScalingSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(60, -1), 0, 0, 100, SpinnerControl::FLOAT_UNIT, 2);
     timeScalingSizer->Add( timeScalingSpinner, 0, wxTOP|wxRIGHT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     gridSizer->Add( timeScalingSizer, 1, wxEXPAND, 5 );
-    
+
     samplingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Sampling"), wxDefaultPosition, wxDefaultSize, 0 );
     samplingLabel->Wrap( -1 );
     gridSizer->Add( samplingLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     wxBoxSizer* samplingSizer;
     samplingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     samplingText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
     samplingSizer->Add( samplingText, 0, wxTOP|wxLEFT, 5 );
-    
+
     wxArrayString samplingComboChoices;
     samplingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, samplingComboChoices, 0 );
     samplingChoice->SetSelection( 0 );
     samplingSizer->Add( samplingChoice, 0, wxTOP|wxLEFT, 5 );
-    
+
     gridSizer->Add( samplingSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( gridSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxFlexGridSizer* interpolationSizer;
     interpolationSizer = new wxFlexGridSizer( 2, 2, 0, 0 );
     interpolationSizer->SetFlexibleDirection( wxBOTH );
     interpolationSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     translationInterpolationLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Interpolation"), wxDefaultPosition, wxDefaultSize, 0 );
     translationInterpolationLabel->Wrap( -1 );
     interpolationSizer->Add( translationInterpolationLabel, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     rotationInterpolationLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Rotation Interpolation"), wxDefaultPosition, wxDefaultSize, 0 );
     rotationInterpolationLabel->Wrap( -1 );
     interpolationSizer->Add( rotationInterpolationLabel, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxArrayString translationInterpolationChoiceChoices;
     translationInterpolationChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, translationInterpolationChoiceChoices, 0 );
     translationInterpolationChoice->SetSelection( 0 );
     interpolationSizer->Add( translationInterpolationChoice, 1, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxArrayString rotationInterpolationChoiceChoices;
     rotationInterpolationChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, rotationInterpolationChoiceChoices, 0 );
     rotationInterpolationChoice->SetSelection( 0 );
     interpolationSizer->Add( rotationInterpolationChoice, 1, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( interpolationSizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* checkBoxesSizer;
     checkBoxesSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* embedSizer;
     embedSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     embedAnimationCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Embed Animation"), wxDefaultPosition, wxDefaultSize, 0 );
     embedSizer->Add( embedAnimationCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     linkToObjectCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Link to Node"), wxDefaultPosition, wxDefaultSize, 0 );
     embedSizer->Add( linkToObjectCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
-    
+
+
     checkBoxesSizer->Add( embedSizer, 0, wxEXPAND, 5 );
 
     enabledCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Enabled"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     checkBoxesSizer->Add( enabledCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
 
     loopedCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Looped"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     checkBoxesSizer->Add( loopedCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     useDefinedAnimationStartTimeCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Use Defined Animation Start Time"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     checkBoxesSizer->Add( useDefinedAnimationStartTimeCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     copyFirstAnimationKeyToLastCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Copy First Animation Key to Last"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     checkBoxesSizer->Add( copyFirstAnimationKeyToLastCheckbox, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( checkBoxesSizer, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT|wxTOP, 5 );
-    
+
     this->timeScalingChoice->SetId(TIME_SCALE_CHOICE);
     this->samplingChoice->SetId(SAMPLING_TYPE_CHOICE);
     this->embedAnimationCheckbox->SetId(EMBED_ANIMATION_CHECKBOX);
@@ -317,7 +317,7 @@ NodeAnimationSettingsDialog::NodeAnimationSettingsDialog
 
     SetSizer(topSizer);
     SetMinSize(wxSize(DIALOG_WIDTH, DIALOG_HEIGHT));
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -349,15 +349,15 @@ void NodeAnimationSettingsDialog::GetGUIData()
     int selectedTimeScaleIndex = this->timeScalingChoice->GetSelection();
     wxString scaleType = (wxChar*)this->timeScalingChoice->GetClientData(selectedTimeScaleIndex);
     SetTimeScale(this->settings.scale, this->settings.scaleType, scale, scaleType);
-    
+
     //Translation interpolation type combo
     int selectedTranslationInterpolationTypeIndex = this->translationInterpolationChoice->GetSelection();
     this->settings.translationInterpolationType = (wxChar*)this->translationInterpolationChoice->GetClientData(selectedTranslationInterpolationTypeIndex);
-    
+
     //Rotation interpolation type combo
     int selectedRotationInterpolationTypeIndex = this->rotationInterpolationChoice->GetSelection();
     this->settings.rotationInterpolationType = (wxChar*)this->rotationInterpolationChoice->GetClientData(selectedRotationInterpolationTypeIndex);
-    
+
     //Embed animation
     this->settings.embedAnimation = this->embedAnimationCheckbox->GetValue();
 
@@ -398,10 +398,10 @@ void NodeAnimationSettingsDialog::SetGUIData()
         if (this->settings.sampleType == SAMPLE_TYPES_VALUE[i])
             this->samplingChoice->SetSelection(i);
     }
-    this->samplingChoice->Thaw();    
+    this->samplingChoice->Thaw();
     if (this->settings.sampleInterval == 0 || this->samplingChoice->GetSelection() < 0)
         this->samplingChoice->SetSelection(0);
-    
+
     //Time scaling type combo
     this->timeScalingChoice->Freeze();
     for (int i = 0; i < TIME_SCALING_COUNT; i++)
@@ -416,7 +416,7 @@ void NodeAnimationSettingsDialog::SetGUIData()
         this->timeScalingChoice->SetSelection(0);
     if (this->settings.scale > 0 && this->timeScalingChoice->GetSelection() == 0)
         this->timeScalingChoice->SetSelection(TIME_SCALING_SCALE_INDEX);
-    
+
     //Time scaling edit
     this->timeScalingSpinner->SetValue(this->settings.scale);
 
@@ -476,7 +476,7 @@ void NodeAnimationSettingsDialog::UpdateTimeScaleEdit(bool layout)
 {
     int selectedTimeScaleIndex = this->timeScalingChoice->GetSelection();
     bool show = selectedTimeScaleIndex == 1 || selectedTimeScaleIndex == 2;
-    this->timeScalingSpinner->Show(show);    
+    this->timeScalingSpinner->Show(show);
     if (layout)
         Layout();
 }
@@ -491,7 +491,7 @@ void NodeAnimationSettingsDialog::UpdateSamplingTypeEdit(bool layout)
 }
 
 void NodeAnimationSettingsDialog::UpdateEmbedControls(bool layout)
-{    
+{
     auto embed = this->embedAnimationCheckbox->GetValue();
     this->linkToObjectCheckbox->Enable(!embed);
     if (layout)
@@ -534,7 +534,7 @@ void NodeAnimationSettingsDialog::OnTimeScaleChoice(wxCommandEvent& event)
 
 void NodeAnimationSettingsDialog::OnSamplingTypeChoice(wxCommandEvent& event)
 {
-    UpdateSamplingTypeEdit();    
+    UpdateSamplingTypeEdit();
 }
 
 void NodeAnimationSettingsDialog::OnEmbedCheckbox(wxCommandEvent& event)

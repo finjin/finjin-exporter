@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinSceneSettingsAccessor FinjinSceneSettingsAccessor::GetSceneSettings(bool createIfNecessary, bool* newInstance)
 {
     bool isNew;
@@ -59,7 +59,7 @@ void FinjinSceneSettingsAccessor::MergeObjectSettings(FinjinSceneSettingsAccesso
 }
 
 void FinjinSceneSettingsAccessor::MergeSceneSettings()
-{    
+{
     FinjinSceneSettingsAccessor currentSceneSettings = FinjinSceneSettingsNode::GetSceneSettingsByIndex(0);
     if (currentSceneSettings.IsValid())
     {
@@ -70,7 +70,7 @@ void FinjinSceneSettingsAccessor::MergeSceneSettings()
         {
             FinjinSceneSettingsAccessor newSceneSettings(newSceneSettingsNode);
             currentSceneSettings.MergeObjectSettings(newSceneSettings);
-                
+
             MayaUtilities::DeleteObject(newSceneSettingsNode);
         }
     }
@@ -96,7 +96,7 @@ FinjinObjectSettingsAccessor FinjinSceneSettingsAccessor::GetObjectSettings(Obje
 
     //If settings were not present, try to get them from the object itself (old Finjin versions stored them there)
     static const wxString BASIC_OBJECT_ATTRIBUTE(wxT("Object_PointSize")); //The name of basic object settings attribute
-    
+
     //If object settings are not present by now, they don't exist anywhere
     //Add new object settings to scene settings
     if (!objectSettings.IsValid())
@@ -104,7 +104,7 @@ FinjinObjectSettingsAccessor FinjinSceneSettingsAccessor::GetObjectSettings(Obje
         auto isNew = false;
 
         if (createIfNecessary)
-        {   
+        {
             //Create new attribute
             isNew = true;
 
@@ -138,7 +138,7 @@ void FinjinSceneSettingsAccessor::RemoveObjectSettings(ObjectAccessor object)
             MayaPlug::RemoveAttributeElement(objectSettingsPlug);
             break;
         }
-    }        
+    }
 }
 
 void FinjinSceneSettingsAccessor::Upgrade()
@@ -193,7 +193,7 @@ int FinjinSceneSettingsAccessor::GetFlagCount()
 
 void FinjinSceneSettingsAccessor::GetFlag(int i, wxString& name)
 {
-    name = ApplicationStringToWxString(MPlug(this->obj, FinjinSceneSettingsNode::attributes.flagNames)[i].asString());    
+    name = ApplicationStringToWxString(MPlug(this->obj, FinjinSceneSettingsNode::attributes.flagNames)[i].asString());
 }
 
 double FinjinSceneSettingsAccessor::GetNodeAnimationSampleInterval()
@@ -288,12 +288,12 @@ bool FinjinSceneSettingsAccessor::GetExportMeshes()
 
 int FinjinSceneSettingsAccessor::GetDisallowedMeshCount()
 {
-    return MayaPlug::GetObjectReferenceCount(this->obj, FinjinSceneSettingsNode::attributes.disallowedMeshes);    
+    return MayaPlug::GetObjectReferenceCount(this->obj, FinjinSceneSettingsNode::attributes.disallowedMeshes);
 }
 
 ObjectAccessor FinjinSceneSettingsAccessor::GetDisallowedMesh(int i)
 {
-    return MayaPlug::GetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.disallowedMeshes, i);    
+    return MayaPlug::GetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.disallowedMeshes, i);
 }
 
 bool FinjinSceneSettingsAccessor::GetCreateExtraMaterials()
@@ -318,22 +318,22 @@ bool FinjinSceneSettingsAccessor::GetExportMaterials()
 
 int FinjinSceneSettingsAccessor::GetAdditionalMaterialCount()
 {
-    return MayaPlug::GetObjectReferenceCount(this->obj, FinjinSceneSettingsNode::attributes.additionalMaterials);    
+    return MayaPlug::GetObjectReferenceCount(this->obj, FinjinSceneSettingsNode::attributes.additionalMaterials);
 }
 
 MaterialAccessor FinjinSceneSettingsAccessor::GetAdditionalMaterial(int i)
 {
-    return MayaPlug::GetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.additionalMaterials, i);    
+    return MayaPlug::GetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.additionalMaterials, i);
 }
 
 int FinjinSceneSettingsAccessor::GetDisallowedMaterialCount()
 {
-    return MayaPlug::GetObjectReferenceCount(this->obj, FinjinSceneSettingsNode::attributes.disallowedMaterials);    
+    return MayaPlug::GetObjectReferenceCount(this->obj, FinjinSceneSettingsNode::attributes.disallowedMaterials);
 }
 
 MaterialAccessor FinjinSceneSettingsAccessor::GetDisallowedMaterial(int i)
 {
-    return MayaPlug::GetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.disallowedMaterials, i);    
+    return MayaPlug::GetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.disallowedMaterials, i);
 }
 
 int FinjinSceneSettingsAccessor::GetRenameBitmapCount()
@@ -400,7 +400,7 @@ ObjectAccessor FinjinSceneSettingsAccessor::GetEnvironmentFarObject()
 
 ValueSourceSync FinjinSceneSettingsAccessor::GetFogSync()
 {
-    return (ValueSourceSync)MPlug(this->obj, FinjinSceneSettingsNode::attributes.fogSync).asInt();    
+    return (ValueSourceSync)MPlug(this->obj, FinjinSceneSettingsNode::attributes.fogSync).asInt();
 }
 
 wxString FinjinSceneSettingsAccessor::GetFogMode()
@@ -475,7 +475,7 @@ void FinjinSceneSettingsAccessor::SetExportFlags(bool value)
 
 void FinjinSceneSettingsAccessor::ClearFlags()
 {
-    MayaPlug::RemoveAttributeElements(this->obj, FinjinSceneSettingsNode::attributes.flagNames);    
+    MayaPlug::RemoveAttributeElements(this->obj, FinjinSceneSettingsNode::attributes.flagNames);
 }
 
 void FinjinSceneSettingsAccessor::AddFlag(wxString name)
@@ -580,7 +580,7 @@ void FinjinSceneSettingsAccessor::ClearDisallowedMeshes()
 
 void FinjinSceneSettingsAccessor::AddDisallowedMesh(ObjectAccessor value)
 {
-    MayaPlug::AddObjectReference(this->obj, FinjinSceneSettingsNode::attributes.disallowedMeshes, value.obj);    
+    MayaPlug::AddObjectReference(this->obj, FinjinSceneSettingsNode::attributes.disallowedMeshes, value.obj);
 }
 
 void FinjinSceneSettingsAccessor::SetCreateExtraMaterials(bool value)
@@ -626,7 +626,7 @@ void FinjinSceneSettingsAccessor::AddDisallowedMaterial(MaterialAccessor value)
 void FinjinSceneSettingsAccessor::ClearRenameBitmaps()
 {
     MayaPlug::RemoveAttributeElements(this->obj, FinjinSceneSettingsNode::attributes.renameBitmapsFrom);
-    MayaPlug::RemoveAttributeElements(this->obj, FinjinSceneSettingsNode::attributes.renameBitmapsTo);    
+    MayaPlug::RemoveAttributeElements(this->obj, FinjinSceneSettingsNode::attributes.renameBitmapsTo);
 }
 
 void FinjinSceneSettingsAccessor::AddRenameBitmap(wxString from, wxString to)
@@ -686,7 +686,7 @@ void FinjinSceneSettingsAccessor::SetEnvironmentFar(float value)
 
 void FinjinSceneSettingsAccessor::SetEnvironmentFarObject(ObjectAccessor value)
 {
-    MayaPlug::SetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.environmentFarObject, value.obj);    
+    MayaPlug::SetObjectReference(this->obj, FinjinSceneSettingsNode::attributes.environmentFarObject, value.obj);
 }
 
 void FinjinSceneSettingsAccessor::SetFogSync(ValueSourceSync value)

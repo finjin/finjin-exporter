@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool SimpleMeshInfo::CanHandle(ObjectAccessor object, TimeAccessor time)
 {
     if (object.obj.hasFn(MFn::kMesh) || object.obj.hasFn(MFn::kNurbsSurface))
@@ -45,7 +45,7 @@ bool SimpleMeshInfo::Create(ObjectAccessor object, TimeAccessor time, TransformA
 
 bool SimpleMeshInfo::Create
     (
-    ObjectAccessor object, 
+    ObjectAccessor object,
     const CoordinateSystemConverter& coordinateConverter,
     float scale,
     TimeAccessor time,
@@ -72,13 +72,13 @@ bool SimpleMeshInfo::Create
     }
     else if (object.obj.hasFn(MFn::kMesh))
         mesh.setObject(object.obj);
-    
+
     int totalTriangleIndex = 0;
     MItMeshPolygon faceIter(mesh.object());
     for (unsigned int faceIndex = 0; !faceIter.isDone(); faceIter.next(), faceIndex++)
     {
         MIntArray polyIndices;
-        faceIter.getVertices(polyIndices);            
+        faceIter.getVertices(polyIndices);
 
         //Get triangles for each face
         int triangleCount = 0;
@@ -87,24 +87,24 @@ bool SimpleMeshInfo::Create
         {
             //Get the triangle
             MPointArray triPoints;
-            MIntArray faceVertexIndices;            
+            MIntArray faceVertexIndices;
             faceIter.getTriangle(triangleIndex, triPoints, faceVertexIndices);
-            
+
             //Iterate over triangle's vertices
             for (unsigned int i = 0; i < 3; i++)
             {
                 //Position
                 MPoint rawPosition(triPoints[i]);
                 FinjinVector3 rawVertex(rawPosition.x, rawPosition.y, rawPosition.z);
-                
+
                 MPoint mayaPosition(rawPosition);
                 coordinateConverter.ConvertPoint(mayaPosition);
                 FinjinVector3 vertex(mayaPosition.x * scale, mayaPosition.y * scale, mayaPosition.z * scale);
                 if (transformation != nullptr)
-                    transformation->TransformPoint(vertex);                
+                    transformation->TransformPoint(vertex);
 
                 //Update bounds
-                UpdateBounds(faceIndex == 0 && triangleIndex == 0 && i == 0, rawVertex, vertex);            
+                UpdateBounds(faceIndex == 0 && triangleIndex == 0 && i == 0, rawVertex, vertex);
 
                 //Hold onto plane vertices
                 if (totalTriangleIndex == 0)
@@ -119,7 +119,7 @@ bool SimpleMeshInfo::Create
     //Delete the tesselated mesh if necessary
     if (!tesselatedMeshTransformNode.object().isNull())
         MayaUtilities::DeleteObject(tesselatedMeshTransformNode);
-    
+
     FinishBounds();
     InitializePlanes(rawPlaneVertices, planeVertices);
 

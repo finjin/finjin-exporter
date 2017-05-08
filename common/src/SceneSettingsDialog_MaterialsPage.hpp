@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Materials page for the scene settings dialog. */
-    class SceneSettingsDialog_MaterialsPage : public SettingsPage 
+    class SceneSettingsDialog_MaterialsPage : public SettingsPage
     {
     private:
         DECLARE_EVENT_TABLE()
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
         ApplicationTextCtrl* addAdditionalMaterialsText;
         wxButton* addIgnoreMaterialButton;
         ApplicationTextCtrl* ignoreMaterialsText;
-        
+
         FinjinSceneSettingsAccessor sceneSettings;
 
         std::map<wxString, MaterialAccessor> disallowedMaterials;
@@ -59,7 +59,7 @@ namespace Finjin { namespace Exporter {
 
         void OnAdditionalMaterialButton(wxCommandEvent& event);
         void OnIgnoreMaterialButton(wxCommandEvent& event);
-        
+
         static const wxString TITLE;
     };
 

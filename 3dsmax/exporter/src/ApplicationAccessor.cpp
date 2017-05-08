@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static StdFog* GetStandardFog()
 {
     //Look for the first fog atmospheric
@@ -40,7 +40,7 @@ static StdFog* GetStandardFog()
     for (int index = 0; index < atmosphericCount; index++)
     {
         auto atmos = GetCOREInterface()->GetAtmospheric(index);
-        if (atmos->ClassID() == Class_ID(FOG_CLASS_ID, 0)) 
+        if (atmos->ClassID() == Class_ID(FOG_CLASS_ID, 0))
         {
             //Found fog atmospheric. Make sure it's of "standard" type
             auto maybeStandardFog = static_cast<StdFog*>(atmos);
@@ -50,13 +50,13 @@ static StdFog* GetStandardFog()
                 break;
             }
         }
-    }    
+    }
 
     return fog;
 }
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ApplicationAccessor::APPLICATION_LONG_NAME(wxT("3D Studio Max"));
 const wxString ApplicationAccessor::APPLICATION_SHORT_NAME(wxT("3DS Max"));
 const wxString ApplicationAccessor::MATERIAL_SELECTOR_WINDOW_NAME(wxT("Material Editor"));
@@ -64,7 +64,7 @@ const wxString ApplicationAccessor::BONE_NAME(wxT("Bone"));
 const wxString ApplicationAccessor::TEXTURE_COORDINATE_SET_NAME(wxT("Map Channel"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 UpAxis ApplicationAccessor::GetUpAxis()
 {
     return UpAxis::Z;
@@ -111,7 +111,7 @@ wxString ApplicationAccessor::GetApplicationVersion()
 }
 
 wxString ApplicationAccessor::GetFinjinHomeDirectory(bool writable)
-{        
+{
     if (writable)
         return GetUserHomeApplicationDirectory();
     else
@@ -132,7 +132,7 @@ wxString ApplicationAccessor::GetApplicationDirectory()
 
 wxString ApplicationAccessor::GetHelpDirectory()
 {
-    wxString directory = GetCOREInterface()->GetDir(APP_HELP_DIR);    
+    wxString directory = GetCOREInterface()->GetDir(APP_HELP_DIR);
     if (!directory.empty())
         FileUtilities::EnsureTrailingPathSeparator(directory);
     return directory;
@@ -180,7 +180,7 @@ bool ApplicationAccessor::GetTextForegroundColor(wxColor& color)
 }
 
 bool ApplicationAccessor::GetStaticTextForegroundColor(wxColor& color)
-{    
+{
     COLORREF c = GetColorManager()->GetColor(kText);
     color = wxColor(GetRValue(c), GetGValue(c), GetBValue(c));
     return true;
@@ -229,7 +229,7 @@ wxString ApplicationAccessor::GetDefaultUnitType(bool abbreviate)
 
 wxString ApplicationAccessor::FormatWorldValue(float value)
 {
-    return ApplicationStringToWxString(FormatUniverseValue(value));    
+    return ApplicationStringToWxString(FormatUniverseValue(value));
 }
 
 void ApplicationAccessor::LogMessage(const wxChar* format, ...)
@@ -325,7 +325,7 @@ bool ApplicationAccessor::SetLinearFog(float start, float end, FinjinColor color
 }
 
 void ApplicationAccessor::EnableShortcutKeys(bool enable)
-{    
+{
     if (enable)
         EnableAccelerators();
     else
@@ -339,5 +339,5 @@ bool ApplicationAccessor::UsesFullNames()
 
 bool ApplicationAccessor::InQuietMode()
 {
-    return GetCOREInterface()->GetQuietMode() ? true : false;    
+    return GetCOREInterface()->GetQuietMode() ? true : false;
 }

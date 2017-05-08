@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * This class detects the available mesh animation 'tracks' for a particular object.
      * This abstraction comes from the way 3DS Max displays objects and their modifiers in the track view:
      *    -There's the top level object, which this class considers the 'object'.
@@ -55,21 +55,21 @@ namespace Finjin { namespace Exporter {
         /** Finds the index of the track with the specified internal name. */
         int FindTrackIndex(const wxString& name) const;
 
-        /** 
-         * Finds the track with the specified type. 
-         * @return Returns a pointer to the track of the specified type. If such a track 
+        /**
+         * Finds the track with the specified type.
+         * @return Returns a pointer to the track of the specified type. If such a track
          * cannot be found, the first track is returned, which is usually the 'object' track.
          */
         MeshAnimationTrack* FindTrack(TrackType trackType);
 
-        /** 
-         * Finds the track with the specified internal name. 
-         * @return Returns a pointer to the with the specified internal name. If such a track 
+        /**
+         * Finds the track with the specified internal name.
+         * @return Returns a pointer to the with the specified internal name. If such a track
          * cannot be found, the first track is returned, which is usually the 'object' track.
          */
         MeshAnimationTrack* FindTrack(const wxString& name);
 
-        /** 
+        /**
          * Adds a track.
          * @param trackType [in] - The application-defined track type.
          * @param name [in] - The internal name of the track.

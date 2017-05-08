@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to a time value. */
     class TimeAccessor
-    {   
+    {
     public:
         /** Default constructor. */
         TimeAccessor();
@@ -78,7 +78,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the user interface unit name. */
         static const wxString& GetUIUnit(bool plural = true);
-        
+
         /** Determines whether the user interface unit is time-based. If it isn't time-based, it's frame-based. */
         static bool IsUIUnitTimeBased();
 

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExtendedValueAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Adds, removes, gets, and sets extended values into a 3DS Max parameter block. */
@@ -39,9 +39,9 @@ namespace Finjin { namespace Exporter {
          */
         static void GetAllExtendedValues
             (
-            IParamBlock2* pblock, 
-            int paramID, 
-            std::vector<ExtendedValue>& values, 
+            IParamBlock2* pblock,
+            int paramID,
+            std::vector<ExtendedValue>& values,
             std::vector<int>* ids = nullptr
             );
 
@@ -55,12 +55,12 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetExtendedValue
             (
-            IParamBlock2* pblock, 
-            int paramID, 
-            int id, 
+            IParamBlock2* pblock,
+            int paramID,
+            int id,
             ExtendedValue& value
             );
-        
+
         /**
          * Sets an extended value with the specified identifier.
          * @param pblock [in] - The parameter block that contains the extended value objects.
@@ -70,9 +70,9 @@ namespace Finjin { namespace Exporter {
          */
         static void SetExtendedValue
             (
-            IParamBlock2* pblock, 
-            int paramID, 
-            int id, 
+            IParamBlock2* pblock,
+            int paramID,
+            int id,
             const ExtendedValue& value
             );
 
@@ -85,8 +85,8 @@ namespace Finjin { namespace Exporter {
          */
         static bool RemoveExtendedValue
             (
-            IParamBlock2* pblock, 
-            int paramID, 
+            IParamBlock2* pblock,
+            int paramID,
             int id
             );
 
@@ -97,7 +97,7 @@ namespace Finjin { namespace Exporter {
          */
         static void ClearExtendedValues
             (
-            IParamBlock2* pblock, 
+            IParamBlock2* pblock,
             int paramID
             );
     };
@@ -105,7 +105,7 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 
 /** This macro should NEVER be modified. If more parameters are needed, create a new macro */
 #define EXTENDED_VALUE_PARAM_BLOCK_IDS PB_EXTENDED_VALUES
@@ -116,7 +116,7 @@ namespace Finjin { namespace Exporter {
 
 #define EXTENDED_VALUE_NOTIFY_NULLED_CASE(paramID, index)\
     case PB_EXTENDED_VALUES: this->pblock->Delete(paramID, index, 1); break;
-    
+
 #define DECLARE_EXTENDED_VALUE_OBJECT_METHODS FINJIN_EXPORTER_DECLARE_EXTENDED_VALUE_ACCESSOR_METHODS
 
 #define FINJIN_EXPORTER_IMPLEMENT_EXTENDED_VALUE_OBJECT_METHODS(className)\

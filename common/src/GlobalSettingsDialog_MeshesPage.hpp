@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GlobalSettingsDialog_MeshesPage : public SettingsPage
@@ -43,14 +43,14 @@ namespace Finjin { namespace Exporter {
         wxButton* baseDirectoryButton;
         wxStaticText* vertexFormatFileLabel;
         ApplicationTextCtrl* vertexFormatFileText;
-        wxButton* vertexFormatFileButton;        
+        wxButton* vertexFormatFileButton;
 
     public:
         GlobalSettingsDialog_MeshesPage(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
         ~GlobalSettingsDialog_MeshesPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
 
@@ -64,11 +64,11 @@ namespace Finjin { namespace Exporter {
             BASE_DIRECTORY_BUTTON,
             VERTEX_FORMAT_FILE_BUTTON
         };
-        
+
         void UpdateSubmeshNamingControls(bool layout = true);
         void UpdateVertexFormatBaseDirectoryControls(bool layout = true);
 
-        void OnSubmeshNamingChoice(wxCommandEvent& event);                        
+        void OnSubmeshNamingChoice(wxCommandEvent& event);
         void OnVertexFormatFileButton(wxCommandEvent& event);
         void OnVertexFormatBaseDirectoryChoice(wxCommandEvent& event);
         void OnVertexFormatBaseDirectoryButton(wxCommandEvent& event);

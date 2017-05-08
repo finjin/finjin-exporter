@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinSubmeshSettingsObjectClassDesc : public ClassDesc2
 {
 public:
@@ -45,20 +45,20 @@ public:
 FinjinSubmeshSettingsObjectClassDesc FinjinSubmeshSettingsObjectClassDesc::instance;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {SUBMESH_SETTINGS_PARAM_BLOCK_ID = 0};
 enum {SUBMESH_SETTINGS_VERSION = 1};
 
 static ParamBlockDesc2 FinjinSubmeshSettingsObjectParamBlock
     (
-    SUBMESH_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinSubmeshSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT, 
-    
+    SUBMESH_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinSubmeshSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT,
+
     //Version
     SUBMESH_SETTINGS_VERSION,
-    
+
     //Reference number
-    FinjinSubmeshSettingsObject::PARAM_BLOCK_REF, 
-    
+    FinjinSubmeshSettingsObject::PARAM_BLOCK_REF,
+
     //Parameters
     FinjinSubmeshSettingsObject::PB_SUBMESH_NAME, _M("SubmeshName"), TYPE_STRING, 0, IDS_SUBMESH_NAME,
         p_end,
@@ -77,14 +77,14 @@ static ParamBlockDesc2 FinjinSubmeshSettingsObjectParamBlock
     FinjinSubmeshSettingsObject::PB_RENDER_QUEUE_NAME, _M("RenderQueueName"), TYPE_STRING, 0, IDS_RENDER_QUEUE_NAME,
         p_end,
     FinjinSubmeshSettingsObject::PB_RENDER_QUEUE_ADD, _M("RenderQueueAdd"), TYPE_INT, 0, IDS_RENDER_QUEUE_ADD,
-        p_end,    
+        p_end,
     FinjinSubmeshSettingsObject::PB_RENDER_QUEUE_PRIORITY, _M("RenderQueuePriority"), TYPE_INT, 0, IDS_RENDER_QUEUE_PRIORITY,
-        p_end,    
+        p_end,
     p_end
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinSubmeshSettingsObject::FinjinSubmeshSettingsObject()
 {
     this->pblock = nullptr;
@@ -92,7 +92,7 @@ FinjinSubmeshSettingsObject::FinjinSubmeshSettingsObject()
 }
 
 FinjinSubmeshSettingsObject::~FinjinSubmeshSettingsObject()
-{    
+{
 }
 
 CreateMouseCallBack* FinjinSubmeshSettingsObject::GetCreateMouseCallBack()
@@ -110,18 +110,18 @@ void FinjinSubmeshSettingsObject::InitNodeName(MSTR& s)
     s = _M("FinjinSubmeshSettings");
 }
 
-Class_ID FinjinSubmeshSettingsObject::ClassID() 
+Class_ID FinjinSubmeshSettingsObject::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinSubmeshSettingsObject::GetClassClassID()
 {
     return FinjinMaxClassID::SubmeshSettings;
 }
 
-SClass_ID FinjinSubmeshSettingsObject::SuperClassID() 
-{ 
+SClass_ID FinjinSubmeshSettingsObject::SuperClassID()
+{
     return REF_TARGET_CLASS_ID;
 }
 
@@ -136,25 +136,25 @@ RefTargetHandle FinjinSubmeshSettingsObject::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
-int FinjinSubmeshSettingsObject::NumSubs() 
-{ 
-    return NUM_REFS; 
+int FinjinSubmeshSettingsObject::NumSubs()
+{
+    return NUM_REFS;
 }
 
-MSTR FinjinSubmeshSettingsObject::SubAnimName(int i) 
+MSTR FinjinSubmeshSettingsObject::SubAnimName(int i)
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return MaxUtilities::GetString(IDS_PARAMETERS);
+}
 
-Animatable* FinjinSubmeshSettingsObject::SubAnim(int i) 
+Animatable* FinjinSubmeshSettingsObject::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
 RefResult FinjinSubmeshSettingsObject::NotifyRefChanged(const Interval& changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message, BOOL propagate)
@@ -162,19 +162,19 @@ RefResult FinjinSubmeshSettingsObject::NotifyRefChanged(const Interval& changeIn
     return REF_SUCCEED;
 }
 
-int FinjinSubmeshSettingsObject::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinSubmeshSettingsObject::GetReference(int i) 
+int FinjinSubmeshSettingsObject::NumRefs()
 {
-    return this->pblock; 
+    return NUM_REFS;
 }
 
-void FinjinSubmeshSettingsObject::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+RefTargetHandle FinjinSubmeshSettingsObject::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinSubmeshSettingsObject::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinSubmeshSettingsObject::GetClassDesc()
@@ -210,7 +210,7 @@ void FinjinSubmeshSettingsObject::SetValue(const SubmeshSettings& value)
 {
     this->pblock->SetValue(PB_SUBMESH_NAME, 0, WxStringToApplicationStringM(value.submeshName));
     this->pblock->SetValue(PB_MATERIAL, 0, value.material.mtl);
-    
+
     this->pblock->ZeroCount(PB_TEXTURE_COORDINATE_SET_SOURCES);
     this->pblock->ZeroCount(PB_TEXTURE_COORDINATE_SET_DESTINATIONS);
     this->pblock->ZeroCount(PB_TEXTURE_COORDINATE_SET_TYPES);
@@ -231,7 +231,7 @@ void FinjinSubmeshSettingsObject::SetValue(const SubmeshSettings& value)
     this->pblock->ZeroCount(PB_TEXTURE_ALIASES);
     this->pblock->ZeroCount(PB_TEXTURE_NAMES);
     MSTR textureAlias;
-    MSTR textureName;    
+    MSTR textureName;
     for (size_t i = 0; i < value.textureNameAliases.size(); i++)
     {
         textureAlias = WxStringToApplicationStringM(value.textureNameAliases[i].alias);
@@ -241,8 +241,8 @@ void FinjinSubmeshSettingsObject::SetValue(const SubmeshSettings& value)
         textureName = WxStringToApplicationStringM(value.textureNameAliases[i].textureName);
         const MCHAR* textureNames[1] = {textureName.data()};
         this->pblock->Append(PB_TEXTURE_NAMES, 1, textureNames);
-    }    
+    }
 
     this->pblock->SetValue(PB_RENDER_QUEUE_NAME, 0, WxStringToApplicationStringM(value.renderQueueName));
-    this->pblock->SetValue(PB_RENDER_QUEUE_PRIORITY, 0, value.renderPriority);    
+    this->pblock->SetValue(PB_RENDER_QUEUE_PRIORITY, 0, value.renderPriority);
 }

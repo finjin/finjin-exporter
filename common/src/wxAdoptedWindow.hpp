@@ -25,17 +25,17 @@
 #endif
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * A wxWidgets wrapper for a native window handle. 
+    /**
+     * A wxWidgets wrapper for a native window handle.
      * Creating and destroying instances of this class has no effect on the window itself.
      */
     class wxAdoptedWindow : public wxAdoptedWindowBase
     {
     public:
-        /** 
+        /**
          * Constructor.
          * @param window [in] - The native window handle to wrap access to.
          * @param modal [in] - Indicates whether the window is going to be used as the parent
@@ -44,12 +44,12 @@ namespace Finjin { namespace Exporter {
         wxAdoptedWindow(WXWidget window, bool modal = true);
 
         ~wxAdoptedWindow();
-        
+
         bool Destroy();
 
     private:
         void DestroyCommon();
-        
+
     private:
         bool modal;
         bool subclassed;

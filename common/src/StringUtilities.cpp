@@ -20,8 +20,8 @@
 #include "FinjinPrecompiled.hpp"
 #include "StringUtilities.hpp"
 
-#if wxUSE_UNICODE    
-    typedef std::wstring stdstring;    
+#if wxUSE_UNICODE
+    typedef std::wstring stdstring;
     typedef std::wostringstream stdstringstream;
 #else
     typedef std::string stdstring;
@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool StringUtilities::IsSameNoCase(const wxString& s1, const wxString& s2)
 {
     return s1.IsSameAs(s2.wx_str(), false);
@@ -115,8 +115,8 @@ wxString StringUtilities::ToString(float value, size_t precision)
 {
     stdstringstream stream;
     stream.precision((std::streamsize)precision);
-    stream << value;    
-    stdstring valueText = stream.str();    
+    stream << value;
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -124,8 +124,8 @@ wxString StringUtilities::ToString(double value, size_t precision)
 {
     stdstringstream stream;
     stream.precision((std::streamsize)precision);
-    stream << value;    
-    stdstring valueText = stream.str();    
+    stream << value;
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -135,7 +135,7 @@ wxString StringUtilities::ToString(FinjinColor value, bool includeAlpha)
     stream << value.r << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.g << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.b;
     if (includeAlpha)
         stream << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.a;
-    stdstring valueText = stream.str();    
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -143,7 +143,7 @@ wxString StringUtilities::ToString(FinjinVector3 value)
 {
     stdstringstream stream;
     stream << value.x << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.y << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.z;
-    stdstring valueText = stream.str();    
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -151,7 +151,7 @@ wxString StringUtilities::ToString(FinjinVector4 value)
 {
     stdstringstream stream;
     stream << value.x << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.y << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.z << FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR << value.w;
-    stdstring valueText = stream.str();    
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -164,7 +164,7 @@ wxString StringUtilities::ToString(const std::vector<int>& values, const wxStrin
         if (i < values.size() - 1)
             stream << joinText.wx_str();
     }
-    stdstring valueText = stream.str();    
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -177,7 +177,7 @@ wxString StringUtilities::ToString(const std::vector<float>& values, const wxStr
         if (i < values.size() - 1)
             stream << joinText.wx_str();
     }
-    stdstring valueText = stream.str();    
+    stdstring valueText = stream.str();
     return valueText.c_str();
 }
 
@@ -214,11 +214,11 @@ FinjinVector3 StringUtilities::ToRemoveXYZVector3(const wxString& text)
 
 bool StringUtilities::ToBool(const wxString& value)
 {
-    if (value.empty() || 
-        value == wxT("f") || 
+    if (value.empty() ||
+        value == wxT("f") ||
         value == wxT("F") ||
         value == wxT("false") ||
-        value == wxT("no") || 
+        value == wxT("no") ||
         value == wxT("0"))
     {
         return false;
@@ -297,7 +297,7 @@ int StringUtilities::FindNextLineStart(const wxString& text, int start, bool ski
 {
     int index = start;
     int length = (int)text.length();
-    
+
     //Skip past all non-newline characters
     while (index < length && !IsNewline(text[index]))
         index++;
@@ -318,7 +318,7 @@ int StringUtilities::FindNextLineStart(const wxString& text, int start, bool ski
 }
 
 bool StringUtilities::ParseKeyValueLine(const wxString& text, int start, int& nextStart, wxString& key, wxString& value, bool skipExtraNewlines)
-{    
+{
     int index = start;
     int length = (int)text.length();
 
@@ -411,7 +411,7 @@ int StringUtilities::ParseArrayIndex(const wxString& s)
         if (closeBracket != wxString::npos)
         {
             wxString indexString = s.SubString(openBracket + 1, closeBracket - 1);
-            
+
             long lValue;
             if (indexString.ToLong(&lValue))
                 index = (int)lValue;
@@ -425,8 +425,8 @@ void StringUtilities::AppendKeyAndValue(wxString& text, const wxString& key, con
 {
     text += key;
     text += wxT("=");
-    text += value;    
-    text += newline;    
+    text += value;
+    text += newline;
 }
 
 void StringUtilities::AppendPrefixedKeyAndValue(wxString& text, const wxString& prefix, const wxString& key, const wxString& value, const wxString& newline)
@@ -478,7 +478,7 @@ bool StringUtilities::IsVersion(const wxString& version)
     }
     else if (StringUtilities::IsInteger(version))
         return true;
-    
+
     return false;
 }
 
@@ -491,7 +491,7 @@ wxString StringUtilities::FormatVersion(int major, int minor)
 }
 
 void StringUtilities::RemoveName(std::vector<wxString>& names, const wxString& nameToRemove)
-{    
+{
     for (size_t i = 0; i < names.size(); i++)
     {
         if (IsSameNoCase(names[i], nameToRemove))

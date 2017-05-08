@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 RegistryKeyEnumerator::RegistryKeyEnumerator(const wxString& baseKey, HKEY hRootKey)
 {
     this->hRootKey = hRootKey;
@@ -72,7 +72,7 @@ void RegistryKeyEnumerator::GetIndexedSubkey()
 {
     const int MAX_SUBKEY_LENGTH = 1024;
     TCHAR subkeyName[MAX_SUBKEY_LENGTH];
-    
+
     //Get the subkey at the current index
     long result = RegEnumKey(this->hKey, this->subkeyIndex, subkeyName, MAX_SUBKEY_LENGTH);
     this->subkey = (result == ERROR_SUCCESS) ? subkeyName : wxEmptyString;

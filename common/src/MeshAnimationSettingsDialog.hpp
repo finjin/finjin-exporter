@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "FinjinMeshAnimationSettingsAccessor.hpp"
 #include "SpinnerControl.hpp"
 #include "AllowExportBone.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* trackLabel;
         ApplicationChoiceCtrl* trackChoice;
@@ -71,7 +71,7 @@ namespace Finjin { namespace Exporter {
         ApplicationTextCtrl* includeExcludeBonesText;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         /** The settings that are modified by the dialog. */
         struct Settings
@@ -103,7 +103,7 @@ namespace Finjin { namespace Exporter {
             bool linkToObject;
             bool looped;
             double sampleInterval;
-            SampleType sampleType;        
+            SampleType sampleType;
             wxString translationInterpolationType;
             wxString rotationInterpolationType;
             //InheritedBool exportToSeparateFile;
@@ -116,7 +116,7 @@ namespace Finjin { namespace Exporter {
          * Constructor.
          * @param parent [in] - The parent window.
          * @param title [in] - The dialog title.
-         * @param meshBones [in] - A collection of bones associated with the mesh to which the 
+         * @param meshBones [in] - A collection of bones associated with the mesh to which the
          * mesh animation is being created.
          * @param allAnimationNames [in] - A collection of all the existing animation names. This
          * is to prevent duplicate names.
@@ -125,15 +125,15 @@ namespace Finjin { namespace Exporter {
          */
         MeshAnimationSettingsDialog
             (
-            wxWindow* parent, 
-            const wxString& title, 
+            wxWindow* parent,
+            const wxString& title,
             const ObjectAccessorSet& meshBones,
             const std::vector<wxString>& allAnimationNames,
             const std::vector<MeshAnimationTrack>& tracks,
             int selectedTrack,
             Settings settings = Settings()
             );
-        ~MeshAnimationSettingsDialog();        
+        ~MeshAnimationSettingsDialog();
 
         enum
         {
@@ -154,7 +154,7 @@ namespace Finjin { namespace Exporter {
         void UpdateSamplingTypeEdit(bool layout = true);
         void UpdateEmbedControls(bool layout = true);
         void UpdateOverrideAnimatedRootStartTimeControls(bool layout = true);
-        
+
         void OnOK(wxCommandEvent& event);
         void OnTrackChoice(wxCommandEvent& event);
         void OnTimeScaleChoice(wxCommandEvent& event);

@@ -24,13 +24,13 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const MString UserDataAttributes::ID_ATTRIBUTE_NAME = "ID";
 const MString UserDataAttributes::USER_DATA_ATTRIBUTE_NAME = "UserData";
 const MString UserDataAttributes::USER_DATA_CLASS_ATTRIBUTE_NAME = "UserDataClass";
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void UserDataAttributes::CreateUserDataAttributes(NodeAttributeAdder& adder, const MString& attributeNamePrefix)
 {
     bool oldHidden = adder.hidden;
@@ -46,7 +46,7 @@ void UserDataAttributes::CreateUserDataAttributes(NodeAttributeAdder& adder, con
 void UserDataAttributes::CreateUserDataAttributes(std::list<MObject>& attributesList, NodeAttributeAdder& adder, const MString& attributeNamePrefix)
 {
     CreateUserDataAttributes(adder, attributeNamePrefix);
-    
+
     attributesList.push_back(this->id);
     attributesList.push_back(this->userData);
     attributesList.push_back(this->userDataClass);

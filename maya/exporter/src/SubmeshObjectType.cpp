@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void SubmeshObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (GeometryState::CanHandle(context.object))
@@ -39,7 +39,7 @@ void SubmeshObjectType::Detect(ObjectTypeDetectionContext& context)
 }
 
 void SubmeshObjectType::CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings)
-{    
+{
     tabPages.AddPage(new ObjectSettingsDialog_MeshPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_MeshPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_SubmeshesPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_SubmeshesPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_MeshAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_MeshAnimationsPage::TITLE);

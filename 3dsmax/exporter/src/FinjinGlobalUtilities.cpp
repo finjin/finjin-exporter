@@ -54,11 +54,11 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinGlobalUtilities FinjinGlobalUtilities::instance;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 #if !wxUSE_UNICODE
     #define fileopen fopen
 #elif defined(__WXMSW__)
@@ -86,14 +86,14 @@ inline bool LoadXmlDocument(tinyxml2::XMLDocument& doc, const wxString& fileName
 }
 
 static bool HasStandardMenuBar()
-{    
+{
     //There doesn't appear to be any API for determining whether enhanced menus (and the legacy menu bar) are in effect
     //This code instead looks for the current workspace's .maxsettings file, parses it, and sees if a "ShowLegacyMenuBar" item is present
 
     MSTR configFileName = GetCUIFrameMgr()->GetConfigFile();
     auto wxconfigFileName = ApplicationStringToWxString(configFileName);
     wxconfigFileName.Replace(wxT(".cuix"), wxT(".maxsettings"));
-    
+
     auto hasStandardMenuBar = true;
     tinyxml2::XMLDocument doc;
     if (LoadXmlDocument(doc, wxconfigFileName))
@@ -110,8 +110,8 @@ static bool HasStandardMenuBar()
 }
 
 
-//Local classes-----------------------------------------------------------------
-class FinjinGlobalUtilitiesClassDesc : public ClassDesc2 
+//Local types-------------------------------------------------------------------
+class FinjinGlobalUtilitiesClassDesc : public ClassDesc2
 {
 public:
     int IsPublic() override                      {return 1;}
@@ -133,20 +133,20 @@ class FinjinGlobalActions : public FPStaticInterface
 public:
     DECLARE_DESCRIPTOR(FinjinGlobalActions)
 
-    enum 
+    enum
     {
         fnId_ExportScene,
         fnId_ExportSceneSelectedObjects,
-        
+
         fnId_ExportSceneMaterials,
-        fnId_ExportSelectedMaterialEditorMaterial,    
+        fnId_ExportSelectedMaterialEditorMaterial,
         fnId_ExportCurrentMaterialLibrary,
 
         fnId_SceneSettings,
         fnId_ObjectSettings,
 
         fnId_RenderCubeMap,
-        
+
         fnId_ViewLog,
 
         fnId_Help,
@@ -179,100 +179,100 @@ public:
         FN_ACTION(fnId_RunExternalViewer, RunExternalViewer);
     END_FUNCTION_MAP
 
-    FPStatus ExportScene() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnExportScene(); 
-        return FPS_OK; 
+    FPStatus ExportScene()
+    {
+        FinjinGlobalUtilities::GetInstance().OnExportScene();
+        return FPS_OK;
     }
 
-    FPStatus ExportSceneSelectedObjects() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnExportSceneSelectedObjects(); 
-        return FPS_OK; 
+    FPStatus ExportSceneSelectedObjects()
+    {
+        FinjinGlobalUtilities::GetInstance().OnExportSceneSelectedObjects();
+        return FPS_OK;
     }
 
-    FPStatus ExportSelectedMaterialEditorMaterial() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnExportSelectedMaterialEditorMaterial(); 
-        return FPS_OK; 
+    FPStatus ExportSelectedMaterialEditorMaterial()
+    {
+        FinjinGlobalUtilities::GetInstance().OnExportSelectedMaterialEditorMaterial();
+        return FPS_OK;
     }
 
-    FPStatus ExportSceneMaterials() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnExportSceneMaterials(); 
-        return FPS_OK; 
+    FPStatus ExportSceneMaterials()
+    {
+        FinjinGlobalUtilities::GetInstance().OnExportSceneMaterials();
+        return FPS_OK;
     }
 
-    FPStatus ExportCurrentMaterialLibrary() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnExportCurrentMaterialLibrary(); 
-        return FPS_OK; 
+    FPStatus ExportCurrentMaterialLibrary()
+    {
+        FinjinGlobalUtilities::GetInstance().OnExportCurrentMaterialLibrary();
+        return FPS_OK;
     }
 
-    FPStatus SceneSettings() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnSceneSettings(); 
-        return FPS_OK; 
+    FPStatus SceneSettings()
+    {
+        FinjinGlobalUtilities::GetInstance().OnSceneSettings();
+        return FPS_OK;
     }
 
-    FPStatus ObjectSettings() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnObjectSettings(); 
-        return FPS_OK; 
+    FPStatus ObjectSettings()
+    {
+        FinjinGlobalUtilities::GetInstance().OnObjectSettings();
+        return FPS_OK;
     }
 
-    FPStatus GlobalSettings() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnGlobalSettings(); 
-        return FPS_OK; 
+    FPStatus GlobalSettings()
+    {
+        FinjinGlobalUtilities::GetInstance().OnGlobalSettings();
+        return FPS_OK;
     }
 
     FPStatus RenderCubeMap()
     {
-        FinjinGlobalUtilities::GetInstance().OnRenderCubeMap(); 
-        return FPS_OK; 
+        FinjinGlobalUtilities::GetInstance().OnRenderCubeMap();
+        return FPS_OK;
     }
 
     FPStatus ViewLog()
     {
-        FinjinGlobalUtilities::GetInstance().OnViewLog(); 
-        return FPS_OK; 
+        FinjinGlobalUtilities::GetInstance().OnViewLog();
+        return FPS_OK;
     }
 
-    FPStatus Help() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnHelp(); 
-        return FPS_OK; 
+    FPStatus Help()
+    {
+        FinjinGlobalUtilities::GetInstance().OnHelp();
+        return FPS_OK;
     }
 
-    FPStatus About() 
-    { 
-        FinjinGlobalUtilities::GetInstance().OnAbout(); 
-        return FPS_OK; 
+    FPStatus About()
+    {
+        FinjinGlobalUtilities::GetInstance().OnAbout();
+        return FPS_OK;
     }
 
     FPStatus RefreshFinjinMenu()
     {
         FinjinGlobalUtilities::GetInstance().OnRefreshFinjinMenu();
-        return FPS_OK; 
+        return FPS_OK;
     }
 
     FPStatus CheckDuplicateObjectNames()
     {
         FinjinGlobalUtilities::GetInstance().OnCheckDuplicateObjectNames();
-        return FPS_OK; 
+        return FPS_OK;
     }
 
     FPStatus RunExternalViewerWithLastExportedFile()
     {
         ExporterSystem::RunExternalViewerWithLastExportedFile();
-        return FPS_OK; 
+        return FPS_OK;
     }
 
     FPStatus RunExternalViewer()
     {
         ExporterSystem::RunExternalViewer();
-        return FPS_OK; 
+        return FPS_OK;
     }
 };
 
@@ -377,9 +377,9 @@ public:
     virtual Value* GetFinjinVersion() = 0;
     virtual void SyncSubmeshSettingsByNode(INode* node) = 0;
     virtual void SyncSubmeshSettingsByName(MSTR nodeName) = 0;
-        
-    enum 
-    { 
+
+    enum
+    {
         fnId_getSceneSettings,
         fnId_getObjectSettingsByNode,
         fnId_getObjectSettingsByName,
@@ -424,7 +424,7 @@ public:
         if (object.IsValid())
         {
             FinjinSceneSettingsAccessor sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
-            objectSettings = sceneSettings.GetObjectSettings(object);            
+            objectSettings = sceneSettings.GetObjectSettings(object);
         }
 
         return objectSettings.object;
@@ -442,7 +442,7 @@ public:
 
     void EnableDetailedLogging(BOOL enable)
     {
-        ExporterSystem::EnableDetailedLogging(enable ? true : false);        
+        ExporterSystem::EnableDetailedLogging(enable ? true : false);
     }
 
     Value* GetFinjinVersion()
@@ -464,7 +464,7 @@ public:
     }
 
     void SyncSubmeshSettingsByName(MSTR nodeName)
-    {   
+    {
         std::vector<ObjectAccessor> objects;
 
         if (nodeName.length() > 0)
@@ -479,7 +479,7 @@ public:
         else
             ObjectAccessor::GetSelectedObjects(objects);
 
-        ExporterSystem::SyncSubmeshSettings(objects);            
+        ExporterSystem::SyncSubmeshSettings(objects);
     }
 
     DECLARE_DESCRIPTOR(FinjinGlobalFunctions);
@@ -507,7 +507,7 @@ FinjinGlobalFunctions globalFunctions
 
     IFinjinGlobalFunctions::fnId_getObjectSettingsByName, _M("GetObjectSettingsByName"), 0, TYPE_REFTARG, 0, 1,
         _M("name"), 0, TYPE_STRING,
-    
+
     IFinjinGlobalFunctions::fnId_createNodeAnimation, _M("CreateNodeAnimation"), 0, TYPE_REFTARG, 0, 0,
 
     IFinjinGlobalFunctions::fnId_createMeshAnimation, _M("CreateMeshAnimation"), 0, TYPE_REFTARG, 0, 0,
@@ -522,12 +522,12 @@ FinjinGlobalFunctions globalFunctions
 
     IFinjinGlobalFunctions::fnId_SyncSubmeshSettingsByName, _M("SyncSubmeshSettingsByName"), 0, TYPE_VOID, 0, 1,
         _M("name"), 0, TYPE_STRING,
-    
+
     p_end
 );
 
 
-//Local functions-----------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void GetNegativelyScaledNodes(INodeTab& nodes, INode* node)
 {
     if (ObjectAccessor::IsSettingsObject(node))
@@ -543,7 +543,7 @@ static void GetNegativelyScaledNodes(INodeTab& nodes, INode* node)
     parts.u.MakeMatrix(stretchTM);
     Matrix3 flipTM = ScaleMatrix(Point3(parts.f, parts.f, parts.f));
     Matrix3 finalScaleTM = Inverse(stretchTM) * flipTM * stretchTM;
-    Point3 scale = finalScaleTM * parts.k;    
+    Point3 scale = finalScaleTM * parts.k;
 
     //Add node if any scale component is negative
     if (scale.x < 0 || scale.y < 0 || scale.z < 0 || parts.f < 0)
@@ -560,20 +560,20 @@ static void ExportMaterialTab(Tab<MtlBaseHandle>& materialTab)
     materials.resize(materialTab.Count());
     for (int i = 0; i < materialTab.Count(); i++)
         materials[i] = (Mtl*)materialTab[i];
-    MaterialExporter::ExportMaterialsWithDialog(materials);    
+    MaterialExporter::ExportMaterialsWithDialog(materials);
 }
 
 
-//FinjinGlobalUtilities----------------------------------------
+//FinjinGlobalUtilities---------------------------------------------------------
 FinjinGlobalUtilities::FinjinGlobalUtilities()
-{   
-}
-        
-FinjinGlobalUtilities::~FinjinGlobalUtilities()
-{    
+{
 }
 
-void FinjinGlobalUtilities::DeleteThis() 
+FinjinGlobalUtilities::~FinjinGlobalUtilities()
+{
+}
+
+void FinjinGlobalUtilities::DeleteThis()
 {
     //Do nothing
     //delete this;
@@ -590,10 +590,10 @@ DWORD FinjinGlobalUtilities::Start()
     RegisterNotification(OnScenePreSave, this, NOTIFY_FILE_PRE_SAVE);
     RegisterNotification(OnScenePostSave, this, NOTIFY_FILE_POST_SAVE);
     RegisterNotification(OnNodeAdded, this, NOTIFY_SCENE_ADDED_NODE);
-    RegisterNotification(OnNodePreDelete, this, NOTIFY_SCENE_PRE_DELETED_NODE);    
+    RegisterNotification(OnNodePreDelete, this, NOTIFY_SCENE_PRE_DELETED_NODE);
     RegisterNotification(OnNodeClone, this, NOTIFY_NODE_CLONED);
     RegisterNotification(OnNodePostMtl, this, NOTIFY_NODE_POST_MTL);
-    RegisterNotification(OnSelectionSetChanged, this, NOTIFY_SELECTIONSET_CHANGED);    
+    RegisterNotification(OnSelectionSetChanged, this, NOTIFY_SELECTIONSET_CHANGED);
     RegisterNotification(OnNodeUnhide, this, NOTIFY_NODE_UNHIDE);
     RegisterNotification(OnPreMerge, this, NOTIFY_FILE_PRE_MERGE);
     RegisterNotification(OnPostMerge, this, NOTIFY_FILE_POST_MERGE);
@@ -629,10 +629,10 @@ void FinjinGlobalUtilities::Stop()
     UnRegisterNotification(OnScenePreSave, this, NOTIFY_FILE_PRE_SAVE);
     UnRegisterNotification(OnScenePostSave, this, NOTIFY_FILE_POST_SAVE);
     UnRegisterNotification(OnNodeAdded, this, NOTIFY_SCENE_ADDED_NODE);
-    UnRegisterNotification(OnNodePreDelete, this, NOTIFY_SCENE_PRE_DELETED_NODE);    
+    UnRegisterNotification(OnNodePreDelete, this, NOTIFY_SCENE_PRE_DELETED_NODE);
     UnRegisterNotification(OnNodeClone, this, NOTIFY_NODE_CLONED);
     UnRegisterNotification(OnNodePostMtl, this, NOTIFY_NODE_POST_MTL);
-    UnRegisterNotification(OnSelectionSetChanged, this, NOTIFY_SELECTIONSET_CHANGED);    
+    UnRegisterNotification(OnSelectionSetChanged, this, NOTIFY_SELECTIONSET_CHANGED);
     UnRegisterNotification(OnNodeUnhide, this, NOTIFY_NODE_UNHIDE);
     UnRegisterNotification(OnPreMerge, this, NOTIFY_FILE_PRE_MERGE);
     UnRegisterNotification(OnPostMerge, this, NOTIFY_FILE_POST_MERGE);
@@ -647,8 +647,8 @@ DWORD_PTR FinjinGlobalUtilities::Control(DWORD parameter)
 }
 
 FPInterfaceDesc* FinjinGlobalUtilities::GetDesc()
-{ 
-    return &globalActions; 
+{
+    return &globalActions;
 }
 
 void FinjinGlobalUtilities::CreateFinjinMenu()
@@ -661,7 +661,7 @@ void FinjinGlobalUtilities::CreateFinjinMenu()
     //Get menu
     IMenuManager* menuManager = Max()->GetMenuManager();
     auto mainMenu = menuManager->GetMainMenuBar();
-    if (mainMenu == nullptr) 
+    if (mainMenu == nullptr)
         return;
 
     //Create the "Finjin" submenu
@@ -674,16 +674,16 @@ void FinjinGlobalUtilities::CreateFinjinMenu()
     auto exportMenu = GetIMenu();
     exportMenu->SetTitle(MaxUtilities::GetString(IDS_EXPORT));
     menuManager->RegisterMenu(exportMenu, 0);
-    
+
         //Add "export scene" menu item
         auto exportSceneMenuItem = GetIMenuItem();
         exportSceneMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_ExportScene));
         exportMenu->AddItem(exportSceneMenuItem);
-            
+
         //Add "export selected objects" menu item
         auto exportSceneSelectedMenuItem = GetIMenuItem();
         exportSceneSelectedMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_ExportSceneSelectedObjects));
-        exportMenu->AddItem(exportSceneSelectedMenuItem);    
+        exportMenu->AddItem(exportSceneSelectedMenuItem);
 
         //Add separator menu item
         separatorMenuItem = GetIMenuItem();
@@ -693,17 +693,17 @@ void FinjinGlobalUtilities::CreateFinjinMenu()
         //Add "export scene materials" menu item
         auto exportSceneMaterialsMenuItem = GetIMenuItem();
         exportSceneMaterialsMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_ExportSceneMaterials));
-        exportMenu->AddItem(exportSceneMaterialsMenuItem);    
+        exportMenu->AddItem(exportSceneMaterialsMenuItem);
 
         //Add "export selected material editor material" menu item
         auto exportSelectedMaterialEditorMaterialMenuItem = GetIMenuItem();
         exportSelectedMaterialEditorMaterialMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_ExportSelectedMaterialEditorMaterial));
-        exportMenu->AddItem(exportSelectedMaterialEditorMaterialMenuItem);    
+        exportMenu->AddItem(exportSelectedMaterialEditorMaterialMenuItem);
 
         //Add "export material library" menu item
         auto exportCurrentMaterialLibraryMenuItem = GetIMenuItem();
         exportCurrentMaterialLibraryMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_ExportCurrentMaterialLibrary));
-        exportMenu->AddItem(exportCurrentMaterialLibraryMenuItem);    
+        exportMenu->AddItem(exportCurrentMaterialLibraryMenuItem);
 
         auto exportMenuItem = GetIMenuItem();
         exportMenuItem->SetSubMenu(exportMenu);
@@ -718,16 +718,16 @@ void FinjinGlobalUtilities::CreateFinjinMenu()
     auto externalViewerMenu = GetIMenu();
     externalViewerMenu->SetTitle(MaxUtilities::GetString(IDS_EXTERNAL_VIEWER));
     menuManager->RegisterMenu(externalViewerMenu, 0);
-    
+
         //Add "Run With Last Exported File..." menu item
         auto runExternalViewerWithLastExportedFileMenuItem = GetIMenuItem();
         runExternalViewerWithLastExportedFileMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_RunExternalViewerWithLastExportedFile));
         externalViewerMenu->AddItem(runExternalViewerWithLastExportedFileMenuItem);
-            
+
         //Add "Run..." menu item
         auto runExternalViewerMenuItem = GetIMenuItem();
         runExternalViewerMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_RunExternalViewer));
-        externalViewerMenu->AddItem(runExternalViewerMenuItem);    
+        externalViewerMenu->AddItem(runExternalViewerMenuItem);
 
         auto externalViewerMenuItem = GetIMenuItem();
         externalViewerMenuItem->SetSubMenu(externalViewerMenu);
@@ -793,17 +793,17 @@ void FinjinGlobalUtilities::CreateFinjinMenu()
     //Add "help" menu item
     auto helpMenuItem = GetIMenuItem();
     helpMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_Help));
-    finjinMenu->AddItem(helpMenuItem);    
+    finjinMenu->AddItem(helpMenuItem);
 
     //Add "about" menu item
     auto aboutMenuItem = GetIMenuItem();
     aboutMenuItem->SetActionItem(globalActions.action_table->GetAction(FinjinGlobalActions::fnId_About));
-    finjinMenu->AddItem(aboutMenuItem);    
+    finjinMenu->AddItem(aboutMenuItem);
 
      //Create a new menu item to hold the main Finjin menu
     auto finjinMenuItem = GetIMenuItem();
     finjinMenuItem->SetSubMenu(finjinMenu);
-    
+
     //Add the sub-menu item to the main menu bar
     mainMenu->AddItem(finjinMenuItem, mainMenu->NumItems() - 1);
 
@@ -828,9 +828,9 @@ bool FinjinGlobalUtilities::FinjinMenuExists()
 {
     auto menuManager = Max()->GetMenuManager();
     auto mainMenu = menuManager->GetMainMenuBar();
-    if (mainMenu == nullptr) 
+    if (mainMenu == nullptr)
         return false;
-    
+
     TSTR menuName = MaxUtilities::GetString(IDS_MENU_NAME);
     auto oldMenu = menuManager->FindMenu(menuName);
     return oldMenu != nullptr;
@@ -842,13 +842,13 @@ void FinjinGlobalUtilities::OnExportScene()
 }
 
 void FinjinGlobalUtilities::OnExportSceneSelectedObjects()
-{   
+{
     Exporter::ExportWithDialog(true);
 }
 
 void FinjinGlobalUtilities::OnExportSelectedMaterialEditorMaterial()
 {
-    MaterialExporter::ExportSelectedMaterialsWithDialog();    
+    MaterialExporter::ExportSelectedMaterialsWithDialog();
 }
 
 void FinjinGlobalUtilities::OnExportSceneMaterials()
@@ -858,7 +858,7 @@ void FinjinGlobalUtilities::OnExportSceneMaterials()
 
 void FinjinGlobalUtilities::OnExportCurrentMaterialLibrary()
 {
-    ExportMaterialTab(Max()->GetMaterialLibrary());    
+    ExportMaterialTab(Max()->GetMaterialLibrary());
 }
 
 void FinjinGlobalUtilities::OnSceneSettings()
@@ -887,31 +887,31 @@ void FinjinGlobalUtilities::OnRenderCubeMap()
     RenderCubeMapDialog dialog;
     if (GetCOREInterface()->GetSelNodeCount() > 0)
         dialog.centerNode = GetCOREInterface()->GetSelNode(0);
-    
+
     if (dialog.DoModal(GetCOREInterface()->GetMAXHWnd()))
     {
         CubeMapRenderer cubeMapRenderer;
         cubeMapRenderer.SetCenterNode(dialog.centerNode);
-        
+
         wxString fileName;
         if (dialog.type == RenderCubeMapDialog::SEPARATE_FILES)
             fileName = FileUtilities::JoinPath(dialog.destinationDirectory, dialog.destinationBaseFileName);
         else
             fileName = dialog.destinationFileName;
 
-        cubeMapRenderer.RenderToFile(fileName, dialog.dimensions, dialog.type == RenderCubeMapDialog::SEPARATE_FILES);        
+        cubeMapRenderer.RenderToFile(fileName, dialog.dimensions, dialog.type == RenderCubeMapDialog::SEPARATE_FILES);
     }
 #endif
 }
 
 void FinjinGlobalUtilities::OnViewLog()
 {
-    Dialogs::ShowLogFileDialog();    
+    Dialogs::ShowLogFileDialog();
 }
 
 void FinjinGlobalUtilities::OnHelp()
-{   
-    ExporterSystem::ShowHelp();    
+{
+    ExporterSystem::ShowHelp();
 }
 
 void FinjinGlobalUtilities::OnAbout()
@@ -973,18 +973,18 @@ void FinjinGlobalUtilities::OnSceneNew(void* param, NotifyInfo* info)
     auto newType = *(int*)info->callParam;
     if (newType == PRE_NEW_NEW_ALL)
     {
-        instance.cloneState.Reset();            
+        instance.cloneState.Reset();
         ExporterSystem::OnSceneReset();
     }
 }
 
 void FinjinGlobalUtilities::OnScenePreSave(void* param, NotifyInfo* info)
-{    
+{
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("FinjinGlobalUtilities::OnScenePreSave()"));
 }
 
 void FinjinGlobalUtilities::OnScenePostSave(void* param, NotifyInfo* info)
-{   
+{
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("FinjinGlobalUtilities::OnScenePostSave()"));
 }
 
@@ -997,7 +997,7 @@ void FinjinGlobalUtilities::OnNodeAdded(void* param, NotifyInfo* info)
         if (sceneSettings.IsValid())
         {
             sceneSettings.GetObjectSettings(node);
-            instance.cloneState.AddMaybeClonedNode(node);            
+            instance.cloneState.AddMaybeClonedNode(node);
         }
 
         //FinjinSceneViewManager::GetInstance().OnAddedObject(node);
@@ -1008,13 +1008,13 @@ void FinjinGlobalUtilities::OnNodePreDelete(void* param, NotifyInfo* info)
 {
     auto node = (INode*)info->callParam;
 
-    instance.cloneState.RemoveMaybeClonedNode(node);    
+    instance.cloneState.RemoveMaybeClonedNode(node);
 
     //FinjinSceneViewManager::GetInstance().OnRemovingObject(node);
-    
+
     FinjinSceneSettingsAccessor sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings(false);
     if (sceneSettings.IsValid() && sceneSettings.object != node->GetObjectRef())
-        sceneSettings.RemoveObjectSettings(node);    
+        sceneSettings.RemoveObjectSettings(node);
 }
 
 void FinjinGlobalUtilities::OnNodeClone(void* param, NotifyInfo* info)
@@ -1057,18 +1057,18 @@ void FinjinGlobalUtilities::OnPostMerge(void* param, NotifyInfo* info)
 }
 
 void FinjinGlobalUtilities::OnSystemShutdown(void* param, NotifyInfo* info)
-{   
+{
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("FinjinGlobalUtilities::OnSystemShutdown()"));
 
     ExporterSystem::Shutdown();
 }
 
 void FinjinGlobalUtilities::OnPreWorkspaceChange(void* param, NotifyInfo* info)
-{    
+{
 }
 
 void FinjinGlobalUtilities::OnPostWorkspaceChange(void* param, NotifyInfo* info)
-{    
+{
 }
 
 ClassDesc* FinjinGlobalUtilities::GetClassDesc()

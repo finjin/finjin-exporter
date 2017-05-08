@@ -19,21 +19,21 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "TabControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * A modal dialog that describes the Finjin plugin. 
+    /**
+     * A modal dialog that describes the Finjin plugin.
      * This dialog can be seen within the application by selecting 'About...' in the
      * Finjin menu.
      */
     class AboutDialog : public FinjinDialog
-    {    
+    {
     public:
         AboutDialog();
         AboutDialog(wxWindow* parent);
@@ -41,13 +41,13 @@ namespace Finjin { namespace Exporter {
         bool Create(wxWindow* parent);
         void OnCloseWindow(wxCloseEvent& event);
         void OnNotebookPageChanged(wxNotebookEvent& event);
-                
+
     protected:
         void CreateControls();
-        
+
     private:
         DECLARE_EVENT_TABLE()
-        
+
         TabControl* tabControl;
         TabControlPages pages;
     };

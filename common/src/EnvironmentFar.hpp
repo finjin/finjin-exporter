@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 #include "SimpleMeshInfo.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Gets the environment far distance based on either a mesh's dimensions or a float value. */
     class EnvironmentFar
     {
     public:
-        /** 
+        /**
          * Initializes the far distance.
          * If neither of the inputs are valid, a default distance is used.
          * @param environmentFarObject [in] - If a valid mesh object, the size of this object
@@ -46,7 +46,7 @@ namespace Finjin { namespace Exporter {
                 SimpleMeshInfo mesh;
                 if (mesh.Create(environmentFarObject))
                     this->value = mesh.GetBoundingBox().GetHalfSize().Average();
-            }       
+            }
             if (this->value <= 0)
                 this->value = FINJIN_EXPORTER_DEFAULT_MAX_DISTANCE;
         }

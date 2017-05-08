@@ -30,16 +30,16 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void SubmeshObjectType::Detect(ObjectTypeDetectionContext& context)
 {
-    if (context.maxObject != nullptr && 
-        !context.object.node->IsRootNode() && 
-        context.maxObject->SuperClassID() != HELPER_CLASS_ID && 
+    if (context.maxObject != nullptr &&
+        !context.object.node->IsRootNode() &&
+        context.maxObject->SuperClassID() != HELPER_CLASS_ID &&
         !MaxUtilities::IsAnyBone(context.object) &&
         !context.object.node->IsTarget())
     {
-        if (context.maxObject->SuperClassID() == GEOMOBJECT_CLASS_ID || 
+        if (context.maxObject->SuperClassID() == GEOMOBJECT_CLASS_ID ||
             context.maxObject->SuperClassID() == SHAPE_CLASS_ID ||
             context.maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0)))
         {
@@ -49,7 +49,7 @@ void SubmeshObjectType::Detect(ObjectTypeDetectionContext& context)
 }
 
 void SubmeshObjectType::CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings)
-{    
+{
     tabPages.AddPage(new ObjectSettingsDialog_MeshPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_MeshPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_SubmeshesPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_SubmeshesPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_MeshAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_MeshAnimationsPage::TITLE);

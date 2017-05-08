@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshSkeletonBase::MeshSkeletonBase(GeometryStateBase* geometryState)
 {
     this->geometryState = geometryState;
@@ -43,7 +43,7 @@ void MeshSkeletonBase::Clear()
 
     this->auxiliaryBoneObjects.clear();
 
-    this->weightedVertices.clear();    
+    this->weightedVertices.clear();
 }
 
 void MeshSkeletonBase::UpdateHierarchy()
@@ -67,8 +67,8 @@ void MeshSkeletonBase::UpdateHierarchy()
                     if (exportedParentObject.IsValid())
                     {
                         auto exportedParentBone = GetBone(exportedParentObject);
-                        if (exportedParentBone != nullptr && 
-                            exportedParentBone->object != bone->object && 
+                        if (exportedParentBone != nullptr &&
+                            exportedParentBone->object != bone->object &&
                             !bone->object.HasDescendant(exportedParentBone->object))
                         {
                             bone->parent = exportedParentBone;
@@ -98,7 +98,7 @@ MeshBonePtr MeshSkeletonBase::FindBone(ObjectAccessor object)
     {
         if (object == bone->object)
             return bone;
-    }    
+    }
     return nullptr;
 }
 
@@ -108,7 +108,7 @@ MeshBonePtr MeshSkeletonBase::FindBone(MeshBoneBase* meshBone)
     {
         if (meshBone == bone.get())
             return bone;
-    }    
+    }
     return nullptr;
 }
 
@@ -118,7 +118,7 @@ MeshBone* MeshSkeletonBase::GetBone(ObjectAccessor object)
     {
         if (object == bone->object)
             return bone.get();
-    }    
+    }
     return nullptr;
 }
 
@@ -130,7 +130,7 @@ int MeshSkeletonBase::GetBoneIndex(MeshBoneBase* meshBone) const
         if (meshBone == bone.get())
             return index;
         index++;
-    }    
+    }
     return -1;
 }
 
@@ -153,7 +153,7 @@ int MeshSkeletonBase::GetBoneIndex(ObjectAccessor object) const
         if (object == bone->object)
             return index;
         index++;
-    }    
+    }
     return -1;
 }
 
@@ -163,7 +163,7 @@ bool MeshSkeletonBase::HasBone(ObjectAccessor object) const
     {
         if (object == bone->object)
             return true;
-    }    
+    }
     return false;
 }
 
@@ -186,13 +186,13 @@ bool MeshSkeletonBase::HasBoneDescendant(ObjectAccessor object) const
     for (size_t i = 0; i < children.size(); i++)
     {
         if (HasBone(children[i]))
-            return true;        
+            return true;
     }
 
     for (size_t i = 0; i < children.size(); i++)
     {
         if (HasBoneDescendant(children[i]))
-            return true;        
+            return true;
     }
 
     return false;
@@ -209,7 +209,7 @@ void MeshSkeletonBase::RemoveBonesWithNoVertexInfluence()
     {
         auto meshBone = *boneIterator;
         if (!BoneHasVertexInfluence(meshBone->object))
-        {                
+        {
             RemovingBone(meshBone.get());
             boneIterator = this->bones.erase(boneIterator);
         }
@@ -285,7 +285,7 @@ void MeshSkeletonBase::Merge(MeshSkeletonBase& mergeSkeleton)
         newInitialSkinTransform = this->geometryState->transform;
         newInitialSkinTransform.Concatenate(initialSkinOffset);
     }
-    
+
     //Merge bones
     for (auto& bone : this->bones)
     {
@@ -303,11 +303,11 @@ void MeshSkeletonBase::Merge(MeshSkeletonBase& mergeSkeleton)
         if (!bone->IsRoot())
             bone->parent = GetBone(bone->parent->object);
     }
-    
+
     //Merge auxiliary bones
     for (auto aux : mergeSkeleton.auxiliaryBoneObjects)
         this->auxiliaryBoneObjects.insert(aux);
-    
+
     //Merge vertex weights. At this point these probably aren't needed but keep them anyway
     size_t oldVertexWeightSize = this->weightedVertices.size();
     this->weightedVertices.resize(oldVertexWeightSize + mergeSkeleton.weightedVertices.size());
@@ -325,8 +325,8 @@ void MeshSkeletonBase::TransformToWorldSpace()
         return;
 
     TransformAccessor identityTransform;
-    TransformAccessor offsetTransform = this->initialSkinTransform.GetRelativeTo(this->geometryState->transform); 
-    
+    TransformAccessor offsetTransform = this->initialSkinTransform.GetRelativeTo(this->geometryState->transform);
+
     //Re-initialize root bones
     for (auto& bone : this->bones)
     {
@@ -337,7 +337,7 @@ void MeshSkeletonBase::TransformToWorldSpace()
                 bone->SetInitialState(identityTransform);
             else*/
                 bone->SetInitialState(offsetTransform);
-        }            
+        }
     }
 }
 

@@ -27,10 +27,10 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(LogFileDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, LogFileDialog::OnOK)    
-    EVT_CLOSE(LogFileDialog::OnCloseWindow)        
+    EVT_BUTTON(wxID_OK, LogFileDialog::OnOK)
+    EVT_CLOSE(LogFileDialog::OnCloseWindow)
 END_EVENT_TABLE()
 
 LogFileDialog::LogFileDialog(wxWindow* parent, const wxString& fileName, MonitorMethod monitorMethod) :
@@ -39,39 +39,39 @@ LogFileDialog::LogFileDialog(wxWindow* parent, const wxString& fileName, Monitor
     SetExtraStyle(wxWS_EX_BLOCK_EVENTS);
 
     this->fileName = fileName;
-    
+
     this->monitorMethod = monitorMethod;
-    
+
 #if defined(__WXMSW__)
     this->exitMonitorThreadEvent = nullptr;
     this->fileMonitorThread = nullptr;
 #endif
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* logSizer;
     logSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     logText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 305,-1 ), wxTE_DONTWRAP|wxTE_MULTILINE|wxTE_READONLY );
     logSizer->Add( logText, 1, wxALL|wxBOTTOM|wxEXPAND|wxLEFT|wxRIGHT, 5 );
-    
+
     topSizer->Add( logSizer, 1, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&Close"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 
     SetSizer(topSizer);
 
     ReloadFile(true);
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -91,7 +91,7 @@ LogFileDialog::LogFileDialog(wxWindow* parent, const wxString& fileName, Monitor
 }
 
 LogFileDialog::~LogFileDialog()
-{    
+{
 #if defined(__WXMSW__)
     if (this->fileMonitorThread != nullptr)
     {
@@ -130,7 +130,7 @@ bool LogFileDialog::Show(bool show)
     //Reload file if dialog is now visible after being hidden, and a file is being monitored
     if (show && !wasVisible)
         ReloadFile(this->monitorMethod == MonitorMethod::NONE);
-    
+
     return result;
 }
 
@@ -143,7 +143,7 @@ void LogFileDialog::ReloadFile(bool force)
             this->logText->LoadFile(this->fileName);
 
         //Move cursor to the end position so that the window scrolls all the way down
-        this->logText->ShowPosition(this->logText->GetLastPosition());    
+        this->logText->ShowPosition(this->logText->GetLastPosition());
     }
 }
 

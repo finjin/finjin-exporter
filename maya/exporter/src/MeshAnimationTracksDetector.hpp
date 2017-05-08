@@ -19,20 +19,20 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshAnimationTracksDetectorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class MeshAnimationTracksDetector : public MeshAnimationTracksDetectorBase
-    {   
+    {
     public:
         void Detect(ObjectAccessor object);
 
         /** Track types. */
-        enum 
+        enum
         {
             OBJECT,
             MORPHER,

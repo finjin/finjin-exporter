@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 #include "FinjinColor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A single vertex in a mesh. */
-    class Vertex 
+    class Vertex
     {
     public:
         Vertex();
@@ -46,8 +46,8 @@ namespace Finjin { namespace Exporter {
     private:
         bool HasSameTexCoords(const std::array<std::pair<int, FinjinVector3>, FINJIN_EXPORTER_MAX_TEXTURE_COORD_SETS>& uvwMap) const
         {
-            for (auto thisMappedVertex = this->uvwMap.begin(), otherMappedVertex = uvwMap.begin(); 
-                thisMappedVertex != this->uvwMap.end(); 
+            for (auto thisMappedVertex = this->uvwMap.begin(), otherMappedVertex = uvwMap.begin();
+                thisMappedVertex != this->uvwMap.end();
                 ++thisMappedVertex, ++otherMappedVertex)
             {
                 if (thisMappedVertex->first != otherMappedVertex->first)
@@ -72,7 +72,7 @@ namespace Finjin { namespace Exporter {
         int originalFaceVertexIndex;
         int originalFaceIndex;
         unsigned int smoothingGroups;
-        
+
         //Members that are part of the hashing
         float pointSize;
         FinjinVector3 position;
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
     };
 
     /** A collection of vertices in a mesh. */
-    class VertexList 
+    class VertexList
     {
     private:
         typedef std::vector<Vertex> Vertices;
@@ -99,14 +99,14 @@ namespace Finjin { namespace Exporter {
 
         void Reserve(size_t count);
 
-        /** 
+        /**
          * Adds a vertex to the list.
          * @param v [in] - The vertex to add.
-         * @param isNew [out] - Pointer to a boolean that receives a value indicating whether the 
+         * @param isNew [out] - Pointer to a boolean that receives a value indicating whether the
          * vertex was actually added to the list.
          * @param fastAdd [in] - Indicates whether the list should be searched for a vertex that
          * matches the one passed in.
-         * @return The index into the list for the inserted element is returned. 
+         * @return The index into the list for the inserted element is returned.
          */
         size_t Add(Vertex& v, bool* isNew = nullptr, bool fastAdd = false);
 
@@ -114,13 +114,13 @@ namespace Finjin { namespace Exporter {
 
         bool IsEmpty() const { return this->items.empty(); }
         size_t GetSize() const { return this->items.size(); }
-        const Vertex& GetFront() { return this->items.front(); }        
-        
+        const Vertex& GetFront() { return this->items.front(); }
+
         void Clear();
 
         size_t size() const {return GetSize();}
 
-        /** 
+        /**
          * Determines if two vertex lists are 'almost' the same by checking every couple of vertices.
          * @param other [in] - The other vertex list to compare to.
          * @param stride [in] - How many vertices to advance between vertex comparisons. This value should be
@@ -133,12 +133,12 @@ namespace Finjin { namespace Exporter {
         iterator end() {return this->items.end();}
         const_iterator begin() const {return this->items.begin();}
         const_iterator end() const {return this->items.end();}
-        
+
         reverse_iterator rbegin() {return this->items.rbegin();}
         reverse_iterator rend() {return this->items.rend();}
         const_reverse_iterator rbegin() const {return this->items.rbegin();}
         const_reverse_iterator rend() const {return this->items.rend();}
-        
+
         const Vertex& operator [] (size_t i) const;
 
     private:

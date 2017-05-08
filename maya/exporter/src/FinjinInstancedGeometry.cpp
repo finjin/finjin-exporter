@@ -26,19 +26,19 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinInstancedGeometry::Attributes FinjinInstancedGeometry::attributes;
 
 const MString FinjinInstancedGeometry::TYPE_NAME("FinjinInstancedGeometry");
 const MTypeId FinjinInstancedGeometry::TYPE_ID(FinjinMayaTypeID::INSTANCED_GEOMETRY_NODE);
 
 
-//Implementation---------------------------------------------------------------
-FinjinInstancedGeometry::FinjinInstancedGeometry() 
+//Implementation----------------------------------------------------------------
+FinjinInstancedGeometry::FinjinInstancedGeometry()
 {
 }
 
-FinjinInstancedGeometry::~FinjinInstancedGeometry() 
+FinjinInstancedGeometry::~FinjinInstancedGeometry()
 {
 }
 
@@ -54,7 +54,7 @@ void FinjinInstancedGeometry::DrawLocator(M3dView& view, M3dView::DisplayStyle s
     float width = MPlug(object, attributes.width).asMDistance().as(UI_UNIT_TYPE);
     float height = MPlug(object, attributes.height).asMDistance().as(UI_UNIT_TYPE);
     FinjinColor color = MayaPlug::GetColor(MPlug(object, attributes.color));
-    
+
     if (status == M3dView::kLead || status == M3dView::kActive)
         glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
     else
@@ -67,13 +67,13 @@ void FinjinInstancedGeometry::DrawLocator(M3dView& view, M3dView::DisplayStyle s
     DrawCube(width, height, length);
 }
 
-MBoundingBox FinjinInstancedGeometry::boundingBox() const 
+MBoundingBox FinjinInstancedGeometry::boundingBox() const
 {
     MObject object = thisMObject();
     float length = MPlug(object, attributes.length).asMDistance().as(UI_UNIT_TYPE);
     float width = MPlug(object, attributes.width).asMDistance().as(UI_UNIT_TYPE);
     float height = MPlug(object, attributes.height).asMDistance().as(UI_UNIT_TYPE);
-    
+
     MBoundingBox bbox;
 
     bbox.expand(MPoint(-0.5f * width, 0.0f, 0.0f));
@@ -100,8 +100,8 @@ void* FinjinInstancedGeometry::Creator()
 
 MStatus FinjinInstancedGeometry::AddAttributes()
 {
-    NodeAttributeAdder adder;        
-    
+    NodeAttributeAdder adder;
+
     attributes.length = adder.AddDistance("Length", MDistance(10, INTERNAL_UNIT_TYPE), 100);
     attributes.width = adder.AddDistance("Width", MDistance(10, INTERNAL_UNIT_TYPE), 100);
     attributes.height = adder.AddDistance("Height", MDistance(10, INTERNAL_UNIT_TYPE), 100);

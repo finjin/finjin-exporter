@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A collection of math functions. */
@@ -54,7 +54,7 @@ namespace Finjin { namespace Exporter {
         /** Creates a normal from three points. */
         static FinjinVector3 CreateNormal(const FinjinVector3& p0, const FinjinVector3& p1, const FinjinVector3& p2);
 
-        /** 
+        /**
          * Gets the quaternion relative to another one.
          * @param q [in] - The source quaternion.
          * @param parent [in] - The 'parent' quaternion.

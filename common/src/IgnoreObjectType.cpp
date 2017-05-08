@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void IgnoreObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (ObjectAccessor::IsSettingsObject(context.object))

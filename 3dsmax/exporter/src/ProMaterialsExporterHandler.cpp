@@ -28,16 +28,16 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Constants--------------------------------------------------------------------
+//Constants---------------------------------------------------------------------
 #define PRO_PLASTIC_VINYL_MTL_CLASSID Class_ID(2004030991, -1033983941)
 #define PRO_METALLIC_PAINT_MTL_CLASSID Class_ID(2004030991, -1184796640)
 #define PRO_METAL_MTL_CLASSID Class_ID(2004030991, -1185657837)
 #define PRO_SOLID_GLASS_MTL_CLASSID Class_ID(2004030991, 1297002876)
-#define PRO_MIRROR_MTL_CLASSID Class_ID(2004030991, -1156690138) 
+#define PRO_MIRROR_MTL_CLASSID Class_ID(2004030991, -1156690138)
 #define PRO_GENERIC_MTL_CLASSID Class_ID(2004030991, -1520410832)
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ProMaterialsExporterHandler::ProMaterialsExporterHandler()
 {
     for (auto& item : this->texmaps)
@@ -63,9 +63,9 @@ bool ProMaterialsExporterHandler::CanHandle(MaterialAccessor material)
         {
             if (material.mtl->ClassID() == PRO_MTL_CLASSIDS[i])
                 return true;
-        }        
+        }
     }
-    
+
     return false;
 }
 
@@ -74,7 +74,7 @@ void ProMaterialsExporterHandler::CalculateRequirements()
     for (auto& item : this->texmaps)
         item = nullptr;
     this->texmapCount = 0;
-    
+
     IParamBlock2* pblock;
     ParamID paramID;
     IParamBlock2* isOnPBlock;
@@ -97,7 +97,7 @@ void ProMaterialsExporterHandler::CalculateRequirements()
                     this->texmapCount++;
                 }
             }
-        }        
+        }
     }
     else if (this->material.mtl->ClassID() == PRO_SOLID_GLASS_MTL_CLASSID)
     {
@@ -135,7 +135,7 @@ void ProMaterialsExporterHandler::CalculateRequirements()
                 }
             }
         }
-        
+
         //Self illumination
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("self_illum_filter_map.shader"), this->material.mtl))
         {
@@ -151,7 +151,7 @@ void ProMaterialsExporterHandler::CalculateRequirements()
                     this->texmapCount++;
                 }
             }
-        }        
+        }
     }
 }
 
@@ -169,7 +169,7 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
 
     IParamBlock2* pblock;
     ParamID paramID;
-    
+
     //Ambient color
     {
         Color ambient(0, 0, 0);
@@ -185,18 +185,18 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("diffuse_color"), this->material.mtl))
         {
             AColor diffuse = pblock->GetAColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        }        
+        }
     }
     else if (this->material.mtl->ClassID() == PRO_METAL_MTL_CLASSID)
     {
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("diffuse_color"), this->material.mtl))
         {
             AColor diffuse = pblock->GetAColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -243,16 +243,16 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
-        
+
         //It's glass. Enable some type of transparency
-        //pass->setSceneBlending(FinjinObsolete::SBF_ONE, FinjinObsolete::SBF_ONE);                
+        //pass->setSceneBlending(FinjinObsolete::SBF_ONE, FinjinObsolete::SBF_ONE);
     }
     else if (this->material.mtl->ClassID() == PRO_MIRROR_MTL_CLASSID)
     {
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("tint_color"), this->material.mtl))
         {
             AColor diffuse = pblock->GetAColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -264,7 +264,7 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("diffuse"), this->material.mtl))
         {
             AColor diffuse = pblock->GetAColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -280,9 +280,9 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
                 //float intensity = std::max(1.0f, pblock->GetFloat(paramID));
                 //emissive *= intensity;
                 //pass->setSelfIllumination(emissive.r, emissive.g, emissive.b);
-            //}            
+            //}
         //}
-                
+
         //Culling mode
         bool backfaceCullingEnabled = false;
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("backface_cull"), this->material.mtl))
@@ -291,7 +291,7 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
         {
             writer.WriteString(StandardAssetDocumentPropertyNames::CULL_MODE, wxT("none"), error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        }        
+        }
 
         //Transparency
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("transparency.connected"), this->material.mtl))
@@ -299,7 +299,7 @@ void ProMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& erro
             if (pblock->GetInt(paramID))
             {
                 //Some amount of blending. Just use additive
-                //pass->setSceneBlending(FinjinObsolete::SBF_ONE, FinjinObsolete::SBF_ONE);                
+                //pass->setSceneBlending(FinjinObsolete::SBF_ONE, FinjinObsolete::SBF_ONE);
             }
         }
     }

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 /** Registers all the detectable object types. */
 void RegisterDetectableObjectTypes();

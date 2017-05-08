@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -31,8 +31,8 @@ namespace Finjin { namespace Exporter {
     public:
         MacroExpander();
 
-        /** 
-         * Adds a custom macro variable. 
+        /**
+         * Adds a custom macro variable.
          * @param key [in] - The key. The key is of the form VAR. In other words, it does not contain the $() macro characters.
          * @param value [in] - The variable.
          */
@@ -41,7 +41,7 @@ namespace Finjin { namespace Exporter {
         /** Sets an error formatting string that is used to log the result of a macro that could not be expanded. */
         void SetMatchErrorFormatString(const wxString& format);
 
-        /** 
+        /**
          * Expands all of the macros in the specified text.
          * @text [in/out] - The text to expand.
          * @return If there were no errors, true is returned. Otherwise, false is returned.

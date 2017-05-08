@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class InstallationItem_MayaPlugin : public PluginInstallationItem
 {
 public:
@@ -47,7 +47,7 @@ public:
                 return wxFileExists(sourceFileName);
             }
         }
-        
+
         return false;
     }
 
@@ -66,7 +66,7 @@ public:
         destinationDirectory += wxT("bin/");
     #endif
         destinationDirectory += wxT("plug-ins/");
-        
+
         if (wxDirExists(destinationDirectory))
         {
             auto destinationFileName = destinationDirectory + GetBaseFileName();
@@ -89,11 +89,11 @@ public:
                 sourceFileName = wxT("exporters/mel/") + scriptBaseFileName;
                 auto destinationFileName = destinationDirectory + scriptBaseFileName;
                 context.LogFileCopy(sourceFileName, destinationFileName);
-            }            
+            }
         }
         else
             context.LogDoesNotExist(wxT("Maya scripts/AETemplates directory"));
-        
+
         //Install icon files
         destinationDirectory = context.applicationRootDirectory + wxT("icons/");
         if (wxDirExists(destinationDirectory))
@@ -107,7 +107,7 @@ public:
                 sourceFileName = wxT("exporters/Icons/") + iconBaseFileName;
                 auto destinationFileName = destinationDirectory + iconBaseFileName;
                 context.LogFileCopy(sourceFileName, destinationFileName);
-            }            
+            }
         }
         else
             context.LogDoesNotExist(wxT("Maya icons directory"));
@@ -126,9 +126,9 @@ public:
             destinationFileName += wxT("bin/");
         #endif
             destinationFileName += wxT("plug-ins/") + GetBaseFileName();
-            
+
             context.LogOptionalFileDelete(destinationFileName);
-            
+
         //#if defined(__WXMSW__)
             //Delete Attribute Editor (AE) MEL script files
             for (int i = 0; ; i++)
@@ -174,7 +174,7 @@ protected:
 
     static const wxString& GetAEScriptBaseFileName(int i)
     {
-        static const wxString names[] = 
+        static const wxString names[] =
             {
             wxT("AEFinjinCustomDummyTemplate.mel"),
             wxT("AEFinjinStaticGeometryTemplate.mel"),
@@ -187,7 +187,7 @@ protected:
 
     static const wxString& GetIconBaseFileName(int i)
     {
-        static const wxString names[] = 
+        static const wxString names[] =
             {
             wxEmptyString
             };
@@ -284,21 +284,21 @@ public:
         }
         return true;
     }
-    
+
     void Install(InstallationContext& context)
     {
         wxString binDirectory = context.applicationRootDirectory + wxT("bin/");
 
         for (int index = 0; ; index++)
         {
-            wxString sourceFileName = GetSourceFileName(index);        
+            wxString sourceFileName = GetSourceFileName(index);
             if (sourceFileName.empty())
                 break;
-            
+
             if (wxFileExists(sourceFileName) || wxDirExists(sourceFileName))
             {
                 wxString destinationFileName = binDirectory + GetBaseFileName(index);
-                
+
             #if defined (__WXMAC__)
                 //Copy application directory
                 context.LogDirectoryCopy(sourceFileName, destinationFileName);
@@ -316,12 +316,12 @@ public:
 
         for (int index = 0; ; index++)
         {
-            const wxString& sourceFileName = GetBaseFileName(index);        
+            const wxString& sourceFileName = GetBaseFileName(index);
             if (sourceFileName.empty())
                 break;
-            
+
             wxString destinationFileName = binDirectory + sourceFileName;
-            
+
         #if defined (__WXMAC__)
             //Delete application directory
             context.LogOptionalDirectoryDelete(destinationFileName);
@@ -335,21 +335,21 @@ public:
 private:
     static wxString GetBaseFileName(int index)
     {
-        static const wxString fileNames[] = 
+        static const wxString fileNames[] =
             {
             wxT("finjin-viewer") APPLICATION_EXTENSION,
             wxEmptyString
-            };    
+            };
         return fileNames[index];
     }
 
     static wxString GetSourceFileName(int index, bool* required = nullptr)
     {
-        static const wxString fileNames[] = 
+        static const wxString fileNames[] =
             {
             wxT("finjin-viewer"),
             wxEmptyString
-            };    
+            };
 
         if (required != nullptr)
             *required = index == 0;
@@ -387,7 +387,7 @@ public:
 #elif defined (__WXMAC__)
         AddPluginInstallationItem(new InstallationItem_Maya2016);
         AddPluginInstallationItem(new InstallationItem_Maya2015);
-        
+
         AddOtherInstallationItem(new InstallationItem_Viewers);
 #endif
 
@@ -396,7 +396,7 @@ public:
 };
 
 
-//Entry point------------------------------------------------------------------
+//Entry point-------------------------------------------------------------------
 class InstallationApp : public wxApp
 {
 public:

@@ -53,7 +53,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool FinjinSceneExporterHandler::Initialize(AssetClass assetType, const wxString& fileName, bool exportSelected, FinjinSceneSettingsAccessor sceneSettings)
 {
     return ExporterHandler::Initialize(assetType, fileName, exportSelected, sceneSettings);
@@ -62,7 +62,7 @@ bool FinjinSceneExporterHandler::Initialize(AssetClass assetType, const wxString
 bool FinjinSceneExporterHandler::RunExport()
 {
     FinjinSceneExporterContext finjinExporterContext(this, this->sceneSettings, &this->sceneExportSettings, FinjinSceneExporterContextFlags::NONE);
-    finjinExporterContext.RunExport(this->exportFilePath, this->exportSelected);        
+    finjinExporterContext.RunExport(this->exportFilePath, this->exportSelected);
     return true;
 }
 
@@ -70,19 +70,19 @@ void FinjinSceneExporterHandler::ExportScene(ExportableObjectPtr& exportableObje
 {
     auto& finjinExporterContext = static_cast<FinjinSceneExporterContext&>(context);
 
-    finjinExporterContext.StartProgress(exportableObject.get());    
+    finjinExporterContext.StartProgress(exportableObject.get());
     finjinExporterContext.StartSceneExport(&scene);
-    
+
     FinjinSceneDocumentParentItems parentItems(nullptr, &scene);
-    ExportChildren(scene, parentItems, exportableObject, finjinExporterContext);    
-    
-    finjinExporterContext.FinishSceneExport();    
+    ExportChildren(scene, parentItems, exportableObject, finjinExporterContext);
+
+    finjinExporterContext.FinishSceneExport();
 }
 
 void FinjinSceneExporterHandler::ExportChildren
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
     ExportableObjectPtr object,
     FinjinSceneExporterContext& finjinExporterContext
     )
@@ -94,19 +94,19 @@ void FinjinSceneExporterHandler::ExportChildren
             if (!childPtr->IsConsumedByParent())
             {
                 auto childParentItems = ExportExportableObject(scene, parentItems, childPtr, true, finjinExporterContext);
-                        
+
                 //Export children
                 if (childParentItems.IsValid())
                     ExportChildren(scene, childParentItems, childPtr, finjinExporterContext);
-            }            
-        }   
+            }
+        }
     }
 }
 
 FinjinSceneDocumentParentItems FinjinSceneExporterHandler::ExportExportableObject
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
     ExportableObjectPtr exportableObjectPtr,
     bool createNodeIfNeeded,
     FinjinSceneExporterContext& finjinExporterContext,
@@ -125,7 +125,7 @@ FinjinSceneDocumentParentItems FinjinSceneExporterHandler::ExportExportableObjec
         newParentItems.node = parentItems.node;
         if (newParentItems.node == nullptr)
             newParentItems.object = parentItems.object;
-    }    
+    }
 
     auto exportableObject = exportableObjectPtr.get();
 
@@ -137,14 +137,14 @@ FinjinSceneDocumentParentItems FinjinSceneExporterHandler::ExportExportableObjec
 
     if (createNodeIfNeeded && exportableObjectPtr->detectedObjectType->GetDescriptor().CanAttachToNode())
         newParentItems.node = ExportNode(scene, parentItems, exportableObject, finjinExporterContext).get();
-                    
+
     if (exportableObjectPtr->detectedObjectType == &CameraObjectType::GetInstance())
     {
         ExportCamera(scene, newParentItems, exportableObject->object.obj, exportableObject, finjinExporterContext);
     }
     else if (exportableObjectPtr->detectedObjectType == &LightObjectType::GetInstance())
     {
-        ExportLight(scene, newParentItems, exportableObject->object.obj, exportableObject, finjinExporterContext);        
+        ExportLight(scene, newParentItems, exportableObject->object.obj, exportableObject, finjinExporterContext);
     }
     else if (exportableObjectPtr->detectedObjectType == &SkyObjectType::GetInstance())
     {
@@ -181,9 +181,9 @@ FinjinSceneDocumentParentItems FinjinSceneExporterHandler::ExportExportableObjec
 
 std::shared_ptr<FinjinSceneDocument_SceneNode> FinjinSceneExporterHandler::ExportNode
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
-    ExportableObject* exportableObject, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
+    ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
 {
@@ -204,7 +204,7 @@ std::shared_ptr<FinjinSceneDocument_SceneNode> FinjinSceneExporterHandler::Expor
         if (!exportedNode->prefabName.empty())
             PreparePrefabAssetReference(exportedNode);
     }
-    
+
     //Add node to appropriate parent
     if (exportedNode->isPrefab)
     {
@@ -216,16 +216,16 @@ std::shared_ptr<FinjinSceneDocument_SceneNode> FinjinSceneExporterHandler::Expor
         //Standard (non-prefab) node. Add to parent as usual
         parentItems.GetBestParentNode()->AddChildItem(exportedNode);
     }
-    
+
     finjinExporterContext.GetItemSettings(exportedNode.get(), exportableObject->object, exportableObject->objectSettings);
 
     //Visibility
     if (!exportableObject->objectSettings.GetVisibilityAffectObjectOnly())
         exportedNode->visibility = ExporterUtilities::GetNodeVisibility(exportableObject->objectSettings.GetVisibility());
-    
+
     //Transform
     exportedNode->transform = exportableObject->GetConvertedLocalNodeTransformation(this->sceneExportSettings.time, this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);//, &exportedNode->objectRotation);
-    
+
     //Track target
     AimTarget aimTarget;
     if (!exportedNode->isPrefab &&
@@ -243,7 +243,7 @@ std::shared_ptr<FinjinSceneDocument_SceneNode> FinjinSceneExporterHandler::Expor
             exportedNode->AddChildItem(trackTarget);
         }
     }
-    
+
     //Animations
     finjinExporterContext.GenerateNodeAnimations(exportedNode.get(), exportableObject);
 
@@ -252,37 +252,37 @@ std::shared_ptr<FinjinSceneDocument_SceneNode> FinjinSceneExporterHandler::Expor
 
 void FinjinSceneExporterHandler::ExportCamera
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
-    MObject cameraObject, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
+    MObject cameraObject,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
 {
     std::shared_ptr<CameraExportSettings> exportedCamera(new CameraExportSettings(&scene));
     if (parentItems.AddAttachedObject(exportedCamera))
-        exportedCamera->Initialize(cameraObject, exportableObject->objectSettings, finjinExporterContext);    
+        exportedCamera->Initialize(cameraObject, exportableObject->objectSettings, finjinExporterContext);
 }
 
 void FinjinSceneExporterHandler::ExportLight
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
-    MObject lightObject, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
+    MObject lightObject,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
 {
     std::shared_ptr<LightExportSettings> exportedLight(new LightExportSettings(&scene));
     if (parentItems.AddAttachedObject(exportedLight))
-        exportedLight->Initialize(lightObject, exportableObject->objectSettings, finjinExporterContext);    
+        exportedLight->Initialize(lightObject, exportableObject->objectSettings, finjinExporterContext);
 }
 
 void FinjinSceneExporterHandler::ExportEntity
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
-    ExportableObject* exportableObject, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
+    ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
 {
@@ -290,18 +290,18 @@ void FinjinSceneExporterHandler::ExportEntity
     ExportedGeometryManualLods manualLods;
     auto geometryState = finjinExporterContext.GetOrCreateGeometry(exportableObject, &submeshMaterials, &manualLods, 0, exportableObject->objectSettings.GetExportMesh());
     if (!exportableObject->objectSettings.GetExportMesh() || geometryState != nullptr)
-    {    
+    {
         //Create exported entity
-        std::shared_ptr<FinjinSceneDocument_Entity> exportedEntity(new FinjinSceneDocument_Entity(&scene));        
+        std::shared_ptr<FinjinSceneDocument_Entity> exportedEntity(new FinjinSceneDocument_Entity(&scene));
         if (parentItems.AddAttachedObject(exportedEntity))
-        {   
+        {
             //Associate the exported object with the geometry that was used
             ExportedGeometry exportedGeometry(exportableObject, geometryState, &manualLods, finjinExporterContext.GetSceneSettings(), finjinExporterContext.GetSceneExportSettings());
             exportedEntity->meshRef = [this, exportableObject]()
             {
                 return this->sceneExportSettings.GetAssetReference(AssetClass::MESH, exportableObject);
             };
-            
+
             //Create subentities
             exportedEntity->subentities.resize(geometryState->submeshes.size());
             for (auto submesh : geometryState->submeshes)
@@ -315,7 +315,7 @@ void FinjinSceneExporterHandler::ExportEntity
                 {
                     exportedEntity->subentities[submesh->index].renderQueue = submesh->submeshProperties.renderQueueName;
                     exportedEntity->subentities[submesh->index].renderPriority = submesh->submeshProperties.renderPriority;
-                }                
+                }
             }
 
             //Create manual LODs
@@ -340,17 +340,17 @@ void FinjinSceneExporterHandler::ExportEntity
 
             //Various render settings
             finjinExporterContext.GetRenderableObjectSettings(exportedEntity.get(), exportableObject->object, exportableObject->objectSettings, this->sceneExportSettings.time, this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);
-            
+
             //Save data for later
             if (exportableObject->objectSettings.GetExportMesh())
                 finjinExporterContext.exportedGeometries.push_back(exportedGeometry);
         }
-    }    
+    }
 }
 
 void FinjinSceneExporterHandler::ExportSky
     (
-    FinjinSceneDocument& scene, 
+    FinjinSceneDocument& scene,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
@@ -374,14 +374,14 @@ void FinjinSceneExporterHandler::ExportSky
             finjinExporterContext.GenerateNodeAnimations(exportedSky.get(), exportableObject);
 
             finjinExporterContext.exportedGeometries.push_back(exportedGeometry);
-        }    
+        }
     }
 }
 
 void FinjinSceneExporterHandler::ExportPhysical
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneDocumentParentItems parentItems, 
+    FinjinSceneDocument& scene,
+    FinjinSceneDocumentParentItems parentItems,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
@@ -393,7 +393,7 @@ void FinjinSceneExporterHandler::ExportPhysical
 
 void FinjinSceneExporterHandler::ExportStaticGeometry
     (
-    FinjinSceneDocument& scene, 
+    FinjinSceneDocument& scene,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
@@ -414,7 +414,7 @@ void FinjinSceneExporterHandler::ExportStaticGeometry
     //Origin
     TransformAccessor transformation(exportableObject->GetFullWorldTransformation(this->sceneExportSettings.time), this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);
     exportedStaticGeometry->position = transformation.GetTranslation() * this->sceneExportSettings.scale;
-    
+
     //Dimensions
     FinjinVector3 size
         (
@@ -432,7 +432,7 @@ void FinjinSceneExporterHandler::ExportStaticGeometry
 
 void FinjinSceneExporterHandler::ExportInstancedGeometry
     (
-    FinjinSceneDocument& scene, 
+    FinjinSceneDocument& scene,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext
     )
@@ -441,7 +441,7 @@ void FinjinSceneExporterHandler::ExportInstancedGeometry
 
     std::shared_ptr<FinjinSceneDocument_InstancedGeometry> exportedInstancedGeometry(new FinjinSceneDocument_InstancedGeometry(&scene));
     scene.AddInstancedGeometry(exportedInstancedGeometry);
-    
+
     finjinExporterContext.GetRenderableObjectSettings(exportedInstancedGeometry.get(), exportableObject->object, exportableObject->objectSettings, this->sceneExportSettings.time, this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);
 
     //Cast shadows
@@ -458,7 +458,7 @@ void FinjinSceneExporterHandler::ExportInstancedGeometry
     //Origin
     TransformAccessor transformation(exportableObject->GetFullWorldTransformation(this->sceneExportSettings.time), this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);
     exportedInstancedGeometry->position = transformation.GetTranslation() * this->sceneExportSettings.scale;
-    
+
     //Dimensions
     FinjinVector3 size
         (
@@ -469,14 +469,14 @@ void FinjinSceneExporterHandler::ExportInstancedGeometry
     auto dimensions = size * this->sceneExportSettings.scale;
     this->sceneExportSettings.conversionManager.ConvertAbsoluteComponents(dimensions);
     exportedInstancedGeometry->dimensions.Set(dimensions.x, dimensions.y, dimensions.z);
-    
+
     TransformAccessor transformationNotConverted(exportableObject->GetFullWorldTransformation(this->sceneExportSettings.time));
-    ExportStaticAndInstancedGeometryEntities(scene, exportableObject, finjinExporterContext, exportedInstancedGeometry.get(), transformationNotConverted);    
+    ExportStaticAndInstancedGeometryEntities(scene, exportableObject, finjinExporterContext, exportedInstancedGeometry.get(), transformationNotConverted);
 }
 
 void FinjinSceneExporterHandler::ExportStaticAndInstancedGeometryEntities
     (
-    FinjinSceneDocument& scene, 
+    FinjinSceneDocument& scene,
     ExportableObject* exportableObject,
     FinjinSceneExporterContext& finjinExporterContext,
     FinjinSceneDocument_Item* exportedOwnerItem,
@@ -491,10 +491,10 @@ void FinjinSceneExporterHandler::ExportStaticAndInstancedGeometryEntities
         if (childExportableObject->detectedObjectType == &MeshObjectType::GetInstance())
         {
             //Mesh
-            MaterialAccessorVector submeshMaterials;            
+            MaterialAccessorVector submeshMaterials;
             auto geometryState = finjinExporterContext.GetOrCreateGeometry(childExportableObject, &submeshMaterials);
             if (geometryState != nullptr)
-            {   
+            {
                 //Exported entity
                 std::shared_ptr<FinjinSceneDocument_StaticAndInstancedGeometryEntity> exportedEntity(new FinjinSceneDocument_StaticAndInstancedGeometryEntity(&scene));
                 finjinExporterContext.GetItemSettings(exportedEntity.get(), exportableObject->object, exportableObject->objectSettings);
@@ -511,10 +511,10 @@ void FinjinSceneExporterHandler::ExportStaticAndInstancedGeometryEntities
                     auto materialName = this->sceneExportSettings.GetMaterialName(submeshMaterials[submeshMaterialIndex++]);//, submesh->submeshProperties.GetShaderRequirements());
                     exportedEntity->subentityMaterialNames.push_back(materialName);
                 }
-                
-                //Add position/rotation/scale    
+
+                //Add position/rotation/scale
                 TransformAccessor childTransformation(childExportableObject->GetFullWorldTransformation(this->sceneExportSettings.time), this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);
-                
+
                 //Transform
                 exportedEntity->transform = childTransformation;
             }
@@ -526,7 +526,7 @@ void FinjinSceneExporterHandler::ExportStaticAndInstancedGeometryEntities
 
 void FinjinSceneExporterHandler::ExportBoneAttachments
     (
-    FinjinSceneDocument& scene, 
+    FinjinSceneDocument& scene,
     FinjinSceneDocument_Entity* exportedEntity,
     ExportableObject* exportableObject,
     GeometryState* geometryState,
@@ -545,7 +545,7 @@ void FinjinSceneExporterHandler::ExportBoneAttachments
             std::shared_ptr<FinjinSceneDocument_BoneAttachment> exportedBoneAttachment(new FinjinSceneDocument_BoneAttachment(&scene));
 
             finjinExporterContext.GetItemSettings(exportedBoneAttachment.get(), exportableObject->object, exportableObject->objectSettings);
-            
+
             exportedEntity->AddBoneAttachment(exportedBoneAttachment);
 
             //Attachment name - needed only if there is no attached object
@@ -554,10 +554,10 @@ void FinjinSceneExporterHandler::ExportBoneAttachments
 
             //Bone name
             exportedBoneAttachment->boneName = boneAndAttachments.bone->object.GetLocalName();
-            
+
             //Transform
             exportedBoneAttachment->transform = attachedObject->GetConvertedLocalNodeTransformation(this->sceneExportSettings.time, this->sceneExportSettings.conversionManager, this->sceneExportSettings.scale);
-            
+
             //Object
             FinjinSceneDocumentParentItems parentItems;
             parentItems.object = exportedBoneAttachment.get();

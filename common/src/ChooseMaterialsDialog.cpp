@@ -27,80 +27,80 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ChooseMaterialsDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, ChooseMaterialsDialog::OnOK)    
+    EVT_BUTTON(wxID_OK, ChooseMaterialsDialog::OnOK)
     EVT_TEXT(ChooseMaterialsDialog::NAME_TEXT, ChooseMaterialsDialog::OnNameTextChanged)
     EVT_LISTBOX_DCLICK(ChooseMaterialsDialog::OBJECTS_LIST, ChooseMaterialsDialog::OnObjectsListDClick)
     EVT_CHECKBOX(ChooseMaterialsDialog::SHOW_FULL_NAMES_CHECKBOX, ChooseMaterialsDialog::OnShowFullNamesCheckBox)
     EVT_BUTTON(ChooseMaterialsDialog::SELECT_ALL_BUTTON, ChooseMaterialsDialog::OnSelectAllButton)
     EVT_BUTTON(ChooseMaterialsDialog::SELECT_NONE_BUTTON, ChooseMaterialsDialog::OnSelectNoneButton)
-    EVT_BUTTON(ChooseMaterialsDialog::SELECT_INVERT_BUTTON, ChooseMaterialsDialog::OnSelectInvertButton)    
+    EVT_BUTTON(ChooseMaterialsDialog::SELECT_INVERT_BUTTON, ChooseMaterialsDialog::OnSelectInvertButton)
 END_EVENT_TABLE()
 
-ChooseMaterialsDialog::ChooseMaterialsDialog(wxWindow* parent, bool singleSelection, wxWindowID id, const wxString& title, const wxPoint& pos) 
+ChooseMaterialsDialog::ChooseMaterialsDialog(wxWindow* parent, bool singleSelection, wxWindowID id, const wxString& title, const wxPoint& pos)
     : FinjinDialog( parent, id, !title.empty() ? title : (singleSelection ? wxString(wxT("Choose Material")) : wxString(wxT("Choose Materials"))), pos, wxSize( 380,456 ), wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER, wxT("ChooseMaterialsDialog"))
 {
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* nameSizer;
     nameSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     nameLabel = new wxStaticText( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
     nameLabel->Wrap( -1 );
     nameSizer->Add( nameLabel, 0, wxALL, 5 );
-    
+
     nameTextBox = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
     nameTextBox->SetMinSize( wxSize( 200,-1 ) );
-    
+
     nameSizer->Add( nameTextBox, 1, wxEXPAND|wxBOTTOM|wxLEFT|wxRIGHT, 5 );
-    
+
     topSizer->Add( nameSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* objectsListSizer;
     objectsListSizer = new wxBoxSizer( wxVERTICAL );
 
     showFullNamesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Show Full Names"), wxDefaultPosition, wxDefaultSize, 0 );
     objectsListSizer->Add( showFullNamesCheckbox, 0, wxLEFT|wxTOP, 5 );
     showFullNamesCheckbox->Show(ApplicationAccessor::UsesFullNames());
-    
+
     long selectionStyle = singleSelection ? wxLB_SINGLE : wxLB_MULTIPLE;
-    objectsListBox = new ApplicationListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_NEEDED_SB|selectionStyle ); 
+    objectsListBox = new ApplicationListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_NEEDED_SB|selectionStyle );
     objectsListBox->SetMinSize( wxSize( 200,250 ) );
-    
+
     objectsListSizer->Add( objectsListBox, 1, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( objectsListSizer, 1, wxEXPAND|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* buttonsSizer;
     buttonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     allButton = new wxButton( this, wxID_ANY, wxT("All"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( allButton, 0, wxALL, 5 );
-    
+
     noneButton = new wxButton( this, wxID_ANY, wxT("None"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( noneButton, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
-    
+
     invertButton = new wxButton( this, wxID_ANY, wxT("Invert"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( invertButton, 0, wxTOP|wxBOTTOM|wxRIGHT, 5 );
-    
+
     if (singleSelection)
         buttonsSizer->Show(false);
 
     topSizer->Add( buttonsSizer, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT, 5 );
 
     this->nameTextBox->SetId(NAME_TEXT);
@@ -109,12 +109,12 @@ ChooseMaterialsDialog::ChooseMaterialsDialog(wxWindow* parent, bool singleSelect
     this->allButton->SetId(SELECT_ALL_BUTTON);
     this->noneButton->SetId(SELECT_NONE_BUTTON);
     this->invertButton->SetId(SELECT_INVERT_BUTTON);
-    
+
     SetGUIData();
 
     this->SetSizer( topSizer );
     this->SetMinSize(wxSize(380, 456));
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         this->Layout();
@@ -127,7 +127,7 @@ ChooseMaterialsDialog::~ChooseMaterialsDialog()
 }
 
 void ChooseMaterialsDialog::SetGUIData()
-{       
+{
     //Get all materials
     MaterialAccessorVector materials;
     MaterialAccessor::GetAllMaterials(materials);
@@ -141,7 +141,7 @@ void ChooseMaterialsDialog::SetGUIData()
         choosableObject.object = materials[i];
         this->filteredSceneObjects.push_back(choosableObject);
     }
-    
+
     //Sort into alphabetical order
     std::sort(this->filteredSceneObjects.begin(), this->filteredSceneObjects.end());
 
@@ -164,7 +164,7 @@ void ChooseMaterialsDialog::FilterObjects(bool saveSelection)
 
     //Clear list box and filtered objects
     this->objectsListBox->Clear();
-    
+
     wxString nameFilter = this->nameTextBox->GetValue();
     nameFilter.MakeLower();
 
@@ -181,7 +181,7 @@ void ChooseMaterialsDialog::FilterObjects(bool saveSelection)
         {
             int insertedAt = this->objectsListBox->Append(useFullNames ? object.GetFullName() : object.GetLocalName());
             this->objectsListBox->SetClientData(insertedAt, &this->filteredSceneObjects[i]);
-        }        
+        }
     }
 
     if (saveSelection)

@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinSceneSettingsNode::Attributes FinjinSceneSettingsNode::attributes;
 std::list<MObject> FinjinSceneSettingsNode::attributesList;
 std::list<MObject> FinjinSceneSettingsNode::userDataAttributesList;
@@ -37,12 +37,12 @@ const MString FinjinSceneSettingsNode::TYPE_NAME("FinjinSceneSettingsNode");
 const MTypeId FinjinSceneSettingsNode::TYPE_ID(FinjinMayaTypeID::SCENE_SETTINGS_NODE);
 
 
-//Implementation---------------------------------------------------------------
-FinjinSceneSettingsNode::FinjinSceneSettingsNode() 
+//Implementation----------------------------------------------------------------
+FinjinSceneSettingsNode::FinjinSceneSettingsNode()
 {
 }
 
-FinjinSceneSettingsNode::~FinjinSceneSettingsNode() 
+FinjinSceneSettingsNode::~FinjinSceneSettingsNode()
 {
 }
 
@@ -58,13 +58,13 @@ void* FinjinSceneSettingsNode::Creator()
 
 MStatus FinjinSceneSettingsNode::AddAttributes()
 {
-    NodeAttributeAdder adder;      
+    NodeAttributeAdder adder;
     adder.hidden = false;
-    
+
     attributes.CreateUserDataAttributes(userDataAttributesList, adder);
 
     attributes.CreateExtendedValueAttributes(extendedValueAttributesList, adder);
-        
+
     attributesList.push_back(attributes.sceneManager = adder.AddString("SceneManager"));
     attributesList.push_back(attributes.exportEnvironment = adder.AddBool("ExportEnvironment", true));
     attributesList.push_back(attributes.ambientLightColor = adder.AddColor("AmbientLightColor", MColor(.33f, .33f, .33f)));
@@ -80,11 +80,11 @@ MStatus FinjinSceneSettingsNode::AddAttributes()
     attributesList.push_back(attributes.fogStart = adder.AddFloat("FogStart"));
     attributesList.push_back(attributes.fogEnd = adder.AddFloat("FogEnd", 1));
     attributesList.push_back(attributes.fogColor = adder.AddColor("FogColor"));
-    
+
     attributesList.push_back(attributes.shadowTechnique = adder.AddString("ShadowTechnique"));
     attributesList.push_back(attributes.shadowColor = adder.AddColor("ShadowColor"));
     attributesList.push_back(attributes.shadowFarDistance = adder.AddFloat("ShadowFarDistance"));
-        
+
     attributesList.push_back(attributes.sceneScaleUnit = adder.AddString("SceneScaleUnit"));
     attributesList.push_back(attributes.sceneScaleDivide = adder.AddFloat("SceneScaleDivide", 1.0));
 
@@ -98,12 +98,12 @@ MStatus FinjinSceneSettingsNode::AddAttributes()
     attributesList.push_back(attributes.skeletonAnimationSampleType = adder.AddInt("SkeletonAnimationSampleType", (int)SampleType::USE_PARENT));
     attributesList.push_back(attributes.vertexAnimationSampleInterval = adder.AddDouble("VertexAnimationSampleInterval"));
     attributesList.push_back(attributes.vertexAnimationSampleType = adder.AddInt("VertexAnimationSampleType", (int)SampleType::USE_PARENT));
-    
+
     attributesList.push_back(attributes.exportMeshes = adder.AddBool("ExportMeshes", true));
     attributesList.push_back(attributes.disallowedMeshes = adder.AddObjectReferenceArray("DisallowedMeshes"));
     attributesList.push_back(attributes.exportVertexColors = adder.AddBool("ExportVertexColors", true));
     attributesList.push_back(attributes.submeshNaming = adder.AddString("SubmeshNaming"));
-    attributesList.push_back(attributes.submeshCustomName = adder.AddString("SubmeshCustomName"));    
+    attributesList.push_back(attributes.submeshCustomName = adder.AddString("SubmeshCustomName"));
     attributesList.push_back(attributes.convertBitmapsToTextures = adder.AddBool("ConvertBitmapsToTextures", false));
     attributesList.push_back(attributes.exportTangents = adder.AddBool("ExportTangents", true));
     attributesList.push_back(attributes.exportBinormals = adder.AddBool("ExportBinormals"));
@@ -112,7 +112,7 @@ MStatus FinjinSceneSettingsNode::AddAttributes()
     attributesList.push_back(attributes.animateBoundingVolumes = adder.AddBool("AnimateBoundingVolumes"));
     attributesList.push_back(attributes.vertexColorFormat = adder.AddString("VertexColorFormat"));
     attributesList.push_back(attributes.useExplicitVertexColor = adder.AddBool("UseExplicitVertexColor"));
-    
+
     attributesList.push_back(attributes.exportMaterials = adder.AddBool("ExportMaterials", true));
     attributesList.push_back(attributes.additionalMaterials = adder.AddObjectReferenceArray("AdditionalMaterials"));
     attributesList.push_back(attributes.disallowedMaterials = adder.AddObjectReferenceArray("DisallowedMaterials"));
@@ -128,7 +128,7 @@ MStatus FinjinSceneSettingsNode::AddAttributes()
 
     attributesList.push_back(attributes.exportFlags = adder.AddBool("ExportFlags", true));
     attributesList.push_back(attributes.flagNames = adder.AddStringArray("FlagNames"));
-    
+
     attributesList.push_back(attributes.resourcesChanged = adder.AddInt("ResourcesChangedCounterPassNotification"));
 
     attributesList.push_back(attributes.objectSettings = FinjinObjectSettingsAccessor::CreateObjectSettingsArrayAttribute(adder, "ObjectSettings"));
@@ -146,14 +146,14 @@ MObject FinjinSceneSettingsNode::GetSceneSettings(bool createIfNecessary, bool* 
     iteratorType.setObjectType(MIteratorType::kMObject);
     MItDependencyNodes nodeIterator(iteratorType);
     for (; !nodeIterator.isDone(); nodeIterator.next())
-    {            
+    {
         MFnDependencyNode nodeFn(nodeIterator.item());
         if (nodeFn.typeId() == TYPE_ID)
         {
             //Found scene settings
             sceneSettingsNode = nodeIterator.item();
             break;
-        }            
+        }
     }
 
     //Create scene settings node if it doesn't exist
@@ -188,7 +188,7 @@ MObject FinjinSceneSettingsNode::GetSceneSettingsByIndex(int index)
     iteratorType.setObjectType(MIteratorType::kMObject);
     MItDependencyNodes nodeIterator(iteratorType);
     for (; !nodeIterator.isDone(); nodeIterator.next())
-    {            
+    {
         MFnDependencyNode nodeFn(nodeIterator.item());
         if (nodeFn.typeId() == TYPE_ID)
         {
@@ -198,7 +198,7 @@ MObject FinjinSceneSettingsNode::GetSceneSettingsByIndex(int index)
                 sceneSettingsNode = nodeIterator.item();
                 break;
             }
-        }            
+        }
     }
 
     return sceneSettingsNode;

@@ -27,11 +27,11 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MayaUtilities::GetLocalMeshIndices
     (
-    MIntArray& localIndex, 
-    const MIntArray& faceIndices, 
+    MIntArray& localIndex,
+    const MIntArray& faceIndices,
     const MIntArray& triangleIndices
     )
 {
@@ -50,7 +50,7 @@ void MayaUtilities::GetLocalMeshIndices
             }
         }
 
-        localIndex.append(value);        
+        localIndex.append(value);
     }
 }
 
@@ -84,7 +84,7 @@ bool MayaUtilities::IsStandardViewportCamera(MObject obj)
             name == "bottomShape" ||
             name == "leftShape" ||
             name == "frontShape" ||
-            name == "backShape";    
+            name == "backShape";
     }
     else
         return false;
@@ -105,7 +105,7 @@ MObject MayaUtilities::GetParent(MObject obj)
     MObject parent;
 
     //Try to get the first non-intermediate parent transform
-    MFnDagNode dagNode(obj);    
+    MFnDagNode dagNode(obj);
     unsigned int parentCount = dagNode.parentCount();
     for (unsigned int i = 0; i < parentCount; i++)
     {
@@ -117,7 +117,7 @@ MObject MayaUtilities::GetParent(MObject obj)
             break;
         }
     }
-    
+
     if (parentCount > 0)
         parent = dagNode.parent(0);
 
@@ -128,7 +128,7 @@ MObject MayaUtilities::GetObjectByName(const MString& name)
 {
     MSelectionList selection;
     selection.add(name);
-    
+
     MObject object;
     MDagPath dagPath;
     if (selection.getDagPath(0, dagPath) == MStatus::kSuccess)
@@ -149,24 +149,24 @@ bool MayaUtilities::IsEmptyMeshOrCurve(MObject obj)
         MFnNurbsSurface nurbsSurface(obj);
         MObject tesselatedMeshTransform = nurbsSurface.tesselate();
         tesselatedMeshTransformNode.setObject(tesselatedMeshTransform);
-        meshObject = tesselatedMeshTransformNode.child(0);        
+        meshObject = tesselatedMeshTransformNode.child(0);
     }
     else if (obj.hasFn(MFn::kMesh))
-        meshObject = obj;        
+        meshObject = obj;
     else if (obj.hasFn(MFn::kNurbsCurve))
         nurbsCurve.setObject(obj);
 
     auto isEmpty = true;
     if (!meshObject.isNull())
     {
-        mesh.setObject(meshObject);                
-        isEmpty = mesh.numVertices() == 0 || mesh.numPolygons() == 0;                
-    }    
+        mesh.setObject(meshObject);
+        isEmpty = mesh.numVertices() == 0 || mesh.numPolygons() == 0;
+    }
     else if (!nurbsCurve.object().isNull())
     {
         MPointArray controlPoints;
         nurbsCurve.getCVs(controlPoints);
-        isEmpty = controlPoints.length() == 0;        
+        isEmpty = controlPoints.length() == 0;
     }
 
     //Delete the tesselated mesh if necessary
@@ -201,11 +201,11 @@ bool MayaUtilities::IsPlane(MObject obj, std::vector<MPlug>* axisPlugs)
                     (*axisPlugs)[1] = depNode.findPlug("axisY");
                     (*axisPlugs)[2] = depNode.findPlug("axisZ");
                 }
-                return true;        
+                return true;
             }
         }
     }
-    
+
     //See if it's a polygon plane
     //Make sure it's not a cube because the way we're testing for polygon planes passes for cubes
     MString fullName = dagNode.fullPathName();
@@ -229,7 +229,7 @@ bool MayaUtilities::IsPlane(MObject obj, std::vector<MPlug>* axisPlugs)
                     (*axisPlugs)[2] = depNode.findPlug("axisZ");
                 }
                 return true;
-            }            
+            }
         }
     }
 
@@ -251,7 +251,7 @@ bool MayaUtilities::IsSphereMesh(MObject obj)
             {
                 MFn::Type type = inputs[i].node().apiType();
                 if (type == MFn::kPolySphere || type == MFn::kSphere)
-                    return true;        
+                    return true;
             }
         }
     }
@@ -271,7 +271,7 @@ bool MayaUtilities::IsCubeMesh(MObject obj)
         {
             MFn::Type type = inputs[i].node().apiType();
             if (type == MFn::kPolyCube)
-                return true;        
+                return true;
         }
     }
 
@@ -380,7 +380,7 @@ bool MayaUtilities::GetSphereRadiusAndSegmentCount(float& radius, FinjinIVector2
 bool MayaUtilities::GetBoxSize(FinjinVector3& size, MObject object)
 {
     size.Zero();
-    
+
     MObject inMeshAttribute = MFnDagNode(object).attribute("inMesh");
     if (!inMeshAttribute.isNull())
     {
@@ -400,7 +400,7 @@ bool MayaUtilities::GetBoxSize(FinjinVector3& size, MObject object)
             }
         }
     }
-    
+
     return !size.IsZero();
 }
 
@@ -436,7 +436,7 @@ bool MayaUtilities::GetCylinderRadiusAndLength(float& radius, float& length, MOb
             }
         }
     }
-    
+
     return radius > 0 && length > 0;
 }
 
@@ -469,17 +469,17 @@ bool MayaUtilities::GetFullWorldMatrix(MObject& object, MMatrix& worldMatrix)
     {
         MTransformationMatrix pivotMatrix = MTransformationMatrix::identity;
         pivotMatrix.setTranslation(GetPivotPoint(object), SET_TRANSLATION_SPACE);
-        
+
         worldMatrix = worldMatrix * pivotMatrix.asMatrix();
     }*/
-    
+
     return true;
 }
 
 MVector MayaUtilities::GetPivotPoint(MObject obj, TimeAccessor time)
 {
     TimeChanger timeChanger(time);
-    return GetPivotPoint(obj);    
+    return GetPivotPoint(obj);
 }
 
 static FinjinVector3 GetLocalPivot(MObject obj)
@@ -517,22 +517,22 @@ static MObject GetContainerChildWithFn(MObject container, MFn::Type type)
 
     return MObject();
 }
-    
+
 static bool GetConstraintTargets(MObject constraint, MObjectArray& targets)
-{     
-    MFnDependencyNode depNode(constraint); 
+{
+    MFnDependencyNode depNode(constraint);
     MPlug targetArrayPlug = depNode.findPlug("target");
-    for (unsigned int i = 0; i < targetArrayPlug.numElements(); i++) 
+    for (unsigned int i = 0; i < targetArrayPlug.numElements(); i++)
     {
         MPlug targetPlug = targetArrayPlug[i];
-        
+
         //Get the first input to the first valid child plug
         for (unsigned int childIndex = 0; childIndex < targetPlug.numChildren(); childIndex++)
         {
             MPlug childPlug = targetPlug.child(childIndex);
             MPlugArray inputs;
             childPlug.connectedTo(inputs, true, false);
-            if (inputs.length() > 0) 
+            if (inputs.length() > 0)
             {
                 targets.append(inputs[0].node());
                 break;
@@ -562,7 +562,7 @@ bool MayaUtilities::GetAimTarget(MObject obj, AimTarget& aimTarget)
             GetConstraintTargets(aimConstraint, targets);
         }
     }
-    
+
     //If no target found yet, try to find the the target from the actual constraint
     if (targets.length() == 0)
     {
@@ -593,8 +593,8 @@ MMatrix MayaUtilities::InverseTranspose(const MMatrix& m)
 }
 
 MObject MayaUtilities::GetBestMaterial(MObject shader)
-{    
-    return shader;    
+{
+    return shader;
 }
 
 float MayaUtilities::GetActiveScale()

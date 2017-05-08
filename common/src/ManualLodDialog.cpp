@@ -29,13 +29,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ManualLodDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, ManualLodDialog::OnOK)    
+    EVT_BUTTON(wxID_OK, ManualLodDialog::OnOK)
     EVT_BUTTON(ManualLodDialog::MESH_BUTTON, ManualLodDialog::OnMeshButton)
 END_EVENT_TABLE()
 
-ManualLodDialog::ManualLodDialog(wxWindow* parent, const wxString& title, ObjectAccessor baseObject, ObjectAccessor object, float distance, ObjectAccessorSet* excludedLodObjects, bool autoDistance) : 
+ManualLodDialog::ManualLodDialog(wxWindow* parent, const wxString& title, ObjectAccessor baseObject, ObjectAccessor object, float distance, ObjectAccessorSet* excludedLodObjects, bool autoDistance) :
     FinjinDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize( 319,124 ), wxDEFAULT_DIALOG_STYLE, wxT("ManualLodDialog"))
 {
     this->baseObject = baseObject;
@@ -46,62 +46,62 @@ ManualLodDialog::ManualLodDialog(wxWindow* parent, const wxString& title, Object
     this->autoDistance = autoDistance;
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxFlexGridSizer* gridSizer;
     gridSizer = new wxFlexGridSizer( 2, 2, 0, 0 );
     gridSizer->SetFlexibleDirection( wxBOTH );
     gridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     objectLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Object"), wxDefaultPosition, wxDefaultSize, 0 );
     objectLabel->Wrap( -1 );
     gridSizer->Add( objectLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     wxBoxSizer* nodeSizer;
     nodeSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     objectEdit = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 160,-1 ), wxTE_READONLY );
-    
+
     nodeSizer->Add( objectEdit, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     objectButton = new wxButton( this, wxID_ANY, wxT("Choose..."), wxDefaultPosition, wxDefaultSize, 0 );
     nodeSizer->Add( objectButton, 0, wxTOP|wxRIGHT, 5 );
-    
+
     gridSizer->Add( nodeSizer, 1, wxEXPAND, 5 );
-    
+
     distanceLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Distance"), wxDefaultPosition, wxDefaultSize, 0 );
     distanceLabel->Wrap( -1 );
     gridSizer->Add( distanceLabel, 0, wxALL, 5 );
-    
+
     wxBoxSizer* distanceSizer;
     distanceSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     distanceSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(90, -1), 0, 0, FINJIN_EXPORTER_DEFAULT_MAX_DISTANCE, SpinnerControl::WORLD_UNIT, 2);
     distanceSizer->Add( distanceSpinner, 0, wxTOP|wxRIGHT|wxLEFT|wxALIGN_CENTER_VERTICAL, 5 );
-    
+
     gridSizer->Add( distanceSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( gridSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     SetSizer(topSizer);
 
     this->objectButton->SetId(MESH_BUTTON);
 
     SetGUIData();
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -136,7 +136,7 @@ void ManualLodDialog::OnOK(wxCommandEvent& event)
     WindowPlacementManager::SavePlacement(this);
 
     this->distance = this->distanceSpinner->GetValue();
-    
+
     if (!this->object.IsValid())
         Dialogs::ShowMessage(this, Strings::OBJECT_REQUIRED, Strings::DATA_ENTRY_ERROR, wxINFORMATION_DIALOG_FLAGS);
     else
@@ -150,5 +150,5 @@ void ManualLodDialog::OnMeshButton(wxCommandEvent& event)
     {
         this->object = choose.GetObject();
         SetGUIData();
-    }    
+    }
 }

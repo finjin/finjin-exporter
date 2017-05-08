@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ApplicationControls.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
      * A base directory is used when determining the relative location of other directories.
-     * This class provides a lot of common functionality when dealing with base directories, 
+     * This class provides a lot of common functionality when dealing with base directories,
      * including setting values into user interface controls.
      */
     class BaseDirectory
@@ -69,19 +69,19 @@ namespace Finjin { namespace Exporter {
          * with a call to SetGUIData().
          */
         BaseDirectory(wxChoice* baseDirectoryTypeChoice, ApplicationTextCtrl* baseDirectoryText);
-        
+
         /** Gets the custom directory. This may be empty. */
         const wxString& GetCustomDirectory() const;
-        
+
         /** Gets the actual base resource directory, whether it be a project, custom, or application directory. */
         const wxString& GetBaseDirectory() const;
-        
+
         /** Gets the base resource directory type supported by the application. */
         Type GetSupportedType() const;
 
         void GetGUIData(Type& type, wxString& directory);
 
-        /** 
+        /**
          * Sets the base directory info into the specified user interface controls.
          * @param baseDirectoryTypeChoice [in] - A wxChoice control that is filled with the valid choices
          * and has the relevant choice selected.
@@ -93,7 +93,7 @@ namespace Finjin { namespace Exporter {
 
         static wxString ToString(Type type);
         static Type ParseType(const wxString& s);
-        
+
         /**
          * The values set into the wxChoice control with a call to SetClientData().
          */

@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "ObjectFilterType.hpp"
 #include "FilteredSceneObjects.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A dialog that displays objects and allows the user to select them
      * This is needed in Maya and XSI since they don't have such a dialog.
      */
@@ -36,7 +36,7 @@ namespace Finjin { namespace Exporter {
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* nameLabel;
         ApplicationTextCtrl* nameTextBox;
@@ -52,20 +52,20 @@ namespace Finjin { namespace Exporter {
         wxButton* invertButton;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         ChooseObjectsDialog
             (
-            wxWindow* parent, 
-            bool singleSelection = true, 
-            ObjectFilterType types = ObjectFilterType::ALL, 
+            wxWindow* parent,
+            bool singleSelection = true,
+            ObjectFilterType types = ObjectFilterType::ALL,
             const ObjectAccessorSet* chooseObjects = nullptr,
             const ObjectAccessorSet* excludeObjects = nullptr,
-            wxWindowID id = wxID_ANY, 
-            const wxString& title = wxEmptyString, 
+            wxWindowID id = wxID_ANY,
+            const wxString& title = wxEmptyString,
             const wxPoint& pos = wxDefaultPosition
             );
-        ~ChooseObjectsDialog();        
+        ~ChooseObjectsDialog();
 
         enum
         {
@@ -105,7 +105,7 @@ namespace Finjin { namespace Exporter {
         ObjectAccessorVector chosenObjects;
 
     private:
-        FilteredSceneObjects filteredSceneObjects;        
+        FilteredSceneObjects filteredSceneObjects;
     };
 
 } }

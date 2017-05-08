@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static wxString GetIndentString(int indent, const wxString& oneIndent = wxT("     "))
 {
     wxString result;
@@ -33,12 +33,12 @@ static wxString GetIndentString(int indent, const wxString& oneIndent = wxT("   
 }
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 Logger::Listeners Logger::listeners;
 LogMessageType LogListener::DEFAULT_LOG_LEVEL = INFO_LOG_MESSAGE;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //LogListener
 LogListener::LogListener(LogMessageType logLevel)
@@ -95,7 +95,7 @@ void Logger::LogMessage(LogMessageType type, const wxChar* format, ...)
         FINJIN_EXPORTER_FORMAT_STRING_VA(message, format);
         LogMessage(type, message);
     }
-}    
+}
 
 void Logger::LogMessage(LogMessageType type, const wxString& message)
 {
@@ -107,7 +107,7 @@ void Logger::LogMessage(LogMessageType type, const wxString& message)
             listener->LogMessage(type, indentedMessage);
         }
     }
-}    
+}
 
 void Logger::LogResults(LogMessageType type, const wxArrayString& results, const wxString& heading)
 {
@@ -149,7 +149,7 @@ void Logger::Unindent()
         if (listener->indent > 0)
             listener->indent--;
     }
-    
+
 }
 
 void Logger::Indent(LogMessageType type)
@@ -158,7 +158,7 @@ void Logger::Indent(LogMessageType type)
     {
         if (listener->CanHandle(type))
             listener->indent++;
-    }    
+    }
 }
 
 void Logger::Unindent(LogMessageType type)
@@ -168,7 +168,7 @@ void Logger::Unindent(LogMessageType type)
         if (listener->CanHandle(type) && listener->indent > 0)
             listener->indent--;
     }
-    
+
 }
 
 bool Logger::CanHandle(LogMessageType type)
@@ -184,7 +184,7 @@ bool Logger::CanHandle(LogMessageType type)
 
 void Logger::AddListener(LogListener* listener)
 {
-    if (listener != nullptr && 
+    if (listener != nullptr &&
         std::find(listeners.begin(), listeners.end(), listener) == listeners.end())
     {
         listeners.push_back(listener);

@@ -19,18 +19,18 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 #include "MaterialAccessor.hpp"
 #include "FinjinColor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
      * A single extended value, which can actually contain an array of values.
-     * 
+     *
      * @see ExtendedValueAccessor
      */
     class ExtendedValueBase
@@ -66,7 +66,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the extended value's type. */
         Type GetType() const;
-        
+
         /** Gets the type formatted as a string. */
         wxString GetTypeString() const;
 
@@ -117,7 +117,7 @@ namespace Finjin { namespace Exporter {
         void Set(const MaterialAccessor* values, int count);
         void Set(const std::vector<MaterialAccessor>& values);
 
-        /** 
+        /**
          * Converts the extended value to a string. This is useful for debugging.
          * @param addPrefix [in] - Indicates whether string containing the type and value count should be prepended.
          * @return A formatted value string is returned.
@@ -133,7 +133,7 @@ namespace Finjin { namespace Exporter {
         int count;
 
         std::vector<float> floats;
-        std::vector<wxString> strings;        
+        std::vector<wxString> strings;
         std::vector<ObjectAccessor> objects;
         std::vector<MaterialAccessor> materials;
     };

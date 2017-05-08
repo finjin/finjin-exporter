@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class GlobalSettingsDialog_UserDataClassPage : public SettingsPage
     {
     private:
@@ -36,16 +36,16 @@ namespace Finjin { namespace Exporter {
         ~GlobalSettingsDialog_UserDataClassPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
-        
+
     protected:
         void OnBaseDirectoryChoice(wxCommandEvent& event);
         void OnBaseDirectoryButton(wxCommandEvent& event);
         void OnAddDirectoryButton(wxCommandEvent& event);
         void OnAddFileButton(wxCommandEvent& event);
-        
+
         void UpdateBaseDirectoryControls();
 
         enum
@@ -53,9 +53,9 @@ namespace Finjin { namespace Exporter {
             BASE_DIRECTORY_CHOICE,
             BASE_DIRECTORY_BUTTON,
             ADD_DIRECTORY_BUTTON,
-            ADD_FILE_BUTTON            
+            ADD_FILE_BUTTON
         };
-        
+
     protected:
         wxString currentCustomDirectory;
 
@@ -66,7 +66,7 @@ namespace Finjin { namespace Exporter {
         wxStaticText* resourceLocationsDescriptionLabel;
         ApplicationTextCtrl* resourceLocationsText;
         wxButton* addDirectoryButton;
-        wxButton* addFileButton;        
+        wxButton* addFileButton;
     };
 
 } }

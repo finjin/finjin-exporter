@@ -27,16 +27,16 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 double FinjinNodeAnimationSettingsAccessorBase::GetRealTimeScale()
 {
-    return AnimationUtilities::GetRealTimeScale(GetTimeScaleType(), GetTimeScale(), GetTimeInterval());    
+    return AnimationUtilities::GetRealTimeScale(GetTimeScaleType(), GetTimeScale(), GetTimeInterval());
 }
 
 void FinjinNodeAnimationSettingsAccessorBase::GetSampleTypeAndIntervalValues
     (
-    SampleType& sampleType, 
-    double& sampleInterval, 
+    SampleType& sampleType,
+    double& sampleInterval,
     FinjinObjectSettingsAccessorBase& objectSettings,
     FinjinSceneSettingsAccessorBase& sceneSettings
     )
@@ -59,7 +59,7 @@ void FinjinNodeAnimationSettingsAccessorBase::GetSampleTypeAndIntervalValues
                 sampleType = globalSettings.nodeAnimationSampleType;
                 sampleInterval = globalSettings.nodeAnimationSampleInterval;
             }
-        }        
+        }
     }
 }
 

@@ -19,22 +19,22 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectFilterType.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Prompts the user to choose one or more objects. 
+    /**
+     * Prompts the user to choose one or more objects.
      * This prompt uses the 3DS Max object selection dialog.
      */
     class ChooseObjectsPromptMax
     {
     public:
-        /** 
+        /**
          * Initializes the prompt.
          * @param parent [in] - The parent window.
          * @param howMany [in] - The number of objects that can be chosen.
@@ -44,16 +44,16 @@ namespace Finjin { namespace Exporter {
          */
         ChooseObjectsPromptMax
             (
-            wxWindow* parent, 
-            HowMany howMany = HowMany::CHOOSE_MANY, 
-            ObjectFilterType types = ObjectFilterType::ALL, 
+            wxWindow* parent,
+            HowMany howMany = HowMany::CHOOSE_MANY,
+            ObjectFilterType types = ObjectFilterType::ALL,
             const ObjectAccessorSet* chooseObjects = nullptr,
             const ObjectAccessorSet* excludeObjects = nullptr
             );
-        
-        /** 
+
+        /**
          * Shows the dialog.
-         * @return If the user selects at least one object, true is returned. 
+         * @return If the user selects at least one object, true is returned.
          * Otherwise, false is returned.
          */
         bool ShowPrompt();
@@ -67,7 +67,7 @@ namespace Finjin { namespace Exporter {
     private:
 
         /** Callback used by 3DS Max when determining which objects to show. */
-        class SelectObjectCallback : public HitByNameDlgCallback 
+        class SelectObjectCallback : public HitByNameDlgCallback
         {
         public:
             SelectObjectCallback(ChooseObjectsPromptMax* prompt) {this->prompt = prompt;}

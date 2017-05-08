@@ -38,14 +38,14 @@
 using namespace Finjin::Exporter;
 
 
-//Local values-----------------------------------------------------------------
+//Local values------------------------------------------------------------------
 static const Class_ID MORPHER_MODIFIER_CLASS_ID(0x17bb6854, 0xa5cba2a3);
 static const Class_ID MAYBE_OLD_SKIN_CLASS_ID(0, 0); //(0x68477bb4, 0x28cf6b86) //Old skin class ID? Commented out in Max 9 SDK iskin.h
-static const Class_ID CURRENT_SKIN_CLASS_ID(9815843, 87654); //Defined value for SKIN_CLASSID in Max 9 SDK iskin.h        
+static const Class_ID CURRENT_SKIN_CLASS_ID(9815843, 87654); //Defined value for SKIN_CLASSID in Max 9 SDK iskin.h
 static const Class_ID XFORM_CLASS_ID(0x25215824, 0); //Modifier created when using the "Reset Xform" utility
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static MSTR FixParameterName(const MCHAR* name)
 {
     wxString fixedName(name);
@@ -61,21 +61,21 @@ void AddKeyTimesTemplate(IKeyControl* ikeys, std::vector<TimeValue>& keyTimes)
     T key;
     int keyCount = ikeys->GetNumKeys();
     for (int keyIndex = 0; keyIndex < keyCount; keyIndex++)
-    {        
+    {
         ikeys->GetKey(keyIndex, &key);
         if (std::find(keyTimes.begin(), keyTimes.end(), key.time) == keyTimes.end())
             keyTimes.push_back(key.time);
     }
 }
 
-static Box3 ComputeBBox(INode* node, bool transform = false, TimeValue t = -1) 
-{ 
+static Box3 ComputeBBox(INode* node, bool transform = false, TimeValue t = -1)
+{
     Box3 box;
 
     if (t < 0)
-        t = GetCOREInterface()->GetTime(); 
+        t = GetCOREInterface()->GetTime();
 
-    auto obj = node->EvalWorldState(t).obj;   
+    auto obj = node->EvalWorldState(t).obj;
 
     //Get the scale transform if necessary
     Matrix3 sclMat(1);
@@ -83,36 +83,36 @@ static Box3 ComputeBBox(INode* node, bool transform = false, TimeValue t = -1)
     {
         Matrix3 mat;
 
-        //Determine if the object is in world space or object space 
-        //so we can get the correct TM. We can check this by getting 
-        //the Object TM after the world space modifiers have been 
-        //applied. It the matrix returned is the identity matrix the 
-        //points of the object have been transformed into world space. 
-        if (node->GetObjTMAfterWSM(t).IsIdentity()) 
-        { 
-           //It's in world space, so put it back into object 
-           //space. We can do this by computing the inverse 
-           //of the matrix returned before any world space 
-           //modifiers were applied. 
-            mat = Inverse(node->GetObjTMBeforeWSM(t)); 
-        } 
+        //Determine if the object is in world space or object space
+        //so we can get the correct TM. We can check this by getting
+        //the Object TM after the world space modifiers have been
+        //applied. It the matrix returned is the identity matrix the
+        //points of the object have been transformed into world space.
+        if (node->GetObjTMAfterWSM(t).IsIdentity())
+        {
+           //It's in world space, so put it back into object
+           //space. We can do this by computing the inverse
+           //of the matrix returned before any world space
+           //modifiers were applied.
+            mat = Inverse(node->GetObjTMBeforeWSM(t));
+        }
         else
-        { 
-            //It's in object space, get the Object TM. 
-            mat = node->GetObjectTM(t); 
-        }  
+        {
+            //It's in object space, get the Object TM.
+            mat = node->GetObjectTM(t);
+        }
 
-        //Extract just the scaling part from the TM 
-        AffineParts parts; 
-        decomp_affine(mat, &parts); 
-        ApplyScaling(sclMat, ScaleValue(parts.k * parts.f, parts.u));   
+        //Extract just the scaling part from the TM
+        AffineParts parts;
+        decomp_affine(mat, &parts);
+        ApplyScaling(sclMat, ScaleValue(parts.k * parts.f, parts.u));
     }
 
-    //Get the bound box, and affect it by just 
-    //the scaling portion 
-    obj->GetDeformBBox(t, box, &sclMat);   
+    //Get the bound box, and affect it by just
+    //the scaling portion
+    obj->GetDeformBBox(t, box, &sclMat);
 
-    return box;   
+    return box;
 }
 
 static float GetUSFractionalScale(int type)
@@ -133,7 +133,7 @@ static float GetUSFractionalScale(int type)
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 wxString MaxUtilities::GetPropertyString(int propertySet, PROPID propid)
 {
     wxString propString;
@@ -141,8 +141,8 @@ wxString MaxUtilities::GetPropertyString(int propertySet, PROPID propid)
     PROPSPEC propSpec;
     propSpec.ulKind = PRSPEC_PROPID;
     propSpec.propid = propid;
-    int index = GetCOREInterface()->FindProperty(propertySet, &propSpec);    
-    if (index != -1) 
+    int index = GetCOREInterface()->FindProperty(propertySet, &propSpec);
+    if (index != -1)
     {
         auto prop = GetCOREInterface()->GetPropertyVariant(propertySet, index);
         if (prop != nullptr)
@@ -162,7 +162,7 @@ wxString MaxUtilities::GetPropertyString(int propertySet, PROPID propid)
     PROPSPEC propSpec;
     propSpec.ulKind = PRSPEC_PROPID;
     propSpec.propid = propid;
-    
+
     PROPVARIANT prop;
     prop.vt = VT_LPSTR;
     MSTR maxValue = WxStringToApplicationStringM(value);
@@ -176,7 +176,7 @@ wxString MaxUtilities::GetSceneSummaryInfo()
     //The scene summary information appears in two places in 3DS Max:
     // 1)File->Summary Info...->Description
     // 2)File->File Properties->Summary->Comments
-    
+
     return GetPropertyString(PROPSET_SUMMARYINFO, PIDSI_COMMENTS);
 }
 
@@ -200,17 +200,17 @@ bool MaxUtilities::ContainsClassID(const Class_ID* classIDs, int classIDCount, C
 Modifier* MaxUtilities::FindModifier(INode* node, const Class_ID* classIDs, int cidCount)
 {
     //Get object from node. Abort if no object.
-    if (node == nullptr) 
+    if (node == nullptr)
         return nullptr;
 
     auto obj = node->GetObjectRef();
     while (obj != nullptr  && obj->SuperClassID() == GEN_DERIVOB_CLASS_ID)
     {
         auto derivedObj = static_cast<IDerivedObject*>(obj);
-            
+
         //Iterate over all entries of the modifier stack.
         int modStackIndex = 0;
-        
+
         while (modStackIndex < derivedObj->NumModifiers())
         {
             //Get current modifier
@@ -247,8 +247,8 @@ bool MaxUtilities::VerifyMeshModifierStack(INode* node)
     auto obj = node->GetObjectRef();
     while (obj != nullptr  && obj->SuperClassID() == GEN_DERIVOB_CLASS_ID)
     {
-        auto derivedObj = static_cast<IDerivedObject*>(obj);            
-        int modStackIndex = 0;        
+        auto derivedObj = static_cast<IDerivedObject*>(obj);
+        int modStackIndex = 0;
         while (modStackIndex < derivedObj->NumModifiers())
         {
             auto modifier = derivedObj->GetModifier(modStackIndex);
@@ -288,7 +288,7 @@ bool MaxUtilities::VerifyMeshModifierStack(INode* node)
                 result = false;
             }
             else
-                morpherFoundAt = (int)i;            
+                morpherFoundAt = (int)i;
         }
     }
 
@@ -301,7 +301,7 @@ bool MaxUtilities::VerifyMeshModifierStack(INode* node)
             {
                 FINJIN_EXPORTER_LOG_MESSAGE(ERROR_LOG_MESSAGE, wxT("'%s' has a Skin/Physique modifier and a Morpher modifier, but Skin/Physique modifier is not above the Morpher modifier."), objectName.wx_str());
                 result = false;
-            }            
+            }
         }
     }
 
@@ -347,7 +347,7 @@ bool MaxUtilities::IsBipedBone(INode* node)
     Control* control = node->GetTMController();
     if (control != nullptr)
     {
-        isBipedBone =  
+        isBipedBone =
             control->ClassID() == BIPSLAVE_CONTROL_CLASS_ID ||
             control->ClassID() == BIPBODY_CONTROL_CLASS_ID;
     }
@@ -389,7 +389,7 @@ INode* MaxUtilities::FindRootmostBipedBone(INode* bone)
 {
     while (bone->GetParentNode() != nullptr && IsBipedBone(bone->GetParentNode()))
         bone = bone->GetParentNode();
-    
+
     return bone;
 }
 
@@ -399,7 +399,7 @@ INode* MaxUtilities::FindBipedRootBone(INode* node, bool& usesPhysiqueModifier)
     usesPhysiqueModifier = false;
 
     auto physiqueModifier = FindPhysiqueModifier(node);
-    auto skinModifier = FindSkinModifier(node);    
+    auto skinModifier = FindSkinModifier(node);
 
     if (physiqueModifier != nullptr)
     {
@@ -415,20 +415,20 @@ INode* MaxUtilities::FindBipedRootBone(INode* node, bool& usesPhysiqueModifier)
             auto vertexExport = physiqueContextExport->GetVertexInterface(vertexIndex);
 
             if (vertexExport != nullptr)
-            {                
+            {
                 if (vertexExport->GetVertexType() == RIGID_NON_BLENDED_TYPE)
                 {
                     auto rigidVertexExport = static_cast<IPhyRigidVertex*>(vertexExport);
                     auto bone = rigidVertexExport->GetNode();
-                    rootBone = FindRootmostBipedBone(bone);                    
+                    rootBone = FindRootmostBipedBone(bone);
                 }
                 else if (vertexExport->GetVertexType() == RIGID_BLENDED_TYPE)
                 {
-                    auto blendedVertexExport = static_cast<IPhyBlendedRigidVertex*>(vertexExport);                    
+                    auto blendedVertexExport = static_cast<IPhyBlendedRigidVertex*>(vertexExport);
                     for (int boneIndex = 0; boneIndex < blendedVertexExport->GetNumberNodes() && rootBone == nullptr; boneIndex++)
                     {
-                        INode* bone = blendedVertexExport->GetNode(boneIndex);                        
-                        rootBone = FindRootmostBipedBone(bone);                        
+                        INode* bone = blendedVertexExport->GetNode(boneIndex);
+                        rootBone = FindRootmostBipedBone(bone);
                     }
                 }
 
@@ -453,7 +453,7 @@ INode* MaxUtilities::FindBipedRootBone(INode* node, bool& usesPhysiqueModifier)
             }
 
             skinModifier->ReleaseInterface(I_SKIN, iskin);
-        }        
+        }
     }
 
     return rootBone;
@@ -469,8 +469,8 @@ Modifier* MaxUtilities::FindSkinModifier(INode* node)
     static const Class_ID skinClassIDs[] =
         {
         MAYBE_OLD_SKIN_CLASS_ID,
-        CURRENT_SKIN_CLASS_ID 
-        };    
+        CURRENT_SKIN_CLASS_ID
+        };
 
     return FindModifier(node, skinClassIDs, FINJIN_COUNT_OF(skinClassIDs));
 }
@@ -498,8 +498,8 @@ void MaxUtilities::RemoveBipedNonuniformScale(INode* node, bool remove)
 
 void MaxUtilities::GetAllNodes
     (
-    std::unordered_set<INode*>& nodes, 
-    INode* rootNode, 
+    std::unordered_set<INode*>& nodes,
+    INode* rootNode,
     bool ignoreSettings
     )
 {
@@ -529,18 +529,18 @@ void MaxUtilities::GetChildNodes(INode* node, INodeTab& childNodes)
         childNodes[i] = node->GetChildNode(i);
 }
 
-bool MaxUtilities::GetParamIDByName(ParamID& paramID, const MCHAR* name, IParamBlock2* pblock) 
+bool MaxUtilities::GetParamIDByName(ParamID& paramID, const MCHAR* name, IParamBlock2* pblock)
 {
     //FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("MaxUtilities::GetParamIDByName(ParamID& paramID)"));
 
     int count = pblock->NumParams();
-    for (int i = 0; i < count; ++i) 
+    for (int i = 0; i < count; ++i)
     {
         ParamID id = pblock->IndextoID(i);
         const ParamDef& paramDef = pblock->GetParamDef(id);
         //wxString debugName = ApplicationStringToWxString(paramDef.int_name);
         //FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Param %d name: %s"), i, debugName.wx_str());
-        if (_tcsicmp(name, paramDef.int_name) == 0) 
+        if (_tcsicmp(name, paramDef.int_name) == 0)
         {
             paramID = id;
             return true;
@@ -576,19 +576,19 @@ bool MaxUtilities::GetParamIDByName(IParamBlock*& pblock, int& paramID, const MC
     if (print)
         FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Animatable has %d subanims"), a->NumSubs());
 
-    for (int i = 0; i < a->NumSubs(); i++) 
+    for (int i = 0; i < a->NumSubs(); i++)
     {
         Animatable* subAnim = a->SubAnim(i);
         if (subAnim == nullptr)
             continue;
-        
+
         if (subAnim->SuperClassID() == PARAMETER_BLOCK_CLASS_ID)
         {
             if (print)
                 FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Subanim %d is a paramter block"), i);
 
             pblock = static_cast<IParamBlock*>(subAnim);
-            
+
             if (print)
                 FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("There are %d parameters"), pblock->NumParams());
 
@@ -634,17 +634,17 @@ bool MaxUtilities::GetParamIDByName(IParamBlock*& pblock, int& paramID, const MC
 
                 MSTR className;
                 subAnim->GetClassName(className);
-                
+
                 FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Subanim %d is something else. Name='%s' classid=(0x%x, 0x%x) classname='%s'"), i, subName.wx_str(), subAnim->ClassID().PartA(), subAnim->ClassID().PartB(), ApplicationStringToWxString(className).wx_str());
             }
-            
+
             if (GetParamIDByName(pblock, paramID, name, subAnim, nameStartsWith))
                 return true;
         }
-    }    
+    }
 
     return false;
-} 
+}
 
 bool MaxUtilities::GetSubAnimByName(Animatable*& subAnim, const MCHAR* name, Animatable* a, bool nameStartsWith)
 {
@@ -652,14 +652,14 @@ bool MaxUtilities::GetSubAnimByName(Animatable*& subAnim, const MCHAR* name, Ani
 
     auto wxname = ApplicationStringToWxString(name);
 
-    for (int i = 0; i < a->NumSubs(); i++) 
+    for (int i = 0; i < a->NumSubs(); i++)
     {
         subAnim = a->SubAnim(i);
         if (subAnim == nullptr)
             continue;
 
         auto subName = ApplicationStringToWxString(a->SubAnimName(i));
-        
+
         if (nameStartsWith)
         {
             if (subName.StartsWith(wxname))
@@ -668,15 +668,15 @@ bool MaxUtilities::GetSubAnimByName(Animatable*& subAnim, const MCHAR* name, Ani
         else
         {
             if (wxname == subName)
-                return true;            
-        }   
+                return true;
+        }
 
         if (GetSubAnimByName(subAnim, name, subAnim, nameStartsWith))
             return true;
-    }    
+    }
 
     return false;
-} 
+}
 
 void MaxUtilities::GetCameraIdentityMatrix(Matrix3& m)
 {
@@ -693,9 +693,9 @@ Matrix3 MaxUtilities::GetCameraIdentityMatrix()
 
 bool MaxUtilities::GetBoxSize
     (
-    FinjinVector3& size, 
-    INode* node, 
-    bool transform, 
+    FinjinVector3& size,
+    INode* node,
+    bool transform,
     TimeValue time
     )
 {
@@ -708,15 +708,15 @@ bool MaxUtilities::GetBoxSize
         Point3 boxSize = box.Width();
         size.Set(boxSize.x, boxSize.y, boxSize.z);
     }
-    
+
     return !size.IsZero();
 }
 
 bool MaxUtilities::GetSphereRadiusAndSegmentCount
     (
-    float& radius, 
-    FinjinIVector2& segmentCount, 
-    INode* node, 
+    float& radius,
+    FinjinIVector2& segmentCount,
+    INode* node,
     TimeValue time
     )
 {
@@ -738,7 +738,7 @@ bool MaxUtilities::GetSphereRadiusAndSegmentCount
     {
         //It's a sphere object
         auto params = object->GetParamBlock();
-        
+
         params->GetValue(PB_RADIUS, time, radius, FOREVER);
 
         int segments;
@@ -746,7 +746,7 @@ bool MaxUtilities::GetSphereRadiusAndSegmentCount
         segmentCount.x = segments;
         segmentCount.y = segments / 2 - 1;
     }
-    
+
     return radius > 0 && segmentCount.x > 0 && segmentCount.y > 0;
 }
 
@@ -768,11 +768,11 @@ bool MaxUtilities::GetCylinderRadiusAndLength(float& radius, float& length, INod
     if (object->ClassID() == Class_ID(CYLINDER_CLASS_ID, 0))
     {
         //It's a cylinder object
-        auto params = object->GetParamBlock();        
+        auto params = object->GetParamBlock();
         params->GetValue(PB_RADIUS, time, radius, FOREVER);
         params->GetValue(PB_HEIGHT, time, length, FOREVER);
     }
-    
+
     return radius > 0 && length > 0;
 }
 
@@ -793,18 +793,18 @@ bool MaxUtilities::GetCapsuleRadiusAndLength(float& radius, float& length, INode
     if (object->ClassID() == Class_ID(1832744876, 2043230633))
     {
         //It's a capsule object
-        auto params = object->GetParamBlock();        
+        auto params = object->GetParamBlock();
         params->GetValue(PB_RADIUS, time, radius, FOREVER);
         params->GetValue(PB_HEIGHT, time, length, FOREVER);
     }
-    
+
     return radius > 0 && length > 0;
 }
 
 bool MaxUtilities::GetPlaneSegmentCount
     (
-    FinjinIVector2& segmentCount, 
-    INode* node, 
+    FinjinIVector2& segmentCount,
+    INode* node,
     TimeValue time
     )
 {
@@ -818,8 +818,8 @@ bool MaxUtilities::GetPlaneSegmentCount
     if (object->ClassID() == PLANE_CLASS_ID)
     {
         auto pblock = static_cast<IParamBlock2*>(object->GetReference(0));
-        ParamID widthSegsID, lengthSegsID;    
-        if (pblock != nullptr && 
+        ParamID widthSegsID, lengthSegsID;
+        if (pblock != nullptr &&
             MaxUtilities::GetParamIDByName(lengthSegsID, _M("lengthsegs"), pblock) &&
             MaxUtilities::GetParamIDByName(widthSegsID, _M("widthsegs"), pblock))
         {
@@ -930,7 +930,7 @@ INode* MaxUtilities::GetLookAtNode(INode* node, bool* gotFromController)
         {
             if (rotationController->ClassID() == Class_ID(LOOKAT_CONSTRAINT_CLASS_ID,0))
             {
-                auto lookatControl = static_cast<ILookAtConstRotation*>(rotationController);            
+                auto lookatControl = static_cast<ILookAtConstRotation*>(rotationController);
                 if (lookatControl->GetNumTargets() > 0)
                 {
                     lookAtNode = lookatControl->GetNode(0);
@@ -948,11 +948,11 @@ INode* MaxUtilities::GetLookAtNode(INode* node, bool* gotFromController)
 
 bool MaxUtilities::GetLookAtDirection
     (
-    INode* node, 
-    FinjinVector3& direction, 
+    INode* node,
+    FinjinVector3& direction,
     const CoordinateSystemConverter& converter
     )
-{       
+{
     auto result = false;
 
     auto transformController = node->GetTMController();
@@ -962,25 +962,25 @@ bool MaxUtilities::GetLookAtDirection
         if (rotationController->ClassID() == Class_ID(LOOKAT_CONTROL_CLASS_ID, 0))
         {
             //Old style look at controller
-            
+
             auto lookatControl = static_cast<ILookatControl*>(rotationController);
             auto localDirection = converter.GetAxisVector(lookatControl->GetAxis());
             if (lookatControl->GetFlip())
                 localDirection = -localDirection;
             direction.Set(localDirection.x, localDirection.y, localDirection.z);
-            
+
             result = true;
         }
         else if (rotationController->ClassID() == Class_ID(LOOKAT_CONSTRAINT_CLASS_ID, 0))
         {
             //The more recent look at controller
-            
-            auto lookatControl = static_cast<ILookAtConstRotation*>(rotationController);            
+
+            auto lookatControl = static_cast<ILookAtConstRotation*>(rotationController);
             auto localDirection = converter.GetAxisVector(lookatControl->GetTargetAxis());
             if (lookatControl->GetTargetAxisFlip())
                 localDirection = -localDirection;
             direction.Set(localDirection.x, localDirection.y, localDirection.z);
-            
+
             result = true;
         }
     }
@@ -1004,7 +1004,7 @@ TCHAR* MaxUtilities::GetString2(int id)
 
     if (LoadString(wxGetInstance(), id, buffer, sizeof(buffer)/sizeof(buffer[0])))
         return buffer;
-    
+
     return nullptr;
 }
 

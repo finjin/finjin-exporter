@@ -19,28 +19,28 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Spinner control event passed into event handlers. */
-    class SpinnerControlEvent : public wxCommandEvent 
+    class SpinnerControlEvent : public wxCommandEvent
     {
     public:
-        SpinnerControlEvent(wxEventType e = wxEVT_NULL, int id = 0) : wxCommandEvent(e, id) 
+        SpinnerControlEvent(wxEventType e = wxEVT_NULL, int id = 0) : wxCommandEvent(e, id)
         {
             this->value = 0;
-        }   
+        }
 
-        SpinnerControlEvent(const SpinnerControlEvent& event) : wxCommandEvent(event) 
+        SpinnerControlEvent(const SpinnerControlEvent& event) : wxCommandEvent(event)
         {
             this->value = event.GetValue();
         }
-        
+
         wxEvent* Clone() const {return new SpinnerControlEvent(*this);}
 
         float GetValue() const {return this->value;}
         void SetValue(double value) {this->value = value;}
-            
+
         DECLARE_DYNAMIC_CLASS(SpinnerControlEvent)
 
     private:

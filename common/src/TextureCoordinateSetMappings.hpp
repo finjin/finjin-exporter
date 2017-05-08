@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialAccessor.hpp"
 #include "AssetReference.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -87,15 +87,15 @@ namespace Finjin { namespace Exporter {
         }
 
     public:
-        /** 
-         * The source texture coordinate set number. 
+        /**
+         * The source texture coordinate set number.
          * If not INVALID_SOURCE_NUMBER, this is used. Otherwise name is used.
          */
         int number;
 
-        /** 
-         * The name of the source texture coordinate set. 
-         * If index is INVALID_SOURCE_NUMBER, this is used. 
+        /**
+         * The name of the source texture coordinate set.
+         * If index is INVALID_SOURCE_NUMBER, this is used.
          */
         wxString name;
     };
@@ -111,11 +111,11 @@ namespace Finjin { namespace Exporter {
         V_TEXTURE_COORDS = 0x200,
 
         /** Indicates the W texture coordinate is valid. U_TEXTURE_COORDS and V_TEXTURE_COORDS must be specified if this is specified. */
-        W_TEXTURE_COORDS = 0x400            
+        W_TEXTURE_COORDS = 0x400
     };
     FINJIN_ENUM_BITWISE_OPERATIONS(TextureCoordinateFlags)
 
-    /** 
+    /**
      * Maps a source texture coordinate set to a destination.
      * The destination is a zero-based index, corresponding to the texture coordinate sets are exported.
      */
@@ -137,7 +137,7 @@ namespace Finjin { namespace Exporter {
         /** Determines if this mapping isn't equal to the other mapping. */
         bool operator != (const TextureCoordinateSetMapping& other) const
         {
-            return 
+            return
                 this->source != other.source ||
                 this->destinationIndex != other.destinationIndex ||
                 this->textureCoordinatesFlags != other.textureCoordinatesFlags;
@@ -236,8 +236,8 @@ namespace Finjin { namespace Exporter {
             std::sort(this->mappings.begin(), this->mappings.end());
         }
 
-        /** 
-         * Removes the mapping at the specified index. 
+        /**
+         * Removes the mapping at the specified index.
          * @param index [in] - The index of the mapping to remove.
          * @return The index of closest mapping is returned. This is typically used to select
          * the next valid mapping in the user interface. If there are no mappings left, -1 is returned.
@@ -281,8 +281,8 @@ namespace Finjin { namespace Exporter {
                 return -1;
         }
 
-        /** 
-         * Renumbers the mapping destinations. 
+        /**
+         * Renumbers the mapping destinations.
          * This is called as necessary to keep a sequential ordering of destinations.
          */
         void RenumberDestinations()
@@ -323,10 +323,10 @@ namespace Finjin { namespace Exporter {
         {
             this->mappings.clear();
         }
-        
+
     private:
         typedef std::vector<TextureCoordinateSetMapping> Mappings;
-        Mappings mappings;        
+        Mappings mappings;
     };
 
     struct TextureNameAlias
@@ -336,14 +336,14 @@ namespace Finjin { namespace Exporter {
 
         bool operator == (const TextureNameAlias& other) const
         {
-            return 
+            return
                 this->alias == other.alias &&
                 this->textureName == other.textureName;
         }
 
         bool operator != (const TextureNameAlias& other) const
         {
-            return 
+            return
                 this->alias != other.alias &&
                 this->textureName != other.textureName;
         }
@@ -361,7 +361,7 @@ namespace Finjin { namespace Exporter {
         /** Determines if this submesh is equal to the other submesh. */
         bool operator == (const SubmeshSettings& other) const
         {
-            return 
+            return
                 this->material.MaterialEquals(other.material) &&
                 this->textureCoordinateSetMappings == other.textureCoordinateSetMappings;
         }
@@ -369,7 +369,7 @@ namespace Finjin { namespace Exporter {
         /** Determines if this submesh is not equal to the other submesh. */
         bool operator != (const SubmeshSettings& other) const
         {
-            return 
+            return
                 !this->material.MaterialEquals(other.material) &&
                 this->textureCoordinateSetMappings != other.textureCoordinateSetMappings;
         }
@@ -402,17 +402,17 @@ namespace Finjin { namespace Exporter {
     {
     public:
         SubmeshesSettings()
-        {            
+        {
         }
 
-        /** 
+        /**
          * Initializes the settings.
          * @param materials [in] - A collection of materials, each corresponding to a submesh.
          * @param textureCoordinateSetMappings [in] - The default texture coordinate set mappings for a submesh.
          */
         void Initialize
             (
-            const MaterialAccessorVector& materials, 
+            const MaterialAccessorVector& materials,
             const TextureCoordinateSetMappings& textureCoordinateSetMappings
             )
         {
@@ -429,7 +429,7 @@ namespace Finjin { namespace Exporter {
 
         /**
          * Synchronizes this set of submesh settings to another set of submesh settings.
-         * This is essential during export for removing mappings that no longer exist, and for adding 
+         * This is essential during export for removing mappings that no longer exist, and for adding
          * mappings that do exist but aren't defined.
          * @param other [in] - The mappings to synchronize to.
          * @param deepSync [in] - Indicates whether newly added mappings should be copied from 'other'.
@@ -459,7 +459,7 @@ namespace Finjin { namespace Exporter {
                         submeshMapping.submeshName = other.submeshesSettings[i].submeshName;
                         submeshMapping.material = other.submeshesSettings[i].material;
                         this->submeshesSettings.push_back(submeshMapping);
-                    }                    
+                    }
                 }
             }
 
@@ -467,7 +467,7 @@ namespace Finjin { namespace Exporter {
             Sort();
         }
 
-        /** 
+        /**
          * Finds the index of the setting that uses the specified material.
          * @param material [in] - The material to search for
          * @return The index of the setting is returned for the material. If the material could not be found, -1 is returned.
@@ -515,9 +515,9 @@ namespace Finjin { namespace Exporter {
             return this->submeshesSettings[i];
         }
 
-        /** 
+        /**
          * Sorts the submesh settings.
-         * @param deepSort [in] - Indicates whether texture coordinate set mappings of each submesh 
+         * @param deepSort [in] - Indicates whether texture coordinate set mappings of each submesh
          * should also be sorted. If false, just the submesh mappings are sorted.
          */
         void Sort(bool deepSort = false)
@@ -542,7 +542,7 @@ namespace Finjin { namespace Exporter {
             return true;
         }
 
-        /** 
+        /**
          * Moves the texture coordinate set from the specified index, in the specified direction.
          * @param submeshIndex [in] - Index of the submesh mapping that the move should be applied to. If -1,
          * the move is applied to all submesh mappings. -1 should only be used if it has been verified that all
@@ -563,15 +563,15 @@ namespace Finjin { namespace Exporter {
                     int moveResult = this->submeshesSettings[i].textureCoordinateSetMappings.Move(from, direction);
                     if (result == -1)
                         result = moveResult;
-                }                
+                }
             }
             else
                 result = this->submeshesSettings[submeshIndex].textureCoordinateSetMappings.Move(from, direction);
             return result;
         }
 
-        /** 
-         * Renumbers the submesh texture coordinate set mapping destinations. 
+        /**
+         * Renumbers the submesh texture coordinate set mapping destinations.
          * This is called as necessary to keep a sequential ordering of destinations.
          */
         void RenumberDestinations()
@@ -609,7 +609,7 @@ namespace Finjin { namespace Exporter {
         {
             this->submeshesSettings.clear();
         }
-        
+
     private:
         typedef std::vector<SubmeshSettings> SubmeshSettingsVector;
         SubmeshSettingsVector submeshesSettings;

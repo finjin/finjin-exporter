@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "TabControl.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A base class for defininig classes of scene settings.
      * These settings aren't really types, but they can be thought of as such since the
      * settings correspond to a page of related settings.

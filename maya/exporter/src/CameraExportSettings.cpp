@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 CameraExportSettings::CameraExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Camera(scene)
 {
 }
@@ -35,7 +35,7 @@ CameraExportSettings::CameraExportSettings(FinjinSceneDocument* scene) : FinjinS
 void CameraExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneExporterContext& finjinExporterContext)
 {
     Initialize(object, finjinExporterContext.GetSceneExportSettings()->time, finjinExporterContext.GetSceneExportSettings()->scale, finjinExporterContext.GetSceneExportSettings()->scaledWorldUnitsPerMeter);
-    
+
     finjinExporterContext.GetMovableObjectSettings(this, object, objectSettings, finjinExporterContext.GetSceneExportSettings()->time, finjinExporterContext.GetSceneExportSettings()->conversionManager, finjinExporterContext.GetSceneExportSettings()->scale);
 }
 
@@ -46,7 +46,7 @@ void CameraExportSettings::Initialize(ObjectAccessor object, TimeAccessor time, 
 
     //Vertical field of view
     this->fov = camera.verticalFieldOfView();
-    
+
     //Orthographic?
     this->isOrtho = camera.isOrtho();
 
@@ -55,7 +55,7 @@ void CameraExportSettings::Initialize(ObjectAccessor object, TimeAccessor time, 
     float orthoHeight = orthoWidth / camera.aspectRatio();
     this->orthoWidth = orthoWidth * scale;
     this->orthoHeight = orthoHeight * scale;
-    
+
     //Near/far clip
     this->nearClip = std::max(MayaPlug::GetFloatAttribute(object.obj, "nearClipPlane", 0, time) * scale, .01f * scale);
     this->farClip = MayaPlug::GetFloatAttribute(object.obj, "farClipPlane", 0, time) * scale;

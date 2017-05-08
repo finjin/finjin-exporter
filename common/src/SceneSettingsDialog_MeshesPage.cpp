@@ -29,12 +29,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString SceneSettingsDialog_MeshesPage::TITLE(wxT("Meshes"));
 
 
-//Implementation---------------------------------------------------------------
-BEGIN_EVENT_TABLE(SceneSettingsDialog_MeshesPage, SettingsPage)    
+//Implementation----------------------------------------------------------------
+BEGIN_EVENT_TABLE(SceneSettingsDialog_MeshesPage, SettingsPage)
 END_EVENT_TABLE()
 
 SceneSettingsDialog_MeshesPage::SceneSettingsDialog_MeshesPage( wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
@@ -43,51 +43,51 @@ SceneSettingsDialog_MeshesPage::SceneSettingsDialog_MeshesPage( wxWindow* parent
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxStaticBoxSizer* meshSettingsSizer;
     meshSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("General Settings") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* meshSettingsGridSizer;
     meshSettingsGridSizer = new wxFlexGridSizer( 1, 4, 0, 0 );
     meshSettingsGridSizer->SetFlexibleDirection( wxBOTH );
     meshSettingsGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     exportVertexColorsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Vertex Colors"), wxDefaultPosition, wxDefaultSize, 0 );
     meshSettingsGridSizer->Add( exportVertexColorsCheckbox, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     useExplicitVertexColorCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Explicit Color Fallback (White)"), wxDefaultPosition, wxDefaultSize, 0 );
     meshSettingsGridSizer->Add( useExplicitVertexColorCheckbox, 0, wxALL, 5 );
-    
-    
+
+
     meshSettingsSizer->Add( meshSettingsGridSizer, 1, wxEXPAND, 5 );
-    
+
     animateBoundingVolumesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Animated Bounding Volumes"), wxDefaultPosition, wxDefaultSize, 0 );
-	meshSettingsSizer->Add( animateBoundingVolumesCheckbox, 0, wxALL, 5 );
+    meshSettingsSizer->Add( animateBoundingVolumesCheckbox, 0, wxALL, 5 );
 
     checkMeshInstancesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Check for Mesh Instances"), wxDefaultPosition, wxDefaultSize, 0 );
-    meshSettingsSizer->Add( checkMeshInstancesCheckbox, 0, wxALL, 5 );    
-    
+    meshSettingsSizer->Add( checkMeshInstancesCheckbox, 0, wxALL, 5 );
+
     alwaysCreateNewSubmeshesWhenMergingCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Always Create New Submeshes When Merging"), wxDefaultPosition, wxDefaultSize, 0 );
     meshSettingsSizer->Add( alwaysCreateNewSubmeshesWhenMergingCheckBox, 0, wxALL, 5 );
-    
-    
+
+
     topSizer->Add( meshSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* tangentBinormalSettingsSizer;
     tangentBinormalSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Tangent/Binormal Settings") ), wxVERTICAL );
-    
+
     wxBoxSizer* tangentBinormalSizer;
     tangentBinormalSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     exportTangentsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Tangents"), wxDefaultPosition, wxDefaultSize, 0 );
     tangentBinormalSizer->Add( exportTangentsCheckbox, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     exportBinormalsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Binormals"), wxDefaultPosition, wxDefaultSize, 0 );
     tangentBinormalSizer->Add( exportBinormalsCheckbox, 0, wxALL, 5 );
-    
-    
+
+
     tangentBinormalSettingsSizer->Add( tangentBinormalSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( tangentBinormalSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
 
     SetSizer(topSizer);
@@ -105,7 +105,7 @@ bool SceneSettingsDialog_MeshesPage::GetGUIData()
 
     //Explicit vertex color
     this->sceneSettings.SetUseExplicitVertexColor(this->useExplicitVertexColorCheckbox->GetValue());
-    
+
     //Check for mesh instances
     this->sceneSettings.SetCheckMeshInstances(this->checkMeshInstancesCheckbox->GetValue());
 
@@ -151,4 +151,3 @@ bool SceneSettingsDialog_MeshesPage::SetGUIData()
 
     return true;
 }
-

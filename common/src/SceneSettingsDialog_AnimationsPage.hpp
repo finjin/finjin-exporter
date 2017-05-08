@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Animations page for the scene settings dialog. */
-    class SceneSettingsDialog_AnimationsPage : public SettingsPage 
+    class SceneSettingsDialog_AnimationsPage : public SettingsPage
     {
     private:
         DECLARE_EVENT_TABLE()
@@ -43,12 +43,12 @@ namespace Finjin { namespace Exporter {
         wxStaticText* nodeAnimationSamplingLabel;
         ApplicationTextCtrl* nodeAnimationSamplingText;
         ApplicationChoiceCtrl* nodeAnimationSamplingChoice;
-        
+
         FinjinSceneSettingsAccessor sceneSettings;
-        
+
     public:
         SceneSettingsDialog_AnimationsPage( wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
-        ~SceneSettingsDialog_AnimationsPage();    
+        ~SceneSettingsDialog_AnimationsPage();
 
         void OnSkeletonAnimationSamplingChoice(wxCommandEvent& event);
         void OnVertexAnimationSamplingChoice(wxCommandEvent& event);

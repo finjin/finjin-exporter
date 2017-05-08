@@ -24,28 +24,28 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //VertexNormal
-VertexNormal::VertexNormal() 
+VertexNormal::VertexNormal()
 {
     this->smooth = 0;
-    this->next = nullptr;    
+    this->next = nullptr;
 }
-        
-VertexNormal::VertexNormal(const FinjinVector3& n, unsigned int s) 
+
+VertexNormal::VertexNormal(const FinjinVector3& n, unsigned int s)
 {
     this->smooth = s;
     this->next = nullptr;
     this->accum.push_back(n);
 }
-        
-VertexNormal::~VertexNormal() 
+
+VertexNormal::~VertexNormal()
 {
     delete this->next;
 }
 
-void VertexNormal::Add(FinjinVector3& n, unsigned int smoothingGroups) 
+void VertexNormal::Add(FinjinVector3& n, unsigned int smoothingGroups)
 {
     if (this->accum.empty())
     {
@@ -53,15 +53,15 @@ void VertexNormal::Add(FinjinVector3& n, unsigned int smoothingGroups)
         this->smooth = smoothingGroups;
         this->accum.push_back(n);
     }
-    else if ((smoothingGroups & this->smooth) == 0) 
+    else if ((smoothingGroups & this->smooth) == 0)
     {
         //Smoothing groups don't overlap. Add a new normal
-        if (this->next != nullptr) 
+        if (this->next != nullptr)
             this->next->Add(n, smoothingGroups);
         else
             this->next = new VertexNormal(n, smoothingGroups);
-    } 
-    else 
+    }
+    else
     {
         //Smoothing groups overlap
         auto ignoreInfluence = false;
@@ -70,7 +70,7 @@ void VertexNormal::Add(FinjinVector3& n, unsigned int smoothingGroups)
             auto dot = acc.Dot(n);
             if (dot >= .98f)
             {
-                ignoreInfluence = true;            
+                ignoreInfluence = true;
                 break;
             }
         }
@@ -90,21 +90,21 @@ const FinjinVector3& VertexNormal::Get(unsigned int smoothingGroups) const
     auto n = this;
     for (; n->next != nullptr; n = n->next)
     {
-        if (n->smooth & smoothingGroups) 
+        if (n->smooth & smoothingGroups)
             return n->norm;
     }
 
     return n->norm;
 }
 
-void VertexNormal::Normalize() 
+void VertexNormal::Normalize()
 {
     //Normalize each normal in the list
 
     for (auto n = this; n != nullptr; n = n->next)
     {
         n->norm.Zero();
-        
+
         for (auto& acc : n->accum)
             n->norm += acc;
 
@@ -113,25 +113,25 @@ void VertexNormal::Normalize()
 }
 
 //VertexTangent
-VertexTangent::VertexTangent() 
+VertexTangent::VertexTangent()
 {
     this->smooth = 0;
-    this->next = nullptr;    
+    this->next = nullptr;
 }
-        
-VertexTangent::VertexTangent(const FinjinVector4& t, unsigned int s) 
+
+VertexTangent::VertexTangent(const FinjinVector4& t, unsigned int s)
 {
     this->smooth = s;
     this->next = nullptr;
     this->accum.push_back(t);
 }
-        
-VertexTangent::~VertexTangent() 
+
+VertexTangent::~VertexTangent()
 {
     delete this->next;
 }
 
-void VertexTangent::Add(FinjinVector4& t, unsigned int smoothingGroups) 
+void VertexTangent::Add(FinjinVector4& t, unsigned int smoothingGroups)
 {
     if (this->accum.empty())
     {
@@ -139,15 +139,15 @@ void VertexTangent::Add(FinjinVector4& t, unsigned int smoothingGroups)
         this->smooth = smoothingGroups;
         this->accum.push_back(t);
     }
-    else if ((smoothingGroups & this->smooth) == 0) 
+    else if ((smoothingGroups & this->smooth) == 0)
     {
         //Smoothing groups don't overlap. Add a new normal
-        if (this->next != nullptr) 
+        if (this->next != nullptr)
             this->next->Add(t, smoothingGroups);
         else
             this->next = new VertexTangent(t, smoothingGroups);
-    } 
-    else 
+    }
+    else
     {
         //Smoothing groups overlap
         auto ignoreInfluence = false;
@@ -156,7 +156,7 @@ void VertexTangent::Add(FinjinVector4& t, unsigned int smoothingGroups)
             auto dot = ((FinjinVector3&)acc).Dot((FinjinVector3&)t);
             if (dot >= .98f)
             {
-                ignoreInfluence = true;            
+                ignoreInfluence = true;
                 break;
             }
         }
@@ -176,14 +176,14 @@ const FinjinVector4& VertexTangent::Get(unsigned int smoothingGroups) const
     auto n = this;
     for (; n->next != nullptr; n = n->next)
     {
-        if (n->smooth & smoothingGroups) 
+        if (n->smooth & smoothingGroups)
             return n->tangent;
     }
 
     return n->tangent;
 }
 
-void VertexTangent::Normalize() 
+void VertexTangent::Normalize()
 {
     //Normalize each normal in the list
 
@@ -192,7 +192,7 @@ void VertexTangent::Normalize()
     for (auto n = this; n != nullptr; n = n->next)
     {
         tangent.Set(0, 0, 0);
-                
+
         for (auto& acc : n->accum)
             tangent += (FinjinVector3&)acc;
 
@@ -209,26 +209,26 @@ void MeshNormalsBase::Destroy()
     this->vertexTangents.clear();
     this->faceNormals.clear();
     this->faceTangents.clear();
-    this->faceSmoothingGroups.clear();        
+    this->faceSmoothingGroups.clear();
     this->normalFaces.clear();
 }
 
 FinjinVector3 MeshNormalsBase::GetNormal(int cornerIndex, int vertexIndex, int faceIndex, unsigned int smoothingGroups)
 {
     FinjinVector3 result(0,0,0);
-    
-    if (!this->normalFaces.empty() && 
-        cornerIndex < (int)this->normalFaces[faceIndex].GetDegree() && 
+
+    if (!this->normalFaces.empty() &&
+        cornerIndex < (int)this->normalFaces[faceIndex].GetDegree() &&
         this->normalFaces[faceIndex].v[cornerIndex] >= 0)
     {
         //Get explicitly defined normal based on face index and corner index
-        result = this->normalFaces[faceIndex].normals[cornerIndex];        
+        result = this->normalFaces[faceIndex].normals[cornerIndex];
     }
     else if (smoothingGroups == 0 && !this->faceNormals.empty())
     {
         //Get normal based on face
         result = this->faceNormals[faceIndex];
-    }    
+    }
     else if (!this->vertexNormals.empty())
     {
         //Get normal based on face index, vertex index, and smoothing group
@@ -244,19 +244,19 @@ FinjinVector3 MeshNormalsBase::GetNormal(int cornerIndex, int vertexIndex, int f
 FinjinVector4 MeshNormalsBase::GetTangent(int cornerIndex, int vertexIndex, int faceIndex, unsigned int smoothingGroups)
 {
     FinjinVector4 result(0,0,0,0);
-    
-    if (!this->tangentFaces.empty() && 
-        cornerIndex < (int)this->tangentFaces[faceIndex].GetDegree() && 
+
+    if (!this->tangentFaces.empty() &&
+        cornerIndex < (int)this->tangentFaces[faceIndex].GetDegree() &&
         this->tangentFaces[faceIndex].v[cornerIndex] >= 0)
     {
         //Get explicitly defined tangent based on face index and corner index
-        result = this->tangentFaces[faceIndex].tangents[cornerIndex];        
+        result = this->tangentFaces[faceIndex].tangents[cornerIndex];
     }
     else if (smoothingGroups == 0 && !this->faceTangents.empty())
     {
         //Get tangent based on face
         result = this->faceTangents[faceIndex];
-    }    
+    }
     else if (!this->vertexTangents.empty())
     {
         //Get tangent based on face index, vertex index, and smoothing group
@@ -272,7 +272,7 @@ FinjinVector4 MeshNormalsBase::GetTangent(int cornerIndex, int vertexIndex, int 
 void MeshNormalsBase::Convert(const CoordinateSystemConverter& coordinateConverter)
 {
     if (coordinateConverter.RequiresConversion())
-    {        
+    {
         for (size_t i = 0; i < this->vertexNormals.size(); i++)
         {
             for (auto vnormal = &this->vertexNormals[i]; vnormal != nullptr; vnormal = vnormal->next)
@@ -281,12 +281,12 @@ void MeshNormalsBase::Convert(const CoordinateSystemConverter& coordinateConvert
 
         for (size_t i = 0; i < this->faceNormals.size(); i++)
             coordinateConverter.ConvertPoint(this->faceNormals[i]);
-        
+
         for (size_t i = 0; i < this->normalFaces.size(); i++)
         {
             for (size_t j = 0; j < this->normalFaces[i].normals.size(); j++)
                 coordinateConverter.ConvertPoint(this->normalFaces[i].normals[j]);
-        }       
+        }
 
 
         for (size_t i = 0; i < this->vertexTangents.size(); i++)
@@ -302,6 +302,6 @@ void MeshNormalsBase::Convert(const CoordinateSystemConverter& coordinateConvert
         {
             for (size_t j = 0; j < this->tangentFaces[i].tangents.size(); j++)
                 coordinateConverter.ConvertPoint((FinjinVector3&)this->tangentFaces[i].tangents[j]);
-        }       
+        }
     }
 }

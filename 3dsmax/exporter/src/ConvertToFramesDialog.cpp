@@ -29,7 +29,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ConvertToFramesDialog::ConvertToFramesDialog()
 {
     this->sizeType = ORIGINAL_SIZE;
@@ -108,7 +108,7 @@ INT_PTR ConvertToFramesDialog::DialogProc(UINT message, WPARAM wParam, LPARAM lP
                         SetFocus(GetDlgItem(IDC_DESTINATION_BASE_FILE_NAME_EDIT));
                     }
                     else
-                    {                    
+                    {
                         EndDialog(this->hDlg, TRUE);
                         return TRUE;
                     }

@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "FinjinNodeAnimationSettingsAccessor.hpp"
 #include "SpinnerControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -37,7 +37,7 @@ namespace Finjin { namespace Exporter {
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* nameLabel;
         ApplicationTextCtrl* nameText;
@@ -63,7 +63,7 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* copyFirstAnimationKeyToLastCheckbox;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         /** The settings that are modified by the dialog. */
         struct Settings
@@ -91,7 +91,7 @@ namespace Finjin { namespace Exporter {
             bool enabled;
             bool looped;
             double sampleInterval;
-            SampleType sampleType;        
+            SampleType sampleType;
             wxString translationInterpolationType;
             wxString rotationInterpolationType;
         };
@@ -106,12 +106,12 @@ namespace Finjin { namespace Exporter {
          */
         NodeAnimationSettingsDialog
             (
-            wxWindow* parent, 
-            const wxString& title, 
+            wxWindow* parent,
+            const wxString& title,
             const std::vector<wxString>& allAnimationNames,
             Settings settings = Settings()
             );
-        ~NodeAnimationSettingsDialog();        
+        ~NodeAnimationSettingsDialog();
 
         enum
         {

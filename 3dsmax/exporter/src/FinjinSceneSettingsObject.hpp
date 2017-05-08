@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "BaseDirectory.hpp"
 #include "UserDataParameters.hpp"
 #include "ExtendedValueParameters.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class FinjinObjectSettingsObject;
 
     /** The Finjin scene settings object. */
@@ -45,7 +45,7 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         BOOL IsRenderable() override                          {return FALSE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -65,7 +65,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         static Class_ID GetClassClassID();
         static ClassDesc* GetClassDesc();
@@ -95,7 +95,7 @@ namespace Finjin { namespace Exporter {
         wxString GetSceneScaleUnit();
         float GetSceneScaleDivide();
         bool GetExportHierarchy();
-        bool GetIgnoreHiddenObjects();        
+        bool GetIgnoreHiddenObjects();
         double GetNodeAnimationSampleInterval();
         SampleType GetNodeAnimationSampleType();
         wxString GetConfigurationTargetName();
@@ -136,7 +136,7 @@ namespace Finjin { namespace Exporter {
         int GetRenameBitmapExtensionCount();
         void GetRenameBitmapExtension(int index, wxString& from, wxString& to);
         void ClearRenameBitmapExtensions();
-                
+
         bool GetExportFlags();
         int GetFlagCount();
         void GetFlag(int index, wxString& name);
@@ -180,7 +180,7 @@ namespace Finjin { namespace Exporter {
         void SetSubmeshCustomName(wxString value);
         void SetConvertBitmapsToTextures(bool value);
         void SetExportTangents(bool value);
-        void SetExportBinormals(bool value);        
+        void SetExportBinormals(bool value);
         void SetAnimateBoundingVolumes(bool value);
         void SetMakeBoundingBoxesCubes(bool value);
         void SetCheckMeshInstances(bool value);
@@ -195,14 +195,14 @@ namespace Finjin { namespace Exporter {
         void SetNoMaterialName(wxString value);
         void SetRenderSystem(wxString value);
         void AddRenameBitmap(wxString from, wxString to);
-        void AddRenameBitmapExtension(wxString from, wxString to);        
-        
+        void AddRenameBitmapExtension(wxString from, wxString to);
+
         void SetExportFlags(bool value);
         void AddFlag(wxString name);
 
         static FinjinSceneSettingsObject* GetSceneSettingsByIndex(int index, INode** settingsNode = nullptr);
         static FinjinSceneSettingsObject* GetSceneSettings(bool createIfNecessary = true, bool* newInstance = nullptr);
-        
+
         void MergeObjectSettings(FinjinSceneSettingsObject* settings);
         void CleanObjectSettings();
         FinjinObjectSettingsObject* GetObjectSettings(INode* node, bool createIfNecessary = true, bool* newInstance = nullptr);
@@ -229,11 +229,11 @@ namespace Finjin { namespace Exporter {
             PB_ENVIRONMENT_FAR_OBJECT,
             PB_FOG_MODE,
             PB_FOG_DENSITY,
-            
+
             PB_SHADOW_TECHNIQUE,
             PB_SHADOW_COLOR,
             PB_SHADOW_FAR_DISTANCE,
-            
+
             PB_SCENE_SCALE_DIVIDE,
 
             PB_IGNORE_HIDDEN_LAYERS,
@@ -245,7 +245,7 @@ namespace Finjin { namespace Exporter {
             PB_EXPORT_TANGENTS,
             PB_EXPORT_BINORMALS,
             PB_VERTEX_COLOR_FORMAT,
-            
+
             PB_EXPORT_MATERIALS,
             PB_DISALLOWED_MATERIALS,
             PB_NO_MATERIAL_NAME,
@@ -257,7 +257,7 @@ namespace Finjin { namespace Exporter {
 
             PB_RENAME_BITMAP_EXTENSIONS_FROM,
             PB_RENAME_BITMAP_EXTENSIONS_TO,
-        
+
             PB_BEFORE_EXPORT_COMMANDS,
             PB_AFTER_EXPORT_COMMANDS,
 
@@ -279,7 +279,7 @@ namespace Finjin { namespace Exporter {
             PB_FOG_END,
             PB_FOG_COLOR,
             PB_OPTIMIZE_SKELETON_ANIMATIONS,
-            
+
             EXTENDED_VALUE_PARAM_BLOCK_IDS,
 
             PB_CHECK_MESH_INSTANCES,
@@ -295,7 +295,7 @@ namespace Finjin { namespace Exporter {
             PB_MESH_TEXT_PATH,
 
             PB_CREATE_EXTRA_MATERIALS,
-            
+
             PB_EXPORT_HIERARCHY,
             PB_NODE_ANIMATION_SAMPLE_INTERVAL,
             PB_NODE_ANIMATION_SAMPLE_TYPE,

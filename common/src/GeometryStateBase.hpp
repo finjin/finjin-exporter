@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "GeometryStateSubmesh.hpp"
 #include "ObjectAccessor.hpp"
 #include "GeometryStateSubmeshProperties.hpp"
@@ -32,7 +32,7 @@
 #include "VertexList.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryStateBase;
@@ -46,33 +46,33 @@ namespace Finjin { namespace Exporter {
         /** Indicates that if the mesh does not have vertex colors, white vertex colors should be created. */
         FORCE_WHITE_VERTEX_COLORS = 1 << 0,
 
-        /** 
+        /**
             * Indicates that the 'fast' method of determining vertices should be used.
             * This method does not perform duplicate vertex checking.
             */
         FAST_VERTICES = 1 << 1,
 
-        /** 
+        /**
             * Indicates that the morpher should be completely ignored.
             * This means that, if present, it is left in its active state.
             * Also, the meshMorpher member is not initialized.
             */
         NO_MORPHER_CONTROL = 1 << 2,
 
-        /** 
+        /**
             * Indicates that the skeleton should be completely ignored.
             * This means that, if present, it is left in its active state.
             * Also, the meshSkeleton member is not initialized.
             */
         NO_SKELETON_CONTROL = 1 << 3,
 
-        /** 
+        /**
             * Indicates morpher should be disabled when evaluating the geometry.
             * The meshMorpher member is still initialized, however.
             */
         NO_MORPHER_EFFECT = 1 << 4,
 
-        /** 
+        /**
             * Indicates skeleton should be disabled when evaluating the geometry.
             * The meshSkeleton member is still initialized, however.
             */
@@ -105,7 +105,7 @@ namespace Finjin { namespace Exporter {
         /** Destructor. */
         virtual ~GeometryStateBase();
 
-        /** 
+        /**
          * Creates the geometry state.
          * @param object [in] - The object whose geometry state is extracted.
          * @param coordinateConverter [in] - The coordinate converter used to convert points, normals, and transformations.
@@ -118,10 +118,10 @@ namespace Finjin { namespace Exporter {
         virtual bool Create
             (
             const wxString& meshName,
-            ObjectAccessor object, 
+            ObjectAccessor object,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE,
             SubmeshesSettings* submeshesSettings = nullptr,
             const SkeletonReferencePose* referencePose = nullptr
@@ -138,10 +138,10 @@ namespace Finjin { namespace Exporter {
          */
         virtual bool SamplePoints
             (
-            std::vector<FinjinVector3>& points, 
+            std::vector<FinjinVector3>& points,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE,
             MeshNormals* normals = nullptr
             ) = 0;
@@ -149,7 +149,7 @@ namespace Finjin { namespace Exporter {
         /** Clears all members. */
         void Clear();
 
-        /** 
+        /**
          * Merges the specified geometry (vertices, skeletons, morphers, and animations) with this one.
          * @param mergeGeometry [in] - The geometry to merge into this one. After the merge is complete,
          * mergeGeometry should not be used again since its contents are modified during the merge process.
@@ -158,7 +158,7 @@ namespace Finjin { namespace Exporter {
          */
         void Merge(GeometryStateBase& mergeGeometry, bool alwaysCreateNewSubmeshes);
 
-        /** 
+        /**
          * Merges the specified list of geometries with this one.
          * @param mergeGeometries [in/out] - List of geometries to merge into this one. After the merge is complete,
          * the objects in this list are deleted and the list is cleared.
@@ -167,29 +167,29 @@ namespace Finjin { namespace Exporter {
          */
         void Merge(GeometryStateBaseList& mergeGeometries, bool alwaysCreateNewSubmeshes);
 
-        /** 
-         * Determines if the specified geometry is an instance of this geometry. 
+        /**
+         * Determines if the specified geometry is an instance of this geometry.
          * The instance checking is done by comparing the state of the two geometries.
          * @param other [in] - The geometry to compare to.
-         * @param tolerance [in] - A tolerance value used when comparing the vertices and bounding volumes 
+         * @param tolerance [in] - A tolerance value used when comparing the vertices and bounding volumes
          * of meshes. A larger tolerance is more likely to cause vertices and bounding volumes to match.
          * @return If this geometry and the other geometry are instances of one another, true is
          * returned. Otherwise, false is returned.
          */
         bool IsMatchingInstance(const GeometryStateBase& other, float tolerance);
 
-        /** 
+        /**
          * Transforms the skeletons, morph targets, animations, vertices and all related settings (like normals and bounding volumes) to world space.
          */
         void TransformToWorldSpace();
-        
-        /** 
+
+        /**
          * Transforms the vertices and all related settings (like normals and bounding volumes) using the specified transform.
          */
         void TransformVertices(const TransformAccessor& transform);
 
-        /** 
-         * Updates various settings related to mesh animation. 
+        /**
+         * Updates various settings related to mesh animation.
          * This is to be called after modifying the mesh animation members.
          * @param forceSkeleton [in] - Indicates that the skeleton should be considered in
          * updating the animation data, even if there are no skeleton animations.
@@ -217,14 +217,14 @@ namespace Finjin { namespace Exporter {
          */
         bool SampleSubmeshPoints
             (
-            SubmeshesPoints& submeshesPoints, 
+            SubmeshesPoints& submeshesPoints,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE
             );
 
-        /** 
+        /**
          * Adjusts the bounding volumes to fit the object sampled at the specified times.
          * @param times [in] - Collection of times at which geometry is sampled.
          * @param coordinateConverter [in] - The coordinate converter used to convert points.
@@ -235,29 +235,29 @@ namespace Finjin { namespace Exporter {
          */
         void AnimateBoundingVolumes
             (
-            const std::vector<WxTimeDuration>& times, 
-            const CoordinateSystemConverter& coordinateConverter, 
+            const std::vector<WxTimeDuration>& times,
+            const CoordinateSystemConverter& coordinateConverter,
             float scale,
             const TransformAccessor* transform = nullptr,
             ObjectAccessor rootObject = ObjectAccessor()
             );
 
-        /** 
-         * Indicates whether the geometry requires a dummy bone. 
-         * A dummy bone is needed in situations where there's a mesh skeleton but some vertices don't have 
+        /**
+         * Indicates whether the geometry requires a dummy bone.
+         * A dummy bone is needed in situations where there's a mesh skeleton but some vertices don't have
          * bone assignments.
          */
         bool RequiresDummyBone() const;
-        
+
         bool HasSubmeshWithVertexElement(WxGpuVertexFormatStructMetadata::ElementID elementID) const;
 
         void FinalizeVertexAndIndexBuffersForWrite(bool buildShared);
-        
+
     protected:
         void TransformToWorldSpace(const MatrixAccessor& transformMatrix, const MatrixAccessor& normalTransformMatrix);
 
-        /** 
-         * Performs the actual transformation of vertices. 
+        /**
+         * Performs the actual transformation of vertices.
          * @param transformMatrix [in] - The matrix used to transform vertices.
          * @param normalTransformMatrix [in] - The matrix used to transform normals.
          */
@@ -272,7 +272,7 @@ namespace Finjin { namespace Exporter {
          */
         GeometryStateSubmesh* FindSubmeshForMerge
             (
-            const GeometryStateBase& mergeGeometry, 
+            const GeometryStateBase& mergeGeometry,
             const GeometryStateSubmesh* submesh
             );
 
@@ -290,7 +290,7 @@ namespace Finjin { namespace Exporter {
          * @param point [in] - A point in the geometry that may modify the bounding volume.
          */
         void UpdateBounds(bool isFirst, bool isNew, const FinjinVector3& point);
-        
+
         /**
          * Called by derived classes when starting the creation of the geometry state data.
          * @param object [in] - The object that contains the geometry data to extract.
@@ -302,9 +302,9 @@ namespace Finjin { namespace Exporter {
         void StartCreate
             (
             const wxString& meshName,
-            ObjectAccessor object, 
-            const CoordinateSystemConverter& coordinateConverter, 
-            float scale, 
+            ObjectAccessor object,
+            const CoordinateSystemConverter& coordinateConverter,
+            float scale,
             TimeAccessor time,
             GeometryStateFlags flags,
             const SkeletonReferencePose* referencePose
@@ -329,7 +329,7 @@ namespace Finjin { namespace Exporter {
         /** Maps a material to a submesh. */
         typedef AccessorMap<MaterialAccessor, GeometryStateSubmesh*> MaterialsToSubmeshes;
 
-        /** 
+        /**
          * Gets the submesh for the specified material, creating the submesh if necessary.
          * @param materialsToSubmeshes [in/out] - A material/submesh map. This is first checked
          * to see if the necessary submesh exists. It is modified if a new submesh is created.
@@ -340,11 +340,11 @@ namespace Finjin { namespace Exporter {
          */
         GeometryStateSubmesh* GetMaterialSubmesh
             (
-            MaterialsToSubmeshes& materialsToSubmeshes, 
-            MaterialAccessor material, 
+            MaterialsToSubmeshes& materialsToSubmeshes,
+            MaterialAccessor material,
             bool* isNew = nullptr
             );
-            
+
     public:
         /** Name passed to StartCreate(). */
         wxString meshName;
@@ -361,10 +361,10 @@ namespace Finjin { namespace Exporter {
         /** The object's node transform with object offset at creation time. */
         TransformAccessor geometryTransform;
 
-        /** All the geometry submeshes. */ 
+        /** All the geometry submeshes. */
         GeometryStateSubmeshes submeshes;
 
-        /** 
+        /**
          * Vertex positions, as they are ordered in the original mesh.
          * This is used with reindexing and also when initializing morphers.
          */
@@ -373,9 +373,9 @@ namespace Finjin { namespace Exporter {
         /** Mesh normals, as they exist in the original mesh. */
         MeshNormals meshNormals;
 
-        /** 
-         * The default mapping of source (user/application-defined) texture coordinates 
-         * to what will eventually be exported. 
+        /**
+         * The default mapping of source (user/application-defined) texture coordinates
+         * to what will eventually be exported.
          */
         SubmeshesSettings submeshesSettings;
 
@@ -420,7 +420,7 @@ namespace Finjin { namespace Exporter {
                 auto boxHalfSize = (this->box.max - this->box.min) / 2.0f;
                 auto boxCenter = (this->box.max + this->box.min) / 2.0f;
                 boxHalfSize *= scale;
-                
+
                 result.box.min = boxCenter - boxHalfSize;
                 result.box.max = boxCenter + boxHalfSize;
 
@@ -516,11 +516,11 @@ namespace Finjin { namespace Exporter {
             }
         };
         VertexBuffers vertexBuffers;
-        
+
         /** Constructed in FinalizeVertexAndIndexBuffersForWrite(). The destination for all submesh indices. */
         std::vector<uint16_t> indexBuffer16;
         std::vector<uint32_t> indexBuffer32;
-        
+
     protected:
         /** The type of geometry extracted from createObject. */
         GeometryStateSubmesh::GeometryType geometryType;

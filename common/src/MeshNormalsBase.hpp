@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 #include "MatrixAccessor.hpp"
 #include "CoordinateSystemConverter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class CoordinateSystemConverter;
 
     /** A mesh vertex normal, used by the MeshNormalsBase class. */
-    class VertexNormal 
+    class VertexNormal
     {
     public:
         VertexNormal();
@@ -83,7 +83,7 @@ namespace Finjin { namespace Exporter {
         FinjinVector4 GetTangent(int cornerIndex, int vertexIndex, int faceIndex, unsigned int smoothingGroups);
 
     protected:
-        void Convert(const CoordinateSystemConverter& coordinateConverter);        
+        void Convert(const CoordinateSystemConverter& coordinateConverter);
 
     public:
         //Calculated vertex values
@@ -101,7 +101,7 @@ namespace Finjin { namespace Exporter {
         struct NormalFace
         {
             NormalFace()
-            {                
+            {
             }
 
             void SetDegree(int degree)
@@ -135,7 +135,7 @@ namespace Finjin { namespace Exporter {
         struct TangentFace
         {
             TangentFace()
-            {                
+            {
             }
 
             void SetDegree(int degree)
@@ -165,8 +165,8 @@ namespace Finjin { namespace Exporter {
             std::vector<FinjinVector4> tangents;
         };
 
-        std::vector<NormalFace> normalFaces;    
-        std::vector<TangentFace> tangentFaces;    
+        std::vector<NormalFace> normalFaces;
+        std::vector<TangentFace> tangentFaces;
     };
 
 } }

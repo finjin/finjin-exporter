@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ListControl::ListControl()
 {
     this->hList = nullptr;
@@ -34,7 +34,7 @@ void ListControl::Initialize(HWND hList)
 {
     this->hList = hList;
 
-    DWORD style = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT; 
+    DWORD style = LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT;
     ListView_SetExtendedListViewStyleEx(this->hList, style, style);
 }
 
@@ -156,7 +156,7 @@ void ListControl::SetData(int row, LPARAM data)
 bool ListControl::IsSelectedItemChange(NMLISTVIEW* listViewNotify)
 {
     if (listViewNotify->hdr.code == LVN_ITEMCHANGED)
-    {  
+    {
         //Has the item's state changed?
         if ((listViewNotify->uChanged & LVIF_STATE) != LVIF_STATE)
         {
@@ -168,7 +168,7 @@ bool ListControl::IsSelectedItemChange(NMLISTVIEW* listViewNotify)
         if (!(listViewNotify->uNewState & LVIS_SELECTED) || (listViewNotify->uOldState & LVIS_SELECTED))
         {
             //No, it hasn't
-            return false; 
+            return false;
         }
 
         return true;

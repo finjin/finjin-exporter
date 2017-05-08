@@ -31,11 +31,11 @@
 using namespace Finjin::Exporter;
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define CUSTOM_DUMMY_LOCK_EDGE_VERTICES wxCriticalSectionLocker customDummyEdgeVerticesLocker(edgeVerticesCriticalSection);
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinCustomDummy::Attributes FinjinCustomDummy::attributes;
 wxCriticalSection FinjinCustomDummy::edgeVerticesCriticalSection;
 
@@ -43,12 +43,12 @@ const MString FinjinCustomDummy::TYPE_NAME("FinjinCustomDummy");
 const MTypeId FinjinCustomDummy::TYPE_ID(FinjinMayaTypeID::CUSTOM_DUMMY_NODE);
 
 
-//Implementation---------------------------------------------------------------
-FinjinCustomDummy::FinjinCustomDummy() 
+//Implementation----------------------------------------------------------------
+FinjinCustomDummy::FinjinCustomDummy()
 {
 }
 
-FinjinCustomDummy::~FinjinCustomDummy() 
+FinjinCustomDummy::~FinjinCustomDummy()
 {
 }
 
@@ -64,7 +64,7 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
     bool alwaysFaceViewer = MPlug(object, attributes.alwaysFaceView).asBool();
     MString text = MPlug(object, attributes.text).asString();
     FinjinColor color = MayaPlug::GetColor(MPlug(object, attributes.color));
-    
+
     if (status == M3dView::kLead)
         glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
     else
@@ -83,7 +83,7 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
         view.modelViewMatrix(modelViewMatrix);
 
         //Invert and get counter-rotation
-        MMatrix viewModelMatrix = modelViewMatrix.inverse();        
+        MMatrix viewModelMatrix = modelViewMatrix.inverse();
         MQuaternion viewModelQuaternion;
         viewModelQuaternion = viewModelMatrix;
 
@@ -94,7 +94,7 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
 
         //Save OpenGL's transformation matrix, then modify to remove rotation
         glPushMatrix();
-        glRotated(RadiansToDegrees(angle), axis.x, axis.y, axis.z);        
+        glRotated(RadiansToDegrees(angle), axis.x, axis.y, axis.z);
     }
 
     {
@@ -118,7 +118,7 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
                 {
                     //The icon data is Z-up, no need to convert
                     for (int i = 0; i < edgeVerticesCount; i += 2)
-                    {            
+                    {
                         v = MayaPlug::GetVector3(edgeVerticesPlug[i]) * size;
                         glVertex3f(v.x, v.y, v.z);
 
@@ -130,7 +130,7 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
                 {
                     //The icon data is Y-up, so convert to Z-up
                     for (int i = 0; i < edgeVerticesCount; i += 2)
-                    {            
+                    {
                         v = MayaPlug::GetVector3(edgeVerticesPlug[i]) * size;
                         v.Set(v.x, -v.z, v.y);
                         glVertex3f(v.x, v.y, v.z);
@@ -145,7 +145,7 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
             {
                 //Just draw as normal
                 for (int i = 0; i < edgeVerticesCount; i += 2)
-                {            
+                {
                     v = MayaPlug::GetVector3(edgeVerticesPlug[i]) * size;
                     glVertex3f(v.x, v.y, v.z);
 
@@ -167,14 +167,14 @@ void FinjinCustomDummy::DrawLocator(M3dView& view, M3dView::DisplayStyle style, 
         view.drawText(text, MPoint(0,0,0), M3dView::kLeft);
 }
 
-MBoundingBox FinjinCustomDummy::boundingBox() const 
+MBoundingBox FinjinCustomDummy::boundingBox() const
 {
     MBoundingBox bbox;
 
     MObject object = thisMObject();
     float size = MPlug(object, attributes.size).asMDistance().as(UI_UNIT_TYPE);
     bool alwaysFaceViewer = MPlug(object, attributes.alwaysFaceView).asBool();
-    
+
     CUSTOM_DUMMY_LOCK_EDGE_VERTICES
 
     auto axis = MayaPlug::GetVector3(MPlug(object, attributes.axis));
@@ -191,7 +191,7 @@ MBoundingBox FinjinCustomDummy::boundingBox() const
             {
                 //The icon data is Z-up, no need to convert
                 for (int i = 0; i < edgeVerticesCount; i += 2)
-                {            
+                {
                     v = MayaPlug::GetVector3(edgeVerticesPlug[i]) * size;
                     bbox.expand(MPoint(v.x, v.y, v.z));
 
@@ -203,7 +203,7 @@ MBoundingBox FinjinCustomDummy::boundingBox() const
             {
                 //The icon data is Y-up, so convert to Z-up
                 for (int i = 0; i < edgeVerticesCount; i += 2)
-                {            
+                {
                     v = MayaPlug::GetVector3(edgeVerticesPlug[i]) * size;
                     v.Set(v.x, -v.z, v.y);
                     bbox.expand(MPoint(v.x, v.y, v.z));
@@ -218,7 +218,7 @@ MBoundingBox FinjinCustomDummy::boundingBox() const
         {
             //Just draw as normal
             for (int i = 0; i < edgeVerticesCount; i += 2)
-            {            
+            {
                 v = MayaPlug::GetVector3(edgeVerticesPlug[i]) * size;
                 bbox.expand(MPoint(v.x, v.y, v.z));
 
@@ -285,7 +285,7 @@ void FinjinCustomDummy::ChooseCustomIcon(MObject& object)
                 }
             }
         }
-    }        
+    }
 }
 
 void FinjinCustomDummy::UseDefaultIcon(MObject& object)
@@ -302,13 +302,13 @@ void FinjinCustomDummy::UseDefaultIcon(MObject& object)
 
 MStatus FinjinCustomDummy::AddAttributes()
 {
-    NodeAttributeAdder adder;        
-    
+    NodeAttributeAdder adder;
+
     attributes.alwaysFaceView = adder.AddBool("AlwaysFaceView");
     attributes.size = adder.AddDistance("IconSize", MDistance(5, INTERNAL_UNIT_TYPE), 100);
     attributes.color = adder.AddColor("IconColor", MColor(0.0f, 1.0f, 0.0f, 0.5f));
     attributes.text = adder.AddString("Text");
-        
+
     adder.hidden = true;
     attributes.edgeVertices = adder.AddFloat3Array("EdgeVertices");
     attributes.axis = adder.AddFloat3("Axis");

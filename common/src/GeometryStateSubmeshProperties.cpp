@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 GeometryStateSubmeshProperties::GeometryStateSubmeshProperties()
 {
 }
@@ -32,7 +32,7 @@ GeometryStateSubmeshProperties::GeometryStateSubmeshProperties()
 void GeometryStateSubmeshProperties::Initialize
     (
     ObjectAccessor object,
-    FinjinObjectSettingsAccessor objectSettings, 
+    FinjinObjectSettingsAccessor objectSettings,
     FinjinSceneSettingsAccessor sceneSettings
     )
 {
@@ -42,7 +42,7 @@ void GeometryStateSubmeshProperties::Initialize
 void GeometryStateSubmeshProperties::Initialize
     (
     ObjectAccessor object,
-    FinjinObjectSettingsAccessor objectSettings, 
+    FinjinObjectSettingsAccessor objectSettings,
     const ObjectExportSettings& objectExportSettings,
     FinjinSceneSettingsAccessor sceneSettings
     )
@@ -53,11 +53,11 @@ void GeometryStateSubmeshProperties::Initialize
 void GeometryStateSubmeshProperties::Initialize
     (
     ObjectAccessor object,
-    FinjinObjectSettingsAccessor objectSettings, 
+    FinjinObjectSettingsAccessor objectSettings,
     const ObjectExportSettings* objectExportSettings,
     FinjinSceneSettingsAccessor sceneSettings
     )
-{        
+{
     this->objectSettings = objectSettings;
     this->primitiveType = objectSettings.GetPrimitiveTypeValue();
     if (this->primitiveType == PrimitiveType::DEFAULT)
@@ -66,17 +66,17 @@ void GeometryStateSubmeshProperties::Initialize
     this->exportVertexColors = objectSettings.GetExportVertexColors() || sceneSettings.GetExportVertexColors();
     this->hasVertexColors = false;
     this->has2DTextureCoordinates = false;
-    this->hasNormals = false;    
+    this->hasNormals = false;
     this->generateTangents = false;
     this->generateBinormals = false;
     if (objectExportSettings != nullptr)
         this->manualLods = objectExportSettings->manualLods;
     else
         this->manualLods.clear();
-    
+
     if (this->primitiveType == PrimitiveType::TRIANGLES)
     {
-        this->hasNormals = true;        
+        this->hasNormals = true;
         this->generateTangents = this->hasNormals && (objectSettings.GetExportTangents() || sceneSettings.GetExportTangents());
         this->generateBinormals = this->generateTangents && (objectSettings.GetExportBinormals() || sceneSettings.GetExportBinormals());
     }
@@ -103,8 +103,8 @@ void GeometryStateSubmeshProperties::Merge(GeometryStateSubmeshProperties& other
 
 bool GeometryStateSubmeshProperties::MatchesForMerge(const GeometryStateSubmeshProperties& other)
 {
-    auto result = 
-        HasMergableAnimation(other) && 
+    auto result =
+        HasMergableAnimation(other) &&
         StringSetsSame(this->morphTargetNames, other.morphTargetNames) &&
         this->primitiveType == other.primitiveType &&
         this->pointSize == other.pointSize &&
@@ -114,7 +114,7 @@ bool GeometryStateSubmeshProperties::MatchesForMerge(const GeometryStateSubmeshP
         CanGenerateTangents() == other.CanGenerateTangents() &&
         CanGenerateBinormals() == other.CanGenerateBinormals() &&
         this->textureCoordSetDimensions == other.textureCoordSetDimensions &&
-        this->renderQueueName == other.renderQueueName && 
+        this->renderQueueName == other.renderQueueName &&
         this->renderPriority == other.renderPriority
         ;
 
@@ -129,7 +129,7 @@ bool GeometryStateSubmeshProperties::MatchesForInstancing(const GeometryStateSub
         this->objectSettings.GetMeshAnimations(meshAnimations);
     if (other.objectSettings.IsValid())
         const_cast<GeometryStateSubmeshProperties&>(other).objectSettings.GetMeshAnimations(otherMeshAnimations);
-    
+
     return
         this->animationFlags == other.animationFlags &&
         StringSetsSame(this->morphTargetNames, other.morphTargetNames) &&
@@ -144,7 +144,7 @@ bool GeometryStateSubmeshProperties::MatchesForInstancing(const GeometryStateSub
         CanGenerateBinormals() == other.CanGenerateBinormals() &&
         this->manualLods == other.manualLods &&
         this->textureCoordSetDimensions == other.textureCoordSetDimensions &&
-        this->renderQueueName == other.renderQueueName && 
+        this->renderQueueName == other.renderQueueName &&
         this->renderPriority == other.renderPriority
         ;
 }
@@ -186,13 +186,13 @@ bool GeometryStateSubmeshProperties::IsAnimated() const
 
 bool GeometryStateSubmeshProperties::HasMergableAnimation(const GeometryStateSubmeshProperties& other) const
 {
-    auto hasMixedMeshAnimation = 
-        AnySet(this->animationFlags) && 
-        AnySet(other.animationFlags) && 
+    auto hasMixedMeshAnimation =
+        AnySet(this->animationFlags) &&
+        AnySet(other.animationFlags) &&
         NoneSet(this->animationFlags & other.animationFlags)
         ;
-    
-    return 
-        !hasMixedMeshAnimation && 
+
+    return
+        !hasMixedMeshAnimation &&
         (NoneSet(this->animationFlags) || this->animationFlags == MeshAnimationFlags::HAS_SKELETON);
 }

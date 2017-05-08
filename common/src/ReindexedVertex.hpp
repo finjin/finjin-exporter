@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "WeightedVertex.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Maps an original vertex to one or more other vertices. */
@@ -31,7 +31,7 @@ namespace Finjin { namespace Exporter {
     {
         ReindexedVertex()
         {
-            this->pointIndices.reserve(3);            
+            this->pointIndices.reserve(3);
         }
 
         typedef std::vector<unsigned int> PointIndices;

@@ -22,12 +22,12 @@
 //Includes----------------------------------------------------------------------
 
 
-//Classes-----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class AssetReference
     {
-    public:        
+    public:
         bool IsValid() const;
 
         static AssetReference Parse(const wxString& s);
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
         static AssetReference ForObject(const wxString& objectName);
         static AssetReference ForLocalFile(const wxString& filePath);
         static AssetReference ForObjectInLocalFile(const wxString& filePath, const wxString& objectName);
-    
+
         wxString ToUriString() const;
 
     public:

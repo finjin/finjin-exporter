@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Inline functions-------------------------------------------------------------
+//Inline functions--------------------------------------------------------------
 
 /** Converts an application string to a wxString. */
 inline wxString ApplicationStringToWxString(const TSTR& maxString)
-{    
+{
 #if wxUSE_UNICODE
     return maxString.ToUTF16().data();
 #else
@@ -45,12 +45,12 @@ inline wxString ApplicationStringToWxString(const TCHAR* maxString)
 
 /** Converts a wxString to an application string. */
 inline TSTR WxStringToApplicationString(const wxString& wx)
-{   
+{
     return WxStringAsInternal(wx);
 }
 
 inline MSTR WxStringToApplicationStringM(const wxString& wx)
-{   
+{
 #if wxUSE_UNICODE
     return MSTR::FromUTF16(wx.wx_str());
 #else

@@ -19,23 +19,23 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectTypeDescriptor.hpp"
 #include "TabControl.hpp"
 #include "ExportedObject.hpp"
 #include "ExportableObject.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class ObjectTypeDetectionContext;
     class ObjectAccessor;
     class FinjinObjectSettingsAccessor;
     class FinjinSceneSettingsAccessor;
     class ExporterHandler;
-        
-    /** 
+
+    /**
      * This class specifies the base implementation for a type that can be applied to objects in the scene.
      * It is "detectable" in the sense that while objects have a specific type in an application, any one of
      * a number types can be applied to them when exporting. So, there is a process to detect which types
@@ -45,20 +45,20 @@ namespace Finjin { namespace Exporter {
     {
     public:
         virtual ~DetectableObjectType() {}
-        
-        /** 
+
+        /**
          * Assists in detecting the type.
          * @param context [in/out] - Contains information about the object whose type is being determined.
          */
         virtual void Detect(ObjectTypeDetectionContext& context) {}
 
         /** Gets the type descriptor. */
-        virtual DetectableObjectTypeDescriptor& GetDescriptor() = 0;        
+        virtual DetectableObjectTypeDescriptor& GetDescriptor() = 0;
 
         /** Creates the object settings pages for the type. */
         virtual void CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings) {}
 
-        /** 
+        /**
          * Determines whether the specified child is consumed by its parent.
          * This method will always be called on the parent's type.
          */
@@ -70,7 +70,7 @@ namespace Finjin { namespace Exporter {
         /** Performs some final resolution on the objects that the specified object depends on. */
         virtual void ResolveDependencies(ExportableObject* exportableObject, ExporterContext& context) {}
 
-        /** 
+        /**
          * Generates an ExportedObject for the specified exportable object.
          * Implementations are free to create just one ExportedObject that contains everything, or a hierarchy
          * of ExportedObjects.

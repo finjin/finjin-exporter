@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define FINJIN_DECLARE_TRANSLATOR(name, base) \
     class name : public base \
     { \
@@ -41,14 +41,14 @@
     const MString name::FILE_FILTER = filter; \
     const MString name::TRANSLATOR_NAME = desc;
 
-    
-//Classes----------------------------------------------------------------------
+
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class ExporterTranslatorBase : public MPxFileTranslator
     {
     public:
-        bool haveWriteMethod() const override {return true;}        
+        bool haveWriteMethod() const override {return true;}
     };
 
 } }

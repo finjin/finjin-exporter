@@ -32,7 +32,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinCustomDummyClassDesc : public ClassDesc2
 {
 public:
@@ -57,7 +57,7 @@ public:
 
     void DeleteThis() override {}
 
-    void SetThing(ReferenceTarget* m) 
+    void SetThing(ReferenceTarget* m)
     {
         this->dummy = (FinjinCustomDummy*)m;
     }
@@ -88,9 +88,9 @@ public:
                     }
                     case IDC_USE_DEFAULT_ICON_BUTTON:
                     {
-                        if (this->dummy->UseDefaultIcon())                        
+                        if (this->dummy->UseDefaultIcon())
                             GetCOREInterface()->ForceCompleteRedraw();
-                        
+
                         break;
                     }
                 }
@@ -114,7 +114,7 @@ public:
         this->object = nullptr;
     }
 
-    void SetObject(FinjinCustomDummy* obj) 
+    void SetObject(FinjinCustomDummy* obj)
     {
         this->object = obj;
     }
@@ -128,12 +128,12 @@ protected:
     void SuspendSnap(bool suspend)
     {
         this->object->suspendSnap = suspend;
-    }    
-    
+    }
+
 private:
     FinjinCustomDummy* object;
 
-public:    
+public:
     static FinjinCustomDummyCreateCallback instance;
 };
 FinjinCustomDummyCreateCallback FinjinCustomDummyCreateCallback::instance;
@@ -141,25 +141,25 @@ FinjinCustomDummyCreateCallback FinjinCustomDummyCreateCallback::instance;
 static std::vector<Point3> DEFAULT_ICON_EDGE_VERTICES;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {CUSTOM_DUMMY_PARAM_BLOCK_ID = 0};
 enum {CUSTOM_DUMMY_VERSION = 1};
 enum {MAIN_MAP, NUM_MAPS};
 
 static ParamBlockDesc2 FinjinCustomDummyParamBlock
     (
-    CUSTOM_DUMMY_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinCustomDummyClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT | P_AUTO_UI | P_MULTIMAP, 
-    
+    CUSTOM_DUMMY_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinCustomDummyClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT | P_AUTO_UI | P_MULTIMAP,
+
     //Version
     CUSTOM_DUMMY_VERSION,
-    
+
     //Reference number
-    FinjinCustomDummy::PARAM_BLOCK_REF, 
-    
+    FinjinCustomDummy::PARAM_BLOCK_REF,
+
     //Rollout
     NUM_MAPS,
     MAIN_MAP, IDD_CUSTOM_DUMMY_ROLLUP, IDS_PARAMETERS, 0, 0, &FinjinCustomDummyDlgProc::instance,
-    
+
     FinjinCustomDummy::PB_ICON_SIZE, _M("IconSize"), TYPE_FLOAT, P_RESET_DEFAULT, IDS_ICON_SIZE,
         p_default, 1.0f,
         p_range, 0.05f, FINJIN_EXPORTER_DEFAULT_MAX_DISTANCE,
@@ -176,7 +176,7 @@ static ParamBlockDesc2 FinjinCustomDummyParamBlock
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinCustomDummy::FinjinCustomDummy()
 {
     this->pblock = nullptr;
@@ -198,11 +198,11 @@ IOResult FinjinCustomDummy::Load(ILoad* iload)
     ULONG numBytes;
     IOResult res = IO_OK;
 
-    while (IO_OK == (res = iload->OpenChunk())) 
+    while (IO_OK == (res = iload->OpenChunk()))
     {
-        switch (iload->CurChunkID()) 
+        switch (iload->CurChunkID())
         {
-            case EDGE_VERTICES_CHUNK: 
+            case EDGE_VERTICES_CHUNK:
             {
                 //Load vertex count
                 int vertexCount;
@@ -213,11 +213,11 @@ IOResult FinjinCustomDummy::Load(ILoad* iload)
                 iload->Read(&this->edgeVertices[0], sizeof(Point3) * vertexCount, &numBytes);
 
                 break;
-            }                
+            }
         }
 
         res = iload->CloseChunk();
-        if (res != IO_OK)  
+        if (res != IO_OK)
             return res;
     }
 
@@ -231,7 +231,7 @@ IOResult FinjinCustomDummy::Save(ISave* isave)
     if (!this->edgeVertices.empty())
     {
         isave->BeginChunk(EDGE_VERTICES_CHUNK);
-        
+
         //Save vertex count
         int vertexCount = (int)this->edgeVertices.size();
         isave->Write(&vertexCount, sizeof(vertexCount), &numBytes);
@@ -261,18 +261,18 @@ void FinjinCustomDummy::Snap(TimeValue t, INode* inode, SnapInfo* snap, IPoint2*
 int FinjinCustomDummy::Display(TimeValue t, INode* inode, ViewExp* vpt, int flags)
 {
     //Get viewport graphics window
-    auto gw = vpt->getGW();    
+    auto gw = vpt->getGW();
 
     //Get transform
     auto tm = GetIconSizeMatrix(t) * inode->GetObjectTM(t);
     if (GetAlwaysFaceView())
         tm = MeshIconUtilities::MakeBillboardTM(tm, vpt);
-        
+
     //Draw the icon
     auto text = GetText();
     auto& edgeVertices = GetEdgeVertices();
     MeshIconUtilities::DrawCustomIcon(vpt, &edgeVertices[0], edgeVertices.size(), &text, &tm, inode->Selected(), inode->IsFrozen(), inode->GetWireColor());
-    
+
     return 0;
 }
 
@@ -323,7 +323,7 @@ void FinjinCustomDummy::GetLocalBoundBox(TimeValue t, INode* inode, ViewExp* vpt
 {
     auto tm = GetIconSizeMatrix(t);
     auto& edgeVertices = GetEdgeVertices();
-    box = MeshIconUtilities::GetCustomIconBox(&edgeVertices[0], edgeVertices.size(), &tm);    
+    box = MeshIconUtilities::GetCustomIconBox(&edgeVertices[0], edgeVertices.size(), &tm);
     box.EnlargeBy(.01f);
 }
 
@@ -394,19 +394,19 @@ std::vector<Point3>& FinjinCustomDummy::GetEdgeVertices()
         return DEFAULT_ICON_EDGE_VERTICES;
 }
 
-Class_ID FinjinCustomDummy::ClassID() 
+Class_ID FinjinCustomDummy::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinCustomDummy::GetClassClassID()
 {
     return FinjinMaxClassID::CustomDummy;
 }
 
-SClass_ID FinjinCustomDummy::SuperClassID() 
-{ 
-    return HELPER_CLASS_ID; 
+SClass_ID FinjinCustomDummy::SuperClassID()
+{
+    return HELPER_CLASS_ID;
 }
 
 void FinjinCustomDummy::GetClassName(MSTR& s)
@@ -421,9 +421,9 @@ RefTargetHandle FinjinCustomDummy::Clone(RemapDir& remap)
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
     newHelper->edgeVertices = this->edgeVertices;
-    
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -432,34 +432,34 @@ RefResult FinjinCustomDummy::NotifyRefChanged(const Interval& changeInt, RefTarg
     return REF_SUCCEED;
 }
 
-int FinjinCustomDummy::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinCustomDummy::SubAnimName(int i) 
+int FinjinCustomDummy::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinCustomDummy::SubAnim(int i) 
+MSTR FinjinCustomDummy::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinCustomDummy::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinCustomDummy::GetReference(int i) 
+Animatable* FinjinCustomDummy::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinCustomDummy::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinCustomDummy::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinCustomDummy::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinCustomDummy::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinCustomDummy::GetClassDesc()

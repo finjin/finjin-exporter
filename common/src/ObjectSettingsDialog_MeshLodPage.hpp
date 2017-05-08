@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Mesh level-of-detail page for the object settings dialog. */
@@ -58,11 +58,11 @@ namespace Finjin { namespace Exporter {
             REMOVE_MANUAL_LOD_BUTTON,
             CALCULATE_MANUAL_DISTANCES_CHECKBOX
         };
-        
+
         void GetExcludedLodObjects(ObjectAccessorSet& excludedLodObjects);
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         void UpdateManualLodGUIData();
         void UpdateManualLodButtons();

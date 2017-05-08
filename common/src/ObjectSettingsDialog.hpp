@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "ObjectTypeDetector.hpp"
@@ -27,23 +27,23 @@
 #include "TabControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class DetectableObjectType;
 
-    /** 
+    /**
      * The object settings dialog.
-     * This dialog can be seen within the application by selecting 
+     * This dialog can be seen within the application by selecting
      * 'Object Settings' from the Finjin menu.
      */
     class ObjectSettingsDialog : public FinjinDialog
-    {    
+    {
     public:
         /** Default constructor. */
         ObjectSettingsDialog();
 
-        /** 
+        /**
          * Constructor.
          * @param parent [in] - Parent window.
          * @param object [in] - The object whose settings are being edited.
@@ -52,26 +52,26 @@ namespace Finjin { namespace Exporter {
          */
         ObjectSettingsDialog
             (
-            wxWindow* parent, 
-            ObjectAccessor object, 
-            FinjinObjectSettingsAccessor objectSettings, 
+            wxWindow* parent,
+            ObjectAccessor object,
+            FinjinObjectSettingsAccessor objectSettings,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
         bool Create
             (
-            wxWindow* parent, 
-            ObjectAccessor object, 
-            FinjinObjectSettingsAccessor objectSettings, 
+            wxWindow* parent,
+            ObjectAccessor object,
+            FinjinObjectSettingsAccessor objectSettings,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
-        void OnCloseWindow(wxCloseEvent& event);    
+        void OnCloseWindow(wxCloseEvent& event);
         void OnOK(wxCommandEvent& event);
         void OnNotebookPageChanged(wxNotebookEvent& event);
-        
-        void SelectedObjectType(DetectableObjectType* type);    
-        
+
+        void SelectedObjectType(DetectableObjectType* type);
+
     protected:
         void CreateControls();
 
@@ -93,11 +93,11 @@ namespace Finjin { namespace Exporter {
 
         static wxString lastPageSelection;
         bool initializingPages;
-        
+
     public:
         FinjinSceneSettingsAccessor sceneSettings;
         ObjectTypeDetector defaultObjectType;
-        ObjectTypeDetector objectType;        
+        ObjectTypeDetector objectType;
     };
 
 } }

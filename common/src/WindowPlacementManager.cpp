@@ -23,13 +23,13 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 WindowPlacementManager::Placements WindowPlacementManager::placements;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void WindowPlacementManager::SavePlacement(wxTopLevelWindow* window)
-{   
+{
     Placement placement;
     placement.rect = window->GetScreenRect();
     placement.maximized = window->IsMaximized();
@@ -44,7 +44,7 @@ bool WindowPlacementManager::RestorePlacement(wxTopLevelWindow* window)
     Placement placement;
     if (!GetSavedPlacement(name, placement))
         return false;
-    
+
     //Restore the placement
     if (placement.maximized)
         window->Maximize();
@@ -54,7 +54,7 @@ bool WindowPlacementManager::RestorePlacement(wxTopLevelWindow* window)
         window->SetSize(placement.rect.GetSize());
     }
     window->Layout();
-    
+
     return true;
 }
 

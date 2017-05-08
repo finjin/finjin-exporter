@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Performs sorting of an object's children. */
@@ -37,8 +37,8 @@ namespace Finjin { namespace Exporter {
             /** Default constructor. */
             ChildObject();
 
-            /** 
-             * Constructor that takes all info. 
+            /**
+             * Constructor that takes all info.
              * @param object [in] - The child object.
              * @param objectSettings [in] - The child object settings.
              * @param data [in] - Data associated with the child object.
@@ -61,22 +61,22 @@ namespace Finjin { namespace Exporter {
             wxString name;
 
             /** The child order, obtained from the object settings. */
-            int order;            
+            int order;
 
             /** The child default order, obtained from the order in which it was encountered in the scene. */
             int defaultOrder;
         };
 
-        /** 
+        /**
          * Constructor.
-         * @param sortType [in] - The type of sorting to perform on children. 
+         * @param sortType [in] - The type of sorting to perform on children.
          */
         ChildObjectSorter(ChildSortType sortType = ChildSortType::NONE);
 
         /**
          * Functor that compares two child objects according to the sort type.
          */
-        bool operator () (const ChildObject& a, const ChildObject& b) const;        
+        bool operator () (const ChildObject& a, const ChildObject& b) const;
 
     private:
         ChildSortType sortType;

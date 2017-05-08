@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "GeometryStateBase.hpp"
 #include "CoordinateSystemConverter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryState : public GeometryStateBase
@@ -37,7 +37,7 @@ namespace Finjin { namespace Exporter {
          */
         static bool CanHandle
             (
-            ObjectAccessor object, 
+            ObjectAccessor object,
             TimeAccessor time = TimeAccessor()
             );
 
@@ -48,7 +48,7 @@ namespace Finjin { namespace Exporter {
          */
         static void GetSubmeshesSettings
             (
-            ObjectAccessor object, 
+            ObjectAccessor object,
             SubmeshesSettings& submeshesSettings,
             GeometryStateFlags flags = GeometryStateFlags::NONE
             );
@@ -56,10 +56,10 @@ namespace Finjin { namespace Exporter {
         bool Create
             (
             const wxString& meshName,
-            ObjectAccessor object, 
+            ObjectAccessor object,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE,
             SubmeshesSettings* submeshesSettings = nullptr,
             const SkeletonReferencePose* referencePose = nullptr
@@ -67,10 +67,10 @@ namespace Finjin { namespace Exporter {
 
         bool SamplePoints
             (
-            std::vector<FinjinVector3>& points, 
+            std::vector<FinjinVector3>& points,
             const CoordinateSystemConverter& coordinateConverter,
             float scale = 1.0f,
-            TimeAccessor time = TimeAccessor(), 
+            TimeAccessor time = TimeAccessor(),
             GeometryStateFlags flags = GeometryStateFlags::NONE,
             MeshNormals* normals = nullptr
             ) override;

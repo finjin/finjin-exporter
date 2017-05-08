@@ -23,24 +23,24 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MaterialExporterHandler::Initialize
     (
-    const MaterialAccessor& material, 
-    FinjinSceneSettingsAccessor sceneSettings, 
+    const MaterialAccessor& material,
+    FinjinSceneSettingsAccessor sceneSettings,
     const SceneExportSettings& sceneExportSettings
     )
 {
     this->material = material;
     this->sceneSettings = sceneSettings;
     this->sceneExportSettings = &sceneExportSettings;
-        
+
     this->material.Resolve();
 
     CalculateRequirements();
 }
 
-void MaterialExporterHandler::GetBitmapFileNames(GenericBitmapFileNameSet& bitmapFileNames) const 
+void MaterialExporterHandler::GetBitmapFileNames(GenericBitmapFileNameSet& bitmapFileNames) const
 {
     for (auto bitmapFileName : this->bitmapFileNames)
     {
@@ -72,5 +72,5 @@ void MaterialExporterHandler::AddCubicTextureBitmapFileBaseName(const wxString& 
     {
         GenericBitmapFileName bitmapFileName(fileName, GenericBitmapFileName::CUBIC);
         this->bitmapFileNames.insert(bitmapFileName);
-    }    
+    }
 }

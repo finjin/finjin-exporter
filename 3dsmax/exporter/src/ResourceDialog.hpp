@@ -19,9 +19,9 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** Base class for resource-based dialogs. */
     class ResourceDialog
     {
@@ -32,7 +32,7 @@ namespace Finjin { namespace Exporter {
         /** Destructor. */
         virtual ~ResourceDialog();
 
-        /** 
+        /**
          * Creates a new dialog and runs it as a modal dialog.
          * @param dialogID [in] - Resource identifier for the dialog.
          * @param hWndParent [in] - Handle to parent window. If null, the application
@@ -52,22 +52,22 @@ namespace Finjin { namespace Exporter {
         void GetTitle(wxString& text);
         void SetTitle(const wxString& text);
 
-        /** 
-         * Checks a radio button in the dialog. 
+        /**
+         * Checks a radio button in the dialog.
          * @param idFirstButton [in] - The identifier of the first button.
          * @param idLastButton [in] - The identifier of the last button.
          * @param idCheckButton [in] - The identifier of the checked button.
          */
         void CheckRadioButton(int idFirstButton, int idLastButton, int idCheckButton);
-         
-        /** 
-         * Gets the window handle of a control in the dialog. 
+
+        /**
+         * Gets the window handle of a control in the dialog.
          * @param idDlgItem [in] - Identifier of the dialog control to retrieve.
          * @return The control window handle is returned.
          */
         HWND GetDlgItem(int idDlgItem);
 
-        /** 
+        /**
          * Checks the specified button.
          * @param idButton [in] - Identifier of the control in the dialog.
          * @param check [in] - The check state of the button.
@@ -85,7 +85,7 @@ namespace Finjin { namespace Exporter {
 
         /** Sets the text into the specified control. */
         void SetDlgItemText(int idControl, const wxString& text);
-        
+
         /** Centers the dialog in its parent. */
         void CenterWindow();
 
@@ -98,13 +98,13 @@ namespace Finjin { namespace Exporter {
 
     private:
         /** The internal dialog procedure. */
-        static INT_PTR CALLBACK DialogProcCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);        
+        static INT_PTR CALLBACK DialogProcCallback(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
     protected:
         HWND hDlg;
 
         LONG_PTR oldUserData;
-        WNDPROC oldWndProc;    
+        WNDPROC oldWndProc;
     };
 
 } }

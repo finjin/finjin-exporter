@@ -29,72 +29,72 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(RemoveBoneTranslationsDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, RemoveBoneTranslationsDialog::OnOK)    
+    EVT_BUTTON(wxID_OK, RemoveBoneTranslationsDialog::OnOK)
     EVT_BUTTON(RemoveBoneTranslationsDialog::BONE_BUTTON, RemoveBoneTranslationsDialog::OnBoneButton)
 END_EVENT_TABLE()
 
-RemoveBoneTranslationsDialog::RemoveBoneTranslationsDialog(wxWindow* parent, const ObjectAccessorSet& meshBones) : 
+RemoveBoneTranslationsDialog::RemoveBoneTranslationsDialog(wxWindow* parent, const ObjectAccessorSet& meshBones) :
     FinjinDialog(parent, wxID_ANY, wxT("Remove Bone Translations"), wxDefaultPosition, wxSize( 301,125 ), wxDEFAULT_DIALOG_STYLE, wxT("RemoveBoneTranslationsDialog"))
 {
     this->meshBones = meshBones;
-    
+
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* boneSizer;
     boneSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     boneLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Bone"), wxDefaultPosition, wxDefaultSize, 0 );
     boneLabel->Wrap( -1 );
     boneSizer->Add( boneLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     boneEdit = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 160,-1 ), wxTE_READONLY );
-    
+
     boneSizer->Add( boneEdit, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     boneButton = new wxButton( this, wxID_ANY, wxT("Choose..."), wxDefaultPosition, wxDefaultSize, 0 );
     boneSizer->Add( boneButton, 0, wxTOP|wxRIGHT, 5 );
-    
+
     topSizer->Add( boneSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* includeExcludeSizer;
     includeExcludeSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     removeTranslationsLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Remove Translations"), wxDefaultPosition, wxDefaultSize, 0 );
     removeTranslationsLabel->Wrap( -1 );
     includeExcludeSizer->Add( removeTranslationsLabel, 0, wxALL, 5 );
-    
+
     removeXTranslationCheckbox = new wxCheckBox( this, wxID_ANY, wxT("X"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     includeExcludeSizer->Add( removeXTranslationCheckbox, 0, wxALL, 5 );
-    
+
     removeYTranslationCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Y"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     includeExcludeSizer->Add( removeYTranslationCheckbox, 0, wxALL, 5 );
-    
+
     removeZTranslationCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Z"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     includeExcludeSizer->Add( removeZTranslationCheckbox, 0, wxALL, 5 );
-    
+
     topSizer->Add( includeExcludeSizer, 0, wxEXPAND|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     SetSizer(topSizer);
-    
+
     this->boneButton->SetId(BONE_BUTTON);
 
     if (!WindowPlacementManager::RestorePlacement(this))
@@ -135,5 +135,5 @@ void RemoveBoneTranslationsDialog::OnBoneButton(wxCommandEvent& event)
     {
         this->boneObject = choose.GetObject();
         this->boneEdit->SetValue(this->boneObject.GetFullName());
-    }    
+    }
 }

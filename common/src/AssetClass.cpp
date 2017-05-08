@@ -58,13 +58,13 @@ wxString AssetClassUtilities::CreateFileName(AssetClass assetClass, const wxStri
 {
     //File base name
     auto fileName = assetName;
-    ExporterUtilities::FixObjectName(fileName);    
+    ExporterUtilities::FixObjectName(fileName);
 
     //Add asset extension
     auto assetTypeExtension = ToString(assetClass);
     wxString assetTypeAndFileTypeExtension = wxT(".");
     assetTypeAndFileTypeExtension += WxStreamingFileFormatUtilities::MakeExtension(assetTypeExtension, extensionFormat);
-    
+
     //Finish
-    return FileUtilities::CreateFileName(fileName, assetTypeAndFileTypeExtension);    
+    return FileUtilities::CreateFileName(fileName, assetTypeAndFileTypeExtension);
 }

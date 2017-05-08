@@ -22,7 +22,7 @@
 #include "FileUtilities.hpp"
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 struct Header
 {
     enum class FileFormat : uint32_t
@@ -50,14 +50,14 @@ struct Header
 
     static FileFormatClass GetFileFormatClass(const wxString& ext)
     {
-        if (ext == wxT("bmp") || ext == wxT("dxt") || ext == wxT("jpg") || ext == wxT("jpeg") || ext == wxT("ktx") || ext == wxT("pkm") || ext == wxT("png") || ext == wxT("tga"))
+        if (ext == wxT("astc") || ext == wxT("bmp") || ext == wxT("dds") || ext == wxT("jpg") || ext == wxT("jpeg") || ext == wxT("ktx") || ext == wxT("pkm") || ext == wxT("png") || ext == wxT("tga"))
             return FileFormatClass::IMAGE;
         else if (ext == wxT("ogg") || ext == wxT("wav"))
             return FileFormatClass::SOUND;
         else
             return FileFormatClass::GENERIC;
     }
-    
+
     uint32_t magic;
     FileFormat fileFormat;
     uint32_t fileFormatVersion;
@@ -80,35 +80,35 @@ void WriteHeader(T& outFile, const wxString& inFileExtension, uint64_t inFileLen
     auto swapBytes = byteOrder != ::GetByteOrder();
 
     //uint32_t: Finjin magic number
-    uint32_t magic = FINJIN_MAGIC_FOURCC;
+    uint32_t magic = FINJIN_SIGNATURE_FOURCC;
     if (swapBytes)
         SwapBytes(magic);
     outFile.Write(&magic, sizeof(magic));
-    
+
     //uint32_t: Format
     auto fileFormat = Header::FileFormat::EMBEDDED;
     if (swapBytes)
         SwapBytes(fileFormat);
     outFile.Write(&fileFormat, sizeof(fileFormat));
-    
+
     //uint32_t: Format version
     uint32_t fileFormatVersion = 1;
     if (swapBytes)
         SwapBytes(fileFormatVersion);
     outFile.Write(&fileFormatVersion, sizeof(fileFormatVersion));
-    
+
     //uint32_t: File format class
     auto fileFormatClass = Header::GetFileFormatClass(inFileExtension);
     if (swapBytes)
         SwapBytes(fileFormatClass);
     outFile.Write(&fileFormatClass, sizeof(fileFormatClass));
-    
+
     //uint32_t: File format class version
     uint32_t fileFormatClassVersion = 1;
     if (swapBytes)
         SwapBytes(fileFormatClassVersion);
     outFile.Write(&fileFormatClassVersion, sizeof(fileFormatClassVersion));
-    
+
     //uint32_t: File extension length
     auto inFileExtensionBytes = inFileExtension.ToUTF8();
     auto inFileExtensionByteCount = strlen(inFileExtensionBytes.data());
@@ -116,10 +116,10 @@ void WriteHeader(T& outFile, const wxString& inFileExtension, uint64_t inFileLen
     if (swapBytes)
         SwapBytes(fileExtensionLength);
     outFile.Write(&fileExtensionLength, sizeof(fileExtensionLength));
-    
-    //UTF-8[File extension length]: File extension (without leading dot)    
+
+    //UTF-8[File extension length]: File extension (without leading dot)
     outFile.Write(inFileExtensionBytes.data(), inFileExtensionByteCount);
-    
+
     //uint64_t: Embedded file length
     if (swapBytes)
         SwapBytes(inFileLength);
@@ -172,7 +172,7 @@ void WrappedFileWriter::Wrap(const wxString& inFilePath, ByteOrder byteOrder, co
         FINJIN_WX_SET_ERROR(error, wxString::Format(wxT("Failed to read input file '%s' or it was zero length."), inFilePath.wx_str()));
         return;
     }
-    
+
     //Write output file----------------------
     wxFile outFile(outFilePath, wxFile::write);
     if (!outFile.IsOpened())
@@ -182,7 +182,7 @@ void WrappedFileWriter::Wrap(const wxString& inFilePath, ByteOrder byteOrder, co
     }
 
     WriteHeader(outFile, inFileExtension, inFileLength, byteOrder);
-    
+
     //Write input file----------------
     wxFile inFile(inFilePath, wxFile::read);
     if (!inFile.IsOpened())

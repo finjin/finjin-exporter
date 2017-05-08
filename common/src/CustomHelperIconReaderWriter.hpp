@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Writes an icon file that is used with the Finjin custom helper object. */
@@ -36,28 +36,28 @@ namespace Finjin { namespace Exporter {
         /** Normalizes the vertex data by ensuring scaling all vertices down by the length of the 'longest' vertex. */
         void Normalize();
 
-        /** 
+        /**
          * Writes the icon data to the specified file.
          * @param fileName [in] - Full path to the file name to write the icon data to. If this name starts with
          * an '_' character, the data is written as a C-style array of vectors. Otherwise, it is written as XML data.
          * @param vector3Type [in] - If the data is being written as a C-style array, this is the type of the array.
          * @return If the file was written, true is returned. Otherwise, false is returned.
          */
-        bool Write(const wxString& fileName, const wxString& vector3Type = wxT("Vector3"));    
+        bool Write(const wxString& fileName, const wxString& vector3Type = wxT("Vector3"));
 
     public:
         struct Edge
         {
             int v1, v2;
         };
-        /** 
-         * All the visible edges of the icon. 
+        /**
+         * All the visible edges of the icon.
          * Use of this array is optional. If empty, the number of vertices should be even, with each pair
          * of vertices containing a visibile edge.
          */
         std::vector<Edge> edges;
 
-        /** 
+        /**
          * If edges is empty, this contains all the pairs of visible edges.
          * If edges is non-empty, this contains all the vertices references by the edges.
          */

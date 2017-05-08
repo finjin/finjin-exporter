@@ -37,14 +37,14 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool ExporterUtilities::ConvertCopyImage(const wxString& sourceFileName, WxDataChunkWriter& writer, const WxChunkPropertyName& sizePropertyName, const WxChunkPropertyName& contentPropertyName, bool convertToTexture)
 {
     FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(wxT("ConvertCopyImage(%s)"), sourceFileName.wx_str());
 
     FINJIN_WX_DECLARE_ERROR(error);
 
-    WxByteBuffer content;    
+    WxByteBuffer content;
     if (convertToTexture)
     {
         WrappedFileWriter::Wrap(sourceFileName, writer.GetByteOrder(), content, error);
@@ -89,9 +89,9 @@ bool ExporterUtilities::ConvertCopyImage(const wxString& sourceFileName, ByteOrd
             {
                 FINJIN_EXPORTER_LOG_MESSAGE
                     (
-                    ERROR_LOG_MESSAGE, 
-                    Strings::COULD_NOT_COPY_IMAGE_FILE_ERROR_DESTINATION_PERMISSIONS_FORMAT, 
-                    sourceFileName.wx_str(), 
+                    ERROR_LOG_MESSAGE,
+                    Strings::COULD_NOT_COPY_IMAGE_FILE_ERROR_DESTINATION_PERMISSIONS_FORMAT,
+                    sourceFileName.wx_str(),
                     destinationFileName.wx_str()
                     );
             }
@@ -104,15 +104,15 @@ bool ExporterUtilities::ConvertCopyImage(const wxString& sourceFileName, ByteOrd
             {
                 FINJIN_EXPORTER_LOG_MESSAGE
                     (
-                    ERROR_LOG_MESSAGE, 
-                    Strings::COULD_NOT_COPY_IMAGE_FILE_ERROR_DESTINATION_PERMISSIONS_FORMAT, 
-                    sourceFileName.wx_str(), 
+                    ERROR_LOG_MESSAGE,
+                    Strings::COULD_NOT_COPY_IMAGE_FILE_ERROR_DESTINATION_PERMISSIONS_FORMAT,
+                    sourceFileName.wx_str(),
                     destinationFileName.wx_str()
                     );
             }
         }
     }
-    
+
     return result;
 }
 
@@ -130,7 +130,7 @@ wxString ExporterUtilities::GetMaterialName(MaterialAccessor material, const wxS
             parentMaterialName += wxT("-");
         }
     }
-    
+
     wxString materialName;
     if (material.IsValid())
     {
@@ -140,7 +140,7 @@ wxString ExporterUtilities::GetMaterialName(MaterialAccessor material, const wxS
     }
     else
         materialName = defaultName;
-    
+
     return materialName;
 }
 
@@ -150,7 +150,7 @@ void ExporterUtilities::FixObjectName(wxString& fileName)
     fileName.Replace(wxT(":"), wxEmptyString);
     fileName.Replace(wxT("["), wxEmptyString);
     fileName.Replace(wxT("]"), wxEmptyString);
-    fileName.Replace(wxT("*"), wxEmptyString); 
+    fileName.Replace(wxT("*"), wxEmptyString);
     fileName.Replace(wxT("#"), wxEmptyString);
     fileName.Replace(wxT("?"), wxEmptyString);
     fileName.Replace(wxT("\""), wxEmptyString);
@@ -161,7 +161,7 @@ void ExporterUtilities::FixObjectName(wxString& fileName)
 
     fileName.Replace(wxT("\\"), wxT("/"));
     fileName.Replace(wxT("!"), wxT("/"));
-    FileUtilities::RemoveLeadingSeparators(fileName);    
+    FileUtilities::RemoveLeadingSeparators(fileName);
 }
 
 wxString ExporterUtilities::GetTextureName(const wxString& relativeFilePath)
@@ -195,18 +195,18 @@ bool ExporterUtilities::GetPlane(FinjinVector4& plane, GeometryState& geomState)
 
 std::unique_ptr<FinjinSceneDocument_Clipping> ExporterUtilities::ExportEnvironmentRange
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneSettingsAccessor sceneSettings, 
+    FinjinSceneDocument& scene,
+    FinjinSceneSettingsAccessor sceneSettings,
     SceneExportSettings& sceneExportSettings
     )
 {
     std::unique_ptr<FinjinSceneDocument_Clipping> clipping;
 
     float environmentNear = sceneSettings.GetEnvironmentNear() * sceneExportSettings.scale;
-    
+
     EnvironmentFar environmentFar(sceneSettings.GetEnvironmentFarObject(), sceneSettings.GetEnvironmentFar());
-    environmentFar.value *= sceneExportSettings.scale;    
-    
+    environmentFar.value *= sceneExportSettings.scale;
+
     if (environmentNear < environmentFar.value && environmentFar.value > 0)
         clipping.reset(new FinjinSceneDocument_Clipping(&scene, environmentNear, environmentFar.value));
 
@@ -215,8 +215,8 @@ std::unique_ptr<FinjinSceneDocument_Clipping> ExporterUtilities::ExportEnvironme
 
 std::unique_ptr<FinjinSceneDocument_Shadows> ExporterUtilities::ExportShadows
     (
-    FinjinSceneDocument& scene, 
-    FinjinSceneSettingsAccessor sceneSettings, 
+    FinjinSceneDocument& scene,
+    FinjinSceneSettingsAccessor sceneSettings,
     SceneExportSettings& sceneExportSettings
     )
 {
@@ -226,7 +226,7 @@ std::unique_ptr<FinjinSceneDocument_Shadows> ExporterUtilities::ExportShadows
     if (!shadowTechnique.empty())
     {
         shadows.reset(new FinjinSceneDocument_Shadows(&scene));
-        
+
         shadows->technique = shadowTechnique;
         shadows->farDistance = sceneSettings.GetShadowFarDistance() * sceneExportSettings.scale;
         shadows->color = sceneSettings.GetShadowColor();
@@ -237,7 +237,7 @@ std::unique_ptr<FinjinSceneDocument_Shadows> ExporterUtilities::ExportShadows
 
 FinjinSceneDocument_SceneNode::NodeVisibility ExporterUtilities::GetNodeVisibility
     (
-    const wxString& visibility, 
+    const wxString& visibility,
     FinjinSceneDocument_SceneNode::NodeVisibility defaultValue
     )
 {
@@ -251,7 +251,7 @@ FinjinSceneDocument_SceneNode::NodeVisibility ExporterUtilities::GetNodeVisibili
         value = FinjinSceneDocument_SceneNode::NODE_TREE_VISIBLE;
     else if (visibility == PropertyValues::Visibility::TREE_HIDDEN)
         value = FinjinSceneDocument_SceneNode::NODE_TREE_HIDDEN;
-    
+
     return value;
 }
 
@@ -261,7 +261,7 @@ void ExporterUtilities::WriteTransformProperties(WxDataChunkWriter& writer, cons
 
     MatrixAccessor transformMatrix = transform.GetMatrix();
     float m44[4][4];
-    transformMatrix.GetExportMatrix44(m44);        
+    transformMatrix.GetExportMatrix44(m44);
     writer.WriteFloats(StandardAssetDocumentPropertyNames::TRANSFORM, &m44[0][0], 16, error);
-    FINJIN_WX_DEFAULT_ERROR_CHECK(error)    
+    FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 }

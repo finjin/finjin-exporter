@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaxBaseMaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Handler for exporting standard application materials. */
@@ -49,13 +49,13 @@ namespace Finjin { namespace Exporter {
             REFRACTION, //3DS Max Standard material: Refraction map
             OPACITY, //3DS Max Standard material: Opacity map
             SHININESS, //3DS Max Standard material: Glossiness
-            ENVIRONMENT, //3DS Max Standard material: Ambient 
-            
+            ENVIRONMENT, //3DS Max Standard material: Ambient
+
             COUNT
         };
 
     private:
-        EnumValues<TexMapIndex, TexMapIndex::COUNT, TexMapSlot> texmaps;
+        EnumArray<TexMapIndex, TexMapIndex::COUNT, TexMapSlot> texmaps;
         size_t texmapCount;
     };
 

@@ -30,13 +30,13 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Locals-----------------------------------------------------------------------
+//Locals------------------------------------------------------------------------
 struct MaxMapToTexMapIndex
 {
     int maxID;
     StandardMaterialsExporterHandler::TexMapIndex texmapIndex;
 };
-static const MaxMapToTexMapIndex maxMapToTexMapIndex[] = 
+static const MaxMapToTexMapIndex maxMapToTexMapIndex[] =
 {
     {ID_DI, StandardMaterialsExporterHandler::TexMapIndex::DIFFUSE},
     {ID_SP, StandardMaterialsExporterHandler::TexMapIndex::SPECULAR},
@@ -44,14 +44,14 @@ static const MaxMapToTexMapIndex maxMapToTexMapIndex[] =
     {ID_BU, StandardMaterialsExporterHandler::TexMapIndex::BUMP},
     {ID_SI, StandardMaterialsExporterHandler::TexMapIndex::SELF_ILLUMINATION},
     {ID_RL, StandardMaterialsExporterHandler::TexMapIndex::REFLECTION},
-    {ID_RR, StandardMaterialsExporterHandler::TexMapIndex::REFRACTION},    
+    {ID_RR, StandardMaterialsExporterHandler::TexMapIndex::REFRACTION},
     {ID_OP, StandardMaterialsExporterHandler::TexMapIndex::OPACITY},
     {ID_SS, StandardMaterialsExporterHandler::TexMapIndex::SHININESS}, //3DS Max indicates glossiness map is ID_SH, but it is ID_SS
     {ID_AM, StandardMaterialsExporterHandler::TexMapIndex::ENVIRONMENT}
 };
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 StandardMaterialsExporterHandler::StandardMaterialsExporterHandler()
 {
     for (auto& item : this->texmaps)
@@ -75,7 +75,7 @@ void StandardMaterialsExporterHandler::CalculateRequirements()
 {
     auto stdMtl2 = material.mtl->ClassID() == Class_ID(DMTL2_CLASS_ID, 0) ? static_cast<StdMat2*>(this->material.mtl) : nullptr;
     auto stdMtl = static_cast<StdMat*>(this->material.mtl);
-        
+
     for (auto& item : this->texmaps)
         item = nullptr;
     this->texmapCount = 0;
@@ -84,7 +84,7 @@ void StandardMaterialsExporterHandler::CalculateRequirements()
     {
         auto mapID = stdMtl2 != nullptr ? stdMtl2->StdIDToChannel(maxMapToTexMapIndex[i].maxID) : maxMapToTexMapIndex[i].maxID;
         if (mapID != -1)
-        {            
+        {
             auto texmap = GetExportableBitmapTexmap(stdMtl->GetSubTexmap(mapID));
             if (texmap != nullptr && stdMtl->SubTexmapOn(mapID))
             {
@@ -92,7 +92,7 @@ void StandardMaterialsExporterHandler::CalculateRequirements()
 
                 slot.amount = stdMtl->GetTexmapAmt(mapID, this->sceneExportSettings->time.GetNativeTime());
                 slot.texmap = texmap;
-                
+
                 this->texmapCount++;
             }
         }
@@ -114,7 +114,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
     //-------------------------------------------
     auto stdMtl = static_cast<StdMat*>(this->material.mtl);
     auto stdMtl2 = this->material.mtl->ClassID() == Class_ID(DMTL2_CLASS_ID, 0) ? static_cast<StdMat2*>(stdMtl) : nullptr;
-    
+
     //Ambient color
     {
         Color ambient = this->material.mtl->GetAmbient();
@@ -123,7 +123,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         writer.WriteFloats(StandardAssetDocumentPropertyNames::AMBIENT_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Diffuse color
     {
         Color diffuse = this->material.mtl->GetDiffuse();
@@ -132,7 +132,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-            
+
     //Specular color
     {
         Color specular = this->material.mtl->GetSpecular();
@@ -142,12 +142,12 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         writer.WriteFloats(StandardAssetDocumentPropertyNames::SPECULAR_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-        
+
     //Shininess
     float shininess = this->material.mtl->GetShininess();
     writer.WriteFloat(StandardAssetDocumentPropertyNames::SHININESS, shininess, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    
+
     //Emissive color
     {
         Color emissive;
@@ -160,7 +160,7 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
             emissive.g = intensity;
             emissive.b = intensity;
         }
-            
+
         if (emissive.r != 0 || emissive.g != 0 || emissive.b != 0)
         {
             float colorArray[4] = {emissive.r, emissive.g, emissive.b, 1.0f};
@@ -175,21 +175,21 @@ void StandardMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError&
         writer.WriteString(StandardAssetDocumentPropertyNames::CULL_MODE, StandardAssetDocumentPropertyValues::CullMode::NONE, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-        
+
     //Wireframe
     if (stdMtl->GetWire())
     {
         writer.WriteString(StandardAssetDocumentPropertyNames::POLYGON_MODE, StandardAssetDocumentPropertyValues::PolygonMode::SOLID, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Shading mode
     if (stdMtl2 != nullptr && stdMtl2->IsFaceted())
     {
         writer.WriteString(StandardAssetDocumentPropertyNames::SHADING_MODE, StandardAssetDocumentPropertyValues::ShadingMode::FLAT, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Transparency
     float opacity = stdMtl->GetOpacity(this->sceneExportSettings->time.GetNativeTime());
     auto transparencyEnabled = !MathUtilities::AlmostOne(opacity);

@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool FinjinNodeAnimationSettingsAccessor::operator == (const FinjinNodeAnimationSettingsAccessor& other) const
 {
     return this->object == other.object;
@@ -107,12 +107,12 @@ wxString FinjinNodeAnimationSettingsAccessor::GetRotationInterpolationType()
 
 void FinjinNodeAnimationSettingsAccessor::SetAnimationName(wxString value)
 {
-    this->object->SetAnimationName(value);    
+    this->object->SetAnimationName(value);
 }
 
 void FinjinNodeAnimationSettingsAccessor::SetTimeScaleType(wxString value)
 {
-    this->object->SetTimeScaleType(value);    
+    this->object->SetTimeScaleType(value);
 }
 
 void FinjinNodeAnimationSettingsAccessor::SetTimeScale(double value)
@@ -170,10 +170,10 @@ void FinjinNodeAnimationSettingsAccessor::SetTimeInterval(FinjinTimeInterval int
 
 void FinjinNodeAnimationSettingsAccessor::SetTranslationInterpolationType(wxString value)
 {
-    this->object->SetTranslationInterpolationType(value);    
+    this->object->SetTranslationInterpolationType(value);
 }
 
 void FinjinNodeAnimationSettingsAccessor::SetRotationInterpolationType(wxString value)
 {
-    this->object->SetRotationInterpolationType(value);    
+    this->object->SetRotationInterpolationType(value);
 }

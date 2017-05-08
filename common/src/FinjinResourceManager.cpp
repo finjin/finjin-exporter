@@ -32,7 +32,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinResourceManager& FinjinResourceManager::GetInstance()
 {
     static FinjinResourceManager* instance;
@@ -65,7 +65,7 @@ void FinjinResourceManager::UpdateVertexFormats()
     if (!globalSettings.vertexFormatPath.empty())
     {
         auto path = globalSettings.GetWorkingVertexFormatFilePath();
-        
+
         WxByteBuffer bytes;
         if (FileUtilities::ReadBinaryFile(path, bytes))
         {
@@ -93,13 +93,13 @@ void FinjinResourceManager::UpdateUserDataTypes()
     wxString location;
     MacroExpander pathExpander;
     for (size_t i = 0; i < userDataTypesLocationCount; i++)
-    {   
+    {
         auto type = globalSettings.userDataTypesLocations[i].type;
 
-        name = globalSettings.userDataTypesLocations[i].name;        
+        name = globalSettings.userDataTypesLocations[i].name;
         pathExpander.Expand(name);
         location = FileUtilities::JoinPath(baseDirectory, name);
-                
+
         if (type == UserDataTypesLocation::Type::FILE)
         {
             //It's a file
@@ -110,7 +110,7 @@ void FinjinResourceManager::UpdateUserDataTypes()
             //It's a directory
 
             //Load all user data types files
-            auto search = FileUtilities::JoinPath(location, Strings::USER_DATA_TYPES_FILE_WILDCARD);            
+            auto search = FileUtilities::JoinPath(location, Strings::USER_DATA_TYPES_FILE_WILDCARD);
 
             //ApplicationAccessor::LogMessage(wxT("Looking for user data files in %s"), search.wx_str());
 
@@ -134,7 +134,7 @@ void FinjinResourceManager::UpdateUserDataTypes()
     NotifyUserDataTypesChangedListeners();
 }
 
-UserDataTypes& FinjinResourceManager::GetUserDataTypes() 
+UserDataTypes& FinjinResourceManager::GetUserDataTypes()
 {
     return this->userDataTypes;
 }
@@ -167,7 +167,7 @@ void FinjinResourceManager::RefreshSceneResources(ManagedResourceType resourceTy
 
     if (AnySet(resourceTypes & ManagedResourceType::VERTEX_FORMATS))
         UpdateVertexFormats();
-    
+
     if (AnySet(resourceTypes & ManagedResourceType::USER_DATA_TYPES))
         UpdateUserDataTypes();
 }
@@ -188,7 +188,7 @@ void FinjinResourceManager::ClearSceneResources(ManagedResourceType resourceType
             NotifyUserDataTypesChangingListeners();
 
             this->userDataTypes.Clear();
-            
+
             NotifyUserDataTypesChangedListeners();
         }
     }
@@ -199,7 +199,7 @@ ManagedResourceType FinjinResourceManager::ValidateResourceLocations(ManagedReso
     FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(wxT("FinjinResourceManager::ValidateResourceLocations(%x)"), (int)resourceTypes);
 
     auto result = ManagedResourceType::NONE;
-    
+
     if (resourceTypes != ManagedResourceType::NONE)
     {
         if (!sceneSettings.IsValid())
@@ -234,7 +234,7 @@ ManagedResourceType FinjinResourceManager::ValidateResourceLocations(ManagedReso
 void FinjinResourceManager::GetInvalidUserDataTypesLocations
     (
     std::vector<UserDataTypesLocation>& invalidLocations,
-    const std::vector<UserDataTypesLocation>& locations, 
+    const std::vector<UserDataTypesLocation>& locations,
     const wxString& baseDirectory
     )
 {
@@ -253,11 +253,11 @@ void FinjinResourceManager::GetInvalidUserDataTypesLocations
         {
             fullPath = FileUtilities::JoinPath(baseDirectory, locations[i].name);
             if (!FileUtilities::FileOrDirectoryExists(fullPath))
-                invalidLocations.push_back(locations[i]);            
+                invalidLocations.push_back(locations[i]);
         }
     }
 }
- 
+
 bool FinjinResourceManager::ValidateVertexFormatLocation()
 {
     auto& globalSettings = FinjinGlobalSettings::GetInstance();
@@ -270,13 +270,13 @@ bool FinjinResourceManager::ValidateVertexFormatLocation()
             message += path;
             message += wxT("\n\n");
             message += Strings::VERTEX_FORMAT_LOCATION_CORRECTION_INSTRUCTIONS;
-        
+
             Dialogs::ShowMessage(message, Strings::INVALID_RESOURCE_LOCATION, wxINFORMATION_DIALOG_FLAGS);
 
             return false;
         }
     }
-    
+
     return true;
 }
 
@@ -288,8 +288,8 @@ bool FinjinResourceManager::ValidateUserDataTypesLocations()
     std::vector<UserDataTypesLocation> locations = globalSettings.userDataTypesLocations;
     MacroExpander pathExpander;
     for (auto& resourceLocation : locations)
-        pathExpander.Expand(resourceLocation.name);        
-    
+        pathExpander.Expand(resourceLocation.name);
+
     //Get the base directory
     auto baseDirectory = globalSettings.GetWorkingBaseUserDataTypesDirectory();
 
@@ -298,7 +298,7 @@ bool FinjinResourceManager::ValidateUserDataTypesLocations()
     GetInvalidUserDataTypesLocations(invalidLocations, locations, baseDirectory);
     if (!invalidLocations.empty())
     {
-        auto message = Strings::RESOURCE_LOCATION_NOT_FOUND_FORMAT;        
+        auto message = Strings::RESOURCE_LOCATION_NOT_FOUND_FORMAT;
         for (size_t i = 0; i < invalidLocations.size(); i++)
         {
             message += invalidLocations[i].name;
@@ -306,9 +306,9 @@ bool FinjinResourceManager::ValidateUserDataTypesLocations()
         }
         message += wxT("\n");
         message += Strings::RESOURCE_LOCATION_CORRECTION_INSTRUCTIONS;
-        
+
         Dialogs::ShowMessage(message, Strings::INVALID_RESOURCE_LOCATION, wxINFORMATION_DIALOG_FLAGS);
-        
+
         return false;
     }
     else

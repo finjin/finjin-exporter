@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Assists in handling the cloning of Finjin object settings.
      * Used exclusively by the FinjinGlobalUtilities class.
      */
@@ -34,7 +34,7 @@ namespace Finjin { namespace Exporter {
     {
     public:
         CloneState();
-        
+
         /** Resets the clone state. */
         void Reset();
 
@@ -44,13 +44,13 @@ namespace Finjin { namespace Exporter {
         /** Removes a node from what may become a set of cloned nodes. */
         void RemoveMaybeClonedNode(INode* node);
 
-        /** 
+        /**
          * Call this in response to a 3DS "clone" notification.
          * This may perform cloning of Finjin object settings.
          */
         void OnCloneNode();
 
-        /** 
+        /**
          * Call this in response to a 3DS "selection change" notification.
          * Selection changes actually occur during 3DS Max's cloning of multiple
          * selected objects.

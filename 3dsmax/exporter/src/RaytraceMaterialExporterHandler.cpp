@@ -28,11 +28,11 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Constants--------------------------------------------------------------------
+//Constants---------------------------------------------------------------------
 #define RAYTRACE_MTL_CLASSID Class_ID(655953908, 849023086)
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 RaytraceMaterialExporterHandler::RaytraceMaterialExporterHandler()
 {
     for (auto& item : this->texmaps)
@@ -85,11 +85,11 @@ void RaytraceMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxError& 
     int paramID;
     IParamBlock* isOnPBlock;
     int isOnParamID;
-    
+
     //Ambient color
     Color ambient(0,0,0);
     if (MaxUtilities::GetParamIDByName(isOnPBlock, isOnParamID, _M("Ambient Color On"), this->material.mtl) &&
-        isOnPBlock->GetInt(isOnParamID) && 
+        isOnPBlock->GetInt(isOnParamID) &&
         MaxUtilities::GetParamIDByName(pblock, paramID, _M("Ambient"), this->material.mtl))
     {
         ambient = pblock->GetColor(paramID);
@@ -109,26 +109,26 @@ void RaytraceMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxError& 
     if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("Diffuse"), this->material.mtl))
     {
         Color diffuse = pblock->GetColor(paramID);
-            
+
         float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
         writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Specular color
     if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("Spec. Color"), this->material.mtl))
     {
         Color specular = pblock->GetColor(paramID);
-            
+
         float colorArray[4] = {specular.r, specular.g, specular.b, 1};
         writer.WriteFloats(StandardAssetDocumentPropertyNames::SPECULAR_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
-    
+
     //Emissive color
     Color selfIllum(0,0,0);
     if (MaxUtilities::GetParamIDByName(isOnPBlock, isOnParamID, _M("Luminosity Color On"), this->material.mtl) &&
-        isOnPBlock->GetInt(isOnParamID) && 
+        isOnPBlock->GetInt(isOnParamID) &&
         MaxUtilities::GetParamIDByName(pblock, paramID, _M("Luminosity"), this->material.mtl))
     {
         selfIllum = pblock->GetColor(paramID);
@@ -148,7 +148,7 @@ void RaytraceMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxError& 
     if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("Glossiness"), this->material.mtl))
     {
         float shininess = pblock->GetFloat(paramID);
-            
+
         writer.WriteFloat(StandardAssetDocumentPropertyNames::SHININESS, shininess, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
     }
@@ -164,7 +164,7 @@ void RaytraceMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxError& 
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
             size_t mapIndex = 0;
-        
+
             //Diffuse
             WriteDiffuseMap(writer, mapIndex, this->texmaps[TexMapIndex::DIFFUSE], error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)

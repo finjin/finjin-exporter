@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define USING_MODAL_DIALOG_FIX 0 //Enable it for all versions of Finjin so that it is tested regularly
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
 #if USING_MODAL_DIALOG_FIX
@@ -57,15 +57,15 @@ namespace Finjin { namespace Exporter {
         {
             wxWindow* window;
             wxDialog* dialog;
-            
+
             DialogWindow(wxWindow* window) {this->window = window; this->dialog = nullptr;}
             DialogWindow(wxDialog* dialog) {this->window = nullptr; this->dialog = dialog;}
-            
+
             wxString GetName() const {return this->window ? this->window->GetName() : this->dialog->GetName();}
         };
-        
+
         DialogWindow dialog;
-        
+
         typedef std::list<DialogWindow> DialogStack;
         static DialogStack dialogs;
     };

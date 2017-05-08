@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinTimeInterval.hpp"
 #include "FinjinColor.hpp"
 #include "ObjectAccessor.hpp"
@@ -28,10 +28,10 @@
 #include "finjin/common/WxChunkName.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * This class provides a lot of default information and functionality related to the application.
      * Depending on which application (Max/Maya/XSI) this code is being compiled with, some functions will be overridden
      * by a derived ApplicationAccessor class. As such, you should never call directly into ApplicationAccessorBase.
@@ -54,11 +54,11 @@ namespace Finjin { namespace Exporter {
         static wxString GetSceneAuthor();
 
         static wxString GetLastAuthor();
-        
+
         /** Indicates whether the application supports projects. */
         static bool SupportsProjects();
 
-        /** 
+        /**
          * Indicates whether the application allows objects to have no material assigned.
          * Some applications always apply a default material, others simply have a 'null' applied.
          * @return If 'null' material assignments are allowed for objects, true is returned. Otherwise,
@@ -66,24 +66,24 @@ namespace Finjin { namespace Exporter {
          */
         static bool SupportsNoMaterialAssignment();
 
-        /** 
+        /**
          * Indicates whether the application structures things in a way that requires Finjin to create extra materials.
          * For example, in Maya the "double sided" setting is in the mesh, but Finjin puts this property in a material, so
          * it needs to introduce two versions of the material: one with the double sided property enabled, the other with it disabled.
          */
         static bool NeedsExtraMaterials();
 
-        /** 
+        /**
          * Indicates whether the application supports 3D texture coordinates.
          */
         static bool Supports3DTextureCoordinates();
 
-        /** 
+        /**
          * Indicates whether the application supports note tracks.
          */
         static bool SupportsNoteTracks();
 
-        /** 
+        /**
          * Indicates whether the application provides notifications for material structure and color changes.
          * This is mainly intended for use with XSI, which does not support either.
          */
@@ -96,7 +96,7 @@ namespace Finjin { namespace Exporter {
          */
         static bool GetStaticTextForegroundColor(wxColor& color);
 
-        /** 
+        /**
          * Gets the scaling factor that converts from the application's internal units to user interface units.
          */
         static float GetInternalToUIScale();
@@ -115,7 +115,7 @@ namespace Finjin { namespace Exporter {
         static void RegisterModelessDialog(wxWindow* window);
 
         /**
-         * Unregisters a modeless dialog from the application. 
+         * Unregisters a modeless dialog from the application.
          * The dialog should have been previous registered with a call to RegisterModelessDialog().
          * @param window [in] - The dialog to register.
          */
@@ -126,14 +126,14 @@ namespace Finjin { namespace Exporter {
          * @return If the application supports 'full' names, true is returned. Otherwise, false is returned.
          */
         static bool UsesFullNames();
-        
+
         /** Gets the application's online or local HTML help index.html. */
         static wxString GetApplicationHelpLocation();
 
         /** Enables/disables the application's viewport renderer. */
         static void EnableShortcutKeys(bool enable = true);
 
-        /**  
+        /**
          * Enables/disables functionality associated with exporting scene data.
          * @param enable [in] - Indicates whether to enable or disable export functionality.
          */

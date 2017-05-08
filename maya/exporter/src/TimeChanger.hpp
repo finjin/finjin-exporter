@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "TimeAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -33,7 +33,7 @@ namespace Finjin { namespace Exporter {
      *
      * This class also provides a way of shutting off the time changing capability,
      * which allows a lot of common code to operate without special cases. This is needed
-     * by the real-time scene viewports, since they only operate on the current time. 
+     * by the real-time scene viewports, since they only operate on the current time.
      *
      * By default, time changing is disabled, and is typically enabled with a call to
      * to ApplicationAccessor::EnableExport().

@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 typedef wxNotebook TabControl; //wxNotebook manages the tabs and the pages
 #define TAB_CONTROL_SIZER_FLAGS 0
 #define DEFAULT_TAB_CONTROL_SIZE wxDefaultSize
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class TabControlPages
@@ -44,7 +44,7 @@ namespace Finjin { namespace Exporter {
         void SetTabControl(TabControl* control, wxSizer*)
         {
             this->control = control;
-            this->control->DeleteAllPages();            
+            this->control->DeleteAllPages();
         }
 
         wxWindow* GetTabParentWindow()
@@ -69,7 +69,7 @@ namespace Finjin { namespace Exporter {
 
         void AddPage(wxWindow* page, const wxString& tabText)
         {
-            this->control->AddPage(page, tabText);            
+            this->control->AddPage(page, tabText);
         }
 
         void DeletePage(int pageIndex)
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
 
         void ChangeSelection(int pageIndex)
         {
-            this->control->ChangeSelection(pageIndex);            
+            this->control->ChangeSelection(pageIndex);
         }
 
         int GetSelection() const
@@ -98,11 +98,11 @@ namespace Finjin { namespace Exporter {
         }
 
         void OnPageChanged()
-        {            
+        {
         }
 
     private:
-        TabControl* control;        
+        TabControl* control;
     };
 
 } }

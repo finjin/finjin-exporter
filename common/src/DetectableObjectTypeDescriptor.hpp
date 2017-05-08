@@ -19,9 +19,9 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** Provides information about a detectable type. */
     class DetectableObjectTypeDescriptor
     {
@@ -75,7 +75,7 @@ namespace Finjin { namespace Exporter {
 
         /**
          * Indicates whether the object type is for a merged type of object.
-         * A merged object is one that must be merged with another, typically the parent. 
+         * A merged object is one that must be merged with another, typically the parent.
          * One such type is the submesh type, which is a mesh that is merged with its parent mesh.
          */
         virtual bool IsMerged() const {return false;}
@@ -87,9 +87,9 @@ namespace Finjin { namespace Exporter {
         virtual bool IsContainer() const {return false;}
 
         /**
-         * Indicates whether the object uses all of its children when exported. 
+         * Indicates whether the object uses all of its children when exported.
          * This is the case for some objects, like terrains (since they can't have children).
-         * Returning true for this is equivalent to (and more efficient than) always returning true 
+         * Returning true for this is equivalent to (and more efficient than) always returning true
          * for DetectableObjectType::IsConsumedChild().
          */
         virtual bool ConsumesAllChildren() const {return false;}

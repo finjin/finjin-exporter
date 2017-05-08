@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "ManualLod.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class SceneExportSettings;

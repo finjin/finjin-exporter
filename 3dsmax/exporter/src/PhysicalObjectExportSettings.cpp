@@ -28,7 +28,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 PhysicalObjectExportSettings::PhysicalObjectExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Physical(scene)
 {
 }
@@ -39,7 +39,7 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
 
     //Item type
     this->type = objectSettings.GetItemType();
-    
+
     //Bounding volume
     FinjinIVector2 unusedSegmentCount;
     FinjinVector3 boxSize;
@@ -62,17 +62,17 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
     else if (MaxUtilities::GetSphereRadiusAndSegmentCount(this->shape.radius, unusedSegmentCount, object.node))
     {
         //Sphere bounding volume
-        
+
         //Type
         this->shape.type = Shape::SPHERE;
 
         //Radius
-        this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;        
+        this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;
     }
     else if (MaxUtilities::GetBoxSize(boxSize, object.node))
-    {   
+    {
         //Box bounding volume
-        
+
         //Type
         this->shape.type = Shape::BOX;
 
@@ -82,9 +82,9 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
         this->shape.size.Set(boxSize.x, boxSize.y, boxSize.z);
     }
     else if (MaxUtilities::GetCylinderRadiusAndLength(this->shape.radius, this->shape.size.x, object.node))
-    {   
+    {
         //Cylinder bounding volume
-                
+
         //Type
         this->shape.type = Shape::CYLINDER;
 
@@ -95,9 +95,9 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
         this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;
     }
     else if (MaxUtilities::GetCapsuleRadiusAndLength(this->shape.radius, this->shape.size.x, object.node))
-    {   
+    {
         //Capsule bounding volume
-        
+
         //Type
         this->shape.type = Shape::CAPSULE;
 
@@ -108,7 +108,7 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
         //Radius
         this->shape.radius *= finjinExporterContext.GetSceneExportSettings()->scale;
     }
-    else if 
+    else if
         (
         geometryState.Create(wxEmptyString, object, finjinExporterContext.GetSceneExportSettings()->conversionManager, finjinExporterContext.GetSceneExportSettings()->scale, finjinExporterContext.GetSceneExportSettings()->time, GeometryStateFlags::FAST_VERTICES) &&
         geometryState.submeshes.front()->geometryType == GeometryStateSubmesh::MESH
@@ -134,7 +134,7 @@ void PhysicalObjectExportSettings::Initialize(ObjectAccessor object, FinjinObjec
             for (size_t vertexIndex = 0; vertexIndex < 3; vertexIndex++)
             {
                 this->shape.meshFaces[faceIndex].vertex[vertexIndex] = vertexIterator->position;
-                ++vertexIterator;                    
+                ++vertexIterator;
             }
         }
     }

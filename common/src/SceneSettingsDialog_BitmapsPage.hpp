@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Bitmaps page for the scene settings dialog. */
-    class SceneSettingsDialog_BitmapsPage : public SettingsPage 
+    class SceneSettingsDialog_BitmapsPage : public SettingsPage
     {
     private:
         DECLARE_EVENT_TABLE()
@@ -36,9 +36,9 @@ namespace Finjin { namespace Exporter {
     protected:
         wxCheckBox* copyBitmapsToExportDirectoryCheckbox;
         wxCheckBox* convertBitmapsToTexturesCheckbox;
-        
+
         FinjinSceneSettingsAccessor sceneSettings;
-        
+
     public:
         SceneSettingsDialog_BitmapsPage( wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 501,561 ), long style = wxTAB_TRAVERSAL );
         ~SceneSettingsDialog_BitmapsPage();

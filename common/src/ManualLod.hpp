@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A manual level of detail object. */
@@ -55,7 +55,7 @@ namespace Finjin { namespace Exporter {
         /** The manual lod distance. */
         float distance;
 
-        /** 
+        /**
          * The index used to access this manual LOD in the object settings for an object.
          * This is used when editing manual LODs in the object settings dialog.
          */

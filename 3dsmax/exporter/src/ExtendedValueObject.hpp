@@ -19,9 +19,9 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class ExtendedValue;
 
     /** The Finjin extended value object. */
@@ -39,13 +39,13 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         BOOL IsRenderable() override                          {return FALSE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
 
         RefTargetHandle Clone(RemapDir& remap) override;
-        
+
         int NumSubs() override;
         MSTR SubAnimName(int i) override;
         Animatable* SubAnim(int i) override;
@@ -60,7 +60,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         int GetID();
         void SetID(int id);
@@ -70,7 +70,7 @@ namespace Finjin { namespace Exporter {
 
         static Class_ID GetClassClassID();
         static ClassDesc* GetClassDesc();
-                
+
     public:
         enum
         {

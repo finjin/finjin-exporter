@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshBone.hpp"
 #include "PRSKey.hpp"
 #include "WeightedVertex.hpp"
 #include "SkeletonReferencePose.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     using namespace Finjin::Common;
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
 
     /**
      * Base class that collects the data and methods common to all the
-     * application-specific MeshSkeleton classes. A skeleton is a construct that 
+     * application-specific MeshSkeleton classes. A skeleton is a construct that
      * maintains a hierarchical relationship of bones that deform a mesh.
      */
     class MeshSkeletonBase
@@ -69,7 +69,7 @@ namespace Finjin { namespace Exporter {
          */
         void GetBones(ObjectAccessorSet& boneObjects);
 
-        /** 
+        /**
          * Gets the bone information for the specified bone.
          * @param object [in] - The object to be matched to bone information.
          * @return If the bone could be found, a pointer to the bone information is returned. Otherwise, null is returned.
@@ -77,13 +77,13 @@ namespace Finjin { namespace Exporter {
         MeshBonePtr FindBone(ObjectAccessor object);
 
         MeshBonePtr FindBone(MeshBoneBase* meshBone);
-        
+
         int GetBoneIndex(MeshBoneBase* meshBone) const;
 
         int GetChildBoneCount(MeshBoneBase* meshBone) const;
 
-        /** 
-         * Gets the index of the specified bone. 
+        /**
+         * Gets the index of the specified bone.
          * @param object [in] - The object to be matched to bone information.
          * @return If the bone could be found, the zero-based index is returned. Otherwise, -1 is returned.
          */
@@ -120,7 +120,7 @@ namespace Finjin { namespace Exporter {
 
         /** Determines whether the skeleton has two matching weighted vertex assignments at the specified indices. */
         bool WeightedVerticesHasSameBones(int a, int b) const;
-        
+
         /**
          * Merges the specified skeleton with this one.
          * @param mergeSkeleton [in] - The skeleton whose data is merged with this one. After the merge
@@ -131,15 +131,15 @@ namespace Finjin { namespace Exporter {
         /** Transforms the skeleton to world space. */
         void TransformToWorldSpace();
 
-        /** 
-         * Finishes the creation of the skeleton data. 
+        /**
+         * Finishes the creation of the skeleton data.
          * This is called by GeometryStateBase::FinishCreate().
          */
         void FinishCreate();
 
         /** Contains all the animation keys for a single animation for a bone. */
         struct BoneAnimation
-        { 
+        {
             BoneAnimation()
             {
                 this->bone = nullptr;
@@ -158,7 +158,7 @@ namespace Finjin { namespace Exporter {
             std::vector<PRSKey> keys;
         };
         typedef std::shared_ptr<BoneAnimation> BoneAnimationPtr;
-        
+
         /** All the keys, for all bones, of a single animation. */
         struct Animation
         {
@@ -173,7 +173,7 @@ namespace Finjin { namespace Exporter {
             {
                 auto length = WxTimeDuration::Zero();
                 for (size_t i = 0; i < this->boneAnimations.size(); i++)
-                    length = std::max(length, this->boneAnimations[i]->GetDuration());                    
+                    length = std::max(length, this->boneAnimations[i]->GetDuration());
                 return length;
             }
 
@@ -191,7 +191,7 @@ namespace Finjin { namespace Exporter {
         };
         typedef std::shared_ptr<Animation> AnimationPtr;
 
-        /** All the animations for all bones. */    
+        /** All the animations for all bones. */
         struct Animations
         {
             bool empty() const {return this->animations.empty();}
@@ -237,12 +237,12 @@ namespace Finjin { namespace Exporter {
         };
 
     protected:
-        /** 
+        /**
          * Removes excess vertex bone assignments.
          * @param maxAssignments [in] - The maximum number of bones that can be assigned to a vertex.
          */
         void RemoveExcessAssignments(size_t maxAssignments = FINJIN_MAX_BLEND_WEIGHTS);
-        
+
     public:
         /** The geometry that owns this mesh skeleton. This can be null. */
         GeometryStateBase* geometryState;

@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** External page for the object settings dialog. */
@@ -36,7 +36,7 @@ namespace Finjin { namespace Exporter {
     protected:
         wxStaticText* itemTypeLabel;
         ApplicationTextCtrl* itemTypeText;
-        
+
         FinjinObjectSettingsAccessor objectSettings;
 
     public:
@@ -44,7 +44,7 @@ namespace Finjin { namespace Exporter {
         ~ObjectSettingsDialog_PhysicalPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
     };

@@ -19,22 +19,22 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A modal dialog used to add bones that should have some part of their translation removed.
      */
     class RemoveBoneTranslationsDialog : public FinjinDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* boneLabel;
         ApplicationTextCtrl* boneEdit;
@@ -45,7 +45,7 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* removeZTranslationCheckbox;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         /**
          * Constructor.
@@ -55,11 +55,11 @@ namespace Finjin { namespace Exporter {
          */
         RemoveBoneTranslationsDialog
             (
-            wxWindow* parent, 
+            wxWindow* parent,
             const ObjectAccessorSet& meshBones
             );
 
-        ~RemoveBoneTranslationsDialog();        
+        ~RemoveBoneTranslationsDialog();
 
         enum
         {

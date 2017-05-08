@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Base class for all Finjin wxFrame-based windows.
      */
     class FinjinFrame : public wxFrame
-    {    
+    {
     public:
         /** Default constructor. */
         FinjinFrame();
-        
-        /** 
+
+        /**
          * Constructor.
          * @param parent [in] - The parent window.
          * @param id [in] - The dialog identifier.
@@ -43,12 +43,12 @@ namespace Finjin { namespace Exporter {
          */
         FinjinFrame
             (
-            wxWindow* parent, 
-            wxWindowID id = wxID_ANY, 
-            const wxString& title = wxEmptyString, 
-            const wxPoint& pos = wxDefaultPosition, 
-            const wxSize& size = wxDefaultSize, 
-            long style = wxDEFAULT_DIALOG_STYLE, 
+            wxWindow* parent,
+            wxWindowID id = wxID_ANY,
+            const wxString& title = wxEmptyString,
+            const wxPoint& pos = wxDefaultPosition,
+            const wxSize& size = wxDefaultSize,
+            long style = wxDEFAULT_DIALOG_STYLE,
             const wxString& name = wxFrameNameStr
             );
 
@@ -56,19 +56,19 @@ namespace Finjin { namespace Exporter {
 
         bool Create
             (
-            wxWindow* parent, 
-            wxWindowID id = wxID_ANY, 
-            const wxString& title = wxEmptyString, 
-            const wxPoint& pos = wxDefaultPosition, 
-            const wxSize& size = wxDefaultSize, 
-            long style = wxDEFAULT_DIALOG_STYLE, 
+            wxWindow* parent,
+            wxWindowID id = wxID_ANY,
+            const wxString& title = wxEmptyString,
+            const wxPoint& pos = wxDefaultPosition,
+            const wxSize& size = wxDefaultSize,
+            long style = wxDEFAULT_DIALOG_STYLE,
             const wxString& name = wxFrameNameStr
             );
-        
+
         bool Destroy();
-        
+
     private:
-        /** 
+        /**
          * Performs final initialization on the dialog.
          * @param style [in] - Dialog style flags passed to the constructor or Create().
          */

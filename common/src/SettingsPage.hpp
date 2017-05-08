@@ -19,18 +19,18 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ApplicationControls.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base class for a settings page in the Scene and Object Settings dialogs */
     class SettingsPage : public wxPanel
     {
     public:
-        SettingsPage( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL ) : 
+        SettingsPage( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL ) :
             wxPanel(parent, id, pos, size, style)
         {
             ApplicationControls::AdjustContainerBackgroundColor(this);

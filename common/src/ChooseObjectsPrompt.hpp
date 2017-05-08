@@ -18,9 +18,9 @@
 
 #pragma once
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 //#if FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_3DSMAX
-//    The Max-specific prompt works, but it doesn't work well since the 3DS Max object selection dialog 
+//    The Max-specific prompt works, but it doesn't work well since the 3DS Max object selection dialog
 //    likes to ignore hidden objects.
 //    #include "ChooseObjectsPrompt-Max.hpp"
 //#else

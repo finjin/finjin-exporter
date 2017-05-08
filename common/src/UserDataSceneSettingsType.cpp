@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void UserDataSceneSettingsType::CreateSettingsPages(TabControlPages& tabPages, FinjinSceneSettingsAccessor& sceneSettings)
 {
     tabPages.AddPage(new UserDataSettingsPage(tabPages.GetTabParentWindow(), sceneSettings, UserDataUsage::SCENE, sceneSettings), UserDataSettingsPage::TITLE);

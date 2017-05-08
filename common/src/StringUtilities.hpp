@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinColor.hpp"
 #include "FinjinVector.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Varioius string utility functions. */
@@ -39,7 +39,7 @@ namespace Finjin { namespace Exporter {
 
         /** Determines if two strings are the same, ignore case sensitivity. */
         static bool IsSameNoCase(const wxChar* s1, const wxChar* s2);
-        
+
         /** Performs a case-insensitive comparison to determine if s1 starts with s2. */
         static bool StartsWithNoCase(const wxString& s1, const wxString& s2);
 
@@ -86,14 +86,14 @@ namespace Finjin { namespace Exporter {
 
         /** Converts an array of doubles to a string. */
         static wxString ToString(const std::vector<double>& values, const wxString& joinText = wxT(FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_STRING));
-        
+
         /** Converts an 3-float to a string that is used to indicate which X/Y/Z components to remove. */
         static wxString ToRemoveXYZString(FinjinVector3 mask);
 
         /** Converts a string that is used to indicate which X/Y/Z components to remove to a 3-float. */
         static FinjinVector3 ToRemoveXYZVector3(const wxString& text);
 
-        /** 
+        /**
          * Converts a string to a boolean value.
          * @param value [in] - The string to convert to a boolean. The string is case insensitive
          * @return If the input string is 'false', 'no' or '0', false is returned.
@@ -125,7 +125,7 @@ namespace Finjin { namespace Exporter {
         /** Trims whitespace from the start and end of the specified string */
         static void TrimWhitespace(wxString& text);
 
-        /** 
+        /**
          * Determines if the specified character is a newline character
          * Newline characters are \r (0x0d) and \n (0x0a)
          */
@@ -159,7 +159,7 @@ namespace Finjin { namespace Exporter {
 
         static void AppendKeyAndValue(wxString& text, const wxString& key, const wxString& value, const wxString& newline);
         static void AppendPrefixedKeyAndValue(wxString& text, const wxString& prefix, const wxString& key, const wxString& value, const wxString& newline);
-        
+
         /** Removes all whitespace from the specified text. */
         static void RemoveSpace(wxString& text);
 
@@ -172,13 +172,13 @@ namespace Finjin { namespace Exporter {
         /** Formats a string in the form of '1.2'. */
         static wxString FormatVersion(int major, int minor);
 
-        /** 
-         * Remove the first instance of the name 
+        /**
+         * Remove the first instance of the name
          * The string comparison is case insensitive
          */
         static void RemoveName(std::vector<wxString>& names, const wxString& nameToRemove);
 
-        /** 
+        /**
          * Determines whether the collection of names contains the specific name
          * The string comparison is case insensitive
          * @param names [in] - The collection to search
@@ -189,13 +189,13 @@ namespace Finjin { namespace Exporter {
         /** Determines whether the specified name contains 'color' or 'colour' (case-insensitive) */
         static bool NameHasColor(const wxString& name);
 
-        /** 
+        /**
          * Performs a find/replace on the specified text.
          * @param text [in/out] - The text to perform the find/replace on.
          * @param findText [in] - The text to find.
          * @param replaceText [in] - The text that is replaced.
          */
-        static void Replace(std::wstring& text, const wchar_t* findText, const wchar_t* replaceText);        
+        static void Replace(std::wstring& text, const wchar_t* findText, const wchar_t* replaceText);
     };
 
 } }

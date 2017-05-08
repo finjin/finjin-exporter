@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "CoordinateSystemConverter.hpp"
 #include "MatrixAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to a transformation. */
@@ -45,7 +45,7 @@ namespace Finjin { namespace Exporter {
 
         /** Sets the identity transformation. */
         void SetIdentity();
-        
+
         /** Gets the transformation's translation. */
         FinjinVector3 GetTranslation() const;
 
@@ -72,7 +72,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the transformation's rotation angles. */
         FinjinVector3 GetRotationAngles() const;
-        
+
         /** Inverts the transformation. */
         void Invert();
 
@@ -102,7 +102,7 @@ namespace Finjin { namespace Exporter {
 
         /** Concatenates the specified transformation with this one. */
         static TransformAccessor GetCameraIdentityTransform();
-        
+
     public:
         MTransformationMatrix transform;
     };

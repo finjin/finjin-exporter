@@ -32,13 +32,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
-ObjectAccessor::ObjectAccessor() 
+//Implementation----------------------------------------------------------------
+ObjectAccessor::ObjectAccessor()
 {
     this->node = nullptr;
 }
 
-ObjectAccessor::ObjectAccessor(INode* node) 
+ObjectAccessor::ObjectAccessor(INode* node)
 {
     this->node = node;
 }
@@ -50,27 +50,27 @@ ObjectAccessor::ObjectAccessor(const ObjectAccessor& object)
     this->nodeName = object.nodeName;
 }
 
-ObjectAccessor::operator INode* () 
+ObjectAccessor::operator INode* ()
 {
     return this->node;
 }
 
-bool ObjectAccessor::operator == (const ObjectAccessor other) const 
+bool ObjectAccessor::operator == (const ObjectAccessor other) const
 {
     return this->node == other.node;
 }
 
-bool ObjectAccessor::operator != (const ObjectAccessor other) const 
+bool ObjectAccessor::operator != (const ObjectAccessor other) const
 {
     return this->node != other.node;
 }
 
-bool ObjectAccessor::operator < (const ObjectAccessor other) const 
+bool ObjectAccessor::operator < (const ObjectAccessor other) const
 {
     return this->node < other.node;
 }
 
-wxString ObjectAccessor::GetLocalName(bool useObjectName) const 
+wxString ObjectAccessor::GetLocalName(bool useObjectName) const
 {
     const wxString& nameOverride = useObjectName ? this->objectName : this->nodeName;
     if (!nameOverride.empty())
@@ -79,7 +79,7 @@ wxString ObjectAccessor::GetLocalName(bool useObjectName) const
         return (this->node != nullptr) ? ApplicationStringToWxString(this->node->GetName()) : wxEmptyString;
 }
 
-wxString ObjectAccessor::GetFullName(bool useObjectName) const 
+wxString ObjectAccessor::GetFullName(bool useObjectName) const
 {
     return GetLocalName(useObjectName);
 }
@@ -105,8 +105,8 @@ void ObjectAccessor::GetChildren(ObjectAccessorVector& children)
 
 bool ObjectAccessor::HasDescendant(ObjectAccessor other)
 {
-    for (INode* parent = other.node->GetParentNode(); 
-        parent != nullptr && !parent->IsRootNode(); 
+    for (INode* parent = other.node->GetParentNode();
+        parent != nullptr && !parent->IsRootNode();
         parent = parent->GetParentNode())
     {
         if (parent == this->node)
@@ -120,7 +120,7 @@ bool ObjectAccessor::IsRoot() const
     return this->node->IsRootNode() ? true : false;
 }
 
-bool ObjectAccessor::IsValid() const 
+bool ObjectAccessor::IsValid() const
 {
     return this->node != nullptr;
 }
@@ -128,10 +128,10 @@ bool ObjectAccessor::IsValid() const
 bool ObjectAccessor::IsVisible() const
 {
     bool hidden = this->node->IsObjectHidden() ? true : false;
-    
+
     ILayer* layer = (ILayer*)this->node->GetReference(NODE_LAYER_REF);
     hidden |= layer->IsHidden();
-    
+
     return !hidden;
 }
 
@@ -206,7 +206,7 @@ TransformAccessor ObjectAccessor::GetObjectOffsetTransformation(TimeAccessor tim
 
     if (this->node != nullptr)
         transformation = MaxMathUtilities::GetObjectOffsetTM(this->node, time.GetNativeTime());
-    
+
     return transformation;
 }
 
@@ -216,7 +216,7 @@ TransformAccessor ObjectAccessor::GetNodeTransformation(TimeAccessor time)
 
     if (this->node != nullptr && !this->node->IsRootNode())
         transformation = this->node->GetNodeTM(time.GetNativeTime());
-    
+
     return transformation;
 }
 
@@ -228,7 +228,7 @@ TransformAccessor ObjectAccessor::GetFullWorldTransformation(TimeAccessor time)
     {
         transformation = this->node->GetObjectTM(time.GetNativeTime());
     }
-    
+
     return transformation;
 }
 
@@ -244,7 +244,7 @@ void ObjectAccessor::GetNoteTracks(std::vector<FinjinNoteTrack>& noteTracks)
 
         //Set the note track name
         noteTracks[trackIndex].name = wxString::Format(wxT("%d"), trackIndex);
-        
+
         //Export notes for the track
         noteTracks[trackIndex].keys.resize(noteTrack->keys.Count());
         for (int keyIndex = 0; keyIndex < noteTrack->keys.Count(); keyIndex++)
@@ -253,7 +253,7 @@ void ObjectAccessor::GetNoteTracks(std::vector<FinjinNoteTrack>& noteTracks)
             t.SetNativeTime(noteTrack->keys[keyIndex]->time);
 
             noteTracks[trackIndex].keys[keyIndex].time = t.GetDuration();
-            noteTracks[trackIndex].keys[keyIndex].text = ApplicationStringToWxString(noteTrack->keys[keyIndex]->note);            
+            noteTracks[trackIndex].keys[keyIndex].text = ApplicationStringToWxString(noteTrack->keys[keyIndex]->note);
         }
     }
 }
@@ -293,7 +293,7 @@ void ObjectAccessor::SetSelectedObjects(const ObjectAccessorVector& selectedObje
     if (!selectedObjects.empty())
     {
         for (size_t i = 0; i < selectedObjects.size(); i++)
-            GetCOREInterface()->SelectNode(selectedObjects[i].node, i == 0);        
+            GetCOREInterface()->SelectNode(selectedObjects[i].node, i == 0);
 
         if (selectedObjects.size() > 1)
             GetCOREInterface()->RedrawViews(GetCOREInterface()->GetTime());
@@ -319,9 +319,9 @@ bool ObjectAccessor::IsSettingsObject(ObjectAccessor object)
     else
     {
         Class_ID objectClassID = object.node->GetObjectRef()->ClassID();
-        Control* control = object.node->GetTMController();        
-        
-        return 
+        Control* control = object.node->GetTMController();
+
+        return
             objectClassID == FinjinSceneSettingsObject::GetClassClassID() ||
             objectClassID == ParticleView_Class_ID ||
             objectClassID == FOOTPRINT_CLASS_ID ||

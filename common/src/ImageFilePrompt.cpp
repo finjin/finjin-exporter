@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static wxString& GetImageFileFilter()
 {
     static wxString IMAGE_FILE_FILTER;
@@ -43,7 +43,7 @@ static wxString& GetImageFileFilter()
             if (!IMAGE_FILE_FILTER.empty())
                 IMAGE_FILE_FILTER += wxT("|");
 
-            //Split extensions and add 
+            //Split extensions and add
             wxString extensionsString(FreeImage_GetFIFExtensionList(format), wxMBConvUTF8());
             wxStringTokenizer extensionsTokenizer(extensionsString, wxT(","));
             wxArrayString extensions;
@@ -83,7 +83,7 @@ static wxString& GetImageFileFilter()
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ImageFilePrompt::ImageFilePrompt(wxWindow* parent, bool saving)
 {
     this->parent = parent;
@@ -102,6 +102,6 @@ bool ImageFilePrompt::ShowPrompt()
     wxFileDialog dialog(this->parent, Strings::SELECT_IMAGE_FILE, wxEmptyString, wxEmptyString, GetImageFileFilter(), saving ? wxFD_SAVE : wxFD_OPEN);
     bool result = dialog.ShowModal() == wxID_OK;
     if (result)
-        this->fileName = dialog.GetPath();    
+        this->fileName = dialog.GetPath();
     return result;
 }

@@ -19,18 +19,18 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include <wx/combobox.h>
 #include "ColorPickerControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A collection of utility functions used to modify window properties. */
     class ApplicationControls
-    {    
-    public:    
+    {
+    public:
         /**
          * To be called for dialogs and notebooks.
          */
@@ -46,8 +46,8 @@ namespace Finjin { namespace Exporter {
          */
         static void AdjustStaticTextForegroundColor(wxWindow* window);
 
-        /** 
-         * To be called for windows that have a title bar and can display an icon. 
+        /**
+         * To be called for windows that have a title bar and can display an icon.
          */
         static void SetFinjinIcon(wxTopLevelWindowBase* window);
     };
@@ -66,13 +66,13 @@ namespace Finjin { namespace Exporter {
 
         ApplicationTextCtrl
             (
-            wxWindow* parent, 
-            wxWindowID id, 
-            const wxString& value = wxEmptyString, 
-            const wxPoint& pos = wxDefaultPosition, 
-            const wxSize& size = wxDefaultSize, 
-            long style = 0, 
-            const wxValidator& validator = wxDefaultValidator, 
+            wxWindow* parent,
+            wxWindowID id,
+            const wxString& value = wxEmptyString,
+            const wxPoint& pos = wxDefaultPosition,
+            const wxSize& size = wxDefaultSize,
+            long style = 0,
+            const wxValidator& validator = wxDefaultValidator,
             const wxString& name = wxTextCtrlNameStr
             ) : wxTextCtrl(parent, id, value, pos, size, (style | EXTRA_TEXT_CTRL_FLAGS) & ~DISALLOWED_TEXT_CTRL_FLAGS, validator, name)
         {
@@ -91,18 +91,18 @@ namespace Finjin { namespace Exporter {
     public:
         ApplicationChoiceCtrl
             (
-            wxWindow* parent, 
-            wxWindowID id, 
-            const wxPoint& pos, 
-            const wxSize& size, 
-            const wxArrayString& choices, 
-            long style = 0, 
-            const wxValidator& validator = wxDefaultValidator, 
+            wxWindow* parent,
+            wxWindowID id,
+            const wxPoint& pos,
+            const wxSize& size,
+            const wxArrayString& choices,
+            long style = 0,
+            const wxValidator& validator = wxDefaultValidator,
             const wxString& name = wxChoiceNameStr
             )
             : wxChoice(parent, id, pos, size, choices, style, validator, name)
         {
-            ApplicationControls::AdjustTextColors(this);        
+            ApplicationControls::AdjustTextColors(this);
         }
 
         /*
@@ -120,8 +120,8 @@ namespace Finjin { namespace Exporter {
 
         #if defined(__WXMSW__)
             //MSWUpdateDropDownHeight();
-            //MSWUpdateVisibleHeight();            
-        #endif            
+            //MSWUpdateVisibleHeight();
+        #endif
         }
         */
     };
@@ -137,12 +137,12 @@ namespace Finjin { namespace Exporter {
     public:
         ApplicationStaticTextCtrl
             (
-            wxWindow* parent, 
-            wxWindowID id, 
+            wxWindow* parent,
+            wxWindowID id,
             const wxString& label,
             const wxPoint& pos = wxDefaultPosition,
             const wxSize& size = wxDefaultSize,
-            long style = 0, 
+            long style = 0,
             const wxString& name = wxStaticTextNameStr
             ) : wxStaticText(parent, id, label, pos, size, style, name)
         {
@@ -170,7 +170,7 @@ namespace Finjin { namespace Exporter {
             const wxString& name = wxListCtrlNameStr
             ) : wxListCtrl(parent, id, pos, size, style, validator, name)
         {
-            ApplicationControls::AdjustTextColors(this);    
+            ApplicationControls::AdjustTextColors(this);
         }
 
         bool GetSelection(std::vector<int>& selection)
@@ -186,7 +186,7 @@ namespace Finjin { namespace Exporter {
                 for (int i = 0; i < selectedItemCount; i++)
                 {
                     selectedIndex = (int)GetNextItem(selectedIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
-                    selection.push_back(selectedIndex);                    
+                    selection.push_back(selectedIndex);
                 }
             }
 
@@ -213,7 +213,7 @@ namespace Finjin { namespace Exporter {
                     for (int i = 0; i < GetItemCount(); i++)
                         SetItemState(i, 0, wxLIST_STATE_SELECTED|wxLIST_STATE_FOCUSED);
                 }
-                
+
                 //Select
                 SetItemState(index, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
             }
@@ -237,11 +237,11 @@ namespace Finjin { namespace Exporter {
     public:
         ApplicationListBox
             (
-            wxWindow* parent, 
+            wxWindow* parent,
             wxWindowID id,
             const wxPoint& pos = wxDefaultPosition,
             const wxSize& size = wxDefaultSize,
-            int n = 0, 
+            int n = 0,
             const wxString choices[] = nullptr,
             long style = 0,
             const wxValidator& validator = wxDefaultValidator,
@@ -253,7 +253,7 @@ namespace Finjin { namespace Exporter {
 
         ApplicationListBox
             (
-            wxWindow *parent, 
+            wxWindow *parent,
             wxWindowID id,
             const wxPoint& pos,
             const wxSize& size,

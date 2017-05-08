@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #ifndef OSMacOSX_
     #include <tchar.h>
 #endif
@@ -46,8 +46,8 @@
 #include <Eigen/Eigen>
 
 namespace Finjin { namespace Exporter {
-    typedef Eigen::Matrix3f MathMatrix33;
-    typedef Eigen::Matrix4f MathMatrix44;
+    typedef Eigen::Matrix3f MathMatrix3;
+    typedef Eigen::Matrix4f MathMatrix4;
     typedef Eigen::Vector2f MathVector2;
     typedef Eigen::Vector3f MathVector3;
     typedef Eigen::Vector4f MathVector4;
@@ -93,7 +93,7 @@ namespace Finjin { namespace Exporter {
 #include <wx/dcmemory.h>
 #include <wx/listbox.h>
 #include <wx/help.h>
-#include <wx/app.h>    
+#include <wx/app.h>
 #include <wx/init.h>
 #include <wx/sysopt.h>
 #include <wx/gauge.h>
@@ -130,7 +130,7 @@ namespace Finjin { namespace Exporter {
 
 #include "finjin/common/FinjinCommonLibrary.hpp"
 #include "finjin/common/EnumBitwise.hpp"
-#include "finjin/common/EnumValues.hpp"
+#include "finjin/common/EnumArray.hpp"
 #include "finjin/common/Math.hpp"
 #include "finjin/common/Setting.hpp"
 #include "finjin/common/StaticVector.hpp"
@@ -146,7 +146,7 @@ namespace Finjin { namespace Exporter {
 #endif
 
 
-//Simple data types and functions----------------------------------------------
+//Simple data types and functions-----------------------------------------------
 namespace Finjin { namespace Common {
 
     enum ByteOrder
@@ -271,8 +271,8 @@ namespace Finjin { namespace Exporter {
         INHERITED_USE_PARENT_BOOL
     };
 
-    /** 
-     * Generates a true boolean value. 
+    /**
+     * Generates a true boolean value.
      * @param value [in] - The inherited boolean value.
      * @param parentBool [in] - The parent boolean value.
      */
@@ -347,7 +347,7 @@ namespace Finjin { namespace Exporter {
             FILE,
             DIRECTORY
         };
-        
+
         UserDataTypesLocation()
         {
             this->type = DIRECTORY;
@@ -356,7 +356,7 @@ namespace Finjin { namespace Exporter {
         UserDataTypesLocation(Type type, const wxString& name)
         {
             this->name = name;
-            this->type = type;            
+            this->type = type;
         }
 
         wxString GetTypeString() const
@@ -368,7 +368,7 @@ namespace Finjin { namespace Exporter {
         }
 
         Type type;
-        wxString name;        
+        wxString name;
     };
 
     /** A bit flag that has a name. */
@@ -384,7 +384,7 @@ namespace Finjin { namespace Exporter {
             this->name = name;
             this->bit = bit;
         }
-        
+
         wxString name;
         uint8_t bit;
     };
@@ -427,7 +427,7 @@ namespace Finjin { namespace Exporter {
         FROM_MASTER_TO_SLAVE,
         FROM_SLAVE_TO_MASTER
     };
-    
+
     /** The number of items that can be chosen. */
     enum class HowMany
     {
@@ -435,13 +435,13 @@ namespace Finjin { namespace Exporter {
         CHOOSE_MANY,
 
         /** Choose one item. */
-        CHOOSE_ONE        
+        CHOOSE_ONE
     };
 
     enum class FogMode
     {
         NONE,
-        EXP, //Density increases  exponentially from the camera (fog = 1/e^(distance * density))        
+        EXP, //Density increases  exponentially from the camera (fog = 1/e^(distance * density))
         EXP2, //Density increases at the square of FOG_EXP, i.e. even quicker (fog = 1/e^(distance * density)^2)
         LINEAR //Density increases linearly between the start and end distances
     };
@@ -450,7 +450,7 @@ namespace Finjin { namespace Exporter {
     struct DeleteThisDeleter
     {
         typedef void result_type;
-    
+
         void operator () (T* obj) const
         {
             obj->DeleteThis();
@@ -477,7 +477,7 @@ namespace Finjin { namespace Exporter {
         }
         return hash;
     }
-        
+
     /** Sorts all the values and removes the duplicates. */
     template <class T>
     void SortAndRemoveDuplicates(std::vector<T>& values)
@@ -541,7 +541,7 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define FINJIN_EXPORTER_NO_COPY_OR_MOVE(cls) \
     private: \
     cls(const cls& other) {} \
@@ -590,8 +590,8 @@ namespace Finjin { namespace Exporter {
     #endif
 #endif
 
-/** 
- * Creates a formatted string from a variable argument list. 
+/**
+ * Creates a formatted string from a variable argument list.
  * The formatting string's arguments are assumed to be in a variable argument list that starts after the 'format' parameter in a function signature.
  * @param result [out] - A previously declared string variable.
  * @param format [in] - A format string.
@@ -614,7 +614,7 @@ namespace Finjin { namespace Exporter {
 #define FINJIN_EXPORTER_OBJECT_IS_TYPE_OF(object, class) (dynamic_cast<const class*>(object) != nullptr)
 
 
-//Utilities--------------------------------------------------------------------
+//Utilities---------------------------------------------------------------------
 #include "ConvertString.hpp"
 
 //Useful for debugging
@@ -646,7 +646,7 @@ namespace Finjin { namespace Exporter {
 #define FINJIN_EXPORTER_MAX_TEXTURE_COORD_SETS 8 //If changed, must also change WxGpuVertexFormatStructMetadata (WxNumericStruct.hpp) and ExportedGeometry (ExportedGeometry.cpp)
 
 #define FINJIN_MAX_BLEND_WEIGHTS 16
-    
+
 /** Minimum bytes per line in exported files. */
 #define FINJIN_EXPORTER_MIN_BYTES_PER_LINE 1024
 #define FINJIN_EXPORTER_MAX_BYTES_PER_LINE (1024 * 1024)

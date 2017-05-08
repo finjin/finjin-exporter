@@ -19,10 +19,10 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * This class provides generic access to user data stored within an object.
      * User data is the data that users can modify in the object and scene settings dialogs.
      */
@@ -56,7 +56,7 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 
 /** Common user data accessor method declarations. */
 #define FINJIN_EXPORTER_DECLARE_USER_DATA_ACCESSOR_METHODS \

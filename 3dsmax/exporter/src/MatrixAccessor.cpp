@@ -23,12 +23,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MatrixAccessor::MatrixAccessor() : matrix(TRUE)
 {
 }
 
-MatrixAccessor::MatrixAccessor(const Matrix3& matrix) 
+MatrixAccessor::MatrixAccessor(const Matrix3& matrix)
 {
     this->matrix = matrix;
 }

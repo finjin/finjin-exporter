@@ -24,16 +24,16 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MeshIconUtilities::DrawCustomIcon
     (
-    ViewExp* viewport, 
-    const Point3* edgeVertices, 
-    size_t edgeVertexCount, 
-    const wxString* text, 
-    Matrix3* matrix, 
-    BOOL selected, 
-    BOOL frozen, 
+    ViewExp* viewport,
+    const Point3* edgeVertices,
+    size_t edgeVertexCount,
+    const wxString* text,
+    Matrix3* matrix,
+    BOOL selected,
+    BOOL frozen,
     COLORREF color
     )
 {
@@ -42,24 +42,24 @@ void MeshIconUtilities::DrawCustomIcon
     //Set transformation matrix
     if (matrix != nullptr)
         gw->setTransform(*matrix);
-    
+
     //Disable z buffer
     DWORD limits = gw->getRndLimits();
     gw->setRndLimits(limits & ~GW_Z_BUFFER);
 
-    //Set drawing colors 
-    if (selected) 
+    //Set drawing colors
+    if (selected)
     {
         gw->setColor(TEXT_COLOR, GetUIColor(COLOR_SELECTION));
         gw->setColor(LINE_COLOR, GetUIColor(COLOR_SELECTION));
-    } 
-    else if (frozen) 
+    }
+    else if (frozen)
     {
         gw->setColor(TEXT_COLOR, GetUIColor(COLOR_FREEZE));
-        gw->setColor(LINE_COLOR, GetUIColor(COLOR_FREEZE));     
+        gw->setColor(LINE_COLOR, GetUIColor(COLOR_FREEZE));
     }
     else
-    {        
+    {
         gw->setColor(TEXT_COLOR, Color(color));
         gw->setColor(LINE_COLOR, Color(color));
     }
@@ -70,7 +70,7 @@ void MeshIconUtilities::DrawCustomIcon
     {
         v[0] = edgeVertices[i];
         v[1] = edgeVertices[i + 1];
-        gw->polyline(2, v, nullptr, nullptr, FALSE, nullptr);     
+        gw->polyline(2, v, nullptr, nullptr, FALSE, nullptr);
     }
 
     //Draw text if necessary
@@ -87,20 +87,20 @@ void MeshIconUtilities::DrawCustomIcon
 
 Box3 MeshIconUtilities::GetCustomIconBox
     (
-    const Point3* edgeVertices, 
-    size_t edgeVertexCount, 
+    const Point3* edgeVertices,
+    size_t edgeVertexCount,
     Matrix3* matrix
     )
 {
     Matrix3 m(1);
     if (matrix != nullptr)
         m = *matrix;
-    
+
     Box3 box;
     Point3 v;
     for (size_t i = 0; i < edgeVertexCount; i++)
     {
-        v = edgeVertices[i] * m;     
+        v = edgeVertices[i] * m;
         if (!box.Contains(v))
             box += v;
     }
@@ -110,9 +110,9 @@ Box3 MeshIconUtilities::GetCustomIconBox
 
 void MeshIconUtilities::MakeBoxCorners
     (
-    Point3* p, 
-    float width, 
-    float height, 
+    Point3* p,
+    float width,
+    float height,
     float length
     )
 {
@@ -135,14 +135,14 @@ void MeshIconUtilities::MakeBoxCorners
 
 void MeshIconUtilities::MakeQuadCorners
     (
-    Point3* p, 
-    float width, 
+    Point3* p,
+    float width,
     float length
     )
 {
     width *= 0.5f;
     float height = 0;
-    length *= 0.5f; 
+    length *= 0.5f;
 
     p[0] = Point3(-width, -length, height);
     p[1] = Point3(-width, length, height);
@@ -152,10 +152,10 @@ void MeshIconUtilities::MakeQuadCorners
 
 void MeshIconUtilities::MakeBoxEdges
     (
-    std::vector<Point3>& edgeVertices, 
-    float width, 
-    float height, 
-    float length, 
+    std::vector<Point3>& edgeVertices,
+    float width,
+    float height,
+    float length,
     Matrix3* matrix
     )
 {
@@ -190,9 +190,9 @@ void MeshIconUtilities::MakeBoxEdges
 
 void MeshIconUtilities::MakeQuadEdges
     (
-    std::vector<Point3>& edgeVertices, 
-    float width, 
-    float length, 
+    std::vector<Point3>& edgeVertices,
+    float width,
+    float length,
     Matrix3* matrix
     )
 {
@@ -217,10 +217,10 @@ void MeshIconUtilities::MakeQuadEdges
 
 void MeshIconUtilities::MakeQuadEdgesWithNormal
     (
-    std::vector<Point3>& edgeVertices, 
-    float width, 
-    float length, 
-    float normalLength, 
+    std::vector<Point3>& edgeVertices,
+    float width,
+    float length,
+    float normalLength,
     Matrix3* matrix
     )
 {
@@ -252,11 +252,11 @@ Matrix3 MeshIconUtilities::MakeBillboardTM(Matrix3 m, ViewExp* viewport)
 {
     //Get the object transformation without rotation
     AffineParts parts;
-    decomp_affine(m, &parts);    
+    decomp_affine(m, &parts);
     m.SetRow(0, Point3(parts.k.x, 0.0f, 0.0f));
     m.SetRow(1, Point3(0.0f, parts.k.y, 0.0f));
     m.SetRow(2, Point3(0.0f, 0.0f, parts.k.z));
-    
+
     //Get the view-to-world rotation
     Matrix3 worldToView;
     viewport->GetAffineTM(worldToView);
@@ -271,28 +271,28 @@ Matrix3 MeshIconUtilities::MakeBillboardTM(Matrix3 m, ViewExp* viewport)
 int MeshIconUtilities::HitTestCustomIcon
     (
     ViewExp* viewport,
-    const std::vector<Point3>& edgeVertices, 
-    Matrix3 matrix, 
-    BOOL alwaysFaceView, 
-    TimeValue t, 
-    INode* inode, 
-    int type, 
-    int crossing, 
-    int flags, 
-    IPoint2* p    
+    const std::vector<Point3>& edgeVertices,
+    Matrix3 matrix,
+    BOOL alwaysFaceView,
+    TimeValue t,
+    INode* inode,
+    int type,
+    int crossing,
+    int flags,
+    IPoint2* p
     )
 {
     //Get viewport graphics window
-    auto gw = viewport->getGW(); 
-    
+    auto gw = viewport->getGW();
+
     //Set identity transform in graphics window
-    Matrix3 tm(1); 
+    Matrix3 tm(1);
     gw->setTransform(tm);
 
     //Get and modify current render limits
     DWORD savedLimits = gw->getRndLimits();
     gw->setRndLimits((savedLimits | GW_PICK) & ~GW_ILLUM);
-    
+
     //Create hit region
     HitRegion hitRegion;
     MakeHitRegion(hitRegion, type, crossing, 4, p);
@@ -300,17 +300,17 @@ int MeshIconUtilities::HitTestCustomIcon
     gw->clearHitCode();
 
     //Set into the graphics window the transform to be used when drawing the icon
-    tm = matrix * inode->GetObjectTM(t);     
+    tm = matrix * inode->GetObjectTM(t);
     if (alwaysFaceView)
         tm = MakeBillboardTM(tm, viewport);
     gw->setTransform(tm);
-    
+
     //Draw the icon
     DrawCustomIcon(viewport, &edgeVertices[0], edgeVertices.size(), nullptr, nullptr, false, false, 0);
 
     //Restore previous render limits
     gw->setRndLimits(savedLimits);
-    
+
     if ((hitRegion.type != POINT_RGN) && !hitRegion.crossing)
         return TRUE;
     else

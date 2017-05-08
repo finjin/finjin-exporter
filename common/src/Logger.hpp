@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
-     * Log message types/levels. 
+     * Log message types/levels.
      * Each successive message type corresponds to more detailed logging.
      */
     enum LogMessageType
@@ -50,8 +50,8 @@ namespace Finjin { namespace Exporter {
         /** Gets the log level for the listener. */
         LogMessageType GetLogLevel() const;
 
-        /** 
-         * Sets the log level for the listener. 
+        /**
+         * Sets the log level for the listener.
          * A derived class can choose to ignore this call.
          */
         virtual void SetLogLevel(LogMessageType logLevel);
@@ -129,7 +129,7 @@ namespace Finjin { namespace Exporter {
     class ScopedLogListener
     {
     public:
-        ScopedLogListener(LogListener& listener) 
+        ScopedLogListener(LogListener& listener)
         {
             this->listener = &listener;
             Logger::AddListener(this->listener);
@@ -147,10 +147,9 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 //#define FINJIN_EXPORTER_LOG_MESSAGE(type, ...) ;
 #define FINJIN_EXPORTER_LOG_MESSAGE(type, ...) if (Logger::CanHandle(type)) {Logger::LogMessage(type, wxString::Format(__VA_ARGS__));}
 
 #define FINJIN_EXPORTER_DEV_LOG_MESSAGE(type, message) ;
 //#define FINJIN_EXPORTER_DEV_LOG_MESSAGE(type, ...) if (Logger::CanHandle(type)) {Logger::LogMessage(type, wxString::Format(__VA_ARGS__));}
-

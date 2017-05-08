@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinTimeInterval.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinObjectSettingsAccessorBase;
     class FinjinSceneSettingsAccessorBase;
 
-    /** 
+    /**
      * FinjinNodeAnimationSettingsAccessorBase and the application-specific FinjinNodeAnimationSettingsAccessor
      * classes provide generic access to an Finjin node animation settings object.
      */
@@ -69,7 +69,7 @@ namespace Finjin { namespace Exporter {
         virtual void SetRotationInterpolationType(wxString value) = 0;
 
         /** Gets the time scale factor. */
-        double GetRealTimeScale();        
+        double GetRealTimeScale();
 
         /**
          * Gets the animation's sample type and sample interval, taking into account the object settings
@@ -81,13 +81,13 @@ namespace Finjin { namespace Exporter {
          */
         void GetSampleTypeAndIntervalValues
             (
-            SampleType& sampleType, 
-            double& sampleInterval, 
+            SampleType& sampleType,
+            double& sampleInterval,
             FinjinObjectSettingsAccessorBase& objectSettings,
             FinjinSceneSettingsAccessorBase& sceneSettings
             );
-        
-        /** 
+
+        /**
          * Copies all the settings from the specified source to this animation.
          */
         virtual void CopyFrom(FinjinNodeAnimationSettingsAccessorBase& from);

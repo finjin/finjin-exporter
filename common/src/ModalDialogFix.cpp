@@ -25,11 +25,11 @@ using namespace Finjin::Exporter;
 
 #if USING_MODAL_DIALOG_FIX
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 ModalDialogFix::DialogStack ModalDialogFix::dialogs;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ModalDialogFix::ModalDialogFix(wxWindow* window) : dialog(window)
 {
     //Step 1: An instance of this class is created just after the modal dialog is declared
@@ -42,14 +42,14 @@ ModalDialogFix::ModalDialogFix(wxDialog* window) : dialog(window)
 {
     //Step 1: An instance of this class is created just after the modal dialog is declared
     //        This only needs to be done for non-system dialogs
-    
+
     dialogs.push_back(dialog);
 }
 
 ModalDialogFix::~ModalDialogFix()
-{   
+{
     //Step 6: This is called automatically when the ModalDialogFix instance goes out of scope
-    wxString msg = wxString::Format(wxT("ModalDialogFix::EndingModalDialog(): %s"), this->dialog.GetName().wx_str());    
+    wxString msg = wxString::Format(wxT("ModalDialogFix::EndingModalDialog(): %s"), this->dialog.GetName().wx_str());
 }
 
 bool ModalDialogFix::IsActive()
@@ -62,7 +62,7 @@ void ModalDialogFix::StartingDialogCreate(wxWindow* dialog)
     //Step 2: FinjinDialog::Create() calls this function before actually creating the dialog
 
     //Pause the renderer when a dialog is about to be created
-    wxString msg = wxString::Format(wxT("ModalDialogFix::StartingDialogCreate(): %s"), dialog->GetName().wx_str());    
+    wxString msg = wxString::Format(wxT("ModalDialogFix::StartingDialogCreate(): %s"), dialog->GetName().wx_str());
 }
 
 void ModalDialogFix::FinishedDialogCreate(wxWindow* dialog)
@@ -70,23 +70,23 @@ void ModalDialogFix::FinishedDialogCreate(wxWindow* dialog)
     //Step 3: FinjinDialog::Create() calls this function after actually creating the dialog
 
     //Unpause the renderer after the dialog is created
-    wxString msg = wxString::Format(wxT("ModalDialogFix::StartingDialogCreate(): %s"), dialog->GetName().wx_str());    
+    wxString msg = wxString::Format(wxT("ModalDialogFix::StartingDialogCreate(): %s"), dialog->GetName().wx_str());
 }
 
 void ModalDialogFix::StartingModalDialog(wxWindow* dialog)
-{   
+{
     //Step 4: FinjinDialog::ShowModal() calls this before showing the dialog modally
 }
 
 void ModalDialogFix::EndingModalDialog(wxWindow* dialog)
-{    
+{
     //Step 5: FinjinDialog::EndModal() calls this after showing the dialog modally
 
     //If the dialog was created using a ModalDialogFix instance, it will be at the end of the list
     if (!dialogs.empty() && dialogs.back().window == dialog)
     {
         dialogs.pop_back();
-        wxString msg = wxString::Format(wxT("ModalDialogFix::EndingModalDialog(): %s"), dialog->GetName().wx_str());        
+        wxString msg = wxString::Format(wxT("ModalDialogFix::EndingModalDialog(): %s"), dialog->GetName().wx_str());
     }
 }
 

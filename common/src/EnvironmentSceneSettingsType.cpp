@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void EnvironmentSceneSettingsType::CreateSettingsPages(TabControlPages& tabPages, FinjinSceneSettingsAccessor& sceneSettings)
 {
     tabPages.AddPage(new SceneSettingsDialog_EnvironmentPage(tabPages.GetTabParentWindow(), sceneSettings), SceneSettingsDialog_EnvironmentPage::TITLE);
@@ -33,7 +33,7 @@ void EnvironmentSceneSettingsType::CreateSettingsPages(TabControlPages& tabPages
 void EnvironmentSceneSettingsType::GetDependencies(ObjectAccessorList& dependencies, FinjinSceneSettingsAccessorBase& sceneSettings)
 {
     //Get environment far object
-    auto farObject = sceneSettings.GetEnvironmentFarObject();    
+    auto farObject = sceneSettings.GetEnvironmentFarObject();
     if (farObject.IsValid())
         dependencies.push_back(farObject);
 }

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExporterContext.hpp"
 #include "ProgressCalculator.hpp"
 #include "ExportableObject.hpp"
@@ -30,7 +30,7 @@
 #include "ExportedGeometry.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryState;
@@ -39,12 +39,12 @@ namespace Finjin { namespace Exporter {
     class FinjinSceneDocument_MovableObject;
     class FinjinSceneDocument_RenderableMovableObject;
     class FinjinSceneDocument_Entity;
-    
+
     enum class FinjinSceneExporterContextFlags
     {
         NONE = 0,
 
-        /** 
+        /**
          * Indicates that materials should always be added, even if it is disabled at the scene level.
          * That does not have an effect on Finjin materials that have the 'Export' setting disabled.
          */
@@ -52,12 +52,12 @@ namespace Finjin { namespace Exporter {
     };
     FINJIN_ENUM_BITWISE_OPERATIONS(FinjinSceneExporterContextFlags)
 
-    /** 
+    /**
      * The ExporterContext used by FinjinSceneExporterHandler during the exporter of Finjin scenes.
      * It collects a lot of functionality that all versions of the Finjin exporter share.
      */
-    class FinjinSceneExporterContext : 
-        public ExporterContext, 
+    class FinjinSceneExporterContext :
+        public ExporterContext,
         public ProgressCalculator::ProgressChangeListener
     {
     public:
@@ -80,19 +80,19 @@ namespace Finjin { namespace Exporter {
          */
         void RunExport(const wxString& exportFileName, bool exportSelected);
 
-        /** 
+        /**
          * Initializes the progress calculators associated with the export process.
          * @param rootObject [in] - The root object from which the export starts.
          */
         void StartProgress(ExportableObject* rootObject);
 
-        /** 
-         * Puts the progress calculators into a finished state. 
+        /**
+         * Puts the progress calculators into a finished state.
          * This is called internally.
          */
         void FinishProgress();
 
-        /** 
+        /**
          * Starts the scene export.
          * This is called by the scene exporter handler.
          * @param scene [out] - The scene document which is to contain the exported scene data.
@@ -100,13 +100,13 @@ namespace Finjin { namespace Exporter {
          */
         void StartSceneExport(FinjinSceneDocument* scene = nullptr);
 
-        /** 
+        /**
          * Finishes the scene export by exporting materials, meshes, and anything else.
          * This is called by the scene exporter handler.
          */
         void FinishSceneExport();
 
-        /** 
+        /**
          * Adds the material for later export.
          * @param material [in] - The material to add.
          * @param useShaderMeshRequirements [in] - Indicates whether the shader mesh requirements should be used.
@@ -114,7 +114,7 @@ namespace Finjin { namespace Exporter {
          */
         void AddMaterial(MaterialAccessor material);
 
-        /** 
+        /**
          * Makes a node/object name.
          * @param object [in] - The object for which the name is generated.
          * @param useObjectName [in] - Indicates whether to use the object name. If false,
@@ -128,7 +128,7 @@ namespace Finjin { namespace Exporter {
 
         /** Determines whether the children of the specified object should be ignored during the export process. */
         bool ShouldIgnoreChildren(ExportableObject* exportableObject) override;
-        
+
         /** Gets the number of exportable children from the specified object. */
         int GetExportableChildCount(ExportableObject* object);
 
@@ -159,21 +159,21 @@ namespace Finjin { namespace Exporter {
 
         void GetMovableObjectSettings
             (
-            FinjinSceneDocument_MovableObject* movableObject, 
+            FinjinSceneDocument_MovableObject* movableObject,
             ObjectAccessor object,
             FinjinObjectSettingsAccessor objectSettings,
-            TimeAccessor time, 
-            CoordinateSystemConverter& conversionManager, 
+            TimeAccessor time,
+            CoordinateSystemConverter& conversionManager,
             float scale
             );
 
         void GetRenderableObjectSettings
             (
-            FinjinSceneDocument_RenderableMovableObject* renderableObject, 
+            FinjinSceneDocument_RenderableMovableObject* renderableObject,
             ObjectAccessor object,
             FinjinObjectSettingsAccessor objectSettings,
-            TimeAccessor time, 
-            CoordinateSystemConverter& conversionManager, 
+            TimeAccessor time,
+            CoordinateSystemConverter& conversionManager,
             float scale
             );
 
@@ -185,7 +185,7 @@ namespace Finjin { namespace Exporter {
         void GenerateNodeAnimations(FinjinSceneDocument_Item* item, ExportableObject* exportableObject);
 
     protected:
-        /** 
+        /**
          * Finds an matching existing instance for the specified geometry.
          * This is called by GetOrCreateGeometry() when searching for a geometry's original instance.
          * @param [in] - The geometry to try to match to an existing instance.
@@ -211,9 +211,9 @@ namespace Finjin { namespace Exporter {
 
         /** A list of a unique geometries generated during the export of the scene. */
         std::list<std::shared_ptr<GeometryState> > geometryStates;
-                
-        /** 
-         * A list of all the geometries associated with objects in the scene. 
+
+        /**
+         * A list of all the geometries associated with objects in the scene.
          * Some of these may be duplicates, referring multiple times to entries in geometryStates.
          */
         std::list<ExportedGeometry> exportedGeometries;
@@ -229,6 +229,6 @@ namespace Finjin { namespace Exporter {
         MaterialAccessorMap<std::shared_ptr<MaterialExporterHandler> > materialHandlerMap;
 
         WxDataChunkWriter* dataChunkWriter;
-    };    
+    };
 
 } }

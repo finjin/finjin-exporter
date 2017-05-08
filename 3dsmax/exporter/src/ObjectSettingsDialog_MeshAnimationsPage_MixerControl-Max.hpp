@@ -19,23 +19,23 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "BipedMixerAnimations.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Implements the mixer control logic for the 'Sync to Mixer' button 
+    /**
+     * Implements the mixer control logic for the 'Sync to Mixer' button
      * on the Mesh Animations page of the Object Settings dialog.
      */
     class ObjectSettingsDialog_MeshAnimationsPage_MixerControl
     {
     public:
-        /** 
-         * Initializes the mixer control data. 
+        /**
+         * Initializes the mixer control data.
          * @param object [in] - The object to check for mixer control data.
          * @param objectSettings [in] - The object settings.
          * @return If the object has a mixer control with some animations
@@ -43,7 +43,7 @@ namespace Finjin { namespace Exporter {
          */
         bool Initialize(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings);
 
-        /** 
+        /**
          * Synchronizes the mesh animation settings to the mixer.
          * @return If at least one animation was updated or added, true is returned.
          * Otherwise, false is returned.

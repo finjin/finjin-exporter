@@ -25,12 +25,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MPlug MayaPlug::FindChildPlug(MPlug& rootPlug, MObject attribute, const MString& name)
 {
     MPlug result;
 
-    if (rootPlug.isDynamic())    
+    if (rootPlug.isDynamic())
     {
         MString plugName;
         unsigned int count = rootPlug.numChildren();
@@ -47,7 +47,7 @@ MPlug MayaPlug::FindChildPlug(MPlug& rootPlug, MObject attribute, const MString&
     }
     else
         result = rootPlug.child(attribute);
-    
+
     return result;
 }
 
@@ -67,7 +67,7 @@ MPlug MayaPlug::FindChildPlug(MPlug& rootPlug, const MString& name)
             break;
         }
     }
-    
+
     return result;
 }
 
@@ -86,7 +86,7 @@ bool MayaPlug::GetBoolAttribute(const MObject& obj, const MString& attributeName
         {
             MPlug plug(obj, attribute);
             plug.getValue(value);
-        }        
+        }
     }
     else
     {
@@ -96,9 +96,9 @@ bool MayaPlug::GetBoolAttribute(const MObject& obj, const MString& attributeName
         {
             MPlug plug(obj, attribute);
             plug.getValue(value);
-        }        
+        }
     }
-    
+
     return value;
 }
 
@@ -115,7 +115,7 @@ void MayaPlug::SetBoolAttribute(const MObject& obj, const MString& attributeName
         {
             MPlug plug(obj, attribute);
             plug.setValue(value);
-        }        
+        }
     }
     else
     {
@@ -125,7 +125,7 @@ void MayaPlug::SetBoolAttribute(const MObject& obj, const MString& attributeName
         {
             MPlug plug(obj, attribute);
             plug.setValue(value);
-        }        
+        }
     }
 }
 
@@ -144,7 +144,7 @@ int MayaPlug::GetIntAttribute(const MObject& obj, const MString& attributeName, 
         {
             MPlug plug(obj, attribute);
             plug.getValue(value);
-        }        
+        }
     }
     else
     {
@@ -154,9 +154,9 @@ int MayaPlug::GetIntAttribute(const MObject& obj, const MString& attributeName, 
         {
             MPlug plug(obj, attribute);
             plug.getValue(value);
-        }        
+        }
     }
-    
+
     return value;
 }
 
@@ -175,7 +175,7 @@ float MayaPlug::GetFloatAttribute(const MObject& obj, const MString& attributeNa
         {
             MPlug plug(obj, attribute);
             plug.getValue(value);
-        }        
+        }
     }
     else
     {
@@ -187,10 +187,10 @@ float MayaPlug::GetFloatAttribute(const MObject& obj, const MString& attributeNa
             {
                 MPlug plug(obj, attribute);
                 plug.getValue(value);
-            }        
+            }
         }
     }
-    
+
     return value;
 }
 
@@ -365,10 +365,10 @@ int MayaPlug::AddAttributeElement(MPlug plug, const wxString& subattributeName)
 {
     int parameterIndex = plug.evaluateNumElements();
     int logicalParameterIndex = FindLogicalIndexForAppend(plug);
-    
+
     auto attributeName = GetFullAttributeName(plug);
     AddAttributeElement(attributeName, logicalParameterIndex, subattributeName);
-    
+
     return parameterIndex;
 }
 
@@ -379,28 +379,28 @@ int MayaPlug::AddAttributeElement(MObject obj, MObject attribute, const wxString
 
 int MayaPlug::AddAttributeElementValue(MPlug plug, int value)
 {
-    int parameterIndex = AddAttributeElement(plug);    
-    plug[parameterIndex].setValue(value);   
+    int parameterIndex = AddAttributeElement(plug);
+    plug[parameterIndex].setValue(value);
     return parameterIndex;
 }
 
 int MayaPlug::AddAttributeElementValue(MPlug plug, float value)
 {
-    int parameterIndex = AddAttributeElement(plug);    
-    plug[parameterIndex].setValue(value);    
+    int parameterIndex = AddAttributeElement(plug);
+    plug[parameterIndex].setValue(value);
     return parameterIndex;
 }
 
 int MayaPlug::AddAttributeElementValue(MPlug plug, const wxString& value)
 {
-    int parameterIndex = AddAttributeElement(plug);    
-    plug[parameterIndex].setValue(WxStringToApplicationString(value));    
+    int parameterIndex = AddAttributeElement(plug);
+    plug[parameterIndex].setValue(WxStringToApplicationString(value));
     return parameterIndex;
 }
 
 int MayaPlug::AddAttributeElementValue(MPlug plug, const FinjinVector3& value)
 {
-    int parameterIndex = AddAttributeElement(plug);    
+    int parameterIndex = AddAttributeElement(plug);
     MPlug addedPlug = plug[parameterIndex];
     unsigned int count = std::min((unsigned int)3, addedPlug.numChildren());
     for (unsigned int i = 0; i < count; i++)
@@ -410,38 +410,38 @@ int MayaPlug::AddAttributeElementValue(MPlug plug, const FinjinVector3& value)
 
 int MayaPlug::AddAttributeElementValue(MPlug plug, const FinjinVector4& value)
 {
-    int parameterIndex = AddAttributeElement(plug);    
+    int parameterIndex = AddAttributeElement(plug);
     MPlug addedPlug = plug[parameterIndex];
     unsigned int count = std::min((unsigned int)4, addedPlug.numChildren());
     for (unsigned int i = 0; i < count; i++)
-        addedPlug.child(i).setValue((double)value[i]);    
+        addedPlug.child(i).setValue((double)value[i]);
     return parameterIndex;
 }
 
 int MayaPlug::AddAttributeElementValue(MObject obj, MObject attribute, int value)
 {
     int parameterIndex = AddAttributeElement(obj, attribute);
-    
+
     MPlug(obj, attribute)[parameterIndex].setValue(value);
-    
+
     return parameterIndex;
 }
 
 int MayaPlug::AddAttributeElementValue(MObject obj, MObject attribute, const wxString& value)
 {
     int parameterIndex = AddAttributeElement(obj, attribute);
-    
+
     MPlug(obj, attribute)[parameterIndex].setValue(WxStringToApplicationString(value));
-    
+
     return parameterIndex;
 }
 
 int MayaPlug::AddAttributeElementValue(MObject obj, MObject attribute, float value)
 {
     int parameterIndex = AddAttributeElement(obj, attribute);
-    
+
     MPlug(obj, attribute)[parameterIndex].setValue(value);
-    
+
     return parameterIndex;
 }
 
@@ -479,7 +479,7 @@ void MayaPlug::RemoveAttributeElements(MPlug plug, const std::vector<int>* indic
     if (!plug.isNull())
     {
         wxString attributeName = GetFullAttributeName(plug);
-        
+
         if (indices != nullptr)
         {
             if (!indices->empty())
@@ -522,9 +522,9 @@ MObject MayaPlug::GetObjectReference(MPlug plug)
         MPlugArray inputs;
         plug.connectedTo(inputs, true, false);
         if (inputs.length() > 0)
-            objectReference = inputs[0].node();        
+            objectReference = inputs[0].node();
     }
-    
+
     return objectReference;
 }
 
@@ -542,10 +542,10 @@ MObject MayaPlug::GetObjectReference(MObject object, MObject& attribute, int i)
 }
 
 void MayaPlug::SetObjectReference(MPlug plug, MObject& objectReference)
-{    
+{
     MString attributeName;
     GetFullAttributeName(plug, attributeName);
-        
+
     MObject currentObjectReference = GetObjectReference(plug);
 
     if (objectReference.isNull())
@@ -575,7 +575,7 @@ void MayaPlug::SetObjectReference(MPlug plug, MObject& objectReference)
             MString fullPathName = dagNode.fullPathName();
             if (fullPathName.length() == 0)
                 fullPathName = depNode.name();
-            
+
             MString command = "connectAttr -force \"";
             command += fullPathName;
             command += ".message\" \"";
@@ -595,7 +595,7 @@ void MayaPlug::SetObjectReference(MObject object, MObject& attribute, MObject& o
 int MayaPlug::AddObjectReference(MPlug plug, MObject& objectReference)
 {
     int parameterIndex = -1;
-    
+
     if (!objectReference.isNull())
     {
         auto attributeName = GetFullAttributeName(plug);
@@ -604,7 +604,7 @@ int MayaPlug::AddObjectReference(MPlug plug, MObject& objectReference)
 
         MFnDependencyNode depNode(objectReference);
         wxString objectReferenceName = ApplicationStringToWxString(depNode.name());
-        
+
         auto command = wxString::Format(wxT("connectAttr -force \"%s.message\" \"%s[%d]\""), objectReferenceName.wx_str(), attributeName.wx_str(), logicalParameterIndex);
         MGlobal::executeCommand(WxStringToApplicationString(command), DISPLAY_MAYA_COMMAND);
     }
@@ -632,7 +632,7 @@ int MayaPlug::GetObjectReferenceCount(MPlug plug, std::vector<int>* deletedIndic
             if (inputs.length() == 0)
             {
                 RemoveAttributeElement(objectReferencePlug);
-                
+
                 count--;
 
                 if (deletedIndices != nullptr)

@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinMeshAnimationSettingsAccessor.hpp"
 #include "FinjinNodeAnimationSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -59,16 +59,16 @@ namespace Finjin { namespace Exporter {
                     this->sampleInterval = sceneSampleInterval;
                     if (this->sampleInterval == 0)
                     {
-                        this->sampleInterval = globalSampleInterval;            
+                        this->sampleInterval = globalSampleInterval;
                         if (this->sampleInterval == 0)
                             this->sampleInterval = .25f;
                     }
                 }
             }
-            this->useStartTime = settings.GetUseAnimationStartTime();        
+            this->useStartTime = settings.GetUseAnimationStartTime();
         }
 
-        /** 
+        /**
          * Gets the sample time at specified index.
          * @param sampleTimes [in] - Collection of sample times.
          * @param index [in] - The index of the sample being retrieved.
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
             return t;
         }
 
-        /** 
+        /**
          * Gets the output key time at specified index.
          * @param sampleTimes [in] - Collection of sample times.
          * @param index [in] - The index of the output key time being retrieved.
@@ -100,7 +100,7 @@ namespace Finjin { namespace Exporter {
             }
             return WxTimeDuration::Seconds(t, APP_TIME_RESOLUTION_UNIT);
         }
-        
+
     public:
         /** The name of the animation. */
         wxString name;
@@ -118,10 +118,10 @@ namespace Finjin { namespace Exporter {
         bool copyFirstKeyToLast;
 
         /** The amount of time between samples. */
-        double sampleInterval;    
+        double sampleInterval;
 
         /** Indicates whether output key times should use the real start time. */
-        bool useStartTime;    
+        bool useStartTime;
     };
 
 } }

@@ -31,7 +31,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static float ConvertMaxTiling(float tiling)
 {
     float scale = 1;
@@ -48,19 +48,19 @@ static bool IsValidReflectionOrRefractionMap(Texmap* texmap)
         {
             //It's a reflect/refract map
             auto stdCubic = static_cast<StdCubic*>(texmap);
-                    
+
             auto pblock = stdCubic->GetParamBlock(0);
             ParamID paramID;
             if (MaxUtilities::GetParamIDByName(paramID, wxT("bitmapName"), pblock))
             {
                 //Up, down, left, right, front, back
                 for (int i = 0; i < 6; i++)
-                {                    
+                {
                     auto asset = pblock->GetAssetUser(paramID, 0, i);
                     if (asset.GetFileName().isNull())
                         return false;
                 }
-            }            
+            }
 
             return true;
         }
@@ -68,12 +68,12 @@ static bool IsValidReflectionOrRefractionMap(Texmap* texmap)
         {
             auto bitmapTex = static_cast<BitmapTex*>(texmap);
             //auto mapping = bitmapTex->GetUVGen()->GetCoordMapping(0)); //UVMAP_EXPLICIT, UVMAP_SPHERE_ENV, etc
-            
+
             MSTR maxTextureFileName = bitmapTex->GetMapName();
             BitmapInfo bitmapInfo(maxTextureFileName);
             if (BMMGetFullFilename(&bitmapInfo))
                 maxTextureFileName = bitmapInfo.Name();
-                    
+
             return !maxTextureFileName.isNull();
         }
     }
@@ -82,7 +82,7 @@ static bool IsValidReflectionOrRefractionMap(Texmap* texmap)
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 Texmap* MaxBaseMaterialExporterHandler::GetDiffuseMap(Texmap* texmap)
 {
     return GetExportableBitmapTexmap(texmap);
@@ -92,7 +92,7 @@ void MaxBaseMaterialExporterHandler::WriteDiffuseMap(WxDataChunkWriter& writer, 
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -139,7 +139,7 @@ void MaxBaseMaterialExporterHandler::WriteSpecularMap(WxDataChunkWriter& writer,
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -165,7 +165,7 @@ void MaxBaseMaterialExporterHandler::WriteHeightMap(WxDataChunkWriter& writer, s
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -190,7 +190,7 @@ Texmap* MaxBaseMaterialExporterHandler::GetReflectionMap(Texmap* texmap)
     }
     else
         texmap = GetExportableBitmapTexmap(texmap);
-    
+
     return texmap;
 }
 
@@ -198,7 +198,7 @@ void MaxBaseMaterialExporterHandler::WriteReflectionMap(WxDataChunkWriter& write
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -215,7 +215,7 @@ void MaxBaseMaterialExporterHandler::WriteReflectionMap(WxDataChunkWriter& write
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    }    
+    }
 }
 
 Texmap* MaxBaseMaterialExporterHandler::GetRefractionMap(Texmap* texmap)
@@ -226,7 +226,7 @@ Texmap* MaxBaseMaterialExporterHandler::GetRefractionMap(Texmap* texmap)
     }
     else
         texmap = GetExportableBitmapTexmap(texmap);
-    
+
     return texmap;
 }
 
@@ -234,7 +234,7 @@ void MaxBaseMaterialExporterHandler::WriteRefractionMap(WxDataChunkWriter& write
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -251,7 +251,7 @@ void MaxBaseMaterialExporterHandler::WriteRefractionMap(WxDataChunkWriter& write
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    }    
+    }
 }
 
 Texmap* MaxBaseMaterialExporterHandler::GetBumpMap(Texmap* texmap)
@@ -263,7 +263,7 @@ void MaxBaseMaterialExporterHandler::WriteBumpMap(WxDataChunkWriter& writer, siz
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -289,7 +289,7 @@ void MaxBaseMaterialExporterHandler::WriteSelfIlluminationMap(WxDataChunkWriter&
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -310,7 +310,7 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -330,7 +330,7 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
     {
         //It's a reflect/refract map
         auto stdCubic = static_cast<StdCubic*>(texmapSlot.texmap);
-                    
+
         auto pblock = stdCubic->GetParamBlock(0);
         ParamID paramID;
         if (MaxUtilities::GetParamIDByName(paramID, wxT("bitmapName"), pblock))
@@ -377,7 +377,7 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
         auto assetRef = this->sceneExportSettings->GetAssetFileReference(AssetClass::TEXTURE, resolvedPaths);
         writer.WriteString(StandardAssetDocumentPropertyNames::TEXTURE_REF, assetRef.ToUriString(), error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        
+
         //Channel
         if (texmapSlot.texmap->GetUVWSource() == UVWSRC_EXPLICIT)
         {
@@ -388,7 +388,7 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }
         }
-        
+
         //Blending
         auto bitmap = bitmapTex->GetBitmap(0);
         if (bitmap != nullptr && bitmap->HasAlpha())
@@ -404,12 +404,12 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }
         }
-        
+
         //Texture coordinate transform
         auto uvGen = bitmapTex->GetUVGen();
         if (uvGen != nullptr)
         {
-            enum 
+            enum
             {
                 TILING_U = 1 << 0,
                 TILING_V = 1 << 1,
@@ -421,7 +421,7 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
 
             auto addressModeU = StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP;
             auto addressModeV = StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP;
-            
+
             if (!(uvGen->GetTextureTiling() & TILING_U))
                 addressModeU = StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP;
             if (uvGen->GetTextureTiling() & MIRROR_U)
@@ -447,26 +447,26 @@ void MaxBaseMaterialExporterHandler::WriteTexmap(WxDataChunkWriter& writer, TexM
             //Finally, set everything
             if (scaleU != 1 && scaleV != 1)
             {
-                float scaling[3] = {scaleU, scaleV, 1};                
+                float scaling[3] = {scaleU, scaleV, 1};
                 writer.WriteFloats(StandardAssetDocumentPropertyNames::TEXTURE_SCALE, scaling, 3, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }
 
             if (rotation != 0)
-            {                
+            {
                 writer.WriteFloat(StandardAssetDocumentPropertyNames::TEXTURE_ROTATION, rotation, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }
 
             if (offsetX != 0 && offsetY != 0)
             {
-                float offset[3] = {offsetX, offsetY, 0};                
+                float offset[3] = {offsetX, offsetY, 0};
                 writer.WriteFloats(StandardAssetDocumentPropertyNames::TEXTURE_OFFSET, offset, 3, error);
                 FINJIN_WX_DEFAULT_ERROR_CHECK(error)
             }
 
-            if (addressModes[0] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP || 
-                addressModes[1] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP || 
+            if (addressModes[0] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP ||
+                addressModes[1] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP ||
                 addressModes[2] != StandardAssetDocumentPropertyValues::TextureAddressMode::WRAP)
             {
                 writer.WriteStrings(StandardAssetDocumentPropertyNames::TEXTURE_ADDRESS_MODE, addressModes, 3, error);
@@ -485,7 +485,7 @@ void MaxBaseMaterialExporterHandler::WriteOpacityMap(WxDataChunkWriter& writer, 
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -511,7 +511,7 @@ void MaxBaseMaterialExporterHandler::WriteShininessMap(WxDataChunkWriter& writer
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 
@@ -537,7 +537,7 @@ void MaxBaseMaterialExporterHandler::WriteEnvironmentMap(WxDataChunkWriter& writ
 {
     FINJIN_WX_ERROR_METHOD_START(error);
 
-    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);    
+    texmapSlot.texmap = GetExportableBitmapTexmap(texmapSlot.texmap);
     if (texmapSlot.texmap == nullptr)
         return;
 

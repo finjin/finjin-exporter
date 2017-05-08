@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "TimeAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Two time values that define a range of time. */
@@ -90,18 +90,18 @@ namespace Finjin { namespace Exporter {
                 //Time-based interval
                 return wxString::Format
                     (
-                    wxT("%.2f-%.2f"), 
-                    (float)TimeAccessor::ConvertInternalToUIValue(this->start.GetValue()), 
+                    wxT("%.2f-%.2f"),
+                    (float)TimeAccessor::ConvertInternalToUIValue(this->start.GetValue()),
                     (float)TimeAccessor::ConvertInternalToUIValue(this->end.GetValue())
                     );
             }
-            else    
+            else
             {
                 //Frame-based interval
                 return wxString::Format
                     (
-                    wxT("%d-%d"), 
-                    RoundToInt(TimeAccessor::ConvertInternalToUIValue(this->start.GetValue())), 
+                    wxT("%d-%d"),
+                    RoundToInt(TimeAccessor::ConvertInternalToUIValue(this->start.GetValue())),
                     RoundToInt(TimeAccessor::ConvertInternalToUIValue(this->end.GetValue()))
                     );
             }

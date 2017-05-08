@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /**
      * This is base class for an application-specific object detect context.
      * A "context" provides and collects information about an object during type detection.
@@ -68,7 +68,7 @@ namespace Finjin { namespace Exporter {
             bool isSelected;
         };
 
-        /** 
+        /**
          * Adds the type.
          * @param type [in] - Pointer to the detected type.
          * @param isSelected [in] - Indicates whether the type is the selected type.
@@ -112,7 +112,7 @@ namespace Finjin { namespace Exporter {
             }
             return nullptr;
         }
-        
+
         /** The object being detected. */
         ObjectAccessor object;
 

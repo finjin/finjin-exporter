@@ -33,7 +33,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class ExportedFinjinScene : public ExportedObject
 {
 public:
@@ -49,7 +49,7 @@ public:
 };
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void RootObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (MayaUtilities::IsRoot(context.object.obj))
@@ -78,6 +78,6 @@ std::unique_ptr<ExportedObject> RootObjectType::Export(ExportableObjectPtr& expo
 
         ((FinjinSceneExporterHandler*)context.GetHandler())->ExportScene(exportableObject, exportedScene->scene, context);
     }
-    
+
     return exportedObject;
 }

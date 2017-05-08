@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshAnimationsEvaluator::MeshAnimationsEvaluator
     (
     FinjinSceneSettingsAccessor sceneSettings,
@@ -44,7 +44,7 @@ MeshAnimationsEvaluator::MeshAnimationsEvaluator
 
 bool MeshAnimationsEvaluator::HasAnimations() const
 {
-    return 
+    return
         !this->meshObjectAnimations.empty() ||
         !this->meshSkeletonAnimations.empty() ||
         !this->meshMorpherAnimations.empty();
@@ -60,7 +60,7 @@ void MeshAnimationsEvaluator::GetAnimations
     MeshAnimationTypeDetector meshAnimationType;
     meshAnimationType.Detect(object, objectSettings);
 
-    GetAnimations(objectSettings, objectExportSettings, meshAnimationType);    
+    GetAnimations(objectSettings, objectExportSettings, meshAnimationType);
 }
 
 void MeshAnimationsEvaluator::GetAnimations
@@ -73,7 +73,7 @@ void MeshAnimationsEvaluator::GetAnimations
     this->evaluatedAnimations = true;
 
     int meshAnimationCount = objectSettings.GetMeshAnimationCount();
-    
+
     this->meshObjectAnimations.clear();
     this->meshObjectAnimations.reserve(meshAnimationCount);
 
@@ -83,8 +83,8 @@ void MeshAnimationsEvaluator::GetAnimations
     this->meshMorpherAnimations.clear();
     this->meshMorpherAnimations.reserve(meshAnimationCount);
 
-    for (MeshAnimationTracksDetector::TrackType trackType = MeshAnimationTracksDetector::OBJECT; 
-        trackType < MeshAnimationTracksDetector::TRACK_TYPE_COUNT; 
+    for (MeshAnimationTracksDetector::TrackType trackType = MeshAnimationTracksDetector::OBJECT;
+        trackType < MeshAnimationTracksDetector::TRACK_TYPE_COUNT;
         trackType++)
     {
         //Get the animations for the track
@@ -101,13 +101,13 @@ void MeshAnimationsEvaluator::GetAnimations
                 {
                     MeshObjectAnimationSettings settings
                         (
-                        meshAnimations[i], 
+                        meshAnimations[i],
                         MeshObjectAnimationSettings::OBJECT,
                         meshAnimations[i].GetGenerateCombinedMorphsValue(meshAnimationType.selectedType->GeneratesCombinedMorphs())
                         );
                     this->meshObjectAnimations.push_back(settings);
                 }
-            }            
+            }
         }
         else if (MeshAnimationTracksDetector::IsSkeletonBased(trackType))
         {
@@ -140,30 +140,30 @@ void MeshAnimationsEvaluator::GetAnimations
 
 void MeshAnimationsEvaluator::Evaluate
     (
-    GeometryState* geometryState, 
+    GeometryState* geometryState,
     FinjinObjectSettingsAccessor objectSettings,
     const ObjectExportSettings& objectExportSettings
     )
-{   
+{
     MeshAnimationTypeDetector meshAnimationType;
     meshAnimationType.Detect(geometryState->createObject, objectSettings);
 
     if (!this->evaluatedAnimations)
-        GetAnimations(objectSettings, objectExportSettings, meshAnimationType);    
+        GetAnimations(objectSettings, objectExportSettings, meshAnimationType);
 
-    EvaluateAnimations(geometryState, objectSettings, objectExportSettings, meshAnimationType);    
+    EvaluateAnimations(geometryState, objectSettings, objectExportSettings, meshAnimationType);
 }
 
 void MeshAnimationsEvaluator::EvaluateAnimations
     (
-    GeometryState* geometryState, 
+    GeometryState* geometryState,
     FinjinObjectSettingsAccessor objectSettings,
     const ObjectExportSettings& objectExportSettings,
     MeshAnimationTypeDetector& meshAnimationType
     )
 {
     FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(wxT("MeshAnimationsEvaluator::EvaluateAnimations(%s)"), geometryState->createObject.GetLocalName().wx_str());
-    
+
     //Get morph animations
     std::list<WxTimeDuration> morphSampleTimes;
     geometryState->meshMorphAnimations.clear();
@@ -173,12 +173,12 @@ void MeshAnimationsEvaluator::EvaluateAnimations
         auto& meshObjectAnimation = this->meshObjectAnimations[animationIndex];
         AnimationExportSettings animationSettings
             (
-            meshObjectAnimation.settings, 
-            objectSettings.GetVertexAnimationSampleInterval(), 
-            sceneSettings.GetVertexAnimationSampleInterval(), 
+            meshObjectAnimation.settings,
+            objectSettings.GetVertexAnimationSampleInterval(),
+            sceneSettings.GetVertexAnimationSampleInterval(),
             FinjinGlobalSettings::GetInstance().vertexAnimationSampleInterval
             );
-        
+
         //Generate sample times
         std::vector<WxTimeDuration> sampleTimes;
         AnimationUtilities::GetSampledKeyTimes(sampleTimes, animationSettings.timeInterval, animationSettings.sampleInterval);
@@ -198,11 +198,11 @@ void MeshAnimationsEvaluator::EvaluateAnimations
         {
             auto& createdSubanimation = createdAnimation->subanimations[submesh->index];
             createdSubanimation.reset(new MeshMorphAnimation::Subanimation);
-                                            
+
             createdSubanimation->submesh = submesh.get();
             createdSubanimation->keys.resize(sampleTimes.size());
         }
-        
+
         //Create the subanimation keys
         for (size_t sampleIndex = 0; sampleIndex < sampleTimes.size(); sampleIndex++)
         {
@@ -210,7 +210,7 @@ void MeshAnimationsEvaluator::EvaluateAnimations
             switch (meshObjectAnimation.target)
             {
                 case MeshObjectAnimationSettings::OBJECT:
-                {                    
+                {
                     if (!meshObjectAnimation.morphWholeObject)
                         geometryFlags |= GeometryStateFlags::NO_MORPHER_EFFECT | GeometryStateFlags::NO_SKELETON_EFFECT;
                     break;
@@ -218,15 +218,15 @@ void MeshAnimationsEvaluator::EvaluateAnimations
                 case MeshObjectAnimationSettings::SKELETON:
                 {
                     geometryFlags |= GeometryStateFlags::NO_MORPHER_EFFECT;
-                    break;                    
+                    break;
                 }
                 case MeshObjectAnimationSettings::MORPHER:
                 {
                     geometryFlags |= GeometryStateFlags::NO_SKELETON_EFFECT;
-                    break;                    
+                    break;
                 }
             }
-         
+
             //Put the samples into a each subanimation
             GeometryState::SubmeshesPoints submeshesPoints;
             auto sampleTime = animationSettings.GetSampleTime(sampleTimes, sampleIndex);
@@ -234,11 +234,11 @@ void MeshAnimationsEvaluator::EvaluateAnimations
             for (size_t submeshIndex = 0; submeshIndex < submeshesPoints.size(); submeshIndex++)
             {
                 auto& createdSubanimation = createdAnimation->subanimations[submeshIndex];
-                
-                auto& key = createdSubanimation->keys[sampleIndex];                    
+
+                auto& key = createdSubanimation->keys[sampleIndex];
                 key.time = animationSettings.GetOutputKeyTime(sampleTimes, sampleIndex);
                 key.points.swap(submeshesPoints[submeshIndex].points);
-            }            
+            }
         }
     }
 
@@ -256,8 +256,8 @@ void MeshAnimationsEvaluator::EvaluateAnimations
         auto& meshMorpherAnimation = this->meshMorpherAnimations[animationIndex];
         AnimationExportSettings animationSettings
             (
-            meshMorpherAnimation, 
-            objectSettings.GetVertexAnimationSampleInterval(), 
+            meshMorpherAnimation,
+            objectSettings.GetVertexAnimationSampleInterval(),
             sceneSettings.GetVertexAnimationSampleInterval(),
             FinjinGlobalSettings::GetInstance().vertexAnimationSampleInterval
             );
@@ -270,7 +270,7 @@ void MeshAnimationsEvaluator::EvaluateAnimations
         //Exit early if not exporting animations
         if (!exportingMorpherAnimations)
             continue;
-        
+
         //Create the animation
         auto& createdAnimation = geometryState->meshMorpherAnimations[animationIndex];
         createdAnimation.reset(new MeshMorpher::Animation);
@@ -285,8 +285,8 @@ void MeshAnimationsEvaluator::EvaluateAnimations
         {
             auto& createdSubanimation = createdAnimation->subanimations[submesh->index];
             createdSubanimation.reset(new MeshMorpher::Subanimation);
-                            
-            createdSubanimation->submesh = submesh.get();            
+
+            createdSubanimation->submesh = submesh.get();
             createdSubanimation->keys.resize(sampleTimes.size());
             for (size_t sampleIndex = 0; sampleIndex < sampleTimes.size(); sampleIndex++)
             {
@@ -313,11 +313,11 @@ void MeshAnimationsEvaluator::EvaluateAnimations
                     auto& targetInfluence = targetInfluences[targetIndex];
                     MeshMorpher::MorphSubtargetInfluence subtargetInfluence(targetInfluence.target->subtargets[submesh->index].get(), targetInfluence.influence);
                     key.influences.push_back(subtargetInfluence);
-                }                       
+                }
             }
-        }            
+        }
     }
-    
+
     //Get skeleton animations
     FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Evaluating %d skeleton animations"), (int)this->meshSkeletonAnimations.size());
     std::list<WxTimeDuration> skeletonSampleTimes;
@@ -325,16 +325,16 @@ void MeshAnimationsEvaluator::EvaluateAnimations
     auto exportingSkeletonAnimations = objectSettings.GetExportSkeleton();
     if (exportingSkeletonAnimations)
         geometryState->meshSkeletonAnimations.resize(this->meshSkeletonAnimations.size());
-    
+
     auto animatedRoot = objectSettings.GetAnimatedRoot();
     for (size_t animationIndex = 0; animationIndex < this->meshSkeletonAnimations.size(); animationIndex++)
     {
         auto& meshSkeletonAnimation = this->meshSkeletonAnimations[animationIndex];
         AnimationExportSettings animationSettings
             (
-            meshSkeletonAnimation, 
-            objectSettings.GetSkeletonAnimationSampleInterval(), 
-            sceneSettings.GetSkeletonAnimationSampleInterval(), 
+            meshSkeletonAnimation,
+            objectSettings.GetSkeletonAnimationSampleInterval(),
+            sceneSettings.GetSkeletonAnimationSampleInterval(),
             FinjinGlobalSettings::GetInstance().skeletonAnimationSampleInterval
             );
 
@@ -362,25 +362,25 @@ void MeshAnimationsEvaluator::EvaluateAnimations
             auto animatedRootStartTime = animationSettings.GetSampleTime(sampleTimes, 0);
             if (meshSkeletonAnimation.GetOverrideAnimatedRootStartTime())
                 animatedRootStartTime = meshSkeletonAnimation.GetAnimatedRootStartTime();
-            
+
             TransformAccessor rootTransform
                 (
-                animatedRoot.GetNodeTransformation(animatedRootStartTime), 
-                this->sceneExportSettings.conversionManager, 
+                animatedRoot.GetNodeTransformation(animatedRootStartTime),
+                this->sceneExportSettings.conversionManager,
                 this->sceneExportSettings.scale
                 );
-            animatedRootOrigin = rootTransform.GetTranslation();        
+            animatedRootOrigin = rootTransform.GetTranslation();
         }
 
         //Set bone animations and create animation keys
         createdAnimation->boneAnimations.reserve(geometryState->meshSkeleton.bones.size());
         for (auto meshBone : geometryState->meshSkeleton.bones)
-        {   
+        {
             if (meshSkeletonAnimation.IsBoneAllowed(meshBone->object))
             {
                 MeshSkeleton::BoneAnimationPtr createdBoneAnimation(new MeshSkeleton::BoneAnimation);
                 createdAnimation->boneAnimations.push_back(createdBoneAnimation);
-                
+
                 createdBoneAnimation->bone = meshBone.get();
                 createdBoneAnimation->keys.resize(sampleTimes.size());
 
@@ -391,13 +391,13 @@ void MeshAnimationsEvaluator::EvaluateAnimations
                 {
                     auto& key = createdBoneAnimation->keys[sampleIndex];
 
-                    auto sampleTime = animationSettings.GetSampleTime(sampleTimes, sampleIndex);                        
-                    
+                    auto sampleTime = animationSettings.GetSampleTime(sampleTimes, sampleIndex);
+
                     //Sample the bone's transform
                     TransformAccessor boneWorldTransform
                         (
-                        meshBone->GetNodeTransformation(sampleTime), 
-                        this->sceneExportSettings.conversionManager, 
+                        meshBone->GetNodeTransformation(sampleTime),
+                        this->sceneExportSettings.conversionManager,
                         this->sceneExportSettings.scale
                         );
 
@@ -406,8 +406,8 @@ void MeshAnimationsEvaluator::EvaluateAnimations
                     {
                         TransformAccessor rootTransform
                             (
-                            animatedRoot.GetNodeTransformation(animationSettings.GetSampleTime(sampleTimes, sampleIndex)), 
-                            this->sceneExportSettings.conversionManager, 
+                            animatedRoot.GetNodeTransformation(animationSettings.GetSampleTime(sampleTimes, sampleIndex)),
+                            this->sceneExportSettings.conversionManager,
                             this->sceneExportSettings.scale
                             );
                         auto animatedRootOffset = rootTransform.GetTranslation() - animatedRootOrigin;
@@ -422,7 +422,7 @@ void MeshAnimationsEvaluator::EvaluateAnimations
                         parentWorldTransform.Set
                             (
                             geometryState->createObject.GetNodeTransformation(sampleTime),
-                            this->sceneExportSettings.conversionManager, 
+                            this->sceneExportSettings.conversionManager,
                             this->sceneExportSettings.scale
                             );
                     }
@@ -430,15 +430,15 @@ void MeshAnimationsEvaluator::EvaluateAnimations
                     {
                         parentWorldTransform.Set
                             (
-                            meshBone->parent->GetNodeTransformation(sampleTime), 
-                            this->sceneExportSettings.conversionManager, 
+                            meshBone->parent->GetNodeTransformation(sampleTime),
+                            this->sceneExportSettings.conversionManager,
                             this->sceneExportSettings.scale
                             );
                     }
-                    
+
                     //Get the bone transform relative to parent
                     key.time = animationSettings.GetOutputKeyTime(sampleTimes, sampleIndex);
-                    
+
                     auto relativeTransform = boneWorldTransform.GetRelativeTo(parentWorldTransform);
                     auto relativeTranslation = relativeTransform.GetTranslation() * boneTranslationMask;
                     relativeTransform.SetTranslation(relativeTranslation);
@@ -447,7 +447,7 @@ void MeshAnimationsEvaluator::EvaluateAnimations
             }
         }
     }
-        
+
     //Combine all the sample times
     this->allSampleTimes.reserve(morphSampleTimes.size() + morpherSampleTimes.size() + skeletonSampleTimes.size());
     PushAll(this->allSampleTimes, morphSampleTimes);

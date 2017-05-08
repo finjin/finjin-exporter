@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinNodeAnimationSettingsAccessorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinNodeAnimationSettingsObject;
@@ -31,10 +31,10 @@ namespace Finjin { namespace Exporter {
     /** Access to a Finjin node animation settings object. */
     class FinjinNodeAnimationSettingsAccessor : public FinjinNodeAnimationSettingsAccessorBase
     {
-    public:    
+    public:
         FinjinNodeAnimationSettingsAccessor() {this->object = nullptr;}
         FinjinNodeAnimationSettingsAccessor(FinjinNodeAnimationSettingsObject* object) {this->object = object;}
-        
+
         bool IsValid() const {return this->object != nullptr;}
 
         bool operator == (const FinjinNodeAnimationSettingsAccessor& other) const;

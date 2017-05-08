@@ -35,7 +35,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static void AddIndent(wxString& message, int indent)
 {
     for (int i = 0; i < indent; i++)
@@ -109,23 +109,23 @@ static void FormatInstallationInfoDetails(wxString& message, const std::list<std
 
 static void FormatInstallationInfo(wxString& message, const InstallationContext::InstallationInfo& installationInfo, State state)
 {
-    FormatInstallationInfoDetails(message, installationInfo.childInfo, 0, state);    
+    FormatInstallationInfoDetails(message, installationInfo.childInfo, 0, state);
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(InstallationDialogBase, wxDialog)
     EVT_CLOSE(InstallationDialogBase::OnCloseWindow)
     EVT_RADIOBUTTON(InstallationDialogBase::INSTALL_RADIO_BUTTON, InstallationDialogBase::OnInstallRadioButton)
     EVT_RADIOBUTTON(InstallationDialogBase::UNINSTALL_RADIO_BUTTON, InstallationDialogBase::OnUninstallRadioButton)
-    EVT_BUTTON(wxID_OK, InstallationDialogBase::OnCloseButton)    
+    EVT_BUTTON(wxID_OK, InstallationDialogBase::OnCloseButton)
     EVT_BUTTON(InstallationDialogBase::INSTALL_BUTTON, InstallationDialogBase::OnInstallButton)
 END_EVENT_TABLE()
 
 InstallationDialogBase::InstallationDialogBase()
 {
     this->installationMode = InstallationMode::INSTALL;
-    this->applicationName = wxT("???");    
+    this->applicationName = wxT("???");
 }
 
 InstallationDialogBase::~InstallationDialogBase()
@@ -152,46 +152,46 @@ void InstallationDialogBase::Create()
 #if defined(__WXMSW__)
     SetIcon(wxIcon(wxT("IDI_FINJIN"), wxBITMAP_TYPE_ICO_RESOURCE));
 #endif
-    
+
     SetSizeHints( wxSize(DIALOG_WIDTH,-1), wxDefaultSize );
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* topModeSizer;
     topModeSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* modeCenterSizer;
     modeCenterSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     installRadioButton = new wxRadioButton( this, wxID_ANY, wxT("Install"), wxDefaultPosition, wxDefaultSize, 0 );
     installRadioButton->SetValue(this->installationMode == InstallationMode::INSTALL);
     modeCenterSizer->Add( installRadioButton, 0, wxALL, 5 );
-    
+
     uninstallRadioButton = new wxRadioButton( this, wxID_ANY, wxT("Uninstall"), wxDefaultPosition, wxDefaultSize, 0 );
     uninstallRadioButton->SetValue(this->installationMode == InstallationMode::UNINSTALL);
     modeCenterSizer->Add( uninstallRadioButton, 0, wxALL, 5 );
-    
+
     topModeSizer->Add( modeCenterSizer, 0, wxALIGN_CENTER_HORIZONTAL, 0 );
-    
+
     topSizer->Add( topModeSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 8 );
 
     wxStaticBoxSizer* aboutSizer;
     aboutSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("About") ), wxVERTICAL );
-    
+
     aboutLabel = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
     aboutLabel->Wrap( -1 );
     aboutLabel->SetMinSize( wxSize( 170,50 ) );
-    
+
     aboutSizer->Add( aboutLabel, 1, wxALL|wxEXPAND, 5 );
-    
+
     topSizer->Add( aboutSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 8 );
-    
+
     auto versionsText = wxString::Format(wxT("%s Versions to Install"), this->applicationName.wx_str());
-    versionsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, versionsText ), wxVERTICAL );    
+    versionsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, versionsText ), wxVERTICAL );
     topSizer->Add( versionsSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 8 );
-    
-    otherFilesSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );    
+
+    otherFilesSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxEmptyString ), wxVERTICAL );
     topSizer->Add( otherFilesSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 8 );
 
     this->pluginItemCheckboxes.reserve(this->pluginItems.size());
@@ -199,10 +199,10 @@ void InstallationDialogBase::Create()
         pluginItem != this->pluginItems.end();
         ++pluginItem)
     {
-        wxCheckBox* checkBox = new wxCheckBox(this, wxID_ANY, (*pluginItem)->GetApplicationVersion().displayName, wxDefaultPosition, wxDefaultSize, 0 );    
+        wxCheckBox* checkBox = new wxCheckBox(this, wxID_ANY, (*pluginItem)->GetApplicationVersion().displayName, wxDefaultPosition, wxDefaultSize, 0 );
         this->pluginItemCheckboxes.push_back(checkBox);
         checkBox->SetValue(true);
-        versionsSizer->Add(checkBox, 0, wxALL, 5 );    
+        versionsSizer->Add(checkBox, 0, wxALL, 5 );
     }
 
     this->otherItemCheckboxes.reserve(this->otherItems.size());
@@ -210,27 +210,27 @@ void InstallationDialogBase::Create()
         otherItem != this->otherItems.end();
         ++otherItem)
     {
-        wxCheckBox* checkBox = new wxCheckBox(this, wxID_ANY, (*otherItem)->GetDisplayName(), wxDefaultPosition, wxDefaultSize, 0 );    
+        wxCheckBox* checkBox = new wxCheckBox(this, wxID_ANY, (*otherItem)->GetDisplayName(), wxDefaultPosition, wxDefaultSize, 0 );
         this->otherItemCheckboxes.push_back(checkBox);
         checkBox->SetValue(true);
-        otherFilesSizer->Add(checkBox, 0, wxALL, 5 );            
+        otherFilesSizer->Add(checkBox, 0, wxALL, 5 );
     }
 
     wxBoxSizer* detailsSizer;
     detailsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     showDetailsCheckBox = new wxCheckBox( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     detailsSizer->Add( showDetailsCheckBox, 0, wxBOTTOM|wxLEFT|wxRIGHT|wxTOP, 7 );
-    
+
     topSizer->Add( detailsSizer, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 
     wxBoxSizer* buttonsSizer;
     buttonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     installButton = new wxButton( this, wxID_OK, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( installButton, 0, wxBOTTOM|wxLEFT|wxRIGHT, 5 );
-    
+
     closeButton = new wxButton( this, wxID_ANY, wxT("&Close"), wxDefaultPosition, wxDefaultSize, 0 );
     buttonsSizer->Add( closeButton, 0, wxBOTTOM|wxRIGHT, 5 );
 
@@ -240,7 +240,7 @@ void InstallationDialogBase::Create()
     this->closeButton->SetId(wxID_OK);
 
     topSizer->Add( buttonsSizer, 0, wxALIGN_CENTER, 5 );
-    
+
     this->SetSizer( topSizer );
     this->Layout();
 
@@ -298,15 +298,15 @@ void InstallationDialogBase::OnCloseButton(wxCommandEvent& event)
 }
 
 void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
-{    
-    InstallationContext context;    
+{
+    InstallationContext context;
     context.mainWindow = this;
 
     wxString installLower;
     wxString installedLower;
     wxString installingUpper;
-    wxString installationLower;    
-    wxString installationUpper;    
+    wxString installationLower;
+    wxString installationUpper;
     if (this->installationMode == InstallationMode::INSTALL)
     {
         installLower = wxT("install");
@@ -323,7 +323,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
         installationLower = wxT("uninstallation");
         installationUpper = wxT("Uninstallation");
     }
-        
+
     wxString title;
     int pluginIndex = 0;
     int handledPluginCount = 0;
@@ -341,7 +341,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
             context.ClearFailureFlag();
             context.applicationVersion = (*pluginItem)->GetApplicationVersion();
             context.StartInstallationItem(wxT("Plugin Files"));
-            if (this->installationMode == InstallationMode::INSTALL)                    
+            if (this->installationMode == InstallationMode::INSTALL)
             {
                 if ((*pluginItem)->IsInstallSlow() && handledPluginCount == 0)
                 {
@@ -350,7 +350,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
                     wxMessageDialog dialog(this, slowMessage, wxT("Installing Finjin"), wxOK | wxICON_INFORMATION | wxCENTER);
                     dialog.ShowModal();
                 }
-                
+
                 (*pluginItem)->Install(context);
             }
             else
@@ -379,7 +379,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
                         else
                             (*otherItem)->Uninstall(context);
                         context.FinishInstallationItem();
-                    }                
+                    }
                 }
             }
             else
@@ -393,14 +393,14 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
     if (context.WasUsed())
     {
         bool success = context.ComputeInstallationResults();
-        
+
         wxString extraSuccessMessage;
         if (success)
-        {       
+        {
             extraSuccessMessage = this->extraSuccessMessage[(size_t)this->installationMode];
 
             if (this->installationMode == InstallationMode::INSTALL)
-            {                
+            {
             #if defined(__WXMSW__)
                 //if (!extraSuccessMessage.empty())
                 //    extraSuccessMessage += wxT("\n\n");
@@ -424,7 +424,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
             if (AppendAdminMessageIfNecessary(message))
                 message += wxT("\n\n");
 
-            FormatInstallationInfo(message, *context.installationInfo, ALL_STATES);        
+            FormatInstallationInfo(message, *context.installationInfo, ALL_STATES);
             InstallationDetailsDialog resultsDialog(this, message, this->installationMode);
             resultsDialog.ShowModal();
         }
@@ -445,8 +445,8 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
             }
             else
             {
-                message = wxT("Errors were encountered while installing the Finjin Exporter.\n\n");                
-                
+                message = wxT("Errors were encountered while installing the Finjin Exporter.\n\n");
+
                 if (AppendAdminMessageIfNecessary(message))
                     message += wxT("\n\n");
 
@@ -455,7 +455,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
                 InstallationDetailsDialog resultsDialog(this, message, this->installationMode);
                 resultsDialog.ShowModal();
             }
-        }            
+        }
     }
     else
     {
@@ -468,7 +468,7 @@ void InstallationDialogBase::OnInstallButton(wxCommandEvent& event)
 void InstallationDialogBase::RefreshCheckBoxStates(bool refreshOtherItems)
 {
     InstallationContext context;
-    
+
     int pluginIndex = 0;
     for (auto pluginItem = this->pluginItems.begin();
         pluginItem != this->pluginItems.end();
@@ -477,7 +477,7 @@ void InstallationDialogBase::RefreshCheckBoxStates(bool refreshOtherItems)
         auto checkBox = this->pluginItemCheckboxes[pluginIndex++];
         if ((*pluginItem)->CanInstall(context))
         {
-            checkBox->SetValue(true);        
+            checkBox->SetValue(true);
             checkBox->Enable(true);
         }
         else
@@ -497,7 +497,7 @@ void InstallationDialogBase::RefreshCheckBoxStates(bool refreshOtherItems)
             auto checkBox = this->otherItemCheckboxes[otherIndex++];
             if ((*otherItem)->CanInstall(context))
             {
-                checkBox->SetValue(true);        
+                checkBox->SetValue(true);
                 checkBox->Enable(true);
             }
             else
@@ -520,21 +520,21 @@ void InstallationDialogBase::UpdateInstallationModeControls()
         show = true;
         installLower = wxT("install");
         installUpper = wxT("Install");
-        installationLower = wxT("installation");        
+        installationLower = wxT("installation");
     }
     else
     {
         show = false;
         installLower = wxT("uninstall");
         installUpper = wxT("Uninstall");
-        installationLower = wxT("uninstallation");        
+        installationLower = wxT("uninstallation");
     }
 
     SetTitle(wxString::Format(wxT("%s Finjin"), installUpper.wx_str()));
 
     //Update "About" text
     this->aboutLabel->SetLabel(wxString::Format(wxT("This tool will %s the Finjin Exporter for each of the selected %s versions."), installLower.wx_str(), this->applicationName.wx_str()));
-    
+
     //Update "Application Versions to Install/Uninstall" text
     wxString versionsText = wxString::Format(wxT("%s Versions to %s"), this->applicationName.wx_str(), installUpper.wx_str());
     this->versionsSizer->GetStaticBox()->SetLabel(versionsText);
@@ -550,7 +550,7 @@ void InstallationDialogBase::UpdateInstallationModeControls()
     this->installButton->SetLabel(wxString::Format(wxT("&%s"), installUpper.wx_str()));
 
     Fit();
-    
+
     this->aboutLabel->Wrap(this->aboutLabel->GetClientSize().x);
 }
 
@@ -563,7 +563,7 @@ bool InstallationDialogBase::AppendAdminMessageIfNecessary(wxString& message, co
             message += prefix;
 
         message += wxString::Format(wxT("Note: If Finjin does not appear to initialize correctly when running %s, try running this installer again as an administrator."), this->applicationName.wx_str());
-        
+
         return true;
     }
 #endif

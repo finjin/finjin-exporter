@@ -23,9 +23,9 @@
 using namespace Finjin::Exporter;
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 MeshBone::MeshBone(ObjectAccessor object, bool isExplicit)
 {
-    this->object = object;            
+    this->object = object;
     this->isExplicit = isExplicit;
 }

@@ -28,13 +28,13 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Constants--------------------------------------------------------------------
+//Constants---------------------------------------------------------------------
 #define VRAY_FASTSSSMTL_CLASSID Class_ID(1543535727, 281901923)
 #define VRAY_LIGHTMTL_CLASSID Class_ID(2093950526, 1062943161)
 #define VRAY_MTL_CLASSID Class_ID(935280431, 1882483036)
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 VRayMaterialsExporterHandler::VRayMaterialsExporterHandler()
 {
     for (auto& item : this->texmaps)
@@ -57,9 +57,9 @@ bool VRayMaterialsExporterHandler::CanHandle(MaterialAccessor material)
         {
             if (material.mtl->ClassID() == VRAY_CLASSIDS[i])
                 return true;
-        }        
+        }
     }
-    
+
     return false;
 }
 
@@ -75,7 +75,7 @@ void VRayMaterialsExporterHandler::CalculateRequirements()
     ParamID paramID;
     IParamBlock2* isOnPBlock;
     ParamID isOnParamID;
-    
+
     if (this->material.mtl->ClassID() == VRAY_FASTSSSMTL_CLASSID)
     {
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("shallow_texmap"), this->material.mtl))
@@ -125,7 +125,7 @@ void VRayMaterialsExporterHandler::CalculateRequirements()
                     this->texmapCount++;
                 }
             }
-        }        
+        }
     }
     else if (this->material.mtl->ClassID() == VRAY_MTL_CLASSID)
     {
@@ -143,7 +143,7 @@ void VRayMaterialsExporterHandler::CalculateRequirements()
                     this->texmapCount++;
                 }
             }
-        }        
+        }
     }
 }
 
@@ -161,35 +161,35 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
 
     IParamBlock2* pblock;
     ParamID paramID;
-    
+
     if (this->material.mtl->ClassID() == VRAY_FASTSSSMTL_CLASSID)
     {
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("shallow_color"), this->material.mtl))
         {
             Color diffuse = pblock->GetColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        }        
+        }
     }
     else if (this->material.mtl->ClassID() == VRAY_LIGHTMTL_CLASSID)
     {
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("color"), this->material.mtl))
         {
             Color diffuse = pblock->GetColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        }        
+        }
     }
     else if (this->material.mtl->ClassID() == VRAY_MTL_CLASSID)
     {
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("diffuse"), this->material.mtl))
         {
             Color diffuse = pblock->GetColor(paramID);
-                
+
             float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -197,10 +197,10 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
         if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("reflection_glossiness"), this->material.mtl))
         {
             float shininess = pblock->GetFloat(paramID);
-                
+
             writer.WriteFloat(StandardAssetDocumentPropertyNames::SHININESS, shininess, error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        }        
+        }
     }
 
     //Maps

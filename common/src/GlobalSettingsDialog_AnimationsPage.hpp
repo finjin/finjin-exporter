@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GlobalSettingsDialog_AnimationsPage : public SettingsPage
@@ -33,7 +33,7 @@ namespace Finjin { namespace Exporter {
     private:
         DECLARE_EVENT_TABLE()
 
-    protected:        
+    protected:
         wxStaticText* skeletonAnimationSamplingLabel;
         ApplicationTextCtrl* skeletonAnimationSamplingText;
         ApplicationChoiceCtrl* skeletonAnimationSamplingChoice;
@@ -42,18 +42,18 @@ namespace Finjin { namespace Exporter {
         ApplicationChoiceCtrl* vertexAnimationSamplingChoice;
         wxStaticText* nodeAnimationSamplingLabel;
         ApplicationTextCtrl* nodeAnimationSamplingText;
-        ApplicationChoiceCtrl* nodeAnimationSamplingChoice;        
+        ApplicationChoiceCtrl* nodeAnimationSamplingChoice;
 
     public:
         GlobalSettingsDialog_AnimationsPage(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
         ~GlobalSettingsDialog_AnimationsPage();
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         static const wxString TITLE;
 
-    private:        
+    private:
     };
 
 } }

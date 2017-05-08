@@ -33,73 +33,73 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString GlobalSettingsDialog_UserDataClassPage::TITLE(wxT("User Data"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(GlobalSettingsDialog_UserDataClassPage, SettingsPage)
     EVT_CHOICE(GlobalSettingsDialog_UserDataClassPage::BASE_DIRECTORY_CHOICE, GlobalSettingsDialog_UserDataClassPage::OnBaseDirectoryChoice)
     EVT_BUTTON(GlobalSettingsDialog_UserDataClassPage::BASE_DIRECTORY_BUTTON, GlobalSettingsDialog_UserDataClassPage::OnBaseDirectoryButton)
     EVT_BUTTON(GlobalSettingsDialog_UserDataClassPage::ADD_DIRECTORY_BUTTON, GlobalSettingsDialog_UserDataClassPage::OnAddDirectoryButton)
-    EVT_BUTTON(GlobalSettingsDialog_UserDataClassPage::ADD_FILE_BUTTON, GlobalSettingsDialog_UserDataClassPage::OnAddFileButton)    
+    EVT_BUTTON(GlobalSettingsDialog_UserDataClassPage::ADD_FILE_BUTTON, GlobalSettingsDialog_UserDataClassPage::OnAddFileButton)
 END_EVENT_TABLE()
 
 GlobalSettingsDialog_UserDataClassPage::GlobalSettingsDialog_UserDataClassPage(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
 {
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* resourceLocationsTopSizer;
     resourceLocationsTopSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("File Locations") ), wxVERTICAL );
-    
+
     baseDirectoryLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Base Directory"), wxDefaultPosition, wxDefaultSize, 0 );
     baseDirectoryLabel->Wrap( -1 );
     resourceLocationsTopSizer->Add( baseDirectoryLabel, 0, wxALL, 5 );
-    
+
     wxBoxSizer* baseDirectorySizer;
     baseDirectorySizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxArrayString baseDirectoryChoiceChoices;
     baseDirectoryChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, baseDirectoryChoiceChoices, 0 );
     baseDirectoryChoice->SetSelection( 0 );
     baseDirectorySizer->Add( baseDirectoryChoice, 0, wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     baseDirectoryText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 285,-1 ), wxTE_READONLY );
     baseDirectorySizer->Add( baseDirectoryText, 1, wxBOTTOM, 5 );
-    
+
     baseDirectoryButton = new wxButton( this, wxID_ANY, wxT("Browse..."), wxDefaultPosition, wxSize(STANDARD_BUTTON_WIDTH,-1 ), 0 );
     baseDirectorySizer->Add( baseDirectoryButton, 0, wxBOTTOM|wxLEFT, 5 );
-    
+
     resourceLocationsTopSizer->Add( baseDirectorySizer, 0, wxEXPAND, 5 );
-    
+
     resourceLocationsDescriptionLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("These locations are used to locate files that contain user data classes, which can be used to \nconfigure scene and object user data. Directories will be searched non-recursively for \nfiles with the .cfg-userdatatypes extension."), wxDefaultPosition, wxDefaultSize, 0 );
     resourceLocationsDescriptionLabel->Wrap( -1 );
     resourceLocationsTopSizer->Add( resourceLocationsDescriptionLabel, 0, wxBOTTOM|wxEXPAND|wxLEFT|wxRIGHT, 5 );
-    
+
     wxBoxSizer* resourceLocationsSizer;
     resourceLocationsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     resourceLocationsText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), wxTE_DONTWRAP|wxTE_MULTILINE );
     resourceLocationsText->SetMinSize( wxSize( 365,150 ) );
-    
+
     resourceLocationsSizer->Add( resourceLocationsText, 1, wxBOTTOM|wxEXPAND|wxLEFT|wxTOP, 5 );
-    
+
     wxBoxSizer* resourceLocationsButtonsSizer;
     resourceLocationsButtonsSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     addDirectoryButton = new wxButton( this, wxID_ANY, wxT("Add Directory..."), wxDefaultPosition, wxSize(STANDARD_BUTTON_WIDTH,-1 ), 0 );
     resourceLocationsButtonsSizer->Add( addDirectoryButton, 0, wxTOP|wxLEFT, 5 );
-    
+
     addFileButton = new wxButton( this, wxID_ANY, wxT("Add File..."), wxDefaultPosition, wxSize(STANDARD_BUTTON_WIDTH,-1 ), 0 );
     resourceLocationsButtonsSizer->Add( addFileButton, 0, wxBOTTOM|wxLEFT, 5 );
-    
+
     resourceLocationsSizer->Add( resourceLocationsButtonsSizer, 0, wxEXPAND, 5 );
-    
+
     resourceLocationsTopSizer->Add( resourceLocationsSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( resourceLocationsTopSizer, 1, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     this->baseDirectoryChoice->SetId(BASE_DIRECTORY_CHOICE);
     this->baseDirectoryButton->SetId(BASE_DIRECTORY_BUTTON);
     this->addDirectoryButton->SetId(ADD_DIRECTORY_BUTTON);
@@ -134,14 +134,14 @@ bool GlobalSettingsDialog_UserDataClassPage::GetGUIData()
         {
             //The location name was specified by hand without a leading type string
             name = locations[i];
-            
+
             //Figure out type
             if (wxDirExists(locations[i]))
                 settings.userDataTypesLocations.push_back(UserDataTypesLocation(UserDataTypesLocation::DIRECTORY, name));
-            else 
+            else
                 settings.userDataTypesLocations.push_back(UserDataTypesLocation(UserDataTypesLocation::FILE, name));
         }
-        else 
+        else
         {
             wxString type;
             if (StringUtilities::ParseKeyValueLine(locations[i], type, name))
@@ -192,12 +192,12 @@ void GlobalSettingsDialog_UserDataClassPage::UpdateBaseDirectoryControls()
     //Base directory text
     if (baseDirectoryChoice == BaseDirectory::CUSTOM_DIRECTORY_CHOICE)
     {
-        this->baseDirectoryText->SetValue(this->currentCustomDirectory);        
+        this->baseDirectoryText->SetValue(this->currentCustomDirectory);
     }
     else
     {
         BaseDirectory baseDirectory(this->baseDirectoryChoice, this->baseDirectoryText);
-        this->baseDirectoryText->SetValue(baseDirectory.GetBaseDirectory());        
+        this->baseDirectoryText->SetValue(baseDirectory.GetBaseDirectory());
     }
 
     //Base directory button
@@ -238,7 +238,7 @@ void GlobalSettingsDialog_UserDataClassPage::OnAddDirectoryButton(wxCommandEvent
     RelativeLocationPrompt prompt(this, baseDirectory.GetBaseDirectory(), Strings::CHOOSE_DIRECTORY);
     auto path = prompt.ShowPrompt();
     if (!path.empty())
-    {   
+    {
         //Set into text box
         auto text = this->resourceLocationsText->GetValue();
         StringUtilities::AppendKeyAndValue(text, wxT("directory"), path, wxT("\n"));
@@ -252,7 +252,7 @@ void GlobalSettingsDialog_UserDataClassPage::OnAddFileButton(wxCommandEvent& eve
     RelativeLocationPrompt prompt(this, baseDirectory.GetBaseDirectory(), Strings::CHOOSE_FILE, Strings::USER_DATA_TYPES_FILE_FILTER);
     auto path = prompt.ShowPrompt();
     if (!path.empty())
-    {   
+    {
         //Set into text box
         auto text = this->resourceLocationsText->GetValue();
         StringUtilities::AppendKeyAndValue(text, wxT("file"), path, wxT("\n"));

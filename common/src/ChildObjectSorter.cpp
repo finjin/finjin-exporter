@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ChildObjectSorter::ChildObject::ChildObject()
 {
     this->order = 0;
@@ -42,9 +42,9 @@ void ChildObjectSorter::ChildObject::Set(ObjectAccessor object, FinjinObjectSett
     this->object = object;
     this->objectSettings = objectSettings;
     this->data = data;
-    
+
     this->name = this->object.GetLocalName();
-    
+
     this->order = this->objectSettings.IsValid() ? this->objectSettings.GetChildOrder() : defaultOrder;
     this->defaultOrder = defaultOrder;
 }

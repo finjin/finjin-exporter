@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static int GetValueIndex(const wxString& value, int referenceValueCount, const TCHAR* referenceValues[])
 {
     for (int i = 0; i < referenceValueCount; i++)
@@ -39,7 +39,7 @@ static int GetValueIndex(const wxString& value, int referenceValueCount, const T
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 int MaxControlUtilities::ShowMessage(const wxString& message, const wxString& title, UINT type)
 {
     return MessageBox(GetCOREInterface()->GetMAXHWnd(), message.wx_str(), title.wx_str(), type);
@@ -49,13 +49,13 @@ int MaxControlUtilities::ShowMessage(int messageID, int titleID, UINT type)
 {
     return MessageBox
         (
-        GetCOREInterface()->GetMAXHWnd(), 
-        MaxUtilities::GetString(messageID), 
-        MaxUtilities::GetString2(titleID), 
+        GetCOREInterface()->GetMAXHWnd(),
+        MaxUtilities::GetString(messageID),
+        MaxUtilities::GetString2(titleID),
         type
         );
 }
-                       
+
 int MaxControlUtilities::MeasureTextWidth(HDC hdc, const TCHAR* text, bool logicalPixels)
 {
     SIZE textSize = MeasureTextSize(hdc, text, logicalPixels);
@@ -89,10 +89,10 @@ void MaxControlUtilities::GetText(ICustEdit* edit, wxString& text)
         //Set the second to last character to the null terminator
         //If this is non-null after getting the text, we'll assume that more
         //space is needed to get the entire string
-        ttext[length - 2] = 0; 
+        ttext[length - 2] = 0;
 
         //Get the text
-        edit->GetText(&ttext[0], length - 1);            
+        edit->GetText(&ttext[0], length - 1);
     }while(ttext[length - 2] != 0);
 
     text = &ttext[0];
@@ -102,7 +102,7 @@ void MaxControlUtilities::GetWindowText(HWND hwnd, wxString& text)
 {
     int length = ::GetWindowTextLength(hwnd);
     std::vector<wxChar> ttext;
-    ttext.resize(length + 1);    
+    ttext.resize(length + 1);
     ::GetWindowText(hwnd, &ttext[0], length + 1);
     text = &ttext[0];
 }
@@ -112,7 +112,7 @@ void MaxControlUtilities::GetSelectedComboText(HWND hWndCombo, wxString& text)
     int curSel = ComboBox_GetCurSel(hWndCombo);
     int length = ComboBox_GetLBTextLen(hWndCombo, curSel);
     std::vector<wxChar> ttext;
-    ttext.resize(length + 1);    
+    ttext.resize(length + 1);
     ComboBox_GetLBText(hWndCombo, curSel, &ttext[0]);
     text = &ttext[0];
 }
@@ -122,13 +122,13 @@ void MaxControlUtilities::SetComboHeight(HWND hWndCombo, int height)
     RECT rect;
     GetWindowRect(hWndCombo, &rect);
     rect.bottom = rect.top + height;
-    MoveWindow(hWndCombo, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, TRUE);    
+    MoveWindow(hWndCombo, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, TRUE);
 }
 
 void MaxControlUtilities::FillComboBox(HWND hWnd, const TCHAR* items[], int itemCount, bool adjustWindowWidth)
 {
     int comboWidth = 0;
-    
+
     //Get device context
     HDC hDCCombo = GetDC(hWnd);
 
@@ -141,7 +141,7 @@ void MaxControlUtilities::FillComboBox(HWND hWnd, const TCHAR* items[], int item
         //Measure the text width, keeping the current or new width, whichever is larger
         comboWidth = std::max(comboWidth, MeasureTextWidth(hDCCombo, items[i]));
     }
-    
+
     //Device context not needed any more
     ReleaseDC(hWnd, hDCCombo);
 

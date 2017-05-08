@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinColor.hpp"
 #include "TransformAccessor.hpp"
 #include "TimeAccessor.hpp"
 #include "FinjinNoteTrack.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * ObjectAccessorBase and the application-specific ObjectAccessor classes provide generic
      * access to application scene objects (not materials).
      */
@@ -39,13 +39,13 @@ namespace Finjin { namespace Exporter {
         virtual ~ObjectAccessorBase() {}
 
         /**
-         * Overridden object name. 
+         * Overridden object name.
          * If non-empty, this is returned by the GetLocalName() methods instead of the actual object name.
          */
         wxString objectName;
 
         /**
-         * Overridden node name. 
+         * Overridden node name.
          * If non-empty, this is returned by the GetLocalName() methods instead of the actual node name.
          */
         wxString nodeName;

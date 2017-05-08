@@ -23,7 +23,7 @@
 #include "finjin/common/WxConfigDocumentReader.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** The different ways the class can be used. */
@@ -57,8 +57,8 @@ namespace Finjin { namespace Exporter {
         RGBA_SWATCH,
         SPINNER
     };
-        
-    /** 
+
+    /**
      * Manages and parses user data classes from XML files.
      * This is used to present custom controls for user defined data.
      */
@@ -68,7 +68,7 @@ namespace Finjin { namespace Exporter {
         UserDataTypes();
         ~UserDataTypes();
 
-        /** 
+        /**
          * Loads the specified file into the current collection of user types.
          * @param fileName [in] - The file to load.
          * @return Returns true if the file is or was already loaded, false otherwise.
@@ -117,9 +117,9 @@ namespace Finjin { namespace Exporter {
             Enum* enumType;
         };
 
-        /** 
-         * An enum is a list of predefined named values that constrain the values 
-         * that a data type can take on. 
+        /**
+         * An enum is a list of predefined named values that constrain the values
+         * that a data type can take on.
          */
         struct Enum
         {
@@ -136,7 +136,7 @@ namespace Finjin { namespace Exporter {
 
                 /** Determines if this item is less than the other item. Used for sorting. */
                 bool operator < (const Item& item) const;
-                
+
                 /** Determines if this item is equal to the other item. */
                 bool operator == (const Item& item) const;
 
@@ -202,7 +202,7 @@ namespace Finjin { namespace Exporter {
 
                 /** Determines if this item is less than the other item. Used for sorting. */
                 bool operator < (const Item& item) const;
-                
+
                 /** Determines if this item is equal to the other item. */
                 bool operator == (const Item& item) const;
 
@@ -270,7 +270,7 @@ namespace Finjin { namespace Exporter {
 
             /** The display name. */
             wxString displayName;
-                                    
+
             /** Pointers to classes that this class inherits from. */
             std::list<Class*> supers;
 
@@ -288,11 +288,11 @@ namespace Finjin { namespace Exporter {
         Class* GetClass(const wxString& name);
 
         /** Gets the class with the specified name. */
-        const Class* GetClass(const wxString& name) const;        
+        const Class* GetClass(const wxString& name) const;
 
         /** Gets the class at the specified index with the specified usage. */
         Class* GetClass(int index, UserDataUsage usage);
-        
+
     protected:
         /** Ensures that the 'directory' member is set. */
         void EnsureBaseDirectory();

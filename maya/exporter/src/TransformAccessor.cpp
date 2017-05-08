@@ -24,13 +24,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 TransformAccessor::TransformAccessor()
 {
     this->transform = MTransformationMatrix::identity;
 }
 
-TransformAccessor::TransformAccessor(const MTransformationMatrix& transform) 
+TransformAccessor::TransformAccessor(const MTransformationMatrix& transform)
 {
     this->transform = transform;
 }
@@ -42,9 +42,9 @@ TransformAccessor::TransformAccessor(const TransformAccessor& transform, const C
 
 void TransformAccessor::Set(const TransformAccessor& transform, const CoordinateSystemConverter& coordinateConverter, float scale)
 {
-    this->transform = transform.transform;    
+    this->transform = transform.transform;
     coordinateConverter.ConvertTransformation(this->transform);
-    
+
     MVector translation = this->transform.translation(GET_TRANSLATION_SPACE);
     translation *= scale;
     this->transform.setTranslation(translation, SET_TRANSLATION_SPACE);
@@ -107,7 +107,7 @@ void TransformAccessor::GetRotationAngleAxis(float& angle, FinjinVector3& axis) 
 
 FinjinVector3 TransformAccessor::GetRotationAngles() const
 {
-    MEulerRotation eulerRotation = this->transform.eulerRotation();    
+    MEulerRotation eulerRotation = this->transform.eulerRotation();
     return FinjinVector3(eulerRotation.x, eulerRotation.y, eulerRotation.z);
 }
 
@@ -126,18 +126,18 @@ TransformAccessor TransformAccessor::GetNormalTransform() const
     //Get transform with translations removed
     MTransformationMatrix newTransform = this->transform;
     newTransform.setTranslation(MVector(0, 0, 0), SET_TRANSLATION_SPACE);
-        
+
     //Get inverse transpose
     MMatrix m = newTransform.asMatrix();
     m = MayaUtilities::InverseTranspose(m);
     newTransform = MTransformationMatrix(m);
-    
+
     //Done
     return newTransform;
 }
 
 TransformAccessor TransformAccessor::GetRelativeTo(const TransformAccessor& parentTransform) const
-{            
+{
     return MTransformationMatrix(this->transform.asMatrix() * parentTransform.transform.asMatrixInverse());
 }
 

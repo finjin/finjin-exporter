@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Strings that appear within the user interface (dialogs, controls, and so on). */
@@ -47,7 +47,7 @@ namespace Finjin { namespace Exporter {
         static const wxString TEXTURE_FILE_EXTENSION;
         static const wxString USER_DATA_TYPES_FILE_WILDCARD;
         static const wxString USER_DATA_TYPES_FILE_EXTENSION;
-        static const wxString USER_DATA_TYPES_FILE_FILTER;        
+        static const wxString USER_DATA_TYPES_FILE_FILTER;
         static const wxString CUSTOM_HELPER_ICON_FILE_FILTER;
         static const wxString MATERIAL_FILE_FILTER;
         static const wxString DDS_FILE_FILTER;
@@ -56,7 +56,7 @@ namespace Finjin { namespace Exporter {
         static const wxString ALL_FILE_FILTER;
 
         static const wxString DEFAULT_FORMAT;
-        
+
         static const wxString FROM_FIELD_REQUIRED;
         static const wxString TO_FIELD_REQUIRED;
 
@@ -64,7 +64,7 @@ namespace Finjin { namespace Exporter {
         static const wxString RENAME_BITMAP_EXTENSION;
 
         static const wxString ADD_FLAG_ALIAS;
-        
+
         static const wxString ADD_CUSTOM_PARAMETER;
         static const wxString EDIT_CUSTOM_PARAMETER;
 
@@ -132,7 +132,7 @@ namespace Finjin { namespace Exporter {
         static const wxString PHYSIQUE;
         static const wxString SKIN;
         static const wxString SHAPE;
-        
+
         static const wxString OBJECT_SETTINGS_DIALOG_TITLE_FORMAT;
         static const wxString SCENE_SETTINGS_DIALOG_TITLE;
         static const wxString USER_DATA_SETTINGS_DIALOG_TITLE_FORMAT;
@@ -183,14 +183,14 @@ namespace Finjin { namespace Exporter {
         static const wxString NO_EXTERNAL_VIEWER_CONFIGURED;
         static const wxString FINJIN_VIEWER_ERROR;
         static const wxString RUNNING_EXTERNAL_VIEWER_FORMAT;
-        
+
         static const wxString RENDERING_CUBE_MAP_FORMAT;
 
         static const wxString EXPORT_MATERIAL_ERROR_CAPTION;
         static const wxString EXPORT_MATERIAL_ERROR_NO_SELECTED_MATERIAL_FORMAT;
         static const wxString EXPORT_MATERIAL_ERROR_NO_SCENE_MATERIALS;
 
-        static const wxString FINJIN_MATERIAL_EXPORTER;        
+        static const wxString FINJIN_MATERIAL_EXPORTER;
 
         static const wxString SUBMESH_TEXTURE_COORDINATE_SETS_NOT_SAME_FOR_EDIT;
 
@@ -199,7 +199,7 @@ namespace Finjin { namespace Exporter {
         static const wxString SAMPLES_LOWER;
 
         static const wxString ADD_FLAG;
-        
+
         static const wxString PROGRESS;
         static const wxString TOTAL_PROGRESS;
 

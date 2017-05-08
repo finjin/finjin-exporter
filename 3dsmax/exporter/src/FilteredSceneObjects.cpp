@@ -25,9 +25,9 @@
 using namespace Finjin::Exporter;
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 FilteredSceneObjects::FilteredSceneObjects(ObjectFilterType types) : FilteredSceneObjectsBase(types)
-{        
+{
 }
 
 void FilteredSceneObjects::Initialize(bool sortByFullName)
@@ -40,7 +40,7 @@ void FilteredSceneObjects::Initialize(bool sortByFullName)
             HandleObject(object.node);
     }
     else
-    {   
+    {
         ObjectAccessorVector allObjects;
         ObjectAccessor::GetRootObject().GetAllObjects(allObjects);
         for (size_t i = 0; i < allObjects.size(); i++)

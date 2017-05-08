@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Base class for a mouse creation callback that creates objects from the corners. 
+    /**
+     * Base class for a mouse creation callback that creates objects from the corners.
      * The object being created can be 2D (2 corners) or a 3D (3 corners), and can
      * be created from the center or with the center at the bottom of the object.
      */
-    class CornerCreateMouseCallback : public CreateMouseCallBack 
+    class CornerCreateMouseCallback : public CreateMouseCallBack
     {
     public:
         /** Indicates whether a 2D or 3D object is being created. */
@@ -36,8 +36,8 @@ namespace Finjin { namespace Exporter {
             DIMENSION_2D,
             DIMENSION_3D
         };
-        
-        /** 
+
+        /**
          * Constructors that initializes the callback to work on 3D objects
          * created from the center.
          */
@@ -51,10 +51,10 @@ namespace Finjin { namespace Exporter {
         int proc(ViewExp* vpt, int msg, int point, int flags, IPoint2 m, Matrix3& mat)
         {
             vpt->SnapPreview(m, m, nullptr, SNAP_IN_3D);
-        
-            if (msg == MOUSE_POINT || msg == MOUSE_MOVE) 
+
+            if (msg == MOUSE_POINT || msg == MOUSE_MOVE)
             {
-                switch (point) 
+                switch (point)
                 {
                     case 0:
                     {
@@ -80,21 +80,21 @@ namespace Finjin { namespace Exporter {
                     {
                         this->sp1 = m;
                         this->p1 = vpt->SnapPoint(m, m, nullptr, SNAP_IN_3D);
-                        this->p1.z = this->p0.z + .01;                         
+                        this->p1.z = this->p0.z + .01;
                         mat.SetTrans(.5f * (this->p0 + this->p1));
-                        
+
                         if (this->bottomPivot)
                         {
                             Point3 xyz = mat.GetTrans();
                             xyz.z = p0.z;
-                            mat.SetTrans(xyz);                    
+                            mat.SetTrans(xyz);
                         }
 
-                        Point3 d = this->p1 - this->p0;                        
+                        Point3 d = this->p1 - this->p0;
                         SetWidth(fabs(d.x));
                         SetLength(fabs(d.y));
                         SetHeight(fabs(d.z));
-                        
+
                         if (msg == MOUSE_POINT)
                         {
                             if ((Length(this->sp1 - this->sp0) < 3 || Length(d) < 0.1f))
@@ -113,12 +113,12 @@ namespace Finjin { namespace Exporter {
                         if (this->bottomPivot)
                             mat.SetTrans(2, p0.z);
 
-                        Point3 d = this->p1 - this->p0;                        
+                        Point3 d = this->p1 - this->p0;
                         SetWidth(fabs(d.x));
                         SetLength(fabs(d.y));
                         SetHeight(fabs(d.z));
-                                                    
-                        if (msg == MOUSE_POINT) 
+
+                        if (msg == MOUSE_POINT)
                         {
                             SuspendSnap(false);
                             return CREATE_STOP;
@@ -126,9 +126,9 @@ namespace Finjin { namespace Exporter {
                         break;
                     }
                 }
-            } 
-            else if (msg == MOUSE_ABORT) 
-            {        
+            }
+            else if (msg == MOUSE_ABORT)
+            {
                 return CREATE_ABORT;
             }
 
@@ -136,34 +136,34 @@ namespace Finjin { namespace Exporter {
         }
 
     protected:
-        /** 
+        /**
          * Called as the user creates the object.
          * Overridden by derived classes.
          * @param size [in] - The current width of the object.
          */
         virtual void SetWidth(float size)
-        {        
+        {
         }
 
-        /** 
+        /**
          * Called as the user creates the object.
          * Overridden by derived classes.
          * @param size [in] - The current length of the object.
          */
         virtual void SetLength(float size)
-        {        
+        {
         }
 
-        /** 
+        /**
          * Called as the user creates the object.
          * Overridden by derived classes.
          * @param size [in] - The current height of the object.
          */
         virtual void SetHeight(float size)
-        {        
+        {
         }
 
-        /** 
+        /**
          * Called when the snapping should be suspended/enabled.
          * Overridden by derived classes.
          * @param suspend [in] - Indicates whether snapping is suspended/enabled.

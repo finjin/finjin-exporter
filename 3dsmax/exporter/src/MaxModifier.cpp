@@ -23,13 +23,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MaxModifier::MaxModifier()
 {
     Clear();
 }
 
-MaxModifier::MaxModifier(Modifier* modifier) 
+MaxModifier::MaxModifier(Modifier* modifier)
 {
     this->modifier = modifier;
     this->originalState = (this->modifier != nullptr) ? this->modifier->IsEnabled() : FALSE;

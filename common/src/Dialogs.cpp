@@ -40,13 +40,13 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 Dialogs::ModelessDialogs Dialogs::modelessDialogs;
 Dialogs::ModelessLogFileDialogs Dialogs::modelessLogFileDialogs;
 wxWindow* Dialogs::nullParent = nullptr;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void Dialogs::Initialize()
 {
 #if defined(__WXMAC__)
@@ -124,7 +124,7 @@ bool Dialogs::ShowSceneSettingsDialog(int initialPage, FinjinSceneSettingsAccess
     SceneSettingsDialog dialog(appWindow, sceneSettings, initialPage);
     ModalDialogFix modalDialogFix(&dialog);
     bool result = dialog.ShowModal() == wxID_OK;
-        
+
     return result;
 }
 
@@ -138,7 +138,7 @@ bool Dialogs::ShowSceneSettingsDialog(const wxString& initialPageTitle, FinjinSc
     SceneSettingsDialog dialog(appWindow, sceneSettings, -1, initialPageTitle);
     ModalDialogFix modalDialogFix(&dialog);
     bool result = dialog.ShowModal() == wxID_OK;
-    
+
     return result;
 }
 
@@ -157,7 +157,7 @@ bool Dialogs::ShowObjectSettingsDialog(FinjinSceneSettingsAccessor sceneSettings
         if (!sceneSettings.IsValid())
             sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
         auto objectSettings = sceneSettings.GetObjectSettings(objects[0]);
-                
+
         auto appWindow = new wxApplicationWindow();
         SuspendCustomControlsHook suspendHook;
         ObjectSettingsDialog dialog(appWindow, objects[0], objectSettings, sceneSettings);
@@ -172,7 +172,7 @@ bool Dialogs::ShowObjectSettingsDialog(FinjinSceneSettingsAccessor sceneSettings
             }
 
             result = true;
-        }        
+        }
     }
 
     return result;
@@ -180,7 +180,7 @@ bool Dialogs::ShowObjectSettingsDialog(FinjinSceneSettingsAccessor sceneSettings
 
 bool Dialogs::ShowGlobalSettingsDialog()
 {
-    return ShowGlobalSettingsDialog(-1);    
+    return ShowGlobalSettingsDialog(-1);
 }
 
 bool Dialogs::ShowGlobalSettingsDialog(int initialPage)
@@ -194,10 +194,10 @@ bool Dialogs::ShowGlobalSettingsDialog(int initialPage)
 
 bool Dialogs::ShowUserDataSettingsDialog
     (
-    UserDataSettingsAccessor& userDataSettings, 
-    UserDataUsage classUsage, 
+    UserDataSettingsAccessor& userDataSettings,
+    UserDataUsage classUsage,
     const wxString& objectName,
-    FinjinSceneSettingsAccessor sceneSettings, 
+    FinjinSceneSettingsAccessor sceneSettings,
     wxWindow* parent
     )
 {
@@ -274,10 +274,10 @@ void Dialogs::ShowExtendedValues(ExtendedValueAccessor& extendedValueAccessor, c
         wxString messageLine;
         messageLine += wxString::Format
             (
-            wxT("   Extended value %d: id=%d, type=%s[%d], value=%s"), 
+            wxT("   Extended value %d: id=%d, type=%s[%d], value=%s"),
             (int)i,
-            ids[i], 
-            extendedValues[i].GetTypeString().wx_str(), 
+            ids[i],
+            extendedValues[i].GetTypeString().wx_str(),
             extendedValues[i].GetCount(),
             extendedValues[i].ToString(false).wx_str()
             );
@@ -287,13 +287,13 @@ void Dialogs::ShowExtendedValues(ExtendedValueAccessor& extendedValueAccessor, c
         message += messageLine;
         message += wxT("\n");
     }
-    
+
     wxString title;
     if (objectName.empty())
         title = wxT("Extended Values");
     else
         title = wxString::Format(wxT("Extended Values for %s"), objectName.wx_str());
-    
+
     ShowMessage(message, title);
 }
 
@@ -321,7 +321,7 @@ void Dialogs::ShowLogFileDialog(const wxString& fileName, bool modeless, LogFile
             auto appWindow = new wxApplicationWindow(false);
             SUSPEND_CUSTOM_CONTROLS;
             dialog = new LogFileDialog(appWindow, fileName, monitorMethod);
-            
+
             //Register it with application
             ApplicationAccessor::RegisterModelessDialog(dialog);
 
@@ -341,7 +341,7 @@ void Dialogs::ShowLogFileDialog(const wxString& fileName, bool modeless, LogFile
         SUSPEND_CUSTOM_CONTROLS;
         LogFileDialog dialog(appWindow, fileName, monitorMethod);
         ModalDialogFix modalDialogFix(&dialog);
-        dialog.ShowModal();    
+        dialog.ShowModal();
     }
 }
 

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "InstallationContext.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class PluginInstallationItem
@@ -32,7 +32,7 @@ namespace Finjin { namespace Exporter {
         virtual ~PluginInstallationItem() {}
 
         virtual const ApplicationVersion& GetApplicationVersion() const = 0;
-        
+
         virtual bool CanInstall(const InstallationContext& context) const = 0;
 
         virtual bool IsInstallSlow() const {return false;}
@@ -50,17 +50,17 @@ namespace Finjin { namespace Exporter {
         virtual wxString GetDisplayName() const = 0;
 
         virtual bool CanInstall(const InstallationContext& context) const = 0;
-        
+
         virtual void Install(InstallationContext& context) = 0;
 
         virtual void Uninstall(InstallationContext& context) = 0;
     };
 
-    class InstallationDialogBase : public wxDialog 
+    class InstallationDialogBase : public wxDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxRadioButton* installRadioButton;
         wxRadioButton* uninstallRadioButton;
@@ -73,11 +73,11 @@ namespace Finjin { namespace Exporter {
 
     public:
         void SetApplicationName(const wxString& name);
-        
+
         void SetExtraSuccessMessage(const wxString& footer, InstallationMode mode);
-        
-        void AddPluginInstallationItem(PluginInstallationItem* item);        
-        void AddOtherInstallationItem(OtherInstallationItem* item); 
+
+        void AddPluginInstallationItem(PluginInstallationItem* item);
+        void AddOtherInstallationItem(OtherInstallationItem* item);
 
         enum
         {
@@ -91,15 +91,15 @@ namespace Finjin { namespace Exporter {
         void OnInstallRadioButton(wxCommandEvent& event);
         void OnUninstallRadioButton(wxCommandEvent& event);
         void OnInstallButton(wxCommandEvent& event);
-        
+
         void RefreshCheckBoxStates(bool refreshOtherItems = false);
         void UpdateInstallationModeControls();
 
         bool AppendAdminMessageIfNecessary(wxString& message, const wxChar* prefix = nullptr);
-    
+
     public:
         InstallationDialogBase();
-        ~InstallationDialogBase();        
+        ~InstallationDialogBase();
 
         void Create();
 
@@ -107,7 +107,7 @@ namespace Finjin { namespace Exporter {
         InstallationMode installationMode;
         wxString applicationName;
         wxString extraSuccessMessage[(size_t)InstallationMode::COUNT];
-        
+
         std::list<PluginInstallationItem*> pluginItems;
         std::vector<wxCheckBox*> pluginItemCheckboxes;
 

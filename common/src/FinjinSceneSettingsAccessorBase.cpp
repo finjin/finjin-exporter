@@ -33,7 +33,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void FinjinSceneSettingsAccessorBase::GetSubmeshNamingValue(SubmeshNaming& naming)
 {
     naming.custom = GetSubmeshCustomName();
@@ -65,12 +65,12 @@ void FinjinSceneSettingsAccessorBase::SetNodeAnimationSampling(double sampling, 
     if (!sampleTypeValid)
     {
         SetNodeAnimationSampleInterval(0);
-        SetNodeAnimationSampleType(SampleType::INTERVAL);        
+        SetNodeAnimationSampleType(SampleType::INTERVAL);
     }
     else if (sampleType == SampleType::INTERVAL)
     {
         SetNodeAnimationSampleInterval(sampling);
-        SetNodeAnimationSampleType(SampleType::INTERVAL);        
+        SetNodeAnimationSampleType(SampleType::INTERVAL);
     }
     else if (sampleType == SampleType::RATE)
     {
@@ -146,7 +146,7 @@ bool FinjinSceneSettingsAccessorBase::CanExportMaterial(MaterialAccessor materia
 
     int disallowedMaterialCount = GetDisallowedMaterialCount();
     for (int i = 0; i < disallowedMaterialCount; i++)
-    {        
+    {
         auto disallowedMaterial = GetDisallowedMaterial(i);
         if (disallowedMaterial.IsValid() && disallowedMaterial.MaterialEquals(material))
             return false;
@@ -169,19 +169,19 @@ void FinjinSceneSettingsAccessorBase::RemoveDisallowedMaterials(MaterialAccessor
             else
                 ++materialIterator;
         }
-    }        
+    }
 }
 
 float FinjinSceneSettingsAccessorBase::GetSceneScaleValue()
 {
     //Get scale
     auto scaleUnit = GetSceneScaleUnit();
-    auto scale = ApplicationAccessor::GetScale(scaleUnit);    
-    
+    auto scale = ApplicationAccessor::GetScale(scaleUnit);
+
     //Multiply in the extra scaling factor
     auto scaleDivide = GetSceneScaleDivide();
     if (scaleDivide != 0)
-        scale /= scaleDivide;        
+        scale /= scaleDivide;
 
     return scale;
 }
@@ -222,7 +222,7 @@ void FinjinSceneSettingsAccessorBase::SetAmbientLightColorValue(ValueSourceSync 
     {
         case ValueSourceSync::SEPARATE: SetAmbientLightColor(color); break;
         case ValueSourceSync::FROM_MASTER_TO_SLAVE: SetAmbientLightColor(ApplicationAccessor::GetAmbientLightColor()); break;
-        case ValueSourceSync::FROM_SLAVE_TO_MASTER: 
+        case ValueSourceSync::FROM_SLAVE_TO_MASTER:
         {
             ApplicationAccessor::SetAmbientLightColor(color);
             SetAmbientLightColor(color);
@@ -239,7 +239,7 @@ void FinjinSceneSettingsAccessorBase::SetBackgroundColorValue(ValueSourceSync sy
     {
         case ValueSourceSync::SEPARATE: SetBackgroundColor(color); break;
         case ValueSourceSync::FROM_MASTER_TO_SLAVE: SetBackgroundColor(ApplicationAccessor::GetBackgroundColor()); break;
-        case ValueSourceSync::FROM_SLAVE_TO_MASTER: 
+        case ValueSourceSync::FROM_SLAVE_TO_MASTER:
         {
             ApplicationAccessor::SetBackgroundColor(color);
             SetBackgroundColor(color);
@@ -265,14 +265,14 @@ FogMode FinjinSceneSettingsAccessorBase::GetFogModeValue()
         fogModeValue = FogMode::EXP;
     else if (mode == PropertyValues::FogMode::EXP2)
         fogModeValue = FogMode::EXP2;
-    
+
     return fogModeValue;
 }
 
 void FinjinSceneSettingsAccessorBase::GetFogValues(wxString& mode, FinjinColor& color, float& density, float& start, float& end, float range, TimeAccessor time, bool* applicationHasLinearFog)
 {
     mode = GetFogMode();
-    color = GetFogColor(); 
+    color = GetFogColor();
     density = GetFogDensity();
     start = GetFogStart();
     end = GetFogEnd();
@@ -294,24 +294,24 @@ void FinjinSceneSettingsAccessorBase::SetFogValues(ValueSourceSync sync, wxStrin
 {
     SetFogSync(sync);
     SetFogMode(mode);
-    SetFogColor(color); 
+    SetFogColor(color);
     SetFogDensity(density);
     SetFogStart(start);
     SetFogEnd(end);
 
     switch (sync)
     {
-        case ValueSourceSync::FROM_MASTER_TO_SLAVE: 
+        case ValueSourceSync::FROM_MASTER_TO_SLAVE:
         {
             if (ApplicationAccessor::GetLinearFog(start, end, color, (range > 0) ? range : GetEnvironmentFarValue(), time))
             {
-                SetFogColor(color); 
+                SetFogColor(color);
                 SetFogStart(start);
                 SetFogEnd(end);
             }
             break;
         }
-        case ValueSourceSync::FROM_SLAVE_TO_MASTER: 
+        case ValueSourceSync::FROM_SLAVE_TO_MASTER:
         {
             if (mode == PropertyValues::FogMode::LINEAR)
                 ApplicationAccessor::SetLinearFog(start, end, color, (range > 0) ? range : GetEnvironmentFarValue(), time);

@@ -19,25 +19,25 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "SpinnerControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A modal dialog used to add a visibility or query flag alias.
      * This dialog can be seen within the application by clicking the 'Add' button
-     * in the 'Visibility Flags' or 'Query Flags' section of the 'General' page in the 
+     * in the 'Visibility Flags' or 'Query Flags' section of the 'General' page in the
      * scene settings dialog.
      */
     class FlagAliasDialog : public FinjinDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* nameLabel;
         ApplicationTextCtrl* nameText;
@@ -45,9 +45,9 @@ namespace Finjin { namespace Exporter {
         SpinnerControl* bitSpinner;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
-        /** 
+        /**
          * Constructor.
          * @param parent [in] - The parent window.
          * @param title [in] - The dialog's title text.
@@ -60,14 +60,14 @@ namespace Finjin { namespace Exporter {
          */
         FlagAliasDialog
             (
-            wxWindow* parent, 
-            const wxString& title, 
-            const std::set<wxString>& usedNames, 
-            const std::set<int>& usedBits, 
-            const wxString& name = wxEmptyString, 
+            wxWindow* parent,
+            const wxString& title,
+            const std::set<wxString>& usedNames,
+            const std::set<int>& usedBits,
+            const wxString& name = wxEmptyString,
             int bit = 0
             );
-        ~FlagAliasDialog();        
+        ~FlagAliasDialog();
 
         void OnOK(wxCommandEvent& event);
 

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "ObjectAccessor.hpp"
 #include "UserDataSettingsAccessor.hpp"
@@ -28,24 +28,24 @@
 #include "ExtendedValueAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * FinjinSceneSettingsAccessorBase and the application-specific FinjinSceneSettingsAccessor
      * classes provide generic access to an Finjin scene settings object.
      */
-    class FinjinSceneSettingsAccessorBase : 
-        public UserDataSettingsAccessor, 
+    class FinjinSceneSettingsAccessorBase :
+        public UserDataSettingsAccessor,
         public ExtendedValueAccessor
     {
-    public:    
+    public:
         virtual ~FinjinSceneSettingsAccessorBase() {}
-        
-        /** 
+
+        /**
          * Gets the object settings for the specified object.
          * @param object [in] - The object whose settings are retrieved.
-         * @param createIfNecessary [in] - Indicates whether object settings should be created 
+         * @param createIfNecessary [in] - Indicates whether object settings should be created
          * if they don't already exist.
          * @param newInstance [out] - If specified, receives a boolean indicating whether the returned
          * object settings are newly created.
@@ -53,8 +53,8 @@ namespace Finjin { namespace Exporter {
          */
         virtual FinjinObjectSettingsAccessor GetObjectSettings
             (
-            ObjectAccessor object, 
-            bool createIfNecessary = true, 
+            ObjectAccessor object,
+            bool createIfNecessary = true,
             bool* newInstance = nullptr
             ) = 0;
 
@@ -62,12 +62,12 @@ namespace Finjin { namespace Exporter {
         virtual float GetSceneScaleDivide() = 0;
         virtual bool GetExportHierarchy() = 0;
         virtual bool GetIgnoreHiddenObjects() = 0;
-        virtual wxString GetSceneManager() = 0;        
+        virtual wxString GetSceneManager() = 0;
         virtual bool GetExportFlags() = 0;
         virtual int GetFlagCount() = 0;
         virtual void GetFlag(int i, wxString& name) = 0;
         virtual double GetNodeAnimationSampleInterval() = 0;
-        virtual SampleType GetNodeAnimationSampleType() = 0;        
+        virtual SampleType GetNodeAnimationSampleType() = 0;
         virtual wxString GetConfigurationTargetName() = 0;
         virtual double GetSkeletonAnimationSampleInterval() = 0;
         virtual SampleType GetSkeletonAnimationSampleType() = 0;
@@ -115,12 +115,12 @@ namespace Finjin { namespace Exporter {
         virtual wxString GetShadowTechnique() = 0;
         virtual FinjinColor GetShadowColor() = 0;
         virtual float GetShadowFarDistance() = 0;
-                
+
         virtual void SetSceneScaleUnit(wxString value) = 0;
         virtual void SetSceneScaleDivide(float value) = 0;
         virtual void SetExportHierarchy(bool value) = 0;
         virtual void SetIgnoreHiddenObjects(bool value) = 0;
-        virtual void SetSceneManager(wxString value) = 0;        
+        virtual void SetSceneManager(wxString value) = 0;
         virtual void SetExportFlags(bool value) = 0;
         virtual void ClearFlags() = 0;
         virtual void AddFlag(wxString name) = 0;
@@ -151,12 +151,12 @@ namespace Finjin { namespace Exporter {
         virtual void ClearAdditionalMaterials() = 0;
         virtual void AddAdditionalMaterial(MaterialAccessor value) = 0;
         virtual void ClearDisallowedMaterials() = 0;
-        virtual void AddDisallowedMaterial(MaterialAccessor value) = 0;        
+        virtual void AddDisallowedMaterial(MaterialAccessor value) = 0;
         virtual void ClearRenameBitmaps() = 0;
         virtual void AddRenameBitmap(wxString from, wxString to) = 0;
         virtual void ClearRenameBitmapExtensions() = 0;
-        virtual void AddRenameBitmapExtension(wxString from, wxString to) = 0;        
-        virtual void SetExportEnvironment(bool value) = 0;        
+        virtual void AddRenameBitmapExtension(wxString from, wxString to) = 0;
+        virtual void SetExportEnvironment(bool value) = 0;
         virtual void SetAmbientLightColor(FinjinColor value) = 0;
         virtual void SetAmbientLightColorSync(ValueSourceSync value) = 0;
         virtual void SetBackgroundColor(FinjinColor value) = 0;
@@ -173,35 +173,35 @@ namespace Finjin { namespace Exporter {
         virtual void SetShadowTechnique(wxString value) = 0;
         virtual void SetShadowColor(FinjinColor value) = 0;
         virtual void SetShadowFarDistance(float value) = 0;
-        
+
         virtual void TouchReferences() {}
 
         void GetSubmeshNamingValue(SubmeshNaming& naming);
 
         void GetFlags(std::vector<wxString>& names);
-        
+
         wxString GetNodeAnimationSampleValueText();
         void SetNodeAnimationSampling(double sampling, SampleType sampleType, bool sampleTypeValid);
-        
+
         wxString GetVertexAnimationSampleValueText();
         void SetVertexAnimationSampling(double sampling, SampleType sampleType, bool sampleTypeValid);
-        
+
         wxString GetSkeletonAnimationSampleValueText();
         void SetSkeletonAnimationSampling(double sampling, SampleType sampleType, bool sampleTypeValid);
 
         bool CanExportMaterial(MaterialAccessor material);
-        void RemoveDisallowedMaterials(MaterialAccessorSet& materials);        
+        void RemoveDisallowedMaterials(MaterialAccessorSet& materials);
         float GetSceneScaleValue();
         FinjinColor GetAmbientLightColorValue();
         FinjinColor GetBackgroundColorValue();
         void SetAmbientLightColorValue(ValueSourceSync sync, FinjinColor color);
         void SetBackgroundColorValue(ValueSourceSync sync, FinjinColor color);
         float GetEnvironmentFarValue();
-        
+
         FogMode GetFogModeValue();
-                
+
         void GetFogValues(wxString& mode, FinjinColor& color, float& density, float& start, float& end, float range, TimeAccessor time = TimeAccessor(), bool* applicationHasLinearFog = 0);
-        void SetFogValues(ValueSourceSync sync, wxString mode, FinjinColor color, float density, float start, float end, float range, TimeAccessor time = TimeAccessor());        
+        void SetFogValues(ValueSourceSync sync, wxString mode, FinjinColor color, float density, float start, float end, float range, TimeAccessor time = TimeAccessor());
     };
 
 } }

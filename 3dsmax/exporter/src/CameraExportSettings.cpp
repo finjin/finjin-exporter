@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 CameraExportSettings::CameraExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Camera(scene)
 {
 }
@@ -34,7 +34,7 @@ CameraExportSettings::CameraExportSettings(FinjinSceneDocument* scene) : FinjinS
 void CameraExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneExporterContext& finjinExporterContext)
 {
     Initialize(object, finjinExporterContext.GetSceneExportSettings()->time, finjinExporterContext.GetSceneExportSettings()->scale, finjinExporterContext.GetSceneExportSettings()->scaledWorldUnitsPerMeter);
-    
+
     finjinExporterContext.GetMovableObjectSettings(this, object, objectSettings, finjinExporterContext.GetSceneExportSettings()->time, finjinExporterContext.GetSceneExportSettings()->conversionManager, finjinExporterContext.GetSceneExportSettings()->scale);
 }
 
@@ -42,7 +42,7 @@ void CameraExportSettings::Initialize(ObjectAccessor object, TimeAccessor time, 
 {
     CameraState cameraState;
     auto cameraObject = static_cast<CameraObject*>(object.node->EvalWorldState(time.GetNativeTime()).obj);
-    cameraObject->EvalCameraState(time.GetNativeTime(), FOREVER, &cameraState);       
+    cameraObject->EvalCameraState(time.GetNativeTime(), FOREVER, &cameraState);
 
     //Vertical field of view
     auto maxInterface = GetCOREInterface();

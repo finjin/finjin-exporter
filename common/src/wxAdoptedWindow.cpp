@@ -27,12 +27,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 wxAdoptedWindow::wxAdoptedWindow(WXWidget window, bool modal)
 {
     this->modal = modal;
     this->subclassed = false;
-    
+
     //Adopt the window
 #if defined(__WXMSW__)
     SetHWND(window);
@@ -48,11 +48,11 @@ wxAdoptedWindow::wxAdoptedWindow(WXWidget window, bool modal)
         Hide();
     }
 #endif
-    
+
     //Disable the window if a modal window is to be launched
     if (this->modal)
         Enable(false);
-    
+
     this->destroyed = false;
 }
 
@@ -64,7 +64,7 @@ wxAdoptedWindow::~wxAdoptedWindow()
 bool wxAdoptedWindow::Destroy()
 {
     DestroyCommon();
-    
+
     return wxAdoptedWindowBase::Destroy();
 }
 
@@ -72,9 +72,9 @@ void wxAdoptedWindow::DestroyCommon()
 {
     if (this->destroyed)
         return;
-    
+
     this->destroyed = true;
-    
+
 #if defined(__WXMSW__)
     //Enable window if a modal window was launched
     if (this->modal)
@@ -82,17 +82,17 @@ void wxAdoptedWindow::DestroyCommon()
         //For some reason, a window other than the application window is typically activated.
         //Make sure the application window is active
         SetActiveWindow((HWND)ApplicationAccessor::GetMainWindow());
-        
+
         Enable(true);
     }
-    
+
     //Un-adopt the window so it isn't destroyed
     SetHWND(0);
 #elif defined(__WXMAC__)
     //Enable window if a modal window was launched
     if (this->modal)
         Enable(true);
-    
+
     //Un-adopt the application window so it isn't destroyed
     if (this->subclassed)
     {

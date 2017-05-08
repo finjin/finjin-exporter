@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Provides top-level access to functions that control large parts of the Finjin system.
      * These functions are typically called by the Finjin plugin entry points.
      */
@@ -63,7 +63,7 @@ namespace Finjin { namespace Exporter {
         /** Called after a new scene is merged. */
         static void OnAfterMerge();
 
-        /** 
+        /**
          * Enables/disables detailed logging.
          * @param enable [in] - Indicates whether to enable or disable detailed logging.
          * @param saveSetting [in] - Indicates whether a save should be performed on the global

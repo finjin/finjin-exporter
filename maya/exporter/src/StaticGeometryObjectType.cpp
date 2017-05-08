@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void StaticGeometryObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     MStatus status;

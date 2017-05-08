@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "TransformAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     using namespace Finjin::Common;
@@ -41,21 +41,21 @@ namespace Finjin { namespace Exporter {
         WxTimeDuration time;
         float m44[4][4];
 
-        const TransformAccessor& GetTransform() const 
-        { 
-            return this->transform; 
+        const TransformAccessor& GetTransform() const
+        {
+            return this->transform;
         }
 
-        void SetTransform(const TransformAccessor& t) 
-        { 
-            this->transform = t; 
+        void SetTransform(const TransformAccessor& t)
+        {
+            this->transform = t;
 
-            MatrixAccessor transformMatrix = t.GetMatrix(); 
-            transformMatrix.GetExportMatrix44(this->m44); 
+            MatrixAccessor transformMatrix = t.GetMatrix();
+            transformMatrix.GetExportMatrix44(this->m44);
         }
 
     private:
         TransformAccessor transform;
-    };    
+    };
 
 } }

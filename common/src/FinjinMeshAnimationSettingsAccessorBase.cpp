@@ -29,10 +29,10 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 double FinjinMeshAnimationSettingsAccessorBase::GetRealTimeScale()
 {
-    return AnimationUtilities::GetRealTimeScale(GetTimeScaleType(), GetTimeScale(), GetTimeInterval());    
+    return AnimationUtilities::GetRealTimeScale(GetTimeScaleType(), GetTimeScale(), GetTimeInterval());
 }
 
 bool FinjinMeshAnimationSettingsAccessorBase::GetGenerateCombinedMorphsValue(bool objectValue)
@@ -70,10 +70,10 @@ bool FinjinMeshAnimationSettingsAccessorBase::IsBoneAllowed(ObjectAccessor bone)
 
 void FinjinMeshAnimationSettingsAccessorBase::GetSampleTypeAndIntervalValues
     (
-    SampleType& sampleType, 
-    double& sampleInterval, 
-    FinjinObjectSettingsAccessorBase& objectSettings, 
-    FinjinSceneSettingsAccessorBase& sceneSettings, 
+    SampleType& sampleType,
+    double& sampleInterval,
+    FinjinObjectSettingsAccessorBase& objectSettings,
+    FinjinSceneSettingsAccessorBase& sceneSettings,
     MeshAnimationType& meshAnimationType,
     MeshAnimationTracksDetectorBase& tracksDetector
     )
@@ -138,7 +138,7 @@ void FinjinMeshAnimationSettingsAccessorBase::CopyFrom(FinjinMeshAnimationSettin
     SetTimeInterval(from.GetTimeInterval());
     SetEmbedAnimation(from.GetEmbedAnimation());
     SetLinkToMainObject(from.GetLinkToMainObject());
-    
+
     ClearAllowExportBones();
     int allowExportBoneCount = from.GetAllowExportBoneCount();
     for (int i = 0; i < allowExportBoneCount; i++)

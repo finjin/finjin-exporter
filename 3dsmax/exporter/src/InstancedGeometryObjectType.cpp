@@ -26,7 +26,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void InstancedGeometryObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (context.maxObject != nullptr && context.maxObject->ClassID() == FinjinInstancedGeometry::GetClassClassID())

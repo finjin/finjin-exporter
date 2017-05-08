@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const int FinjinVersion::NUMBER = 1;
 
 const int FinjinVersion::MAJOR = 0;

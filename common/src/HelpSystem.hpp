@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class wxApplicationWindow;
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
     private:
         /** The application window, needed by the help controller. */
         wxApplicationWindow* appWindow;
-        
+
         /** Full path to the help file. */
         wxString helpFileName;
 

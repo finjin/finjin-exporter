@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExtendedValueBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * An extended value, to be set into scene, object, and material settings. 
+    /**
+     * An extended value, to be set into scene, object, and material settings.
      * An extended value is a completely developer-centric value that can
      * be used to extend Finjin without modifying the way core data is stored.
      */

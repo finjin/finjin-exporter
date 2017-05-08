@@ -20,9 +20,9 @@
 
 #if defined(FINJIN_EXPORTER_ENABLE_D3D_FUNCTIONALITY)
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** The Finjin cube map helper object. */
     class FinjinCubeMapHelper : public HelperObject
     {
@@ -46,11 +46,11 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         int CanConvertToType(Class_ID obtype) override        {return FALSE;}
-        Object* ConvertToType(TimeValue t, Class_ID obtype) override {return nullptr;}        
+        Object* ConvertToType(TimeValue t, Class_ID obtype) override {return nullptr;}
         void GetWorldBoundBox(TimeValue t, INode* inode, ViewExp* vpt, Box3& box) override;
         void GetLocalBoundBox(TimeValue t, INode* inode, ViewExp* vpt, Box3& box) override;
         int DoOwnSelectHilite() override                        {return TRUE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -70,7 +70,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         float GetIconSize(TimeValue t = 0);
         void SetIconSize(float value, TimeValue t = 0);
@@ -82,7 +82,7 @@ namespace Finjin { namespace Exporter {
 
         bool GetRenderToSeparateFiles();
         bool GetRenderToDDSFile();
-        
+
         wxString GetBaseFileName(TimeValue t = 0);
         void SetBaseFileName(wxString value, TimeValue t = 0);
 
@@ -117,7 +117,7 @@ namespace Finjin { namespace Exporter {
 
         IObjParam* ip;
 
-        bool suspendSnap;        
+        bool suspendSnap;
     };
 
 } }

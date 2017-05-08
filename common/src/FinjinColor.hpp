@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinVector.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** An float-based RGBA color. */
@@ -40,7 +40,7 @@ namespace Finjin { namespace Exporter {
             this->r = r;
             this->g = g;
             this->b = b;
-            this->a = a;            
+            this->a = a;
         }
 
         FinjinColor& operator *= (float value)
@@ -107,7 +107,7 @@ namespace Finjin { namespace Exporter {
             Saturate(this->b);
             Saturate(this->a);
         }
-        
+
         /** Creates a new color that's had its color components limited to [0, 1]. */
         FinjinColor Saturated() const
         {

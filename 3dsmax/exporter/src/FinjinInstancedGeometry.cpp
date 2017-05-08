@@ -31,7 +31,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinInstancedGeometryClassDesc : public ClassDesc2
 {
 public:
@@ -56,7 +56,7 @@ public:
 
     void DeleteThis() override {}
 
-    void SetThing(ReferenceTarget* m) 
+    void SetThing(ReferenceTarget* m)
     {
         this->helper = (FinjinInstancedGeometry*)m;
         this->node = nullptr;
@@ -112,11 +112,11 @@ public:
         this->object = nullptr;
     }
 
-    void SetObject(FinjinInstancedGeometry* obj) 
+    void SetObject(FinjinInstancedGeometry* obj)
     {
         this->object = obj;
     }
-    
+
 protected:
     void SetWidth(float size)
     {
@@ -136,12 +136,12 @@ protected:
     void SuspendSnap(bool suspend)
     {
         this->object->suspendSnap = suspend;
-    }    
+    }
 
 private:
     FinjinInstancedGeometry* object;
 
-public:    
+public:
     static FinjinInstancedGeometryCreateCallback instance;
 };
 FinjinInstancedGeometryCreateCallback FinjinInstancedGeometryCreateCallback::instance;
@@ -149,30 +149,30 @@ FinjinInstancedGeometryCreateCallback FinjinInstancedGeometryCreateCallback::ins
 static std::vector<Point3> DEFAULT_ICON_EDGE_VERTICES;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {CUSTOM_HELPER_PARAM_BLOCK_ID = 0};
 enum {CUSTOM_HELPER_VERSION = 1};
 enum {MAIN_MAP, NUM_MAPS};
 
 static ParamBlockDesc2 FinjinInstancedGeometryParamBlock
     (
-    CUSTOM_HELPER_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinInstancedGeometryClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT | P_AUTO_UI | P_MULTIMAP, 
-    
+    CUSTOM_HELPER_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinInstancedGeometryClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT | P_AUTO_UI | P_MULTIMAP,
+
     //Version
     CUSTOM_HELPER_VERSION,
-    
+
     //Reference number
-    FinjinInstancedGeometry::PARAM_BLOCK_REF, 
-    
+    FinjinInstancedGeometry::PARAM_BLOCK_REF,
+
     //Rollout
     NUM_MAPS,
     MAIN_MAP, IDD_INSTANCED_GEOMETRY_ROLLUP, IDS_PARAMETERS, 0, 0, &FinjinInstancedGeometryDlgProc::instance,
-    
+
     FinjinInstancedGeometry::PB_WIDTH, _M("Width"), TYPE_FLOAT, P_RESET_DEFAULT, IDS_WIDTH,
         p_default, 1.0f,
         p_range, 0.05f, FINJIN_EXPORTER_DEFAULT_MAX_DISTANCE,
         p_ui, MAIN_MAP, TYPE_SPINNER, EDITTYPE_UNIVERSE, IDC_WIDTH_EDIT, IDC_WIDTH_SPIN, .1f,
-        p_end,    
+        p_end,
     FinjinInstancedGeometry::PB_LENGTH, _M("Length"), TYPE_FLOAT, P_RESET_DEFAULT, IDS_LENGTH,
         p_default, 1.0f,
         p_range, 0.05f, FINJIN_EXPORTER_DEFAULT_MAX_DISTANCE,
@@ -199,7 +199,7 @@ static ParamBlockDesc2 FinjinInstancedGeometryParamBlock
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinInstancedGeometry::FinjinInstancedGeometry()
 {
     this->pblock = nullptr;
@@ -236,17 +236,17 @@ int FinjinInstancedGeometry::Display(TimeValue t, INode* inode, ViewExp* vpt, in
     FinjinInstancedGeometryDlgProc::instance.SetNode(inode);
 
     //Get viewport graphics window
-    auto gw = vpt->getGW();    
+    auto gw = vpt->getGW();
 
     //Get transform
     Matrix3 tm = GetSizeMatrix(t) * inode->GetObjectTM(t);
     if (GetAlwaysFaceView())
         tm = MeshIconUtilities::MakeBillboardTM(tm, vpt);
-    
+
     //Draw the icon
     auto& edgeVertices = GetEdgeVertices();
     MeshIconUtilities::DrawCustomIcon(vpt, &edgeVertices[0], edgeVertices.size(), nullptr, &tm, inode->Selected(), inode->IsFrozen(), inode->GetWireColor());
-    
+
     return 0;
 }
 
@@ -301,7 +301,7 @@ void FinjinInstancedGeometry::GetLocalBoundBox(TimeValue t, INode* inode, ViewEx
 
     Matrix3 tm = GetSizeMatrix(t);
     auto& edgeVertices = GetEdgeVertices();
-    box = MeshIconUtilities::GetCustomIconBox(&edgeVertices[0], edgeVertices.size(), &tm);    
+    box = MeshIconUtilities::GetCustomIconBox(&edgeVertices[0], edgeVertices.size(), &tm);
     box.EnlargeBy(.01f);
 }
 
@@ -365,19 +365,19 @@ std::vector<Point3>& FinjinInstancedGeometry::GetEdgeVertices()
     return DEFAULT_ICON_EDGE_VERTICES;
 }
 
-Class_ID FinjinInstancedGeometry::ClassID() 
+Class_ID FinjinInstancedGeometry::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinInstancedGeometry::GetClassClassID()
 {
     return FinjinMaxClassID::InstancedGeometry;
 }
 
-SClass_ID FinjinInstancedGeometry::SuperClassID() 
-{ 
-    return HELPER_CLASS_ID; 
+SClass_ID FinjinInstancedGeometry::SuperClassID()
+{
+    return HELPER_CLASS_ID;
 }
 
 void FinjinInstancedGeometry::GetClassName(MSTR& s)
@@ -391,9 +391,9 @@ RefTargetHandle FinjinInstancedGeometry::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -402,34 +402,34 @@ RefResult FinjinInstancedGeometry::NotifyRefChanged(const Interval& changeInt, R
     return REF_SUCCEED;
 }
 
-int FinjinInstancedGeometry::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinInstancedGeometry::SubAnimName(int i) 
+int FinjinInstancedGeometry::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinInstancedGeometry::SubAnim(int i) 
+MSTR FinjinInstancedGeometry::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinInstancedGeometry::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinInstancedGeometry::GetReference(int i) 
+Animatable* FinjinInstancedGeometry::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinInstancedGeometry::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinInstancedGeometry::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinInstancedGeometry::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinInstancedGeometry::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinInstancedGeometry::GetClassDesc()

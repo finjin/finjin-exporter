@@ -30,59 +30,59 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString GlobalSettingsDialog_MaterialsPage::TITLE(wxT("Materials"));
 
 
-//Implementation---------------------------------------------------------------
-BEGIN_EVENT_TABLE(GlobalSettingsDialog_MaterialsPage, SettingsPage)    
+//Implementation----------------------------------------------------------------
+BEGIN_EVENT_TABLE(GlobalSettingsDialog_MaterialsPage, SettingsPage)
 END_EVENT_TABLE()
 
 GlobalSettingsDialog_MaterialsPage::GlobalSettingsDialog_MaterialsPage(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
 {
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* materialNamingSizer;
     materialNamingSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Materials") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* materialNamingGridSizer;
     materialNamingGridSizer = new wxFlexGridSizer( 1, 3, 0, 0 );
     materialNamingGridSizer->SetFlexibleDirection( wxBOTH );
     materialNamingGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     noMaterialNameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("\"No Material\" Name"), wxDefaultPosition, wxDefaultSize, 0 );
     noMaterialNameLabel->Wrap( -1 );
     materialNamingGridSizer->Add( noMaterialNameLabel, 0, wxALIGN_TOP|wxALL, 5 );
-    
+
     noMaterialNameText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 140,-1 ), 0 );
     materialNamingGridSizer->Add( noMaterialNameText, 0, wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     noMaterialNameDescriptionLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Name of the default material assigned to\nobjects that have no material."), wxDefaultPosition, wxDefaultSize, 0 );
     noMaterialNameDescriptionLabel->Wrap( -1 );
     materialNamingGridSizer->Add( noMaterialNameDescriptionLabel, 0, wxRIGHT, 5 );
-    
+
     materialNamingSizer->Add( materialNamingGridSizer, 1, wxEXPAND, 5 );
 
-    includeParentMaterialInNameCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Include Parent Material in Name"), wxDefaultPosition, wxDefaultSize, 0 );    
+    includeParentMaterialInNameCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Include Parent Material in Name"), wxDefaultPosition, wxDefaultSize, 0 );
     materialNamingSizer->Add( includeParentMaterialInNameCheckbox, 0, wxALL, 5 );
 
-    createExtraMaterialsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Create Extra Materials if Necessary"), wxDefaultPosition, wxDefaultSize, 0 );    
+    createExtraMaterialsCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Create Extra Materials if Necessary"), wxDefaultPosition, wxDefaultSize, 0 );
     materialNamingSizer->Add( createExtraMaterialsCheckbox, 0, wxALL, 5 );
-    
+
     topSizer->Add( materialNamingSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 5 );
 
-    
+
     wxStaticBoxSizer* bitmapExportControlSizer;
     bitmapExportControlSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Bitmaps") ), wxVERTICAL );
-    
+
     copyBitmapsToExportDirectoryCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Copy Bitmaps to Export Directory"), wxDefaultPosition, wxDefaultSize, 0 );
     bitmapExportControlSizer->Add( copyBitmapsToExportDirectoryCheckbox, 0, wxALL, 5 );
-    
+
     convertBitmapsToTexturesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Convert Bitmaps to Textures (.texture)"), wxDefaultPosition, wxDefaultSize, 0 );
     bitmapExportControlSizer->Add( convertBitmapsToTexturesCheckbox, 0, wxALL, 5 );
-    
-    
+
+
     topSizer->Add( bitmapExportControlSizer, 0, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 5 );
 
     SetSizer(topSizer);
@@ -96,13 +96,13 @@ GlobalSettingsDialog_MaterialsPage::~GlobalSettingsDialog_MaterialsPage()
 bool GlobalSettingsDialog_MaterialsPage::GetGUIData()
 {
     auto& settings = FinjinGlobalSettings::GetInstance();
-    
+
     //Include parent material name
     settings.includeParentMaterialName = this->includeParentMaterialInNameCheckbox->GetValue();
 
     //Create extra materials
     settings.createExtraMaterials = this->createExtraMaterialsCheckbox->GetValue();
-    
+
     //"No material" name
     settings.noMaterialName = this->noMaterialNameText->GetValue();
 
@@ -113,7 +113,7 @@ bool GlobalSettingsDialog_MaterialsPage::GetGUIData()
     //External viewer
     //if (this->finjinViewerButton->GetValue())
         settings.externalViewer = FinjinGlobalSettings::FINJIN_VIEWER;
-    
+
     return true;
 }
 

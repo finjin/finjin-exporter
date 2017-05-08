@@ -28,26 +28,26 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinFrame::FinjinFrame()
-{   
+{
 }
 
 FinjinFrame::FinjinFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 {
-    Create(parent, id, title, pos, size, style, name);    
+    Create(parent, id, title, pos, size, style, name);
 }
 
 FinjinFrame::~FinjinFrame()
-{    
+{
 }
 
 bool FinjinFrame::Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 {
     SetName(name);
     ModalDialogFix::StartingDialogCreate(this);
-    
-    bool result = wxFrame::Create(parent, id, title, pos, size, style, name);    
+
+    bool result = wxFrame::Create(parent, id, title, pos, size, style, name);
     if (result)
         FinishCreation(style);
 
@@ -67,7 +67,7 @@ bool FinjinFrame::Destroy()
             parent->Destroy();
         }
     }
-    
+
     return wxFrame::Destroy();
 }
 

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 /** Registers all the material exporter handler factories. */
 void RegisterMaterialExporterHandlerFactories();

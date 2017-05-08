@@ -27,10 +27,10 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static bool IsValidNameChar(wxChar c)
 {
-    return isalpha(c) || isdigit(c) || c == wxT('_') || c == wxT('-');
+    return c != wxT('\n') && c != wxT('\t');// isalpha(c) || isdigit(c) || c == wxT('_') || c == wxT('-');
 }
 
 static void FixName(wxString& name)
@@ -41,22 +41,22 @@ static void FixName(wxString& name)
             name[i] = wxT(' ');
     }
 
-    StringUtilities::RemoveSpace(name);    
+    StringUtilities::RemoveSpace(name);
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
-//UserDataTypes--------------------
+//UserDataTypes
 UserDataTypes::UserDataTypes()
-{    
+{
 }
 
 UserDataTypes::~UserDataTypes()
 {
     Clear();
 }
-        
+
 void UserDataTypes::Clear()
 {
     this->directory.clear();
@@ -75,15 +75,15 @@ bool UserDataTypes::Load(const wxString& fileName)
         //A file path with a directory was specified
         this->directory = FileUtilities::JoinPath(this->directory, directory);
     }
-    
+
     //Create the full file path
     auto baseFileName = FileUtilities::GetFileName(fileName);
     auto fileNameToLoad = FileUtilities::JoinPath(this->directory, baseFileName);
 
     //Load the file if it hasn't been loaded already
     if (this->loadedFiles.find(fileNameToLoad) == this->loadedFiles.end())
-    {   
-        WxByteBuffer fileBytes;        
+    {
+        WxByteBuffer fileBytes;
         if (FileUtilities::ReadBinaryFile(fileNameToLoad, fileBytes))
         {
             this->loadedFiles.insert(fileNameToLoad);
@@ -105,7 +105,7 @@ bool UserDataTypes::Load(const wxString& fileName)
                         break;
                     }
                     case WxConfigDocumentLine::Type::SCOPE_START:
-                    {                        
+                    {
                         break;
                     }
                     case WxConfigDocumentLine::Type::SCOPE_END:
@@ -119,7 +119,7 @@ bool UserDataTypes::Load(const wxString& fileName)
                     default: break;
                 }
             }
-        
+
             //File loaded
             return true;
         }
@@ -147,7 +147,7 @@ void UserDataTypes::LoadInclude(WxConfigDocumentReader& reader, const wxString& 
 {
     StaticVector<wxString, 10> sections;
     auto currentSectionName = initialSectionName;
-    
+
     for (auto line = reader.Next(); line != nullptr; line = reader.Next())
     {
         switch (line->GetType())
@@ -158,7 +158,7 @@ void UserDataTypes::LoadInclude(WxConfigDocumentReader& reader, const wxString& 
                 break;
             }
             case WxConfigDocumentLine::Type::SCOPE_START:
-            {      
+            {
                 if (sections.full())
                 {
                     //This is an error condition
@@ -212,7 +212,7 @@ void UserDataTypes::LoadEnum(WxConfigDocumentReader& reader, const wxString& ini
 {
     StaticVector<wxString, 10> sections;
     auto currentSectionName = initialSectionName;
-        
+
     std::shared_ptr<Enum> enumType(new Enum);
     Enum::Item enumValue;
 
@@ -226,7 +226,7 @@ void UserDataTypes::LoadEnum(WxConfigDocumentReader& reader, const wxString& ini
                 break;
             }
             case WxConfigDocumentLine::Type::SCOPE_START:
-            {     
+            {
                 if (sections.full())
                 {
                     //This is an error condition
@@ -234,7 +234,7 @@ void UserDataTypes::LoadEnum(WxConfigDocumentReader& reader, const wxString& ini
                 }
                 else
                 {
-                    sections.push_back(currentSectionName);                    
+                    sections.push_back(currentSectionName);
                 }
                 break;
             }
@@ -284,7 +284,7 @@ void UserDataTypes::LoadEnum(WxConfigDocumentReader& reader, const wxString& ini
                         enumType->type = GetDataType(*enumType.get(), value);
                     }
                     else if (key == wxT("super"))
-                    {        
+                    {
                         //Get super classes
                         if (!value.empty())
                         {
@@ -297,7 +297,7 @@ void UserDataTypes::LoadEnum(WxConfigDocumentReader& reader, const wxString& ini
                                 auto superEnum = GetEnum(super);
                                 if (superEnum != nullptr)
                                     enumType->supers.push_back(superEnum);
-                            }            
+                            }
                         }
                     }
                 }
@@ -328,12 +328,12 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
 {
     StaticVector<wxString, 10> sections;
     auto currentSectionName = initialSectionName;
-    
+
     std::shared_ptr<Class> userDataClass(new Class);
     Class::Item data;
 
     wxString minValue, maxValue;
-        
+
     for (auto line = reader.Next(); line != nullptr; line = reader.Next())
     {
         switch (line->GetType())
@@ -344,7 +344,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                 break;
             }
             case WxConfigDocumentLine::Type::SCOPE_START:
-            {     
+            {
                 if (sections.full())
                 {
                     //This is an error condition
@@ -352,7 +352,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                 }
                 else
                 {
-                    sections.push_back(currentSectionName);                    
+                    sections.push_back(currentSectionName);
                 }
                 break;
             }
@@ -369,7 +369,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         {
                             if (data.controlType == UserDataControlType::NONE)
                                 data.controlType = GetControlType(data, wxEmptyString);
-                            
+
                             if (data.type.type == DataType::INT_DATA_TYPE)
                             {
                                 data.minValue.intValue = minValue.empty() ? 0 : StringUtilities::ToInt(minValue);
@@ -389,7 +389,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         }
                     }
 
-                    currentSectionName = sections.back();                    
+                    currentSectionName = sections.back();
                 }
                 break;
             }
@@ -404,7 +404,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                     if (key == wxT("name"))
                     {
                         FixName(value);
-    
+
                         if (!value.empty() && GetClass(value) == nullptr && GetEnum(value) == nullptr)
                         {
                             userDataClass->name = value;
@@ -451,7 +451,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                                     userDataClass->usage = userDataClass->usage | UserDataUsage::PRIVATE;
                             }
                         }
-                    }                    
+                    }
                 }
                 else if (sectionName == wxT("property"))
                 {
@@ -460,14 +460,14 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         data.groupName = value;
                     }
                     else if (key == wxT("name"))
-                    {                
+                    {
                         data.name = value;
                         FixName(data.name);
 
                         data.displayName = data.name;
                     }
                     else if (key == wxT("display-name"))
-                    {   
+                    {
                         if (!value.empty())
                             data.displayName = value;
                     }
@@ -476,7 +476,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         FixName(value);
                         if (value != data.name)
                             data.visibilityParentName = value;
-                    }                    
+                    }
                     else if (key == wxT("visibility-children-names"))
                     {
                         if (!value.empty())
@@ -488,7 +488,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                                 FixName(visibilityChildName);
                                 if (visibilityChildName != data.visibilityParentName && visibilityChildName != data.name)
                                     data.visibilityChildrenNames.push_back(visibilityChildName);
-                            }            
+                            }
                         }
                     }
                     else if (key == wxT("type"))
@@ -499,15 +499,15 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         data.type = GetDataType(data, dataType);
                     }
                     else if (key == wxT("default") || key == wxT("default-value"))
-                    {                
+                    {
                         data.defaultValue = value;
                     }
                     else if (key == wxT("control-type"))
-                    {   
+                    {
                         data.controlType = GetControlType(data, value);
                     }
                     else if (key == wxT("edit-width"))
-                    {                
+                    {
                         data.editWidth = StringUtilities::ToInt(value);
                     }
                     else if (key == wxT("edit-height"))
@@ -515,7 +515,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         data.editHeight = StringUtilities::ToInt(value);
                     }
                     else if (key == wxT("min-value"))
-                    {                
+                    {
                         minValue = value;
                     }
                     else if (key == wxT("max-value"))
@@ -523,7 +523,7 @@ void UserDataTypes::LoadClass(WxConfigDocumentReader& reader, const wxString& in
                         maxValue = value;
                     }
                     else if (key == wxT("increment"))
-                    {   
+                    {
                         data.increment = StringUtilities::ToFloat(value);
                     }
                 }
@@ -560,7 +560,7 @@ UserDataTypes::DataType UserDataTypes::GetDataType(const Class::Item& item, cons
     else if (type == wxT("bool"))
         dt.type = UserDataTypes::DataType::BOOL_DATA_TYPE;
     else if (type == wxT("rgb"))
-        dt.type = UserDataTypes::DataType::RGB_DATA_TYPE;        
+        dt.type = UserDataTypes::DataType::RGB_DATA_TYPE;
     else if (type == wxT("rgba"))
         dt.type = UserDataTypes::DataType::RGBA_DATA_TYPE;
     else
@@ -570,7 +570,7 @@ UserDataTypes::DataType UserDataTypes::GetDataType(const Class::Item& item, cons
         if (enumType != nullptr)
             dt = GetDataType(*enumType, type);
     }
-    
+
     return dt;
 }
 
@@ -600,10 +600,10 @@ UserDataTypes::DataType UserDataTypes::GetDataType(Enum& e, const wxString& type
     else if (type == wxT("bool"))
         dt.type = UserDataTypes::DataType::BOOL_DATA_TYPE;
     else if (type == wxT("rgb"))
-        dt.type = UserDataTypes::DataType::RGB_DATA_TYPE;        
+        dt.type = UserDataTypes::DataType::RGB_DATA_TYPE;
     else if (type == wxT("rgba"))
         dt.type = UserDataTypes::DataType::RGBA_DATA_TYPE;
-    
+
     return dt;
 }
 
@@ -651,8 +651,8 @@ UserDataControlType UserDataTypes::GetControlType(const Class::Item& item, const
             case DataType::RGBA_DATA_TYPE:
             {
                 return UserDataControlType::RGBA_SWATCH;
-            }        
-        }    
+            }
+        }
     }
 
     return UserDataControlType::EDIT;
@@ -704,7 +704,7 @@ UserDataTypes::Class* UserDataTypes::GetClass(int index, UserDataUsage usage)
             if (index == counter)
                 return c->second.get();
             counter++;
-        }        
+        }
     }
 
     return nullptr;
@@ -715,10 +715,10 @@ void GetItems(T object, std::vector<T_ITEM>& items)
 {
     //Visited objects
     std::unordered_set<T> visited;
-    
+
     //After the main loop completes, this list contains an in-order walk of the class tree
     std::list<T> inorderObjects;
-    
+
     //Objects to visit
     std::list<T> toVisit;
 
@@ -762,7 +762,7 @@ void GetItems(T object, std::vector<T_ITEM>& items)
 
         //Add all the items in the current object
         for (auto itemIterator = inorderObject->items.begin();
-            itemIterator != inorderObject->items.end(); 
+            itemIterator != inorderObject->items.end();
             ++itemIterator)
         {
             auto foundAt = std::find(items.begin(), items.end(), *itemIterator);
@@ -770,7 +770,7 @@ void GetItems(T object, std::vector<T_ITEM>& items)
             {
                 //Item with the same name hasn't been added yet. Add it
                 T_ITEM item = *itemIterator;
-                if (item.order == std::numeric_limits<int>::max())                    
+                if (item.order == std::numeric_limits<int>::max())
                     item.order = order++;
                 items.push_back(item);
             }
@@ -788,7 +788,7 @@ void GetItems(T object, std::vector<T_ITEM>& items)
 void UserDataTypes::Enum::GetEnumItems(Items& items)
 {
     items.reserve(100);
-    GetItems(this, items);        
+    GetItems(this, items);
     std::sort(items.begin(), items.end());
 }
 
@@ -802,14 +802,14 @@ void UserDataTypes::Class::GetDataItems(Items& items)
 //UserDataTypes::Enum::Item
 UserDataTypes::Enum::Item::Item()
 {
-    this->order = std::numeric_limits<int>::max();    
+    this->order = std::numeric_limits<int>::max();
 }
 
 void UserDataTypes::Enum::Item::Reset()
 {
     this->name.clear();
     this->value.clear();
-    this->order = std::numeric_limits<int>::max();    
+    this->order = std::numeric_limits<int>::max();
 }
 
 bool UserDataTypes::Enum::Item::IsValid() const
@@ -863,7 +863,7 @@ bool UserDataTypes::Class::Item::operator < (const Item& item) const
 {
     if (!this->groupName.empty() || !item.groupName.empty())
         return (this->groupName < item.groupName) ? true : false;
-    
+
     if (this->order != std::numeric_limits<int>::max() || item.order != std::numeric_limits<int>::max())
         return this->order < item.order;
 

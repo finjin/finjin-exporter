@@ -25,17 +25,17 @@
 #endif
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A wrapper for using the application's window as a wxWindow.
      * Creating and destroying instances of this class has no effect on the application window.
      */
     class wxApplicationWindow : public wxApplicationWindowBase
     {
     public:
-        /** 
+        /**
          * Initializes the window wrapper
          * @param modal [in] - Indicates whether the window is going to be used as the parent
          * of a modal dialog.
@@ -43,9 +43,9 @@ namespace Finjin { namespace Exporter {
         wxApplicationWindow(bool modal = true);
 
         ~wxApplicationWindow();
-        
+
         bool Destroy();
-        
+
     private:
         void DestroyCommon();
 
@@ -58,7 +58,7 @@ namespace Finjin { namespace Exporter {
     struct wxApplicationWindowDeleter
     {
         typedef void result_type;
-    
+
         void operator () (wxApplicationWindow* obj) const
         {
             obj->Destroy();

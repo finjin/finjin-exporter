@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** DetectableObjectType for an object that is the scene root. */
@@ -42,7 +42,7 @@ namespace Finjin { namespace Exporter {
         {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("root")); return name;}
-            const wxString& GetDisplayName() const override {static const wxString name(wxT("Root")); return name;}            
+            const wxString& GetDisplayName() const override {static const wxString name(wxT("Root")); return name;}
             bool IsContainer() const override {return true;}
             bool CanBePrefab() const override {return false;}
         };

@@ -29,7 +29,7 @@ using namespace Finjin::Exporter;
 //Implementation----------------------------------------------------------------
 bool MaxMaterialUtilities::IsStandardMaterial(Mtl* mtl)
 {
-    return 
+    return
         mtl != nullptr &&
         (mtl->ClassID() == Class_ID(DMTL_CLASS_ID, 0) || mtl->ClassID() == Class_ID(DMTL2_CLASS_ID, 0));
 }

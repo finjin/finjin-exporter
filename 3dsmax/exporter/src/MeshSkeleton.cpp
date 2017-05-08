@@ -27,14 +27,14 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshSkeleton::MeshSkeleton(GeometryStateBase* geometryState) : MeshSkeletonBase(geometryState)
 {
 }
 
 void MeshSkeleton::Clear()
 {
-    MeshSkeletonBase::Clear();    
+    MeshSkeletonBase::Clear();
 
     this->physiqueModifier.Clear();
     this->skinModifier.Clear();
@@ -48,9 +48,9 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
         this->referencePose = *referencePose;
 
     this->physiqueModifier = MaxUtilities::FindPhysiqueModifier(maxNode);
-    this->skinModifier = MaxUtilities::FindSkinModifier(maxNode);    
+    this->skinModifier = MaxUtilities::FindSkinModifier(maxNode);
     if (this->physiqueModifier.IsValid() || this->skinModifier.IsValid())
-    {    
+    {
         Matrix3 maxSkinTransform;
         auto maxSkinTransformValid = false;
         if (this->physiqueModifier.IsValid())
@@ -63,20 +63,20 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
                 case SkeletonReferencePose::BIND_POSE: maxSkinTransformValid = physiqueExport->GetInitNodeTM(maxNode, maxSkinTransform) == MATRIX_RETURNED; break;
                 case SkeletonReferencePose::SPECIFIC_TIME: maxSkinTransformValid = true; maxSkinTransform = maxNode->GetNodeTM(this->referencePose.time.GetNativeTime()); break;
             }
-                        
+
             //Get bones and influences
             auto physiqueContextExport = static_cast<IPhyContextExport*>(physiqueExport->GetContextInterface(maxNode));
             physiqueContextExport->ConvertToRigid(TRUE);
             physiqueContextExport->AllowBlending(TRUE);
-            
+
             int skinnedVertexCount = physiqueContextExport->GetNumberVertices();
             if (this->geometryState != nullptr)
                 this->weightedVertices.resize(skinnedVertexCount);
-            
+
             auto loggedFailedPhysiqueMessage = false;
             for (int vertexIndex = 0; vertexIndex < skinnedVertexCount; vertexIndex++)
             {
-                auto vertexExport = physiqueContextExport->GetVertexInterface(vertexIndex);            
+                auto vertexExport = physiqueContextExport->GetVertexInterface(vertexIndex);
                 if (vertexExport == nullptr)
                 {
                     //This has happened in only one case, where the object was of a "boolean" type
@@ -84,7 +84,7 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
                     {
                         FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, Strings::PHYSIQUE_DATA_CANNOT_BE_EXPORTED);
                         loggedFailedPhysiqueMessage = true;
-                    }                    
+                    }
                 }
                 else if (vertexExport->GetVertexType() == RIGID_NON_BLENDED_TYPE)
                 {
@@ -94,7 +94,7 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
                     //Add bone
                     if (!HasBone(maxBone))
                         AddBone(MeshBonePtr(new MeshBone(maxBone)));
-                    
+
                     //Add influence
                     if (this->geometryState != nullptr)
                         this->weightedVertices[vertexIndex].AddBoneInfluence(maxBone, 1.0f);
@@ -102,15 +102,15 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
                 else if (vertexExport->GetVertexType() == RIGID_BLENDED_TYPE)
                 {
                     auto blendedVertexExport = static_cast<IPhyBlendedRigidVertex*>(vertexExport);
-                    
+
                     for (int boneIndex = 0; boneIndex < blendedVertexExport->GetNumberNodes(); boneIndex++)
                     {
                         auto maxBone = blendedVertexExport->GetNode(boneIndex);
-                    
+
                         //Add bone
                         if (!HasBone(maxBone))
                             AddBone(MeshBonePtr(new MeshBone(maxBone)));
-                    
+
                         //Add influence
                         if (this->geometryState != nullptr)
                             this->weightedVertices[vertexIndex].AddBoneInfluence(maxBone, blendedVertexExport->GetWeight(boneIndex));
@@ -123,7 +123,7 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
             this->physiqueModifier->ReleaseInterface(I_PHYINTERFACE, physiqueExport);
         }
         else if (this->skinModifier.IsValid())
-        {        
+        {
             //Get skin interface
             auto iskin = static_cast<ISkin*>(this->skinModifier->GetInterface(I_SKIN));
             if (iskin != nullptr && iskin->GetNumBones() > 0)
@@ -134,14 +134,14 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
                     case SkeletonReferencePose::BIND_POSE: maxSkinTransformValid = iskin->GetSkinInitTM(maxNode, maxSkinTransform, false) == SKIN_OK; break;
                     case SkeletonReferencePose::SPECIFIC_TIME: maxSkinTransformValid = true; maxSkinTransform = maxNode->GetNodeTM(this->referencePose.time.GetNativeTime()); break;
                 }
-                
+
                 //Get bones and influences
                 auto iskinContextData = iskin->GetContextInterface(maxNode);
 
                 //Bones
                 for (int boneIndex = 0; boneIndex < iskin->GetNumBones(); boneIndex++)
                     AddBone(MeshBonePtr(new MeshBone(iskin->GetBone(boneIndex))));
-                
+
                 //Influences
                 if (this->geometryState != nullptr)
                 {
@@ -183,7 +183,7 @@ bool MeshSkeleton::Initialize(INode* maxNode, const CoordinateSystemConverter& c
             InitializeBone(bone.get(), coordinateConverter, scale);
         UpdateHierarchy();
         Restore();
-    }    
+    }
 
     return IsValid();
 }
@@ -194,8 +194,8 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
         return true;
 
     //TODO: This needs to be corrected or removed
-    /*bone->skinHasPivotOffset = 
-        this->physiqueModifier.IsValid() && 
+    /*bone->skinHasPivotOffset =
+        this->physiqueModifier.IsValid() &&
         this->referencePose.type == SkeletonReferencePose::BIND_POSE;*/
 
     auto isChildBone = true;
@@ -217,19 +217,19 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
         {
             MeshBonePtr parentBone(new MeshBone(parentBoneNode, false));
             bone->parent = parentBone.get();
-            AddBone(parentBone);            
+            AddBone(parentBone);
         }
 
         //Ensure parent is initialized
         InitializeBone(static_cast<MeshBone*>(bone->parent), coordinateConverter, scale);
     }
-    
+
     //Get bone transformation
     Matrix3 maxBoneTransform;
     auto success = false;
     switch (this->referencePose.type)
     {
-        case SkeletonReferencePose::BIND_POSE: 
+        case SkeletonReferencePose::BIND_POSE:
         {
             if (this->physiqueModifier.IsValid())
             {
@@ -251,21 +251,21 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
             }
             break;
         }
-        case SkeletonReferencePose::SPECIFIC_TIME: 
+        case SkeletonReferencePose::SPECIFIC_TIME:
         {
-            success = true; 
-            maxBoneTransform = bone->object.node->GetNodeTM(this->referencePose.time.GetNativeTime()); 
+            success = true;
+            maxBoneTransform = bone->object.node->GetNodeTM(this->referencePose.time.GetNativeTime());
             break;
         }
     }
-    
+
     if (!success)
     {
         //Failure may occur for bones that were implicitly added to the skeleton
         //Getting the node transformation works correctly since the skeleton has been placed into "initial pose" mode by this point
         maxBoneTransform = bone->object.node->GetNodeTM(0);
     }
-        
+
     //Initialize the bone's initial position/rotation/scale state
     bone->initialWorldTransform.Set(maxBoneTransform, coordinateConverter, scale);
     bone->SetInitialState(this->initialSkinTransform);
@@ -275,7 +275,7 @@ bool MeshSkeleton::InitializeBone(MeshBone* bone, const CoordinateSystemConverte
     {
         ObjectAccessor child = bone->object.node->GetChildNode(i);
 
-        if (!HasBone(child) && 
+        if (!HasBone(child) &&
             (this->geometryState == nullptr || !child.HasDescendant(this->geometryState->createObject)) &&
             (MaxUtilities::IsAnyBone(child) || MaxUtilities::IsUnknownObject(child) || HasBoneDescendant(child)))
         {
@@ -305,7 +305,7 @@ void MeshSkeleton::Enable(bool enable)
                 auto physiqueExport = static_cast<IPhysiqueExport*>(this->physiqueModifier->GetInterface(I_PHYINTERFACE));
                 if (physiqueExport != nullptr)
                 {
-                    physiqueExport->SetInitialPose(!enable);            
+                    physiqueExport->SetInitialPose(!enable);
                     this->physiqueModifier->NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
                     this->physiqueModifier->ReleaseInterface(I_PHYINTERFACE, physiqueExport);
                 }
@@ -327,7 +327,7 @@ void MeshSkeleton::Restore()
                 auto physiqueExport = static_cast<IPhysiqueExport*>(this->physiqueModifier->GetInterface(I_PHYINTERFACE));
                 if (physiqueExport != nullptr)
                 {
-                    physiqueExport->SetInitialPose(false);            
+                    physiqueExport->SetInitialPose(false);
                     this->physiqueModifier->ReleaseInterface(I_PHYINTERFACE, physiqueExport);
                 }
             }
@@ -339,7 +339,7 @@ void MeshSkeleton::Restore()
 
 bool MeshSkeleton::HasSkeleton(ObjectAccessor object)
 {
-    return 
-        MaxUtilities::FindPhysiqueModifier(object.node) != nullptr || 
+    return
+        MaxUtilities::FindPhysiqueModifier(object.node) != nullptr ||
         MaxUtilities::FindSkinModifier(object.node) != nullptr;
 }

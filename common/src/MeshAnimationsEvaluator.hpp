@@ -19,20 +19,20 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "SceneExportSettings.hpp"
 #include "ObjectExportSettings.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryState;
     class MeshAnimationTypeDetector;
 
-    /** 
+    /**
      * This class generates all the mesh animations for a GeometryState.
      */
     class MeshAnimationsEvaluator
@@ -40,14 +40,14 @@ namespace Finjin { namespace Exporter {
     public:
         MeshAnimationsEvaluator(FinjinSceneSettingsAccessor sceneSettings, const SceneExportSettings& _sceneExportSettings);
 
-        /** 
-         * Determines if any animations were detected. 
+        /**
+         * Determines if any animations were detected.
          * This should be called after either GetAnimations() or Evaluate().
          */
         bool HasAnimations() const;
 
         /**
-         * Retrieves the mesh animations for the specifed object. 
+         * Retrieves the mesh animations for the specifed object.
          * It does not evaluate them, it just collects them in preparation for evaluation or for
          * a call to HasAnimations().
          * @param object [in] - The object whose mesh animations are retrieved.
@@ -70,7 +70,7 @@ namespace Finjin { namespace Exporter {
          */
         void Evaluate
             (
-            GeometryState* geometryState, 
+            GeometryState* geometryState,
             FinjinObjectSettingsAccessor objectSettings,
             const ObjectExportSettings& objectExportSettings
             );
@@ -87,7 +87,7 @@ namespace Finjin { namespace Exporter {
         /** Evaluates the mesh animations for the specified mesh animation type. */
         void EvaluateAnimations
             (
-            GeometryState* geometryState, 
+            GeometryState* geometryState,
             FinjinObjectSettingsAccessor objectSettings,
             const ObjectExportSettings& objectExportSettings,
             MeshAnimationTypeDetector& meshAnimationType
@@ -109,11 +109,11 @@ namespace Finjin { namespace Exporter {
                 SKELETON,
                 MORPHER
             };
-            
+
             MeshObjectAnimationSettings
                 (
-                FinjinMeshAnimationSettingsAccessor settings, 
-                Target target, 
+                FinjinMeshAnimationSettingsAccessor settings,
+                Target target,
                 bool morphWholeObject = false
                 )
             {
@@ -131,10 +131,10 @@ namespace Finjin { namespace Exporter {
         std::vector<MeshObjectAnimationSettings> meshObjectAnimations;
 
         std::vector<FinjinMeshAnimationSettingsAccessor> meshSkeletonAnimations;
-        
+
         std::vector<FinjinMeshAnimationSettingsAccessor> meshMorpherAnimations;
 
-        std::vector<WxTimeDuration> allSampleTimes;    
+        std::vector<WxTimeDuration> allSampleTimes;
     };
 
 } }

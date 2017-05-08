@@ -28,18 +28,18 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(FlagDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, FlagDialog::OnOK)    
+    EVT_BUTTON(wxID_OK, FlagDialog::OnOK)
 END_EVENT_TABLE()
 
 FlagDialog::FlagDialog
     (
-    wxWindow* parent, 
-    const wxString& title, 
-    const std::vector<wxString>& flagNames, 
+    wxWindow* parent,
+    const wxString& title,
+    const std::vector<wxString>& flagNames,
     const std::vector<int>& flagBits
-    ) 
+    )
     : FinjinDialog(parent, wxID_ANY, title, wxDefaultPosition, wxSize( 217,133 ), wxDEFAULT_DIALOG_STYLE, wxT("FlagDialog"))
 {
     this->flagNames = flagNames;
@@ -47,41 +47,41 @@ FlagDialog::FlagDialog
     this->bit = -1;
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxFlexGridSizer* gridSizer;
     gridSizer = new wxFlexGridSizer( 1, 2, 0, 0 );
     gridSizer->SetFlexibleDirection( wxBOTH );
     gridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     nameText = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
     nameText->Wrap( -1 );
     gridSizer->Add( nameText, 0, wxALL, 5 );
-    
+
     wxArrayString nameChoiceChoices;
     nameChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, nameChoiceChoices, 0 );
     nameChoice->SetSelection( 0 );
     gridSizer->Add( nameChoice, 0, wxALL, 5 );
-    
+
     topSizer->Add( gridSizer, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_CENTER, 5 );
-    
+
     SetGUIData();
 
     SetSizer(topSizer);
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -114,7 +114,7 @@ void FlagDialog::SetGUIData()
         this->nameChoice->SetSelection(selectedFlagNameIndex);
     }
     else
-        nameEnabled = false;        
+        nameEnabled = false;
 }
 
 void FlagDialog::OnOK(wxCommandEvent& event)
@@ -128,7 +128,7 @@ void FlagDialog::OnOK(wxCommandEvent& event)
     auto flagName = this->flagNames.begin();
     std::advance(flagName, selectedFlagNameIndex);
     this->name = *flagName;
-    
+
     MODAL_DIALOG_ON_CLOSE(event, wxID_OK)
 }
 

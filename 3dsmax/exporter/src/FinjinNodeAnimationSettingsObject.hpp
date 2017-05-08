@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsObject.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** The Finjin node animation settings object. */
     class FinjinNodeAnimationSettingsObject : public Object
     {
@@ -41,7 +41,7 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         BOOL IsRenderable() override                          {return FALSE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -61,7 +61,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         static Class_ID GetClassClassID();
         static ClassDesc* GetClassDesc();
@@ -95,7 +95,7 @@ namespace Finjin { namespace Exporter {
         void SetTimeInterval(Interval interval);
         void SetTranslationInterpolationType(wxString value);
         void SetRotationInterpolationType(wxString value);
-                
+
     public:
         enum
         {

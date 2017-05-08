@@ -26,15 +26,15 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //ChooseObjectsPromptMax::SelectObjectCallback
-const MCHAR* ChooseObjectsPromptMax::SelectObjectCallback::dialogTitle() 
+const MCHAR* ChooseObjectsPromptMax::SelectObjectCallback::dialogTitle()
 {
     return MaxUtilities::GetStringM(this->prompt->howMany == HowMany::CHOOSE_ONE ? IDS_CHOOSE_OBJECT : IDS_CHOOSE_OBJECTS);
 }
 
-const MCHAR* ChooseObjectsPromptMax::SelectObjectCallback::buttonText() 
+const MCHAR* ChooseObjectsPromptMax::SelectObjectCallback::buttonText()
 {
     return MaxUtilities::GetStringM(IDS_OK);
 }
@@ -72,7 +72,7 @@ int ChooseObjectsPromptMax::SelectObjectCallback::filter(INode* node)
     return result;
 }
 
-void ChooseObjectsPromptMax::SelectObjectCallback::proc(INodeTab& nodeTab) 
+void ChooseObjectsPromptMax::SelectObjectCallback::proc(INodeTab& nodeTab)
 {
     this->prompt->objects.resize(nodeTab.Count());
     for (int i = 0; i < nodeTab.Count(); i++)
@@ -82,8 +82,8 @@ void ChooseObjectsPromptMax::SelectObjectCallback::proc(INodeTab& nodeTab)
 //ChooseObjectsPromptMax
 ChooseObjectsPromptMax::ChooseObjectsPromptMax
     (
-    wxWindow* parent, 
-    HowMany howMany, 
+    wxWindow* parent,
+    HowMany howMany,
     ObjectFilterType types,
     const ObjectAccessorSet* chooseObjects,
     const ObjectAccessorSet* excludeObjects
@@ -98,7 +98,7 @@ ChooseObjectsPromptMax::ChooseObjectsPromptMax
         this->excludeObjects = *excludeObjects;
 }
 
-bool ChooseObjectsPromptMax::ShowPrompt() 
+bool ChooseObjectsPromptMax::ShowPrompt()
 {
     SelectObjectCallback callback(this);
     return GetCOREInterface()->DoHitByNameDialog(&callback) ? true : false;

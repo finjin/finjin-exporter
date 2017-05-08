@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //ApplicationConsoleLogListener
 ApplicationConsoleLogListener::ApplicationConsoleLogListener(LogMessageType logLevel) : LogListener(logLevel)
@@ -58,10 +58,10 @@ void WxFileLogListener::Initialize()
     if (!IsInitialized())
     {
         auto fullFilePath = FileUtilities::JoinPath(ApplicationAccessor::GetFinjinHomeDirectory(true), this->fileName);
-        this->file.Open(fullFilePath, wxFile::write);            
+        this->file.Open(fullFilePath, wxFile::write);
     }
 }
-    
+
 void WxFileLogListener::Uninitialize()
 {
     this->file.Close();

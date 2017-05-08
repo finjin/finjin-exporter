@@ -19,18 +19,18 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Prompts the user to choose one or more Finjin materials. */
     class ChooseMaterialsPrompt
     {
     public:
-        /** 
+        /**
          * Initializes the prompt.
          * @param parent [in] - The parent window.
          * @param howMany [in] - The number of materials that can be chosen.
@@ -39,9 +39,9 @@ namespace Finjin { namespace Exporter {
          */
         ChooseMaterialsPrompt(wxWindow* parent, HowMany howMany = HowMany::CHOOSE_MANY);
 
-        /** 
+        /**
          * Shows the dialog.
-         * @return If the user selects at least one Finjin material, true is returned. 
+         * @return If the user selects at least one Finjin material, true is returned.
          * Otherwise, false is returned.
          */
         bool ShowPrompt();

@@ -19,24 +19,24 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "UserDataTypes.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * All the controls for a single user data class. 
+    /**
+     * All the controls for a single user data class.
      */
     class UserDataClassControls
     {
-    public:    
+    public:
         /** All the controls that are used for a single data item. */
         struct ItemControls
         {
         public:
-            /** 
+            /**
              * Constructor.
              * @param dataItem [in] - The data item for which the controls will be created.
              * @param parent [in] - The parent window of the created controls.
@@ -48,11 +48,11 @@ namespace Finjin { namespace Exporter {
              */
             ItemControls
                 (
-                UserDataTypes::Class::Item& dataItem, 
-                wxWindow* parent, 
+                UserDataTypes::Class::Item& dataItem,
+                wxWindow* parent,
                 wxSizer* parentSizer,
-                int& controlID, 
-                const wxString& value                
+                int& controlID,
+                const wxString& value
                 );
 
             ~ItemControls();
@@ -72,7 +72,7 @@ namespace Finjin { namespace Exporter {
             /** Updates the visibility of all controls. */
             void UpdateVisibility();
 
-            /** 
+            /**
              * Determines whether a possible new reference to this set of controls will cause a circular reference.
              * @param possibleReference [in] - The set of controls that wants to use this object as visibility control.
              */
@@ -81,7 +81,7 @@ namespace Finjin { namespace Exporter {
         public:
             UserDataTypes::Class::Item& dataItem;
             UserDataTypes::Enum::Items enumItems;
-        
+
             /** The control that controls the visibility of this control. */
             ItemControls* visibilityControl;
 
@@ -93,9 +93,9 @@ namespace Finjin { namespace Exporter {
 
         void Initialize(UserDataTypes::Class* classType, wxWindow* parent, const wxString& rawUserData);
 
-        /** 
+        /**
          * Destroys all data members, including controls and possibly data.
-         * @param destroyDocument [in] - Indicates whether the internal XML document should 
+         * @param destroyDocument [in] - Indicates whether the internal XML document should
          * be destroyed. External callers should never use this argument, it is for internal
          * use only.
          */
@@ -104,17 +104,17 @@ namespace Finjin { namespace Exporter {
         /** Gets all the data from the controls and puts it into the internal XML document. */
         void GetGUIData();
 
-        /** 
-         * Gets all the data from the controls, puts it into the internal XML document, and 
+        /**
+         * Gets all the data from the controls, puts it into the internal XML document, and
          * writes to the specified text buffer.
          * @param rawUserData [out] - The XML text.
          */
         void GetGUIData(wxString& rawUserData);
 
-        /** 
-         * This should be called when the parent window detects a checkbox was clicked. 
+        /**
+         * This should be called when the parent window detects a checkbox was clicked.
          * @param checkbox [in] - The check box that was clicked.
-         * @return Indicates whether the checkbox was a user data control. If it was, the 
+         * @return Indicates whether the checkbox was a user data control. If it was, the
          * user interface should probably be refreshed.
          */
         bool HandleCheckBoxClick(wxCheckBox* checkbox);
@@ -162,7 +162,7 @@ namespace Finjin { namespace Exporter {
 
         wxWindow* parentWindow;
         wxSizer* topSizer;
-        
+
         enum {EDIT_HEIGHT = 16};
         enum {SPACE = 8};
     };

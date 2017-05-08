@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinMeshAnimationSettingsAccessorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class NodeAttributeAdder;
@@ -31,10 +31,10 @@ namespace Finjin { namespace Exporter {
     /** Access to a Finjin mesh animation settings object. */
     class FinjinMeshAnimationSettingsAccessor : public FinjinMeshAnimationSettingsAccessorBase
     {
-    public:    
+    public:
         FinjinMeshAnimationSettingsAccessor();
         FinjinMeshAnimationSettingsAccessor(MPlug rootPlug);
-        
+
         bool IsValid() const {return !this->rootPlug.isNull();}
 
         bool operator == (const FinjinMeshAnimationSettingsAccessor& other) const;
@@ -60,14 +60,14 @@ namespace Finjin { namespace Exporter {
         FinjinVector3 GetBoneTranslationMask(ObjectAccessor object) override;
         int GetAllowExportBoneCount() override;
         void GetAllowExportBone(int i, ObjectAccessor& object, bool& allow, bool& recursive) override;
-        
+
         void SetTrack(wxString value) override;
         void SetAnimationName(wxString value) override;
         void SetTimeScaleType(wxString value) override;
         void SetTimeScale(double value) override;
         void SetCopyFirstKeyToLast(bool value) override;
         void SetExportAsMorph(bool value) override;
-        void SetMorphWholeObject(InheritedBool value) override;        
+        void SetMorphWholeObject(InheritedBool value) override;
         void SetOverrideAnimatedRootStartTime(bool value) override;
         void SetAnimatedRootStartTime(TimeAccessor value) override;
         void SetUseAnimationStartTime(bool value) override;
@@ -97,7 +97,7 @@ namespace Finjin { namespace Exporter {
         MPlug rootPlug;
 
         struct Attributes
-        {        
+        {
             MObject updateCounter;
 
             MObject trackName;
@@ -117,7 +117,7 @@ namespace Finjin { namespace Exporter {
             MObject sampleType;
             MObject embedAnimation;
             MObject linkToMainObject;
-            
+
             MObject boneTranslationMaskObjects;
             MObject boneTranslationMasks;
             MObject allowExportBonesObjects;

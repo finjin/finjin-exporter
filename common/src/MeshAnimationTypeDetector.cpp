@@ -28,15 +28,15 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
-MeshAnimationTypeDetector::MeshAnimationTypeDetector() 
+//Implementation----------------------------------------------------------------
+MeshAnimationTypeDetector::MeshAnimationTypeDetector()
 {
     this->selectedType = nullptr;
     this->types.reserve((size_t)MeshAnimationTypes::COUNT);
     this->hasSkeleton = this->hasMorpher = false;
 }
 
-void MeshAnimationTypeDetector::Detect(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings) 
+void MeshAnimationTypeDetector::Detect(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings)
 {
     auto typeName = objectSettings.GetMeshAnimationType();
     Detect(object, &typeName, true, objectSettings);
@@ -46,11 +46,11 @@ void MeshAnimationTypeDetector::Detect(ObjectAccessor object, const wxString* ty
 {
     this->hasSkeleton = MeshSkeleton::HasSkeleton(object);
     this->hasMorpher = MeshMorpher::HasMorpher(object);
-        
+
     //Get mesh animation type text
     wxString typeName;
     if (useTypeNamePtr)
-    {        
+    {
         if (typeNamePtr != nullptr)
             typeName = *typeNamePtr;
     }
@@ -86,7 +86,7 @@ MeshAnimationType* MeshAnimationTypeDetector::FindType(MeshAnimationTypes type)
 
 void MeshAnimationTypeDetector::AddType(MeshAnimationTypes type, const wxString& name, const wxString& displayName)
 {
-    MeshAnimationType animationType;            
+    MeshAnimationType animationType;
     animationType.type = type;
     animationType.name = name;
     animationType.displayName = displayName;
@@ -104,11 +104,11 @@ void MeshAnimationTypeDetector::DetectTypes(const wxString& typeName)
         AddType(MeshAnimationTypes::COMBINED_MORPH_ONLY, PropertyValues::MeshAnimationType::COMBINED_MORPH_ONLY, Strings::COMBINED_MORPH);
 
         if (typeName == PropertyValues::MeshAnimationType::MORPH_ONLY)
-            this->selectedType = FindType(MeshAnimationTypes::MORPH_ONLY);            
+            this->selectedType = FindType(MeshAnimationTypes::MORPH_ONLY);
         else if (typeName == PropertyValues::MeshAnimationType::COMBINED_MORPH_ONLY)
-            this->selectedType = FindType(MeshAnimationTypes::COMBINED_MORPH_ONLY);            
+            this->selectedType = FindType(MeshAnimationTypes::COMBINED_MORPH_ONLY);
         else if (typeName == PropertyValues::MeshAnimationType::MORPH)
-            this->selectedType = FindType(MeshAnimationTypes::SKELETON_AND_MORPH);            
+            this->selectedType = FindType(MeshAnimationTypes::SKELETON_AND_MORPH);
         else
             this->selectedType = FindType(MeshAnimationTypes::SKELETON_AND_POSE);
     }
@@ -124,7 +124,7 @@ void MeshAnimationTypeDetector::DetectTypes(const wxString& typeName)
         else if (typeName == PropertyValues::MeshAnimationType::MORPH_ONLY)
             this->selectedType = FindType(MeshAnimationTypes::MORPH_ONLY);
         else if (typeName == PropertyValues::MeshAnimationType::COMBINED_MORPH_ONLY)
-            this->selectedType = FindType(MeshAnimationTypes::COMBINED_MORPH_ONLY);            
+            this->selectedType = FindType(MeshAnimationTypes::COMBINED_MORPH_ONLY);
         else
             this->selectedType = FindType(MeshAnimationTypes::SKELETON_ONLY);
     }
@@ -135,9 +135,9 @@ void MeshAnimationTypeDetector::DetectTypes(const wxString& typeName)
         AddType(MeshAnimationTypes::COMBINED_MORPH_ONLY,PropertyValues::MeshAnimationType::COMBINED_MORPH_ONLY, Strings::COMBINED_MORPH);
 
         if (typeName == PropertyValues::MeshAnimationType::MORPH || typeName == PropertyValues::MeshAnimationType::MORPH_ONLY)
-            this->selectedType = FindType(MeshAnimationTypes::MORPH_ONLY);            
+            this->selectedType = FindType(MeshAnimationTypes::MORPH_ONLY);
         else if (typeName == PropertyValues::MeshAnimationType::COMBINED_MORPH_ONLY)
-            this->selectedType = FindType(MeshAnimationTypes::COMBINED_MORPH_ONLY);            
+            this->selectedType = FindType(MeshAnimationTypes::COMBINED_MORPH_ONLY);
         else
             this->selectedType = FindType(MeshAnimationTypes::POSE_ONLY);
     }

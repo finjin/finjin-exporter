@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialAccessor.hpp"
 #include "VertexList.hpp"
 #include "GeometryStateSubmeshProperties.hpp"
@@ -28,7 +28,7 @@
 #include "FinjinEdge.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class MeshSkeleton;
@@ -42,7 +42,7 @@ namespace Finjin { namespace Exporter {
         /** This constructor should not be used. */
         GeometryStateSubmesh() {}
 
-        /** 
+        /**
          * Main constructor.
          * @param material [in] - The material that this submesh uses.
          * @param submeshProperties [in] - The properties that this submesh inherits.
@@ -52,19 +52,19 @@ namespace Finjin { namespace Exporter {
         /**
          * Called on an already initialized submesh in preparation for being merged and added to another GeometryState.
          * @param index [in] - The new index for the submesh.
-         * @param reindexingPrefixLength [in] - The number of unused reindexing entries at the beginning of the 
-         * reindexedVertices collection.         
+         * @param reindexingPrefixLength [in] - The number of unused reindexing entries at the beginning of the
+         * reindexedVertices collection.
          */
         void InitializeForMerge(int index, size_t reindexingPrefixLength);
 
-        /** 
+        /**
          * Gets the submesh indices.
          * @param indices [out] - An array of indices. This array is assumed to be big enough to store the index values.
          * @param The number of indices copied is returned.
          */
         void GetIndices(std::vector<uint32_t>& indices) const;
 
-        /** 
+        /**
          * Gets the submesh indices.
          * @param indices [out] - An array of indices. This array is assumed to be big enough to store the index values.
          * @param The number of indices copied is returned.
@@ -72,15 +72,15 @@ namespace Finjin { namespace Exporter {
         void GetIndices(std::vector<uint16_t>& indices) const;
 
         /** Determines whether this submesh contains the specified vertex. */
-        bool ContainsVertex(int vertexIndex) const;        
+        bool ContainsVertex(int vertexIndex) const;
 
         size_t GetReindexedVertexCount() const;
         void Reserve(size_t count);
-        ReindexedVertex& GetReindexedVertex(size_t i);        
+        ReindexedVertex& GetReindexedVertex(size_t i);
         const ReindexedVertex& GetReindexedVertexConst(size_t i) const;
 
         void BuildVertexBoneAssignments(MeshSkeleton& meshSkeleton);
-        
+
     public:
         /** The material used by this submesh. */
         MaterialAccessor material;
@@ -93,7 +93,7 @@ namespace Finjin { namespace Exporter {
             SHAPE
         };
         GeometryType geometryType;
-        
+
         /** All the vertices in the submesh. */
         VertexList vertexList;
 
@@ -132,10 +132,10 @@ namespace Finjin { namespace Exporter {
             }
         };
 
-        /** 
-         * This array contains the original index for each entry in vertexList. 
+        /**
+         * This array contains the original index for each entry in vertexList.
          * Only used when geometryType is MESH.
-         * When sampling an a mesh to generate morphs animations, the sampled meshes can be resegmented 
+         * When sampling an a mesh to generate morphs animations, the sampled meshes can be resegmented
          * by using this array.
          */
         std::vector<OriginalIndices> addedOriginalIndices;
@@ -153,8 +153,8 @@ namespace Finjin { namespace Exporter {
         ReindexedVertices reindexedVertices;
 
     public:
-        /** 
-         * The number of primitives in the submesh. 
+        /**
+         * The number of primitives in the submesh.
          * If geometryType is MESH, this is the number of faces.
          * If geometryType is SHAPE, this is the number of segments.
          */
@@ -168,7 +168,7 @@ namespace Finjin { namespace Exporter {
 
         /** The explicit submesh name. May be empty. */
         wxString name;
-                
+
         /** The visible edges of the submesh. Used only when the geometryType is MESH. */
         FinjinEdgeSet visibleEdges;
 
@@ -221,7 +221,7 @@ namespace Finjin { namespace Exporter {
         IndexBufferRange indexBufferRange;
         VertexBufferRange vertexBufferRange;
     };
-    
+
     typedef std::shared_ptr<GeometryStateSubmesh> GeometryStateSubmeshPtr;
     typedef std::list<GeometryStateSubmeshPtr> GeometryStateSubmeshes;
 

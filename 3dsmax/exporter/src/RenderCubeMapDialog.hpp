@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ResourceDialog.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** Dialog that lets users select the parameters for rendering a cube map. */
     class RenderCubeMapDialog : public ResourceDialog
     {
@@ -52,7 +52,7 @@ namespace Finjin { namespace Exporter {
         wxString destinationFileName;
 
     protected:
-        static int lastDimensions;        
+        static int lastDimensions;
         static Type lastType;
         static wxString lastDestinationDirectory;
         static wxString lastDestinationBaseFileName;

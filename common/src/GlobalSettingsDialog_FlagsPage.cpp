@@ -35,12 +35,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString GlobalSettingsDialog_FlagsPage::TITLE(wxT("Flags"));
 
 
-//Implementation---------------------------------------------------------------
-BEGIN_EVENT_TABLE(GlobalSettingsDialog_FlagsPage, SettingsPage)    
+//Implementation----------------------------------------------------------------
+BEGIN_EVENT_TABLE(GlobalSettingsDialog_FlagsPage, SettingsPage)
     EVT_BUTTON(GlobalSettingsDialog_FlagsPage::ADD_BUTTON, GlobalSettingsDialog_FlagsPage::OnAddButton)
 END_EVENT_TABLE()
 
@@ -48,30 +48,30 @@ GlobalSettingsDialog_FlagsPage::GlobalSettingsDialog_FlagsPage(wxWindow* parent,
 {
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* aliasesSizer;
     aliasesSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxStaticBoxSizer* innerAliasesSizer;
     innerAliasesSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Flag Names") ), wxVERTICAL );
-    
+
     wxGridSizer* queryFlagAliasesControlsSizer;
     queryFlagAliasesControlsSizer = new wxGridSizer( 1, 2, 0, 0 );
-    
+
     addButton = new wxButton( this, wxID_ANY, wxT("Add..."), wxDefaultPosition, wxDefaultSize, 0 );
     queryFlagAliasesControlsSizer->Add( addButton, 0, wxALIGN_LEFT|wxLEFT|wxRIGHT, 5 );
-    
+
     innerAliasesSizer->Add( queryFlagAliasesControlsSizer, 0, wxEXPAND, 5 );
-    
+
     flagsText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE );
     innerAliasesSizer->Add( flagsText, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     aliasesSizer->Add( innerAliasesSizer, 1, wxEXPAND|wxRIGHT, 5 );
-    
+
     topSizer->Add( aliasesSizer, 1, wxEXPAND|wxTOP, 5 );
-    
+
     this->addButton->SetId(ADD_BUTTON);
-    
+
     SetSizer(topSizer);
     Layout();
 }
@@ -83,7 +83,7 @@ GlobalSettingsDialog_FlagsPage::~GlobalSettingsDialog_FlagsPage()
 bool GlobalSettingsDialog_FlagsPage::GetGUIData()
 {
     auto& settings = FinjinGlobalSettings::GetInstance();
-    
+
     //Flags
     settings.flags.clear();
     wxString flagsTextString = this->flagsText->GetValue();
@@ -92,7 +92,7 @@ bool GlobalSettingsDialog_FlagsPage::GetGUIData()
         std::set<wxString> flagNames;
         std::set<int> flagBits;
         wxString flagName, flagBitText;
-        
+
         StringSplitter flags(flagsTextString, wxT("\n"), StringSplitterFlags::TRIM | StringSplitterFlags::IGNORE_EMPTY);
         for (size_t i = 0; i < flags.size(); i++)
         {
@@ -112,7 +112,7 @@ bool GlobalSettingsDialog_FlagsPage::GetGUIData()
                     }
                 }
             }
-        }            
+        }
     }
 
     return true;
@@ -128,9 +128,9 @@ bool GlobalSettingsDialog_FlagsPage::SetGUIData()
     {
         StringUtilities::AppendKeyAndValue
             (
-            flagText, 
-            f.name, 
-            StringUtilities::ToString(f.bit), 
+            flagText,
+            f.name,
+            StringUtilities::ToString(f.bit),
             wxT("\n")
             );
     }
@@ -148,7 +148,7 @@ void GlobalSettingsDialog_FlagsPage::OnAddButton(wxCommandEvent& event)
     if (!flagsTextString.empty())
     {
         wxString flagName, flagBit;
-        
+
         StringSplitter flags(flagsTextString, wxT("\n"), StringSplitterFlags::TRIM | StringSplitterFlags::IGNORE_EMPTY);
         for (size_t i = 0; i < flags.size(); i++)
         {
@@ -159,10 +159,10 @@ void GlobalSettingsDialog_FlagsPage::OnAddButton(wxCommandEvent& event)
                     StringUtilities::IsInteger(flagBit))
                 {
                     flagNames.insert(flagName);
-                    flagBits.insert(StringUtilities::ToInt(flagBit));                    
+                    flagBits.insert(StringUtilities::ToInt(flagBit));
                 }
             }
-        }            
+        }
     }
 
     SUSPEND_CUSTOM_CONTROLS;

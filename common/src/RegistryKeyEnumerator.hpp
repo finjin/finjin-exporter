@@ -21,7 +21,7 @@
 #if defined(__WXMSW__)
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Enumerates a registry key's subkeys. */
@@ -53,7 +53,7 @@ namespace Finjin { namespace Exporter {
         HKEY hKey;
         DWORD subkeyIndex;
         wxString baseKey;
-        wxString subkey;    
+        wxString subkey;
     };
 
 } }

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     enum class MeshAnimationTypes
@@ -33,7 +33,7 @@ namespace Finjin { namespace Exporter {
         SKELETON_ONLY,
         SKELETON_AND_POSE,
         SKELETON_AND_MORPH,
-        
+
         COUNT
     };
 
@@ -48,12 +48,12 @@ namespace Finjin { namespace Exporter {
         bool GeneratesMorphsExclusively() const {return this->type == MeshAnimationTypes::MORPH_ONLY || this->type == MeshAnimationTypes::COMBINED_MORPH_ONLY;}
         bool GeneratesCombinedMorphs() const {return this->type == MeshAnimationTypes::COMBINED_MORPH_ONLY;}
         bool GeneratesMorphs() const {return UsesObjectTrack();}
-        bool GeneratesPoses() const {return UsesMorpherTrack();}        
+        bool GeneratesPoses() const {return UsesMorpherTrack();}
         bool GeneratesSkeleton() const {return UsesSkeletonTrack();}
 
         MeshAnimationTypes type;
         wxString name;
-        wxString displayName;        
+        wxString displayName;
     };
 
 } }

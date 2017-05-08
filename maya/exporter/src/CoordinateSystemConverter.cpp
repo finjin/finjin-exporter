@@ -27,11 +27,11 @@
 using namespace Finjin::Exporter;
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define FAST_CONVERSION 1 //1 = special-case point conversion. 0 = generic
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 CoordinateSystemConverter::CoordinateSystemConverter()
 {
     Initialize(UpAxis::Y);
@@ -47,9 +47,9 @@ void CoordinateSystemConverter::Initialize(UpAxis upAxis)
     this->sourceUpAxis = ApplicationAccessor::GetUpAxis();
     this->upAxis = upAxis;
 
-    //Determine world direction vectors and conversion matrix 
+    //Determine world direction vectors and conversion matrix
     this->rightVector = MPoint(1,0,0);
-    this->mayaToOutputMatrix.setToIdentity();        
+    this->mayaToOutputMatrix.setToIdentity();
     if (this->upAxis == UpAxis::Z)
     {
         this->forwardVector = MPoint(0,1,0);
@@ -62,12 +62,12 @@ void CoordinateSystemConverter::Initialize(UpAxis upAxis)
             MTransformationMatrix rotationTransform = MTransformationMatrix::identity;
             rotationTransform.setToRotationAxis(MVector(1,0,0), -Maya::PI/2);
             this->mayaToOutputMatrix = rotationTransform.asMatrix();
-        }        
+        }
     }
     else
     {
         this->forwardVector = MPoint(0,0,1);
-        this->upVector = MPoint(0,1,0);        
+        this->upVector = MPoint(0,1,0);
         this->upVectorPerpendicular = MPoint(0,0,-1);
 
         if (this->upAxis != this->sourceUpAxis)
@@ -76,7 +76,7 @@ void CoordinateSystemConverter::Initialize(UpAxis upAxis)
             MTransformationMatrix rotationTransform = MTransformationMatrix::identity;
             rotationTransform.setToRotationAxis(MVector(1,0,0), Maya::PI/2);
             this->mayaToOutputMatrix = rotationTransform.asMatrix();
-        }            
+        }
     }
 
     this->mayaToOutputMatrixInverse = this->mayaToOutputMatrix;
@@ -108,10 +108,10 @@ void CoordinateSystemConverter::ConvertPoint(MPoint& point) const
 #else
     MTransformationMatrix transform = MTransformationMatrix::identity;
     transform.setTranslation(point, SET_TRANSLATION_SPACE);
-        
+
     MMatrix matrix = transform.asMatrix();
-    ConvertMatrix(matrix);    
-    
+    ConvertMatrix(matrix);
+
     transform = MTransformationMatrix(matrix);
     point = transform.getTranslation(GET_TRANSLATION_SPACE);
 #endif
@@ -130,8 +130,8 @@ void CoordinateSystemConverter::ConvertRotation(MQuaternion& rotation) const
     transform.setRotationOrientation(rotation);
 
     MMatrix matrix = transform.asMatrix();
-    ConvertMatrix(matrix);    
-    
+    ConvertMatrix(matrix);
+
     transform = MTransformationMatrix(matrix);
     rotation = transform.rotation();
 }
@@ -144,14 +144,14 @@ void CoordinateSystemConverter::ConvertRotation(FinjinQuaternion& rotation) cons
 }
 
 void CoordinateSystemConverter::ConvertMatrix(MMatrix& matrix) const
-{   
-    //This is what the code in this function does: 
+{
+    //This is what the code in this function does:
     //  matrix = this->mayaToOutputMatrix * matrix * this->mayaToOutputMatrixInverse;
 
     MMatrix result = this->mayaToOutputMatrix;
     result *= matrix;
     result *= this->mayaToOutputMatrixInverse;
-    
+
     matrix = result;
 }
 
@@ -226,10 +226,10 @@ void CoordinateSystemConverter::ConvertLightRotation(MQuaternion& q) const
             q = rotationQuat * q;
         }
     }
-    
+
     //Lights need to face the opposite direction
     MQuaternion rotationQuat2(Maya::PI, MVector(1, 0, 0));
-    q = rotationQuat2 * q;    
+    q = rotationQuat2 * q;
 }
 
 static double Dot(const MPoint& a, const MPoint& b)

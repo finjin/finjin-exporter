@@ -30,19 +30,19 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void SkyObjectType::Detect(ObjectTypeDetectionContext& context)
 {
     if (context.maxObject != nullptr)
     {
-        auto parent = context.object.node->GetParentNode();        
+        auto parent = context.object.node->GetParentNode();
         if (parent->IsRootNode() && GeometryState::CanHandle(context.object))
             context.AddType(this, context.typeName.empty());
     }
 }
 
 void SkyObjectType::CreateSettingsPages(TabControlPages& tabPages, ObjectAccessor& object, FinjinObjectSettingsAccessor& objectSettings, FinjinSceneSettingsAccessor& sceneSettings)
-{   
+{
     tabPages.AddPage(new UserDataSettingsPage(tabPages.GetTabParentWindow(), objectSettings, UserDataUsage::OBJECT), UserDataSettingsPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_NodeAnimationsPage(tabPages.GetTabParentWindow(), object, objectSettings, sceneSettings), ObjectSettingsDialog_NodeAnimationsPage::TITLE);
     tabPages.AddPage(new ObjectSettingsDialog_SkyPage(tabPages.GetTabParentWindow(), objectSettings), ObjectSettingsDialog_SkyPage::TITLE);

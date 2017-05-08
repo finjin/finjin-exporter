@@ -28,9 +28,9 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinDialog::FinjinDialog()
-{   
+{
 }
 
 FinjinDialog::FinjinDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
@@ -39,7 +39,7 @@ FinjinDialog::FinjinDialog(wxWindow* parent, wxWindowID id, const wxString& titl
 }
 
 FinjinDialog::~FinjinDialog()
-{    
+{
 }
 
 bool FinjinDialog::Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
@@ -48,7 +48,7 @@ bool FinjinDialog::Create(wxWindow* parent, wxWindowID id, const wxString& title
 
     ModalDialogFix::StartingDialogCreate(this);
 
-    bool result = wxDialog::Create(parent, id, title, pos, size, style, name);    
+    bool result = wxDialog::Create(parent, id, title, pos, size, style, name);
     if (result)
         FinishCreation(style);
 
@@ -68,14 +68,14 @@ void FinjinDialog::EndModal(int retCode)
     ModalDialogFix::EndingModalDialog(this);
 
     DestroyParent();
-    
+
     wxDialog::EndModal(retCode);
 }
 
 bool FinjinDialog::Destroy()
 {
     DestroyParent();
-    
+
     return wxDialog::Destroy();
 }
 

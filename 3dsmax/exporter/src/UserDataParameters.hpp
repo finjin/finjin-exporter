@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "UserDataSettingsAccessor.hpp"
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 
 /** This macro should NEVER be modified. If more parameters are needed, create a new macro. */
 #define USER_DATA_PARAM_BLOCK_IDS PB_ID, PB_USER_DATA_REFERENCE, PB_USER_DATA, PB_USER_DATA_CLASS

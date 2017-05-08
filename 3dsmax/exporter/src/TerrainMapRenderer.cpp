@@ -30,7 +30,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 TerrainMapRenderer::TerrainMapRenderer(Mode mode)
 {
     this->mode = mode;
@@ -50,7 +50,7 @@ void TerrainMapRenderer::AddNode(INode* node)
 
 void TerrainMapRenderer::RenderToFile
     (
-    const wxString& fileName, 
+    const wxString& fileName,
     int width,
     int height,
     int bytesPerPixel,
@@ -64,7 +64,7 @@ void TerrainMapRenderer::RenderToFile
     //Get all the scene nodes
     std::unordered_set<INode*> allNodes;
     MaxUtilities::GetAllNodes(allNodes);
-    
+
     //Prepare the scene
     std::unordered_set<INode*> hiddenNodes;
     if (renderingSelectedNodes)
@@ -112,13 +112,13 @@ void TerrainMapRenderer::RenderToFile
     if (rotate90DegreesClockwise)
     {
         //To rotate the image 90 degrees clockwise, rotate the camera 90 degrees counter-clockwise
-        cameraMatrix = cameraMatrix * RotateZMatrix(Max::PI / 2); 
+        cameraMatrix = cameraMatrix * RotateZMatrix(Max::PI / 2);
     }
 
     auto worldCenter = worldBoundingBox.Center();
     Point3 cameraCenter(worldCenter.x, worldCenter.y, worldBoundingBox.Max().z);
     cameraMatrix.SetTrans(cameraCenter);
-    
+
     //Initialize view parameters
     ViewParams viewParams;
     viewParams.projType = PROJ_PARALLEL;
@@ -138,14 +138,14 @@ void TerrainMapRenderer::RenderToFile
         bitmapInfo.SetWidth(width);
         bitmapInfo.SetHeight(height);
         bitmapInfo.SetType(this->mode == COLOR_MAP ? BMM_TRUE_32 : BMM_GRAY_8);
-        bitmapInfo.SetName(fileName.wx_str());        
+        bitmapInfo.SetName(fileName.wx_str());
         auto bitmap = TheManager->Create(&bitmapInfo);
         bitmap->CreateChannels(BMM_CHAN_COLOR | BMM_CHAN_Z);
-                                        
+
         //Perform render
         maxInterface->RendererRenderFrame(renderer, maxInterface->GetTime(), bitmap);
         maxInterface->CloseRenderer(renderer);
-        
+
         //Process the rendered bitmap
         if (this->mode == COLOR_MAP)
         {
@@ -155,12 +155,12 @@ void TerrainMapRenderer::RenderToFile
         else
         {
             //Height map
-            //Note that in 3DS Max, all depth values are negative. Near depths are closer 
-            //to 0, and far depths are closer to negative infinity                
+            //Note that in 3DS Max, all depth values are negative. Near depths are closer
+            //to 0, and far depths are closer to negative infinity
 
             ULONG depthType;
             auto bitmapDepths = (float*)bitmap->GetChannel(BMM_CHAN_Z, depthType);
-            float maxDepth = 0; 
+            float maxDepth = 0;
             float minDepth = FLT_MAX;
             const float infiniteDepth = -1000000000000000000000000000000.0f;
             if (bitmapDepths != nullptr)
@@ -183,12 +183,12 @@ void TerrainMapRenderer::RenderToFile
                     }
                 }
                 float depthRange = maxDepth - minDepth;
-                float oneOverDepthRange = MathUtilities::AlmostZero(depthRange, (float)FLOAT_EPSILON) ? 0 : 1 / depthRange;                    
+                float oneOverDepthRange = MathUtilities::AlmostZero(depthRange, (float)FLOAT_EPSILON) ? 0 : 1 / depthRange;
 
                 //Initialize Direct3D
                 Direct3DState d3d;
                 if (d3d.Create())
-                {                
+                {
                     //Create Direct3D texture
                     LPDIRECT3DTEXTURE9 d3dTexture;
                     D3DFORMAT format = bytesPerPixel == 1 ? D3DFMT_L8 : D3DFMT_L16;
@@ -201,7 +201,7 @@ void TerrainMapRenderer::RenderToFile
                         if (SUCCEEDED(hr))
                         {
                             auto d3dFaceBytes = (uint8_t*)lockedRect.pBits;
-                
+
                             //Convert the render bitmap's depths to heights
                             auto bitmapDepths = (float*)bitmap->GetChannel(BMM_CHAN_Z, depthType);
                             for (int row = 0; row < height; row++)
@@ -216,9 +216,9 @@ void TerrainMapRenderer::RenderToFile
                                     if (depth > infiniteDepth)
                                     {
                                         depth = -depth;
-                                        height = Limited((maxDepth - depth) * oneOverDepthRange, 0.0f, 1.0f);                        
+                                        height = Limited((maxDepth - depth) * oneOverDepthRange, 0.0f, 1.0f);
                                     }
-                                                
+
                                     //Put the height into the Direct3D texture
                                     if (bytesPerPixel == 1)
                                         d3dFaceBytes[rowByteOffset++] = (uint8_t)(height * 255);
@@ -230,8 +230,8 @@ void TerrainMapRenderer::RenderToFile
                                 }
 
                                 d3dFaceBytes += lockedRect.Pitch;
-                            }                        
-                
+                            }
+
                             //Unlock the Direct3D texture bits
                             d3dTexture->UnlockRect(0);
 

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "finjin/common/WxStreamingFileFormat.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     enum class AssetClass
@@ -39,10 +39,10 @@ namespace Finjin { namespace Exporter {
         SKELETON_ANIMATION,
         SOUND,
         TEXTURE,
-        
+
         COUNT
     };
-    
+
     struct AssetClassUtilities
     {
         static wxString ToString(size_t value, bool directoryName = false);
@@ -50,5 +50,5 @@ namespace Finjin { namespace Exporter {
 
         static wxString CreateFileName(AssetClass assetType, const wxString& assetName, WxStreamingFileFormat extensionFormat);
     };
-    
+
 } }

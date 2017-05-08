@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Various utility functions for dealing with controls. */
     class MaxControlUtilities
     {
     public:
-        /** 
+        /**
          * Displays a message box with the specified message.
          * @param message [in] - The message.
          * @param title [in] - The text shown in the title bar of the displayed message box.
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
          */
         static int ShowMessage(const wxString& message, const wxString& title = _T("Message"), UINT type = MB_OK);
 
-        /** 
+        /**
          * Displays a message box with the specified message.
          * @param messageID [in] - Resource identifier of the message string.
          * @param title [in] - The text shown in the title bar of the displayed message box.
@@ -44,7 +44,7 @@ namespace Finjin { namespace Exporter {
          */
         static int ShowMessage(int messageID, int titleID, UINT type = MB_OK);
 
-        /** 
+        /**
          * Measuress the width of the specified text.
          * @param hdc [in] - The device context being used to draw the text.
          * @param text [in] - The text being measured.
@@ -54,7 +54,7 @@ namespace Finjin { namespace Exporter {
          */
         static int MeasureTextWidth(HDC hdc, const TCHAR* text, bool logicalPixels = true);
 
-        /** 
+        /**
          * Measuress the size of the specified text.
          * @param hdc [in] - The device context being used to draw the text.
          * @param text [in] - The text being measured.
@@ -64,14 +64,14 @@ namespace Finjin { namespace Exporter {
          */
         static SIZE MeasureTextSize(HDC hdc, const TCHAR* text, bool logicalPixels = true);
 
-        /** 
+        /**
          * Gets the text from a 3DS Max custom edit control.
          * @param edit [in] - The 3DS Max custom edit control.
          * @param text [out] - The retrieved text.
          */
         static void GetText(ICustEdit* edit, wxString& text);
 
-        /** 
+        /**
          * Gets the text from a Windows edit control.
          * @param edit [in] - The edit control window handle.
          * @param text [out] - The retrieved text.
@@ -84,18 +84,18 @@ namespace Finjin { namespace Exporter {
         /** Sets the height of the combo box dropdown. */
         static void SetComboHeight(HWND hWndCombo, int height);
 
-        /** 
+        /**
          * Fills the combo box with the specified items.
          * @param hWnd [in] - The combo box window handle.
          * @param items [in] - Array of strings to put into the combo box.
          * @param itemCount [in] - Number of strings to put into the combo box.
-         * @param adjustWindowWidth [in] - Indicates whether the combo box width is adjusted to 
+         * @param adjustWindowWidth [in] - Indicates whether the combo box width is adjusted to
          * match the width of the largest string being added.
          */
         static void FillComboBox(HWND hWnd, const TCHAR* items[], int itemCount, bool adjustWindowWidth = false);
 
-        /** 
-         * Selects the appropriate combo box item. 
+        /**
+         * Selects the appropriate combo box item.
          * The selection is done with an array of strings that is assumed to have
          * the same number of items in the combo box.
          * @param hWnd [in] - The combo box window handle.

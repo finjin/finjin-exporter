@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -33,7 +33,7 @@ namespace Finjin { namespace Exporter {
     #else
         typedef wxChar ARG_CHAR;
     #endif
-        
+
     public:
         /**
           * @param args [in] - The command line arguments
@@ -41,44 +41,44 @@ namespace Finjin { namespace Exporter {
         ArgsArray(const wxArrayString& args)
         {
             this->commands = args;
-            
+
             auto argc = this->commands.size();
             this->argv.resize(argc + 1);
             this->argv[argc] = nullptr; //Terminator
-            
+
         #if defined(__WXMSW__)
             for (int i = 0; i < this->commands.size(); i++)
                 this->commands[i] = wxT("\"") + this->commands[i] + wxT("\"");
         #endif
-            
+
             for (int i = 0; i < this->commands.size(); i++)
                 this->argv[i] = wxStrdup(this->commands[i]);
         }
-        
+
         ~ArgsArray()
         {
             for (auto item : this->argv)
                 free(item);
         }
-        
+
         /** Returns an array of args suitable for passing to wxCommand(). */
         operator ARG_CHAR**() const { return (ARG_CHAR**)this->argv.data(); }
-        
+
         void ToCommandString(wxString& commandString)
         {
             commandString.Clear();
-            
+
             for (int i = 0; i < this->commands.GetCount(); i++)
             {
                 if (i > 0)
                     commandString += wxT(" ");
-                
+
                 commandString += this->commands[i];
             }
         }
     private:
         wxArrayString commands;
-        
+
         std::vector<ARG_CHAR*> argv;
     };
 

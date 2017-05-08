@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Prompts the user for a file or directory location, which is then remapped to be relative to another location.
      */
     class RelativeLocationPrompt
     {
     public:
-        /** 
+        /**
          * Initializes the prompt to be a file dialog.
          * @param parent [in] - The parent window.
          * @param baseDirectory [in] - The directory that is considered the base for whatever file is selected.
@@ -45,7 +45,7 @@ namespace Finjin { namespace Exporter {
             long style = wxFD_DEFAULT_STYLE
             );
 
-        /** 
+        /**
          * Initializes the prompt to be a directory dialog.
          * @param parent [in] - The parent window.
          * @param baseDirectory [in] - The directory that is considered the base for whatever dialog is selected.
@@ -60,7 +60,7 @@ namespace Finjin { namespace Exporter {
             long style = wxDD_DEFAULT_STYLE
             );
 
-        /** 
+        /**
          * Shows the dialog and returns the relative location.
          * @return If the user cancels the dialog, an empty string is returned.
          */
@@ -70,18 +70,18 @@ namespace Finjin { namespace Exporter {
         wxWindow* parent;
 
         wxString baseDirectory;
-        
+
         wxString promptTitle;
-        
+
         enum LocationType
         {
             FILE_LOCATION,
             DIRECTORY_LOCATION
         };
         LocationType locationType;
-        
+
         wxString filter;
-        
+
         long style;
     };
 

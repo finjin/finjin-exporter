@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 RelativeLocationPrompt::RelativeLocationPrompt
     (
     wxWindow* parent,
@@ -38,7 +38,7 @@ RelativeLocationPrompt::RelativeLocationPrompt
     this->baseDirectory = baseDirectory;
     this->promptTitle = promptTitle;
     this->locationType = FILE_LOCATION;
-    this->filter = filter;    
+    this->filter = filter;
     this->style = style;
 }
 
@@ -54,14 +54,14 @@ RelativeLocationPrompt::RelativeLocationPrompt
     this->baseDirectory = baseDirectory;
     this->promptTitle = promptTitle;
     this->locationType = DIRECTORY_LOCATION;
-    this->filter = filter;    
+    this->filter = filter;
     this->style = style;
 }
 
 wxString RelativeLocationPrompt::ShowPrompt()
 {
     SUSPEND_CUSTOM_CONTROLS;
-    
+
     wxString path;
     if (this->locationType == FILE_LOCATION)
     {
@@ -70,8 +70,8 @@ wxString RelativeLocationPrompt::ShowPrompt()
             path = dialog.GetPath();
     }
     else if (this->locationType == DIRECTORY_LOCATION)
-    {   
-        wxDirDialog dialog(this->parent, this->promptTitle, wxEmptyString, this->style);        
+    {
+        wxDirDialog dialog(this->parent, this->promptTitle, wxEmptyString, this->style);
         if (dialog.ShowModal() == wxID_OK)
             path = dialog.GetPath();
     }

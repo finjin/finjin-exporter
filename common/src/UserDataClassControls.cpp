@@ -34,7 +34,7 @@
 using namespace Finjin::Exporter;
 
 
-//Locals-----------------------------------------------------------------------
+//Locals------------------------------------------------------------------------
 static const int BASE_CONTROL_ID = 10000;
 
 static wxFlexGridSizer* CreateGridSizer()
@@ -46,7 +46,7 @@ static wxFlexGridSizer* CreateGridSizer()
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //UserDataClassControls-----------
 UserDataClassControls::UserDataClassControls()
@@ -65,12 +65,12 @@ void UserDataClassControls::Initialize(UserDataTypes::Class* classType, wxWindow
 
     this->classType = classType;
 
-    classType->GetDataItems(this->properties);    
-    
+    classType->GetDataItems(this->properties);
+
     this->propertyInstances.resize(this->properties.size());
     for (size_t i = 0; i < this->properties.size(); i++)
         this->propertyInstances[i].name = this->properties[i].name;
-    
+
     //Parse data
     if (!rawUserData.empty())
     {
@@ -80,7 +80,7 @@ void UserDataClassControls::Initialize(UserDataTypes::Class* classType, wxWindow
         auto byteBuffer = rawUserData.ToUTF8();
         auto byteBufferLength = strlen(byteBuffer.data());
         for (auto line = reader.Start(byteBuffer.data(), byteBuffer.data() + byteBufferLength); line != nullptr; line = reader.Next())
-        {    
+        {
             switch (line->GetType())
             {
                 case WxConfigDocumentLine::Type::SECTION:
@@ -96,7 +96,7 @@ void UserDataClassControls::Initialize(UserDataTypes::Class* classType, wxWindow
                         line->GetKeyAndValue(key, value);
                         auto propInstance = GetPropertyInstance(key);
                         if (propInstance != nullptr)
-                            propInstance->value = value;                        
+                            propInstance->value = value;
                     }
                     break;
                 }
@@ -105,14 +105,14 @@ void UserDataClassControls::Initialize(UserDataTypes::Class* classType, wxWindow
         }
     }
 
-    InitializeControls();   
+    InitializeControls();
 }
 
 void UserDataClassControls::InitializeControls()
 {
     //Synchronize data to class items
     SynchronizePropertyInstancesToClassProperties();
-    
+
     SUSPEND_CUSTOM_CONTROLS;
 
     //Create controls for each class property
@@ -132,7 +132,7 @@ void UserDataClassControls::InitializeControls()
                 auto newSizer = CreateGridSizer();
                 groupSizer->Add(newSizer);
                 this->topSizer->Add(groupSizer, 0, wxEXPAND|wxTOP, 5);
-                
+
                 controlParentSizer = newSizer;
             }
             else
@@ -140,13 +140,13 @@ void UserDataClassControls::InitializeControls()
                 //The parent sizer is the top sizer
                 auto newSizer = CreateGridSizer();
                 this->topSizer->Add(newSizer, 0, wxEXPAND|wxTOP, 5);
-                
+
                 controlParentSizer = newSizer;
             }
 
             previousGroupName = item->groupName;
         }
-        
+
         //Get current item's value
         auto value = GetPropertyInstanceValue(item->name);
 
@@ -163,10 +163,10 @@ void UserDataClassControls::InitializeControls()
     {
         auto control = this->controls[controlIndex].get();
         auto& item = control->dataItem;
-                
+
         //Get the parent visibility control and only use it if it's for a boolean value
         auto parentVisibilityControl = GetControlsForName(item.visibilityParentName);
-        if (parentVisibilityControl != nullptr && 
+        if (parentVisibilityControl != nullptr &&
             parentVisibilityControl->dataItem.type.type == UserDataTypes::DataType::BOOL_DATA_TYPE &&
             !parentVisibilityControl->CausesVisibilityCircularReference(control))
         {
@@ -189,7 +189,7 @@ void UserDataClassControls::InitializeControls()
 
     //Update visibility now that all controls have been fully initialized
     UpdateVisibility();
-    
+
     this->parentWindow->SetSizer(this->topSizer);
     this->parentWindow->Layout();
 }
@@ -200,7 +200,7 @@ void UserDataClassControls::Destroy(bool destroyDocument)
     if (this->parentWindow != nullptr)
         this->parentWindow->DestroyChildren();
     this->controls.clear();
-    
+
     //Remove references to class type
     this->classType = nullptr;
     this->properties.clear();
@@ -217,7 +217,7 @@ void UserDataClassControls::GetGUIData()
     {
         auto control = this->controls[controlIndex].get();
         auto& item = control->dataItem;
-        
+
         //Determine if the value if worth saving
         if (!control->CheckVisibility())
             continue;
@@ -298,18 +298,18 @@ void UserDataClassControls::GetGUIData()
                     value = StringUtilities::ToString(color, true);
 
                     break;
-                }        
-            }    
+                }
+            }
         }
 
         //Put the value into the appropriate property instance
-        SetPropertyInstanceValue(item.name, value);        
+        SetPropertyInstanceValue(item.name, value);
     }
 }
 
 void UserDataClassControls::GetGUIData(wxString& rawUserData)
 {
-    GetGUIData();    
+    GetGUIData();
 
     if (this->classType != nullptr)
     {
@@ -327,9 +327,9 @@ void UserDataClassControls::GetGUIData(wxString& rawUserData)
             }
         }
         writer.WriteScopeEnd();
-    
+
         auto outString = outStream.str();
-        rawUserData = wxString::FromUTF8(outString.c_str(), outString.length());                
+        rawUserData = wxString::FromUTF8(outString.c_str(), outString.length());
     }
     else
         rawUserData.clear();
@@ -369,7 +369,7 @@ void UserDataClassControls::SynchronizePropertyInstancesToClassProperties()
         }
         else
         {
-            //The element exists            
+            //The element exists
         }
     }
 
@@ -443,12 +443,12 @@ UserDataClassControls::PropertyInstance* UserDataClassControls::GetPropertyInsta
 //UserDataClassControls::ItemControls-----------
 UserDataClassControls::ItemControls::ItemControls
     (
-    UserDataTypes::Class::Item& item, 
-    wxWindow* parent, 
+    UserDataTypes::Class::Item& item,
+    wxWindow* parent,
     wxSizer* parentSizer,
-    int& controlID, 
-    const wxString& value    
-    ) : 
+    int& controlID,
+    const wxString& value
+    ) :
     dataItem(item)
 {
     const long style = 0;
@@ -456,7 +456,7 @@ UserDataClassControls::ItemControls::ItemControls
     enum {COLOR_WIDTH = 40};
     enum {COLOR_HEIGHT = 20};
     enum {ALPHA_EDIT_WIDTH = EDIT_WIDTH / 2 + 10};
-    
+
     this->visibilityControl = 0;
 
     //Create the label
@@ -467,11 +467,11 @@ UserDataClassControls::ItemControls::ItemControls
     auto dataSizer = new wxBoxSizer(wxHORIZONTAL);
     parentSizer->Add(dataSizer);
     parentSizer = dataSizer;
-    
+
     //Create the data controls
     switch (this->dataItem.controlType)
     {
-        case UserDataControlType::EDIT:             
+        case UserDataControlType::EDIT:
         {
             //Parse values
             StringSplitter splitValues(value, wxT(FINJIN_EXPORTER_DEFAULT_VALUE_SEPARATOR_CHAR));
@@ -495,11 +495,11 @@ UserDataClassControls::ItemControls::ItemControls
                     long editStyle = style;
                     if (this->dataItem.editHeight != 0)
                         editStyle |= wxTE_MULTILINE;
-                    editWindow = new ApplicationTextCtrl(parent, controlID++, wxEmptyString, wxDefaultPosition, editSize, editStyle);                    
+                    editWindow = new ApplicationTextCtrl(parent, controlID++, wxEmptyString, wxDefaultPosition, editSize, editStyle);
                 }
                 parentSizer->Add(editWindow);
                 this->windows.push_back(editWindow);
-                
+
                 //Set value
                 if (columnIndex < (int)splitValues.size())
                 {
@@ -507,13 +507,13 @@ UserDataClassControls::ItemControls::ItemControls
                     editWindow->SetValue(theValue);
                 }
             }
-                        
+
             break;
         }
         case UserDataControlType::COMBO:
         {
             //Create control
-            auto comboWindow = new ApplicationChoiceCtrl(parent, controlID++, wxDefaultPosition, wxDefaultSize, wxArrayString()); 
+            auto comboWindow = new ApplicationChoiceCtrl(parent, controlID++, wxDefaultPosition, wxDefaultSize, wxArrayString());
             this->windows.push_back(comboWindow);
 
             //Fill combo box
@@ -532,7 +532,7 @@ UserDataClassControls::ItemControls::ItemControls
                     comboWindow->Append(enumIterator->name);
                 }
                 comboWindow->Thaw();
-                
+
                 //Select current item
                 comboWindow->SetSelection(GetEnumIndex(value));
             }
@@ -562,14 +562,14 @@ UserDataClassControls::ItemControls::ItemControls
             this->windows.push_back(colorWindow);
 
             parentSizer->Add(colorWindow);
-            
+
             break;
         }
         case UserDataControlType::RGBA_SWATCH:
         {
             FinjinColor color = StringUtilities::ToVector4(value, 1);
             auto colorWindow = new Finjin::Exporter::ColorPickerControl(parent, controlID++, color);
-            this->windows.push_back(colorWindow);            
+            this->windows.push_back(colorWindow);
             parentSizer->Add(colorWindow);
 
             wxSize spinnerSize(ALPHA_EDIT_WIDTH + SpinnerControl::BUTTON_WIDTH, wxDefaultSize.y);
@@ -595,7 +595,7 @@ UserDataClassControls::ItemControls::ItemControls
                 auto unitType = SpinnerControl::FLOAT_UNIT;
                 double value = 0;
                 double minValue = -1000000;
-                double maxValue = 1000000;                                
+                double maxValue = 1000000;
                 if (this->dataItem.type.type == UserDataTypes::DataType::FLOAT_DATA_TYPE)
                 {
                     if (columnIndex < (int)splitValues.size())
@@ -625,10 +625,10 @@ UserDataClassControls::ItemControls::ItemControls
                 auto id2 = controlID++;
                 auto spinner = new SpinnerControl(parent, id1, id2, wxDefaultPosition, spinnerSize, value, minValue, maxValue, unitType);
                 this->windows.push_back(spinner);
-                
+
                 parentSizer->Add(spinner, 0, wxALIGN_CENTER_VERTICAL);
             }
-            
+
             break;
         }
         default: break;

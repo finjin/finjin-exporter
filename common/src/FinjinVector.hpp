@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A 2-vector. */
@@ -90,7 +90,7 @@ namespace Finjin { namespace Exporter {
         {
             std::array<float, 2> result;
             result[0] = x;
-            result[1] = y;            
+            result[1] = y;
             return result;
         }
 
@@ -145,7 +145,7 @@ namespace Finjin { namespace Exporter {
         {
             this->x = this->y = this->z = 0;
         }
-        
+
         bool IsZero() const
         {
             return this->x == 0 && this->y == 0 && this->z == 0;
@@ -205,7 +205,7 @@ namespace Finjin { namespace Exporter {
         {
             return FinjinVector3(this->x / v.x, this->y / v.y, this->z / v.z);
         }
-        
+
         FinjinVector3 operator / (float value) const
         {
             return FinjinVector3(this->x / value, this->y / value, this->z / value);
@@ -516,7 +516,7 @@ namespace Finjin { namespace Exporter {
     };
 
     typedef MathQuaternion FinjinQuaternion;
-    typedef MathMatrix44 FinjinMatrix4;
+    typedef MathMatrix4 FinjinMatrix4;
 
     struct SampledMeshPoint
     {

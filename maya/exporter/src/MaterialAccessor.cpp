@@ -23,34 +23,34 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
-MaterialAccessor::MaterialAccessor() 
+//Implementation----------------------------------------------------------------
+MaterialAccessor::MaterialAccessor()
 {
     this->culling = DEFAULT_CULLING;
 }
 
-MaterialAccessor::MaterialAccessor(MObject obj) 
+MaterialAccessor::MaterialAccessor(MObject obj)
 {
     this->obj = obj;
     this->culling = DEFAULT_CULLING;
 }
 
-void MaterialAccessor::operator = (MObject obj) 
+void MaterialAccessor::operator = (MObject obj)
 {
     this->obj = obj;
 }
 
-bool MaterialAccessor::operator == (const MaterialAccessor& other) const 
+bool MaterialAccessor::operator == (const MaterialAccessor& other) const
 {
     return this->obj == other.obj && this->culling == other.culling;
 }
 
-bool MaterialAccessor::operator != (const MaterialAccessor& other) const 
+bool MaterialAccessor::operator != (const MaterialAccessor& other) const
 {
     return this->obj != other.obj || this->culling != other.culling;
 }
 
-bool MaterialAccessor::operator < (const MaterialAccessor& other) const 
+bool MaterialAccessor::operator < (const MaterialAccessor& other) const
 {
     return GetLocalName() < other.GetLocalName();
 }
@@ -68,10 +68,10 @@ wxString MaterialAccessor::GetLocalName() const
     return name;
 }
 
-wxString MaterialAccessor::GetFullName() const 
+wxString MaterialAccessor::GetFullName() const
 {
     MFnDependencyNode depNode(this->obj);
-    auto name = ApplicationStringToWxString(depNode.name());    
+    auto name = ApplicationStringToWxString(depNode.name());
     switch (this->culling)
     {
         case NO_CULLING: name += wxT("_NoCull"); break;
@@ -81,7 +81,7 @@ wxString MaterialAccessor::GetFullName() const
     return name;
 }
 
-bool MaterialAccessor::IsValid() const 
+bool MaterialAccessor::IsValid() const
 {
     return !this->obj.isNull();
 }
@@ -110,7 +110,7 @@ static MaterialAccessor GetShaderByName(const wxString& name, MFn::Type listType
         MString mayaName = WxStringToApplicationString(name);
 
         MItDependencyNodes nodeIt(listType);
-        MFnDependencyNode depNode(nodeIt.item());    
+        MFnDependencyNode depNode(nodeIt.item());
         MPlug shaders = depNode.findPlug(listPlugName);
         unsigned int count = shaders.evaluateNumElements();
         for (unsigned int i = 0; i < count; i++)
@@ -149,7 +149,7 @@ void MaterialAccessor::GetAllMaterials(MaterialAccessorVector& materials)
     materials.clear();
 
     MItDependencyNodes nodeIt(MFn::kShaderList);
-    MFnDependencyNode depNode(nodeIt.item());  
+    MFnDependencyNode depNode(nodeIt.item());
     MPlug shaders = depNode.findPlug("shaders");
     unsigned int count = shaders.evaluateNumElements();
     materials.reserve(count);

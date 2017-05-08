@@ -19,23 +19,23 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** General page for the scene settings dialog. */
-    class SceneSettingsDialog_GeneralPage : public SettingsPage 
+    class SceneSettingsDialog_GeneralPage : public SettingsPage
     {
     private:
         DECLARE_EVENT_TABLE()
 
     protected:
-        wxStaticText* sceneManagerLabel;        
+        wxStaticText* sceneManagerLabel;
         ApplicationTextCtrl* customSceneManagerText;
         wxStaticText* sceneScaleLabel;
         ApplicationChoiceCtrl* sceneScaleChoice;
@@ -45,7 +45,7 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* exportHiddenObjectsCheckbox;
         wxButton* addFlagButton;
         ApplicationTextCtrl* flagAliasesText;
-        
+
         FinjinSceneSettingsAccessor sceneSettings;
 
     public:
@@ -53,7 +53,7 @@ namespace Finjin { namespace Exporter {
         ~SceneSettingsDialog_GeneralPage();
 
         void OnAddFlagButton(wxCommandEvent& event);
-                
+
         enum
         {
             ADD_FLAG_BUTTON

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base class for some basic and common locator functionality. */
-    class BasicLocatorNode : public MPxLocatorNode 
+    class BasicLocatorNode : public MPxLocatorNode
     {
     public:
         bool isBounded() const;

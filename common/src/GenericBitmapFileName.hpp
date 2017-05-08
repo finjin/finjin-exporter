@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -40,7 +40,7 @@ namespace Finjin { namespace Exporter {
             /** A cubic texture file name. It has six files. */
             CUBIC
         };
-        
+
         /** Default constructor. */
         GenericBitmapFileName();
 
@@ -51,8 +51,8 @@ namespace Finjin { namespace Exporter {
          */
         GenericBitmapFileName(const wxString& fileName, Type type = STANDARD);
 
-        /** 
-         * Constructs the file name assuming the ANIMATED type. 
+        /**
+         * Constructs the file name assuming the ANIMATED type.
          * @param fileName [in] - The file name.
          * @param frameCount [in] - The number of frames.
          */

@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MacroExpander::MacroExpander()
 {
     this->useEnvironment = true;
@@ -65,7 +65,7 @@ bool MacroExpander::Expand(wxString& text)
                 //A "standard" value was found
                 text.Replace(match, keyAndValue->second);
             }
-            else 
+            else
             {
                 if (!this->errorFormatString.empty())
                 {

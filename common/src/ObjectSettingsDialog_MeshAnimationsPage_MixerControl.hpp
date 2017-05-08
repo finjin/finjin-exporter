@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #if FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_3DSMAX
     #include "ObjectSettingsDialog_MeshAnimationsPage_MixerControl-Max.hpp"
 #else

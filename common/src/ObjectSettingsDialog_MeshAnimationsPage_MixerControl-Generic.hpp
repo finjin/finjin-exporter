@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Implements the mixer control logic for the 'Sync to Mixer' button 
+    /**
+     * Implements the mixer control logic for the 'Sync to Mixer' button
      * on the Mesh Animations page of the Object Settings dialog.
      * This generic implementation does nothing.
      */
     class ObjectSettingsDialog_MeshAnimationsPage_MixerControl
     {
     public:
-        /** 
-         * Initializes the mixer control data. 
+        /**
+         * Initializes the mixer control data.
          * @param object [in] - The object to check for mixer control data.
          * @param objectSettings [in] - The object settings.
          * @return If the object has a mixer control with some animations
@@ -42,7 +42,7 @@ namespace Finjin { namespace Exporter {
             return false;
         }
 
-        /** 
+        /**
          * Synchronizes the mesh animation settings to the mixer.
          * @return If at least one animation was updated or added, true is returned.
          * Otherwise, false is returned.

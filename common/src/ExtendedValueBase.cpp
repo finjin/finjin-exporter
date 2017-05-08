@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Locals-----------------------------------------------------------------------
+//Locals------------------------------------------------------------------------
 static const wxString EXTENDED_INT_TEXT = wxT("int");
 static const wxString EXTENDED_FLOAT_TEXT = wxT("float");
 static const wxString EXTENDED_COLOR_TEXT = wxT("color");
@@ -33,11 +33,11 @@ static const wxString EXTENDED_OBJECT_TEXT = wxT("object");
 static const wxString EXTENDED_MATERIAL_TEXT = wxT("material");
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ExtendedValueBase::ExtendedValueBase()
 {
     this->type = EXTENDED_NONE;
-    this->count = 0;    
+    this->count = 0;
 }
 
 ExtendedValueBase::Type ExtendedValueBase::GetType() const
@@ -79,7 +79,7 @@ ExtendedValueBase::Type ExtendedValueBase::ParseType(const wxString& text)
         type = EXTENDED_OBJECT;
     else if (text == EXTENDED_MATERIAL_TEXT)
         type = EXTENDED_MATERIAL;
-    
+
     return type;
 }
 
@@ -531,7 +531,7 @@ wxString ExtendedValueBase::ToString(bool addPrefix) const
         {
             if (addPrefix)
                 s = wxString::Format(wxT("%s[%d]: "), EXTENDED_FLOAT_TEXT.wx_str(), this->count);
-            
+
             for (int i = 0; i < this->count; i++)
             {
                 if (i > 0)
@@ -555,7 +555,7 @@ wxString ExtendedValueBase::ToString(bool addPrefix) const
 
                 s += wxString::Format
                     (
-                    wxT("(%f,%f,%f,%f)"), 
+                    wxT("(%f,%f,%f,%f)"),
                     this->floats[i*4 + 0],
                     this->floats[i*4 + 1],
                     this->floats[i*4 + 2],
@@ -582,7 +582,7 @@ wxString ExtendedValueBase::ToString(bool addPrefix) const
         {
             if (addPrefix)
                 s = wxString::Format(wxT("%s[%d]: "), EXTENDED_STRING_TEXT.wx_str(), this->count);
-            
+
             for (int i = 0; i < this->count; i++)
             {
                 if (i > 0)
@@ -596,7 +596,7 @@ wxString ExtendedValueBase::ToString(bool addPrefix) const
         {
             if (addPrefix)
                 s = wxString::Format(wxT("%s[%d]: "), EXTENDED_MATERIAL_TEXT.wx_str(), this->count);
-            
+
             for (int i = 0; i < this->count; i++)
             {
                 if (i > 0)

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MayaBaseMaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Handler for exporting standard application materials. */
@@ -52,7 +52,7 @@ namespace Finjin { namespace Exporter {
         };
 
     private:
-        EnumValues<TexMapIndex, TexMapIndex::COUNT, TextureSlot> textures;
+        EnumArray<TexMapIndex, TexMapIndex::COUNT, TextureSlot> textures;
         size_t texmapCount;
         std::vector<Texture> colorTextures; //Textures on the 'color' plug
     };

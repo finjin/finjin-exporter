@@ -28,13 +28,13 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Constants--------------------------------------------------------------------
+//Constants---------------------------------------------------------------------
 static const MString VRAY_FASTSSSMTL_TYPE_NAME("VRayFastSSS2");
 static const MString VRAY_LIGHTMTL_TYPE_NAME("VRayLightMtl");
 static const MString VRAY_MTL_TYPE_NAME("VRayMtl");
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 VRayMaterialsExporterHandler::VRayMaterialsExporterHandler()
 {
     this->textureIsSpecular = false;
@@ -58,7 +58,7 @@ void VRayMaterialsExporterHandler::CalculateRequirements()
         //Texture
         if (depNode.findPlug("diffuseAmount").asFloat() > 0)
             diffuseTexture = FindFileTexture(depNode, "diffuseTex");
-        
+
         //Specular color, possibly diffuse texture
         if (diffuseTexture.isNull())
         {
@@ -80,7 +80,7 @@ void VRayMaterialsExporterHandler::CalculateRequirements()
         //Texture
         if (depNode.findPlug("diffuseColorAmount").asFloat() > 0)
             diffuseTexture = FindFileTexture(depNode, "diffuseColor");
-        
+
         //Specular color, possibly diffuse texture
         if (diffuseTexture.isNull())
         {
@@ -91,7 +91,7 @@ void VRayMaterialsExporterHandler::CalculateRequirements()
                     textureIsSpecular = true;
             }
         }
-    }    
+    }
 
     //Diffuse texture
     if (!diffuseTexture.isNull())
@@ -135,10 +135,10 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
     if (typeName == VRAY_FASTSSSMTL_TYPE_NAME)
     {
         //Diffuse color
-        if (this->textures[TexMapIndex::DIFFUSE].isNull())            
+        if (this->textures[TexMapIndex::DIFFUSE].isNull())
         {
             auto diffuse = MayaPlug::GetColor(depNode.findPlug("diffuseTex"));
-                
+
             auto colorArray = diffuse.GetRGBAArray();
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray.data(), colorArray.size(), error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -148,12 +148,12 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
         if (!this->textureIsSpecular)
         {
             auto specular = MayaPlug::GetColor(depNode.findPlug("reflection"));
-                
+
             auto colorArray = specular.GetRGBAArray();
             writer.WriteFloats(StandardAssetDocumentPropertyNames::SPECULAR_COLOR, colorArray.data(), colorArray.size(), error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
-        
+
         //Shininess
         float shininess = depNode.findPlug("glossiness").asFloat() * 100;
         writer.WriteFloat(StandardAssetDocumentPropertyNames::SHININESS, shininess, error);
@@ -162,11 +162,11 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
     else if (typeName == VRAY_LIGHTMTL_TYPE_NAME)
     {
         //Diffuse color
-        if (this->textures[TexMapIndex::DIFFUSE].isNull())            
+        if (this->textures[TexMapIndex::DIFFUSE].isNull())
         {
             auto diffuse = MayaPlug::GetColor(depNode.findPlug("color"));
             diffuse.a = depNode.findPlug("opacity").asFloat();
-                
+
             auto colorArray = diffuse.GetRGBAArray();
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray.data(), colorArray.size(), error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -175,11 +175,11 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
     else if (typeName == VRAY_MTL_TYPE_NAME)
     {
         //Diffuse color
-        if (this->textures[TexMapIndex::DIFFUSE].isNull())            
+        if (this->textures[TexMapIndex::DIFFUSE].isNull())
         {
             auto diffuse = MayaPlug::GetColor(depNode.findPlug("diffuseColor"));
             diffuse.a = depNode.findPlug("opacityMap").asFloat();
-                
+
             auto colorArray = diffuse.GetRGBAArray();
             writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray.data(), colorArray.size(), error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -189,17 +189,17 @@ void VRayMaterialsExporterHandler::Write(WxDataChunkWriter& writer, WxError& err
         if (!this->textureIsSpecular)
         {
             auto specular = MayaPlug::GetColor(depNode.findPlug("reflectionColor"));
-                
+
             auto colorArray = specular.GetRGBAArray();
             writer.WriteFloats(StandardAssetDocumentPropertyNames::SPECULAR_COLOR, colorArray.data(), colorArray.size(), error);
             FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
-            
+
         //Shininess
         float shininess = depNode.findPlug("reflectionGlossiness").asFloat() * 100;
         writer.WriteFloat(StandardAssetDocumentPropertyNames::SHININESS, shininess, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-    }    
+    }
 
     if (this->texmapCount > 0)
     {

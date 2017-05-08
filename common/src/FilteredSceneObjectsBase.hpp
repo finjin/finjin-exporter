@@ -19,19 +19,19 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectFilterType.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base class for filtering objects based on the selected types. */
     class FilteredSceneObjectsBase
     {
     public:
-        /** 
+        /**
          * Constructor.
          * @param types [in] - The types of objects to allow.
          */
@@ -54,8 +54,8 @@ namespace Finjin { namespace Exporter {
             this->types = types;
         }
 
-        /** 
-         * Sets the objects that are explicitly filtered. 
+        /**
+         * Sets the objects that are explicitly filtered.
          * If there are no explicit objects to filter, all the scene objects are used.
          */
         void SetChooseObjects(const ObjectAccessorSet& chooseObjects)
@@ -107,13 +107,13 @@ namespace Finjin { namespace Exporter {
     protected:
         /** Determines if this object is less than the other by comparing full names. */
         static bool SortByFullName(const FilteredObject& a, const FilteredObject& b)
-        {            
+        {
             return a.object.GetFullName() < b.object.GetFullName();
         }
 
         /** Determines if this object is less than the other by comparing local names. */
         static bool SortByName(const FilteredObject& a, const FilteredObject& b)
-        {            
+        {
             return a.object.GetLocalName() < b.object.GetLocalName();
         }
 

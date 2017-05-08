@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
@@ -29,7 +29,7 @@
 #include "ObjectSettingsDialog_MeshAnimationsPage_MixerControl.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Mesh animations page for the object settings dialog. */
@@ -62,7 +62,7 @@ namespace Finjin { namespace Exporter {
         ApplicationTextCtrl* vertexAnimationSamplingText;
         ApplicationChoiceCtrl* vertexAnimationSamplingChoice;
         wxStaticText* animatedRootLabel;
-        ApplicationTextCtrl* animatedRootText;            
+        ApplicationTextCtrl* animatedRootText;
         wxButton* animatedRootChooseBoneButton;
         wxButton* animatedRootChooseObjectButton;
         wxButton* addMeshAnimationButton;
@@ -81,7 +81,7 @@ namespace Finjin { namespace Exporter {
         MeshAnimationTracksDetector trackDetector;
 
         ObjectSettingsDialog_MeshAnimationsPage_MixerControl mixerControl;
-    
+
     public:
         ObjectSettingsDialog_MeshAnimationsPage(wxWindow* parent, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,515 ), long style = wxTAB_TRAVERSAL );
         ~ObjectSettingsDialog_MeshAnimationsPage();
@@ -106,13 +106,13 @@ namespace Finjin { namespace Exporter {
             SYNC_TO_BIPED_MIXER_BUTTON = 1 << 15,
             MESH_ANIMATION_LIST = 1 << 16,
             REFERENCE_POSE_CHOICE = 1 << 17,
-            
+
             ALL_IDS = 0xffffffff
         };
 
         bool GetGUIData(int ids);
         bool GetGUIData() override;
-        bool SetGUIData() override;        
+        bool SetGUIData() override;
 
         void UpdateMeshAnimationTypeDefaultText();
         void UpdateExportSkeletonControls();
@@ -131,10 +131,10 @@ namespace Finjin { namespace Exporter {
         static int wxCALLBACK CompareAnimationFrames(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData);
         static int wxCALLBACK CompareAnimationLength(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData);
         static int wxCALLBACK CompareAnimationSampling(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData);
-        
+
         wxString GetAnimationTrackText(FinjinMeshAnimationSettingsAccessor& anim);
         wxString GetAnimationSamplingText(FinjinMeshAnimationSettingsAccessor& anim);
-        
+
         void OnMeshAnimationTypeChoice(wxCommandEvent& event);
         void OnExportSkeletonCheckBox(wxCommandEvent& event);
         void OnEmbedSkeletonInMeshCheckBox(wxCommandEvent& event);

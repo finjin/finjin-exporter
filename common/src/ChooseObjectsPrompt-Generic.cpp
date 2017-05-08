@@ -26,12 +26,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ChooseObjectsPrompt::ChooseObjectsPrompt
     (
-    wxWindow* parent, 
-    HowMany howMany, 
-    ObjectFilterType types, 
+    wxWindow* parent,
+    HowMany howMany,
+    ObjectFilterType types,
     const ObjectAccessorSet* chooseObjects,
     const ObjectAccessorSet* excludeObjects
     )
@@ -45,14 +45,14 @@ ChooseObjectsPrompt::ChooseObjectsPrompt
         this->excludeObjects = *excludeObjects;
 }
 
-bool ChooseObjectsPrompt::ShowPrompt() 
+bool ChooseObjectsPrompt::ShowPrompt()
 {
     SUSPEND_CUSTOM_CONTROLS;
 
     ObjectAccessorSet* chooseObjects = nullptr;
     if (!this->chooseObjects.empty())
         chooseObjects = &this->chooseObjects;
-    
+
     ObjectAccessorSet* excludeObjects = nullptr;
     if (!this->excludeObjects.empty())
         excludeObjects = &this->excludeObjects;

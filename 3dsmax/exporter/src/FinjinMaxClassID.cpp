@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 const Class_ID FinjinMaxClassID::ExtendedValueObject(0xd53c87f6, 0x30b8853a);
 const Class_ID FinjinMaxClassID::MeshScaleModifier(0xab12ddc, 0xadfa3211);
 const Class_ID FinjinMaxClassID::CubeMapHelper(0x3ab08ee1, 0x4c3eb331);

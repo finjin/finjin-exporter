@@ -16,15 +16,15 @@
 //along with Finjin Exporter.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#pragma once 
+#pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class SimpleUri
     {
     public:

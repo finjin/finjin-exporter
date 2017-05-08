@@ -34,14 +34,14 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void MeshObjectType::Detect(ObjectTypeDetectionContext& context)
 {
-    if (context.maxObject != nullptr && 
-        context.maxObject->SuperClassID() != HELPER_CLASS_ID && 
+    if (context.maxObject != nullptr &&
+        context.maxObject->SuperClassID() != HELPER_CLASS_ID &&
         !MaxUtilities::IsAnyBone(context.object))
     {
-        if (context.maxObject->SuperClassID() == GEOMOBJECT_CLASS_ID || 
+        if (context.maxObject->SuperClassID() == GEOMOBJECT_CLASS_ID ||
             context.maxObject->SuperClassID() == SHAPE_CLASS_ID ||
             context.maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0)))
         {

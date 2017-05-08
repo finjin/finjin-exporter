@@ -23,11 +23,11 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 bool TimeChanger::enabled = false;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 TimeChanger::TimeChanger(MTime newTime, bool restoreTime)
 {
     this->restoreTime = restoreTime;

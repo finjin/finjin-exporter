@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinNoteTrack.hpp"
 #include "FinjinColor.hpp"
 #include "AssetReference.hpp"
@@ -28,7 +28,7 @@
 #include "finjin/common/WxChunkName.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Common {
     class WxDataChunkWriter;
 } }
@@ -36,8 +36,8 @@ namespace Finjin { namespace Common {
 namespace Finjin { namespace Exporter {
 
     class FinjinSceneDocument;
-                
-    /** 
+
+    /**
      * Base class from which all sceneDocument document items are derived
      * Not all fields are used by subclasses
      */
@@ -57,7 +57,7 @@ namespace Finjin { namespace Exporter {
         enum
         {
             NO_FLAGS = 0,
-            
+
             FIRST_EXPORT_FLAG = 1 << 0,
 
             EXPORT_TYPE = FIRST_EXPORT_FLAG,
@@ -68,9 +68,9 @@ namespace Finjin { namespace Exporter {
             EXPORT_FLAGS = FIRST_EXPORT_FLAG << 5,
             LAST_UNUSED_EXPORT_FLAG = FIRST_EXPORT_FLAG << 6
         };
-        
+
         virtual void Write(WxDataChunkWriter& writer, ExportFlags flags, WxError& error);
-        
+
     private:
         void ExportUserData(WxDataChunkWriter& writer, WxError& error);
         void ExportNoteTracks(WxDataChunkWriter& writer, WxError& error);
@@ -85,7 +85,7 @@ namespace Finjin { namespace Exporter {
 
         wxString typeName;
         wxString name;
-        wxString id;        
+        wxString id;
         struct UserData
         {
             UserData()
@@ -93,7 +93,7 @@ namespace Finjin { namespace Exporter {
                 this->userDataClass = nullptr;
             }
 
-            bool IsValid() const 
+            bool IsValid() const
             {
                 return !this->propertyInstances.empty() || !this->rawData.empty();
             }
@@ -119,7 +119,7 @@ namespace Finjin { namespace Exporter {
         UserData userData;
         std::vector<FinjinNoteTrack> noteTracks;
         int childOrder;
-        
+
         /** Child items. May be empty */
         ItemList childItems;
 
@@ -138,7 +138,7 @@ namespace Finjin { namespace Exporter {
         void Write(WxDataChunkWriter& writer, ExportFlags flags, WxError& error) override;
 
     public:
-        TransformAccessor objectOffsetTransform;        
+        TransformAccessor objectOffsetTransform;
     };
 
     class FinjinSceneDocument_Camera : public FinjinSceneDocument_MovableObject
@@ -177,7 +177,7 @@ namespace Finjin { namespace Exporter {
         float power;
         FinjinColor color;
         float range[2];
-        float coneRange[2];      
+        float coneRange[2];
     };
 
     class FinjinSceneDocument_RenderableMovableObject : public FinjinSceneDocument_MovableObject
@@ -208,7 +208,7 @@ namespace Finjin { namespace Exporter {
             EXPORT_RECEIVE_SHADOWS = FIRST_EXPORT_FLAG << 5,
             LAST_UNUSED_EXPORT_FLAG = FIRST_EXPORT_FLAG << 6
         };
-        
+
         void Write(WxDataChunkWriter& writer, ExportFlags flags, WxError& error) override;
 
     private:
@@ -218,9 +218,9 @@ namespace Finjin { namespace Exporter {
         ObjectVisibility visibility;
         wxString renderQueue;
         int renderPriority;
-        float renderingDistance;    
+        float renderingDistance;
         bool castShadows;
-        bool receiveShadows;        
+        bool receiveShadows;
     };
 
     class FinjinSceneDocument_BoneAttachment : public FinjinSceneDocument_Item
@@ -256,9 +256,9 @@ namespace Finjin { namespace Exporter {
         ~FinjinSceneDocument_Entity();
 
         void Write(WxDataChunkWriter& writer, WxError& error) override;
-        
+
         void AddBoneAttachment(std::shared_ptr<FinjinSceneDocument_BoneAttachment> boneAttachment);
-        
+
     public:
         ResourceReferenceFunction meshRef;
         struct Subentity
@@ -277,7 +277,7 @@ namespace Finjin { namespace Exporter {
         {
             std::vector<ResourceReferenceFunction> subentityMaterialRefs;
         };
-        std::vector<ManualLod> manualLods;        
+        std::vector<ManualLod> manualLods;
         std::shared_ptr<FinjinSceneDocument_BoneAttachments> boneAttachments;
     };
 
@@ -333,7 +333,7 @@ namespace Finjin { namespace Exporter {
 
         void Write(WxDataChunkWriter& writer, WxError& error) override;
     };
-    
+
     class FinjinSceneDocument_InstancedGeometry : public FinjinSceneDocument_RenderableMovableObject
     {
     public:
@@ -370,13 +370,13 @@ namespace Finjin { namespace Exporter {
         FINJIN_EXPORTER_DEFINE_SUPERCLASS(FinjinSceneDocument_Item)
 
         FinjinSceneDocument_NodeAnimation(FinjinSceneDocument* sceneDocument = nullptr);
-        
+
         void Write(WxDataChunkWriter& writer, WxError& error) override;
 
     public:
         bool enable;
         bool loop;
-        
+
         struct Key
         {
             Key()
@@ -392,17 +392,17 @@ namespace Finjin { namespace Exporter {
 
             void SetTransform(const TransformAccessor& t)
             {
-                this->transform = t; 
+                this->transform = t;
 
-                MatrixAccessor transformMatrix = t.GetMatrix(); 
-                transformMatrix.GetExportMatrix44(this->m44); 
+                MatrixAccessor transformMatrix = t.GetMatrix();
+                transformMatrix.GetExportMatrix44(this->m44);
             }
 
             WxTimeDuration time;
             float m44[4][4];
 
         private:
-            TransformAccessor transform;            
+            TransformAccessor transform;
         };
         std::vector<Key> keys;
     };
@@ -413,7 +413,7 @@ namespace Finjin { namespace Exporter {
         FINJIN_EXPORTER_DEFINE_SUPERCLASS(FinjinSceneDocument_Item)
 
         FinjinSceneDocument_NodeAnimations(FinjinSceneDocument* sceneDocument = nullptr);
-        
+
         void Write(WxDataChunkWriter& writer, WxError& error) override;
     };
 
@@ -463,7 +463,7 @@ namespace Finjin { namespace Exporter {
     public:
         wxString technique;
         float farDistance;
-        FinjinColor color;        
+        FinjinColor color;
     };
 
     class FinjinSceneDocument_Fog : public FinjinSceneDocument_Item
@@ -473,10 +473,10 @@ namespace Finjin { namespace Exporter {
 
         FinjinSceneDocument_Fog
             (
-            FinjinSceneDocument* sceneDocument, 
-            FogMode mode, 
-            float expDensity, 
-            float linearStart, 
+            FinjinSceneDocument* sceneDocument,
+            FogMode mode,
+            float expDensity,
+            float linearStart,
             float linearEnd,
             const FinjinColor& color
             );
@@ -500,7 +500,7 @@ namespace Finjin { namespace Exporter {
         ~FinjinSceneDocument_Environment();
 
         void SetRange(std::shared_ptr<FinjinSceneDocument_Clipping> range);
-        
+
         void SetFog(std::shared_ptr<FinjinSceneDocument_Fog> fog);
 
         void SetShadows(std::shared_ptr<FinjinSceneDocument_Shadows> shadows);
@@ -543,11 +543,11 @@ namespace Finjin { namespace Exporter {
         FINJIN_EXPORTER_DEFINE_SUPERCLASS(FinjinSceneDocument_MovableObject)
 
         FinjinSceneDocument_Physical(FinjinSceneDocument* sceneDocument = nullptr);
-        
+
         void Write(WxDataChunkWriter& writer, WxError& error) override;
 
     public:
-        wxString type; //TODO: Remove this?            
+        wxString type; //TODO: Remove this?
         TransformAccessor transform;
 
         /** A simple bounding volume, centered around the owner's origin */
@@ -556,7 +556,7 @@ namespace Finjin { namespace Exporter {
             Shape()
             {
                 this->type = NONE;
-                this->radius = 0;                
+                this->radius = 0;
             }
 
             enum Type
@@ -578,7 +578,7 @@ namespace Finjin { namespace Exporter {
             /** The bounding radius. Used when 'type' is SPHERE, CYLINDER, or CAPSULE */
             float radius;
 
-            /** 
+            /**
              * The size. All elements are used when 'type' is BOX, 'x' is used when CYLINDER or CAPSULE.
              * Note that when type is CAPSULE, the size given is the distance along the noncurved part of the capsule.
              */
@@ -593,7 +593,7 @@ namespace Finjin { namespace Exporter {
             /** Faces of the mesh bounding volume. Used when 'type' is MESH */
             std::vector<Face> meshFaces;
         };
-        Shape shape;        
+        Shape shape;
     };
 
     class FinjinSceneDocument_SceneNode : public FinjinSceneDocument_Item
@@ -628,13 +628,13 @@ namespace Finjin { namespace Exporter {
 
     public:
         NodeVisibility visibility;
-        
+
         bool isPrefab;
         wxString prefabName;
         ResourceReferenceFunction prefabRef;
 
         TransformAccessor transform;
-        
+
         std::shared_ptr<FinjinSceneDocument_NodeAnimations> animations;
 
         std::vector<std::shared_ptr<FinjinSceneDocument_MovableObject> > attachedObjects;
@@ -652,7 +652,7 @@ namespace Finjin { namespace Exporter {
         FINJIN_EXPORTER_DEFINE_SUPERCLASS(FinjinSceneDocument_Item)
 
         FinjinSceneDocument_SceneNodes(FinjinSceneDocument* sceneDocument = nullptr);
-        
+
         void Write(WxDataChunkWriter& writer, WxError& error) override;
     };
 
@@ -663,7 +663,7 @@ namespace Finjin { namespace Exporter {
 
         FinjinSceneDocument();
         ~FinjinSceneDocument();
-        
+
         FinjinSceneDocument_Environment* GetEnvironment();
         void SetEnvironment(std::shared_ptr<FinjinSceneDocument_Environment> environment);
 
@@ -679,13 +679,13 @@ namespace Finjin { namespace Exporter {
 
         void Write(WxDataChunkWriter& writer, WxError& error) override;
 
-    public:    
+    public:
         float unitsPerMeter;
-        wxString unitType;        
+        wxString unitType;
 
         wxString sceneManager;
 
-    protected:        
+    protected:
         std::shared_ptr<FinjinSceneDocument_Environment> environment;
         std::shared_ptr<FinjinSceneDocument_SceneNodes> sceneNodes;
         std::shared_ptr<FinjinSceneDocument_StaticGeometries> staticGeometries;

@@ -47,15 +47,15 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 int GlobalSettingsDialog::lastPageSelection = 0;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(GlobalSettingsDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, GlobalSettingsDialog::OnOK)    
+    EVT_BUTTON(wxID_OK, GlobalSettingsDialog::OnOK)
     EVT_BUTTON(wxID_CANCEL, GlobalSettingsDialog::OnCancel)
-    EVT_CLOSE(GlobalSettingsDialog::OnCloseWindow)    
+    EVT_CLOSE(GlobalSettingsDialog::OnCloseWindow)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, GlobalSettingsDialog::OnNotebookPageChanged)
 END_EVENT_TABLE()
 
@@ -82,10 +82,10 @@ void GlobalSettingsDialog::CreateControls(int initialPageIndex, const wxString& 
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* tabPagesSizer = nullptr;
-    int tabControlProportion = 1;        
-    
+    int tabControlProportion = 1;
+
     this->initializingPages = true;
     tabControl = new TabControl( this, wxID_ANY, wxDefaultPosition, DEFAULT_TAB_CONTROL_SIZE, 0);
     ApplicationControls::AdjustContainerBackgroundColor(tabControl);
@@ -97,29 +97,29 @@ void GlobalSettingsDialog::CreateControls(int initialPageIndex, const wxString& 
     this->pages.AddPage(new GlobalSettingsDialog_UserDataClassPage(this->pages.GetTabParentWindow()), GlobalSettingsDialog_UserDataClassPage::TITLE);
     this->pages.AddPage(new GlobalSettingsDialog_AnimationsPage(this->pages.GetTabParentWindow()), GlobalSettingsDialog_AnimationsPage::TITLE);
     this->pages.AddPage(new GlobalSettingsDialog_MeshesPage(this->pages.GetTabParentWindow()), GlobalSettingsDialog_MeshesPage::TITLE);
-    this->pages.AddPage(new GlobalSettingsDialog_MaterialsPage(this->pages.GetTabParentWindow()), GlobalSettingsDialog_MaterialsPage::TITLE);    
+    this->pages.AddPage(new GlobalSettingsDialog_MaterialsPage(this->pages.GetTabParentWindow()), GlobalSettingsDialog_MaterialsPage::TITLE);
     this->pages.AddPage(new GlobalSettingsDialog_FlagsPage(this->pages.GetTabParentWindow()), GlobalSettingsDialog_FlagsPage::TITLE);
     this->initializingPages = false;
 
     //Select the initial page
     ChangeToPage(initialPageIndex, initialPageTitle);
-        
+
     //Finish adding tab control(s) to the dialog
     topSizer->Add( tabControl, tabControlProportion, wxEXPAND | wxALL | TAB_CONTROL_SIZER_FLAGS, 5 );
     if (tabPagesSizer != nullptr)
         topSizer->Add( tabPagesSizer, 1, wxEXPAND | wxDOWN | wxRIGHT | wxLEFT, 5);
-    
+
     wxGridSizer* bottomSizer;
     bottomSizer = new wxGridSizer( 1, 1, 0, 0 );
-    
+
     closeButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     bottomSizer->Add( closeButton, 0, wxALIGN_RIGHT|wxDOWN | wxRIGHT | wxLEFT, 5 );
 
     /*auto cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
-    bottomSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );*/    
-    
+    bottomSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );*/
+
     topSizer->Add( bottomSizer, 0, wxEXPAND, 5 );
-    
+
     this->originalSettings = FinjinGlobalSettings::GetInstance();
 
     SetGUIData();
@@ -154,7 +154,7 @@ void GlobalSettingsDialog::ChangeToPage(int index, const wxString& title)
         if (index < 0)
             index = lastPageSelection;
         index = std::max(0, index);
-    
+
         //Set initial page
         this->pages.ChangeSelection(index);
     }
@@ -190,8 +190,8 @@ void GlobalSettingsDialog::OnOK(wxCommandEvent& event)
     int badPage = GetGUIData();
     if (badPage == -1)
     {
-        FinjinGlobalSettings::GetInstance().Save();        
-        
+        FinjinGlobalSettings::GetInstance().Save();
+
         MODAL_DIALOG_ON_CLOSE(event, wxID_OK)
     }
 }
@@ -208,7 +208,7 @@ void GlobalSettingsDialog::OnCancel(wxCommandEvent& event)
 void GlobalSettingsDialog::OnCloseWindow(wxCloseEvent& event)
 {
     WindowPlacementManager::SavePlacement(this);
-    
+
     FinjinGlobalSettings::GetInstance() = this->originalSettings;
 
     MODAL_DIALOG_ON_CLOSE(event, wxID_CANCEL);

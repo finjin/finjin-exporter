@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "CoordinateSystemConverter.hpp"
 #include "MatrixAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to a transformation. */
@@ -69,10 +69,10 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the transformation's rotation as an angle and axis. */
         void GetRotationAngleAxis(float& angle, FinjinVector3& axis) const;
-        
+
         /** Gets the transformation's rotation angles. */
         FinjinVector3 GetRotationAngles() const;
-        
+
         /** Inverts the transformation. */
         void Invert();
 
@@ -96,7 +96,7 @@ namespace Finjin { namespace Exporter {
 
         /** Concatenates the specified transformation with this one. */
         void Concatenate(const MatrixAccessor& other);
-        
+
         /** Gets the transformation as a matrix. */
         const Matrix3& GetMatrix() const;
 

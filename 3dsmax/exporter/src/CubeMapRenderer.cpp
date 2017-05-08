@@ -30,7 +30,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 CubeMapRenderer::CubeMapRenderer()
 {
     this->centerNode = nullptr;
@@ -43,24 +43,24 @@ void CubeMapRenderer::SetCenterNode(INode* node)
 
 void CubeMapRenderer::RenderToFile
     (
-    const wxString& fileName, 
+    const wxString& fileName,
     int dimensions,
     bool separateFiles
     )
 {
     enum {FACE_COUNT = 6};
 
-    static const TCHAR* faceSuffixes[FACE_COUNT] = 
+    static const TCHAR* faceSuffixes[FACE_COUNT] =
         {
-        _T("_fr"), 
-        _T("_bk"), 
-        _T("_up"), 
-        _T("_dn"), 
-        _T("_lf"), 
+        _T("_fr"),
+        _T("_bk"),
+        _T("_up"),
+        _T("_dn"),
+        _T("_lf"),
         _T("_rt")
         };
 
-    static const Matrix3 faceRotations[FACE_COUNT] = 
+    static const Matrix3 faceRotations[FACE_COUNT] =
         {
         RotateZMatrix(0),
         RotateZMatrix(Max::PI),
@@ -70,7 +70,7 @@ void CubeMapRenderer::RenderToFile
         RotateZMatrix(-Max::PI / 2)
         };
 
-    static const D3DCUBEMAP_FACES d3dFaceIndices[FACE_COUNT] = 
+    static const D3DCUBEMAP_FACES d3dFaceIndices[FACE_COUNT] =
         {
         D3DCUBEMAP_FACE_POSITIVE_Z,
         D3DCUBEMAP_FACE_NEGATIVE_Z,
@@ -85,20 +85,20 @@ void CubeMapRenderer::RenderToFile
     Point3 center(0,0,0);
     if (this->centerNode != nullptr)
         center = this->centerNode->GetObjectTM(maxInterface->GetTime()).GetTrans();
-    
+
     auto fileNameNoExt = FileUtilities::RemoveExtension(fileName);
     auto ext = FileUtilities::GetExtension(fileName, true);
 
     wxString faceFileNames[FACE_COUNT];
     for (int i = 0; i < FACE_COUNT; i++)
         faceFileNames[i] = fileNameNoExt + faceSuffixes[i] + ext;
-    
+
     //Get renderer
     auto renderer = maxInterface->GetProductionRenderer();
 
     //Get view
     auto baseCameraMatrix = MaxUtilities::GetCameraIdentityMatrix();
-    
+
     ViewParams viewParams;
     viewParams.projType = PROJ_PERSPECTIVE;
     viewParams.hither = .001f;
@@ -115,7 +115,7 @@ void CubeMapRenderer::RenderToFile
     for (int i = 0; i < FACE_COUNT; i++)
     {
         auto cameraMatrix = baseCameraMatrix * faceRotations[i];
-        cameraMatrix.SetTrans(center);            
+        cameraMatrix.SetTrans(center);
         viewParams.prevAffineTM = viewParams.affineTM = Inverse(cameraMatrix);
 
         //Initialize render system
@@ -125,11 +125,11 @@ void CubeMapRenderer::RenderToFile
             info.SetWidth(dimensions);
             info.SetHeight(dimensions);
             info.SetType(BMM_TRUE_32);
-            info.SetFlags(MAP_HAS_ALPHA);                
-            info.SetName(faceFileNames[i]);                
-            faces[i] = TheManager->Create(&info);                
+            info.SetFlags(MAP_HAS_ALPHA);
+            info.SetName(faceFileNames[i]);
+            faces[i] = TheManager->Create(&info);
             faces[i]->CreateChannels(BMM_CHAN_COLOR);
-                            
+
             //Perform render
             maxInterface->RendererRenderFrame(renderer, maxInterface->GetTime(), faces[i]);
             maxInterface->CloseRenderer(renderer);
@@ -181,7 +181,7 @@ void CubeMapRenderer::RenderToFile
                     for (int row = 0; row < dimensions; row++)
                     {
                         auto d3dFacePixels = reinterpret_cast<uint32_t*>(d3dFaceBytes);
-                        
+
                         for (int column = 0; column < dimensions; column++)
                         {
                             *d3dFacePixels++ =
@@ -202,7 +202,7 @@ void CubeMapRenderer::RenderToFile
 
                 //Save the generated Direct3D cube texture
                 D3DXSaveTextureToFile(fileName.wx_str(), D3DXIFF_DDS, d3dCubeMap, nullptr);
-            
+
                 //Release the Direct3D cube texture
                 d3dCubeMap->Release();
             }
@@ -215,7 +215,7 @@ void CubeMapRenderer::RenderToFile
     for (int i = 0; i < FACE_COUNT; i++)
     {
         if (faces[i] != nullptr)
-            faces[i]->DeleteThis();            
+            faces[i]->DeleteThis();
     }
 }
 

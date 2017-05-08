@@ -35,7 +35,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinSceneSettingsObjectClassDesc : public ClassDesc2
 {
 public:
@@ -54,20 +54,20 @@ public:
 FinjinSceneSettingsObjectClassDesc FinjinSceneSettingsObjectClassDesc::instance;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {SCENE_SETTINGS_PARAM_BLOCK_ID = 0};
 enum {SCENE_SETTINGS_VERSION = 1};
 
 static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
     (
-    SCENE_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinSceneSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT, 
-    
+    SCENE_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinSceneSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT,
+
     //Version
     SCENE_SETTINGS_VERSION,
-    
+
     //Reference number
-    FinjinSceneSettingsObject::PARAM_BLOCK_REF, 
-    
+    FinjinSceneSettingsObject::PARAM_BLOCK_REF,
+
     //Parameters
 
     USER_DATA_PARAMETER_BLOCK_PARAMETERS(FinjinSceneSettingsObject),
@@ -75,7 +75,7 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
     EXTENDED_VALUE_PARAMETER_BLOCK_PARAMETERS(FinjinSceneSettingsObject),
 
     FinjinSceneSettingsObject::PB_NODES, _M("Nodes"), TYPE_INODE_TAB, 0, P_VARIABLE_SIZE, IDS_NODES,
-        p_end,    
+        p_end,
     FinjinSceneSettingsObject::PB_OBJECTS, _M("Objects"), TYPE_REFTARG_TAB, 0, P_VARIABLE_SIZE, IDS_OBJECTS,
         p_end,
 
@@ -117,14 +117,14 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
         p_end,
     FinjinSceneSettingsObject::PB_FOG_COLOR, _M("FogColor"), TYPE_RGBA, 0, IDS_FOG_COLOR,
         p_end,
-    
+
     FinjinSceneSettingsObject::PB_SHADOW_TECHNIQUE, _M("ShadowTechnique"), TYPE_STRING, 0, IDS_SHADOW_TECHNIQUE,
         p_end,
     FinjinSceneSettingsObject::PB_SHADOW_COLOR, _M("ShadowColor"), TYPE_RGBA, 0, IDS_SHADOW_COLOR,
         p_end,
     FinjinSceneSettingsObject::PB_SHADOW_FAR_DISTANCE, _M("ShadowFarDistance"), TYPE_FLOAT, 0, IDS_SHADOW_FAR_DISTANCE,
         p_end,
-    
+
     FinjinSceneSettingsObject::PB_SCENE_SCALE_UNIT, _M("SceneScaleUnit"), TYPE_STRING, 0, IDS_SCENE_SCALE_UNIT,
         p_end,
     FinjinSceneSettingsObject::PB_SCENE_SCALE_DIVIDE, _M("SceneScaleDivide"), TYPE_FLOAT, 0, IDS_SCENE_SCALE_DIVIDE,
@@ -139,7 +139,7 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
     FinjinSceneSettingsObject::PB_IGNORE_HIDDEN_OBJECTS, _M("IgnoreHiddenObjects"), TYPE_BOOL, 0, IDS_IGNORE_HIDDEN_OBJECTS,
         p_default, TRUE,
         p_end,
-        
+
     FinjinSceneSettingsObject::PB_NODE_ANIMATION_SAMPLE_INTERVAL, _M("NodeAnimationSampleInterval"), TYPE_FLOAT, 0, IDS_NODE_ANIMATION_SAMPLE_INTERVAL,
         p_end,
     FinjinSceneSettingsObject::PB_NODE_ANIMATION_SAMPLE_TYPE, _M("NodeAnimationSampleType"), TYPE_INT, 0, IDS_NODE_ANIMATION_SAMPLE_TYPE,
@@ -154,7 +154,7 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
         p_end,
     FinjinSceneSettingsObject::PB_VERTEX_ANIMATION_SAMPLE_TYPE, _M("VertexAnimationSampleType"), TYPE_INT, 0, IDS_VERTEX_ANIMATION_SAMPLE_TYPE,
         p_end,
-    
+
     FinjinSceneSettingsObject::PB_EXPORT_MESHES, _M("ExportMeshes"), TYPE_BOOL, 0, IDS_EXPORT_MESHES,
         p_default, TRUE,
         p_end,
@@ -169,7 +169,7 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
         p_end,
     FinjinSceneSettingsObject::PB_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING, _M("AlwaysCreateNewSubmeshesWhenMerging"), TYPE_BOOL, 0, IDS_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING,
         p_default, TRUE,
-        p_end,        
+        p_end,
     FinjinSceneSettingsObject::PB_CONVERT_BITMAPS_TO_TEXTURES, _M("ConvertTexturesToBitmaps"), TYPE_BOOL, 0, IDS_GENERATE_NORMALS,
         p_default, FALSE,
         p_end,
@@ -184,7 +184,7 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
         p_end,
     FinjinSceneSettingsObject::PB_VERTEX_COLOR_FORMAT, _M("VertexColorFormat"), TYPE_STRING, 0, IDS_VERTEX_COLOR_FORMAT,
         p_end,
-    
+
     FinjinSceneSettingsObject::PB_EXPORT_MATERIALS, _M("ExportMaterials"), TYPE_BOOL, 0, IDS_EXPORT_MATERIALS,
         p_default, TRUE,
         p_end,
@@ -212,13 +212,13 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
         p_end,
     FinjinSceneSettingsObject::PB_AFTER_EXPORT_COMMANDS, _M("AfterExportCommands"), TYPE_STRING_TAB, 0, P_VARIABLE_SIZE, IDS_AFTER_EXPORT_COMMANDS,
         p_end,
-        
+
     FinjinSceneSettingsObject::PB_EXPORT_FLAGS, _M("ExportFlags"), TYPE_BOOL, 0, IDS_EXPORT_FLAGS,
         p_default, TRUE,
         p_end,
     FinjinSceneSettingsObject::PB_FLAG_NAMES, _M("FlagNames"), TYPE_STRING_TAB, 0, P_VARIABLE_SIZE, IDS_FLAG_NAMES,
         p_end,
-    
+
     FinjinSceneSettingsObject::PB_CREATE_EXTRA_MATERIALS, _M("CreateExtraMaterials"), TYPE_BOOL, 0, IDS_CREATE_EXTRA_MATERIALS,
         p_end,
     FinjinSceneSettingsObject::PB_INCLUDE_PARENT_MATERIAL_NAME, _M("IncludeParentMaterialName"), TYPE_BOOL, 0, IDS_INCLUDE_PARENT_MATERIAL_NAME,
@@ -226,12 +226,12 @@ static ParamBlockDesc2 FinjinSceneSettingsObjectParamBlock
 
     FinjinSceneSettingsObject::PB_USE_EXPLICIT_VERTEX_COLOR, _M("ExplicitVertexColor"), TYPE_BOOL, 0, IDS_EXPLICIT_VERTEX_COLOR,
         p_end,
-            
+
     p_end
     );
-    
 
-//Implementation---------------------------------------------------------------
+
+//Implementation----------------------------------------------------------------
 FinjinSceneSettingsObject::FinjinSceneSettingsObject()
 {
     this->pblock = nullptr;
@@ -239,7 +239,7 @@ FinjinSceneSettingsObject::FinjinSceneSettingsObject()
 }
 
 FinjinSceneSettingsObject::~FinjinSceneSettingsObject()
-{       
+{
 }
 
 CreateMouseCallBack* FinjinSceneSettingsObject::GetCreateMouseCallBack()
@@ -257,18 +257,18 @@ void FinjinSceneSettingsObject::InitNodeName(MSTR& s)
     s = _M("FinjinSceneSettings");
 }
 
-Class_ID FinjinSceneSettingsObject::ClassID() 
+Class_ID FinjinSceneSettingsObject::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinSceneSettingsObject::GetClassClassID()
 {
     return FinjinMaxClassID::SceneSettings;
 }
 
-SClass_ID FinjinSceneSettingsObject::SuperClassID() 
-{ 
+SClass_ID FinjinSceneSettingsObject::SuperClassID()
+{
     return REF_TARGET_CLASS_ID;
 }
 
@@ -283,9 +283,9 @@ RefTargetHandle FinjinSceneSettingsObject::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -296,14 +296,14 @@ RefResult FinjinSceneSettingsObject::NotifyRefChanged(const Interval& changeInt,
         case REFMSG_CONTAINER_ELEMENT_NULLED:
         {
             int tabIndex;
-            
+
             auto lastNotifyID = this->pblock->LastNotifyParamID(tabIndex);
             switch (lastNotifyID)
             {
                 EXTENDED_VALUE_NOTIFY_NULLED_CASE(lastNotifyID, tabIndex)
                 case PB_DISALLOWED_MESHES:
-                case PB_ADDITIONAL_MATERIALS: 
-                case PB_DISALLOWED_MATERIALS: 
+                case PB_ADDITIONAL_MATERIALS:
+                case PB_DISALLOWED_MATERIALS:
                 {
                     this->pblock->Delete(lastNotifyID, tabIndex, 1);
                     break;
@@ -311,39 +311,39 @@ RefResult FinjinSceneSettingsObject::NotifyRefChanged(const Interval& changeInt,
             }
 
             break;
-        }        
+        }
     }
     return REF_SUCCEED;
 }
 
-int FinjinSceneSettingsObject::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinSceneSettingsObject::SubAnimName(int i) 
+int FinjinSceneSettingsObject::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinSceneSettingsObject::SubAnim(int i) 
+MSTR FinjinSceneSettingsObject::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinSceneSettingsObject::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinSceneSettingsObject::GetReference(int i) 
+Animatable* FinjinSceneSettingsObject::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinSceneSettingsObject::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinSceneSettingsObject::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinSceneSettingsObject::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinSceneSettingsObject::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinSceneSettingsObject::GetClassDesc()
@@ -531,7 +531,7 @@ wxString FinjinSceneSettingsObject::GetSubmeshNaming()
 }
 
 wxString FinjinSceneSettingsObject::GetSubmeshCustomName()
-{    
+{
     return this->pblock->GetStr(PB_SUBMESH_CUSTOM_NAME);
 }
 
@@ -562,7 +562,7 @@ bool FinjinSceneSettingsObject::GetCheckMeshInstances()
 
 bool FinjinSceneSettingsObject::GetAlwaysCreateNewSubmeshesWhenMerging()
 {
-    return this->pblock->GetInt(PB_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING) ? true : false;    
+    return this->pblock->GetInt(PB_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING) ? true : false;
 }
 
 wxString FinjinSceneSettingsObject::GetVertexColorFormat()
@@ -676,7 +676,7 @@ int FinjinSceneSettingsObject::GetFlagCount()
 
 void FinjinSceneSettingsObject::GetFlag(int index, wxString& name)
 {
-    name = this->pblock->GetStr(PB_FLAG_NAMES, 0, index);    
+    name = this->pblock->GetStr(PB_FLAG_NAMES, 0, index);
 }
 
 wxString FinjinSceneSettingsObject::GetQueryFlagName(int index)
@@ -697,7 +697,7 @@ void FinjinSceneSettingsObject::GetFlagNames(std::set<wxString>& names)
 
 void FinjinSceneSettingsObject::ClearFlags()
 {
-    this->pblock->ZeroCount(PB_FLAG_NAMES);    
+    this->pblock->ZeroCount(PB_FLAG_NAMES);
 }
 
 void FinjinSceneSettingsObject::SetSceneManager(wxString value)
@@ -727,7 +727,7 @@ void FinjinSceneSettingsObject::SetAmbientLightColorSync(ValueSourceSync value)
 
 void FinjinSceneSettingsObject::SetBackgroundColor(Color value)
 {
-    this->pblock->SetValue(PB_BACKGROUND_COLOR, 0, value);    
+    this->pblock->SetValue(PB_BACKGROUND_COLOR, 0, value);
 }
 
 void FinjinSceneSettingsObject::SetBackgroundColorSync(ValueSourceSync value)
@@ -822,7 +822,7 @@ void FinjinSceneSettingsObject::SetNodeAnimationSampleType(SampleType value)
 
 void FinjinSceneSettingsObject::SetConfigurationTargetName(wxString value)
 {
-    this->pblock->SetValue(PB_CONFIGURATION_TARGET_NAME, 0, WxStringToApplicationStringM(value));    
+    this->pblock->SetValue(PB_CONFIGURATION_TARGET_NAME, 0, WxStringToApplicationStringM(value));
 }
 
 void FinjinSceneSettingsObject::SetSkeletonAnimationSampleInterval(double value)
@@ -862,7 +862,7 @@ void FinjinSceneSettingsObject::SetSubmeshNaming(wxString value)
 }
 
 void FinjinSceneSettingsObject::SetSubmeshCustomName(wxString value)
-{    
+{
     this->pblock->SetValue(PB_SUBMESH_CUSTOM_NAME, 0, WxStringToApplicationStringM(value));
 }
 
@@ -898,7 +898,7 @@ void FinjinSceneSettingsObject::SetCheckMeshInstances(bool value)
 
 void FinjinSceneSettingsObject::SetAlwaysCreateNewSubmeshesWhenMerging(bool value)
 {
-    this->pblock->SetValue(PB_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING, 0, (int)value);    
+    this->pblock->SetValue(PB_ALWAYS_CREATE_NEW_SUBMESHES_WHEN_MERGING, 0, (int)value);
 }
 
 void FinjinSceneSettingsObject::SetVertexColorFormat(wxString value)
@@ -915,7 +915,7 @@ void FinjinSceneSettingsObject::SetExportMaterials(bool value)
 {
     this->pblock->SetValue(PB_EXPORT_MATERIALS, 0, (int)value);
 }
-    
+
 void FinjinSceneSettingsObject::AddAdditionalMaterial(Mtl* value)
 {
     Mtl* mtls[1] = {value};
@@ -1008,14 +1008,14 @@ FinjinSceneSettingsObject* FinjinSceneSettingsObject::GetSceneSettingsByIndex(in
 
 FinjinSceneSettingsObject* FinjinSceneSettingsObject::GetSceneSettings(bool createIfNecessary, bool* newInstance)
 {
-    //The last known index of the node containing the scene settings object 
-    //This is used so that the entire collection of root nodes needn't be checked when 
+    //The last known index of the node containing the scene settings object
+    //This is used so that the entire collection of root nodes needn't be checked when
     //retrieving the one and only scene settings object
     static int lastIndex = 0;
 
     if (newInstance != nullptr)
         *newInstance = false;
-            
+
     //Try to get the existing object
 
     //Check starting the last index and moving up to the end of the root node's children
@@ -1088,7 +1088,7 @@ void FinjinSceneSettingsObject::MergeObjectSettings(FinjinSceneSettingsObject* s
         //Copy settings
         if (objectSettings != nullptr && node != nullptr)
             GetObjectSettings(node)->CopyFrom(objectSettings);
-    }        
+    }
 }
 
 void FinjinSceneSettingsObject::CleanObjectSettings()
@@ -1115,7 +1115,7 @@ FinjinObjectSettingsObject* FinjinSceneSettingsObject::GetObjectSettings(INode* 
 {
     if (newInstance != nullptr)
         *newInstance = false;
-    
+
     FinjinObjectSettingsObject* objectSettingsObject = nullptr;
 
     int objectCount = std::min(this->pblock->Count(PB_NODES), this->pblock->Count(PB_OBJECTS));
@@ -1128,17 +1128,17 @@ FinjinObjectSettingsObject* FinjinSceneSettingsObject::GetObjectSettings(INode* 
             //Found object settings
             objectSettingsObject = objectSettings;
             break;
-        }        
-    }        
+        }
+    }
 
     if (objectSettingsObject == nullptr && createIfNecessary)
     {
         //There's no object settings object. Create it and upgrade the node to use it
         objectSettingsObject = new FinjinObjectSettingsObject;
-        
+
         INode* nodes[1] = {node};
         this->pblock->Append(PB_NODES, 1, nodes);
-        
+
         ReferenceTarget* objectSettingsObjects[1] = {objectSettingsObject};
         this->pblock->Append(PB_OBJECTS, 1, objectSettingsObjects);
 

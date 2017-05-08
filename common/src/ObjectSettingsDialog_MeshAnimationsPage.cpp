@@ -34,12 +34,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ObjectSettingsDialog_MeshAnimationsPage::TITLE(wxT("Mesh Animations"));
 static ObjectSettingsDialog_MeshAnimationsPage* page = nullptr;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ObjectSettingsDialog_MeshAnimationsPage, SettingsPage)
     EVT_CHOICE(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_TYPE_CHOICE, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationTypeChoice)
     EVT_CHOICE(ObjectSettingsDialog_MeshAnimationsPage::REFERENCE_POSE_CHOICE, ObjectSettingsDialog_MeshAnimationsPage::OnReferencePoseChoice)
@@ -56,10 +56,10 @@ BEGIN_EVENT_TABLE(ObjectSettingsDialog_MeshAnimationsPage, SettingsPage)
     EVT_BUTTON(ObjectSettingsDialog_MeshAnimationsPage::COPY_ANIMATION_BUTTON, ObjectSettingsDialog_MeshAnimationsPage::OnCopyAnimationButton)
     EVT_BUTTON(ObjectSettingsDialog_MeshAnimationsPage::REMOVE_ANIMATION_BUTTON, ObjectSettingsDialog_MeshAnimationsPage::OnRemoveAnimationButton)
     EVT_BUTTON(ObjectSettingsDialog_MeshAnimationsPage::SYNC_TO_BIPED_MIXER_BUTTON, ObjectSettingsDialog_MeshAnimationsPage::OnSyncToBipedMixerButton)
-    EVT_LIST_ITEM_ACTIVATED(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListActivate)    
-    EVT_LIST_COL_CLICK(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListColumnClick)    
-    EVT_LIST_ITEM_SELECTED(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListSelectionChange)    
-    EVT_LIST_ITEM_DESELECTED(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListSelectionChange)    
+    EVT_LIST_ITEM_ACTIVATED(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListActivate)
+    EVT_LIST_COL_CLICK(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListColumnClick)
+    EVT_LIST_ITEM_SELECTED(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListSelectionChange)
+    EVT_LIST_ITEM_DESELECTED(ObjectSettingsDialog_MeshAnimationsPage::MESH_ANIMATION_LIST, ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationListSelectionChange)
 END_EVENT_TABLE()
 
 ObjectSettingsDialog_MeshAnimationsPage::ObjectSettingsDialog_MeshAnimationsPage(wxWindow* parent, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
@@ -79,50 +79,50 @@ ObjectSettingsDialog_MeshAnimationsPage::ObjectSettingsDialog_MeshAnimationsPage
     MeshSkeleton meshSkeleton(nullptr);
     CoordinateSystemConverter nullConverter(ApplicationAccessor::GetUpAxis());
     if (meshSkeleton.Initialize(this->object, nullConverter, 1, nullptr))
-        meshSkeleton.GetBones(this->meshBones);            
+        meshSkeleton.GetBones(this->meshBones);
     this->animatedSkeletonRootObject = this->objectSettings.GetAnimatedRoot();
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
 
     wxBoxSizer* animationTypeSizer;
     animationTypeSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     meshAnimationTypeLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Mesh Animation Type"), wxDefaultPosition, wxDefaultSize, 0 );
     meshAnimationTypeLabel->Wrap( -1 );
     animationTypeSizer->Add( meshAnimationTypeLabel, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    
+
     wxArrayString meshAnimationTypeChoiceChoices;
     meshAnimationTypeChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( 140,-1 ), meshAnimationTypeChoiceChoices, 0 );
     meshAnimationTypeChoice->SetSelection( 0 );
     animationTypeSizer->Add( meshAnimationTypeChoice, 0, wxRIGHT|wxLEFT|wxBOTTOM, 5 );
-    
+
     selectedMeshAnimationTypeLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
     selectedMeshAnimationTypeLabel->Wrap( -1 );
     animationTypeSizer->Add( selectedMeshAnimationTypeLabel, 0, wxALL, 5 );
-    
+
     topSizer->Add( animationTypeSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* skeletonSettingsSizer;
     skeletonSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Skeleton Settings") ), wxVERTICAL );
 
     wxBoxSizer* alwaysExportSizer;
     alwaysExportSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     exportSkeletonLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Export Skeleton"), wxDefaultPosition, wxSize( 90,-1 ), 0 );
     exportSkeletonLabel->Wrap( -1 );
     alwaysExportSizer->Add( exportSkeletonLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT, 5 );
-    
+
     exportSkeletonCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Skeleton"), wxDefaultPosition, wxDefaultSize, 0 );
     alwaysExportSizer->Add( exportSkeletonCheckbox, 0, wxALL, 5 );
 
     exportedMeshDeformedBySkeletonCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Skeleton Deforms Exported Mesh"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     alwaysExportSizer->Add( exportedMeshDeformedBySkeletonCheckbox, 0, wxALL, 5 );
 
     embedSkeletonCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Embed in Mesh"), wxDefaultPosition, wxDefaultSize, 0 );
     alwaysExportSizer->Add( embedSkeletonCheckbox, 0, wxALL, 5 );
-    
+
     linkSkeletonToObjectCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Link to Mesh"), wxDefaultPosition, wxDefaultSize, 0 );
     alwaysExportSizer->Add( linkSkeletonToObjectCheckbox, 0, wxALL, 5 );
 
@@ -130,23 +130,23 @@ ObjectSettingsDialog_MeshAnimationsPage::ObjectSettingsDialog_MeshAnimationsPage
 
     wxBoxSizer* referencePoseSizer;
     referencePoseSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     referencePoseLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Reference Pose"), wxDefaultPosition, wxSize( 90,-1 ), 0 );
     referencePoseLabel->Wrap( -1 );
     referencePoseSizer->Add( referencePoseLabel, 0, wxALIGN_CENTER_VERTICAL|wxRIGHT|wxLEFT, 5 );
-    
+
     wxArrayString referencePoseChoiceChoices;
     referencePoseChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxSize(90, -1), referencePoseChoiceChoices, 0 );
     referencePoseChoice->SetSelection( 0 );
     referencePoseSizer->Add( referencePoseChoice, 0, wxBOTTOM|wxRIGHT, 5 );
-    
+
     referencePoseTimeSpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(70, -1), 0, animationRange.start.GetValue(), animationRange.end.GetValue(), SpinnerControl::UI_TIME_UNIT);
     referencePoseSizer->Add( referencePoseTimeSpinner, 0, wxRIGHT, 5 );
-    
+
     referencePoseNoteLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("(Use only with Skeleton animation type)"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     referencePoseNoteLabel->Wrap( -1 );
     referencePoseSizer->Add( referencePoseNoteLabel, 0, wxALL, 5 );
-    
+
     skeletonSettingsSizer->Add( referencePoseSizer, 0, wxEXPAND, 5 );
 
     wxBoxSizer* skeletonNameSizer;
@@ -155,7 +155,7 @@ ObjectSettingsDialog_MeshAnimationsPage::ObjectSettingsDialog_MeshAnimationsPage
     skeletonNameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Skeleton Name"), wxDefaultPosition, wxSize( 90,-1 ), 0 );
     skeletonNameLabel->Wrap( -1 );
     skeletonNameSizer->Add( skeletonNameLabel, 0, wxALL, 5 );
-    
+
     skeletonNameText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 140,-1 ), 0 );
     skeletonNameSizer->Add( skeletonNameText, 0, wxRIGHT, 5 );
 
@@ -165,109 +165,109 @@ ObjectSettingsDialog_MeshAnimationsPage::ObjectSettingsDialog_MeshAnimationsPage
     animatedRootSizer = new wxFlexGridSizer( 2, 2, 0, 0 );
     animatedRootSizer->SetFlexibleDirection( wxBOTH );
     animatedRootSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     animatedRootLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Animated Root"), wxDefaultPosition, wxSize( 90,-1 ), 0 );
     animatedRootLabel->Wrap( -1 );
     animatedRootSizer->Add( animatedRootLabel, 0, wxALL, 5 );
-    
+
     animatedRootText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 320,-1 ), wxTE_READONLY );
     animatedRootSizer->Add( animatedRootText, 1, 0, 5 );
-    
-    
+
+
     animatedRootSizer->Add( 0, 0, 1, wxEXPAND, 5 );
-    
+
     wxBoxSizer* animatedSkeletonRootButtonsSizer;
     animatedSkeletonRootButtonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     animatedRootChooseBoneButton = new wxButton( this, wxID_ANY, wxT("Choose Bone..."), wxDefaultPosition, wxSize(STANDARD_BUTTON_WIDTH,-1 ), 0 );
     animatedSkeletonRootButtonsSizer->Add( animatedRootChooseBoneButton, 0, wxRIGHT, 5 );
-    
+
     animatedRootChooseObjectButton = new wxButton( this, wxID_ANY, wxT("Choose Object..."), wxDefaultPosition, wxSize(STANDARD_BUTTON_WIDTH,-1 ), 0 );
     animatedSkeletonRootButtonsSizer->Add( animatedRootChooseObjectButton, 0, wxRIGHT, 5 );
-    
+
     animatedRootSizer->Add( animatedSkeletonRootButtonsSizer, 1, wxEXPAND, 5 );
-    
+
     skeletonSettingsSizer->Add( animatedRootSizer, 0, wxEXPAND, 0 );
 
     wxBoxSizer* skeletonAnimationSamplingSizer;
     skeletonAnimationSamplingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     skeletonAnimationSamplingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Skeleton Animation Sampling"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     skeletonAnimationSamplingLabel->Wrap( -1 );
     skeletonAnimationSamplingLabel->SetMinSize( wxSize( 140,-1 ) );
-    
+
     skeletonAnimationSamplingSizer->Add( skeletonAnimationSamplingLabel, 0, wxALIGN_CENTER_VERTICAL|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* skeletonAnimationSamplingValuesSizer;
     skeletonAnimationSamplingValuesSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     skeletonAnimationSamplingText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
     skeletonAnimationSamplingValuesSizer->Add( skeletonAnimationSamplingText, 0, wxTOP|wxBOTTOM|wxLEFT, 5 );
-    
+
     wxArrayString skeletonAnimationSamplingChoiceChoices;
     skeletonAnimationSamplingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, skeletonAnimationSamplingChoiceChoices, 0 );
     skeletonAnimationSamplingChoice->SetSelection( 0 );
     skeletonAnimationSamplingValuesSizer->Add( skeletonAnimationSamplingChoice, 1, wxALL, 5 );
-    
+
     skeletonAnimationSamplingSizer->Add( skeletonAnimationSamplingValuesSizer, 0, wxEXPAND, 5 );
-    
+
     skeletonSettingsSizer->Add( skeletonAnimationSamplingSizer, 1, wxEXPAND, 5 );
 
-    removeBonesWithNoInfluenceCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Remove Bones With No Influence"), wxDefaultPosition, wxDefaultSize, 0 );    
+    removeBonesWithNoInfluenceCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Remove Bones With No Influence"), wxDefaultPosition, wxDefaultSize, 0 );
     skeletonSettingsSizer->Add( removeBonesWithNoInfluenceCheckBox, 0, wxALL, 5 );
-    
+
     topSizer->Add( skeletonSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* poseSettingsSizer;
     poseSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Pose Settings") ), wxVERTICAL );
-    
+
     exportPosesCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Export Poses"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     poseSettingsSizer->Add( exportPosesCheckbox, 0, wxALL, 5 );
-    
+
     topSizer->Add( poseSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* morphSettingsSizer;
     morphSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Morph Settings") ), wxVERTICAL );
-    
+
     wxBoxSizer* vertexAnimationSamplingSizer;
     vertexAnimationSamplingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     vertexAnimationSamplingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Vertex Animation Sampling"), wxDefaultPosition, wxDefaultSize, 0 );
     vertexAnimationSamplingLabel->Wrap( -1 );
     vertexAnimationSamplingLabel->SetMinSize( wxSize( 140,-1 ) );
-    
+
     vertexAnimationSamplingSizer->Add( vertexAnimationSamplingLabel, 0, wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* vertexAnimationSamplingValuesSizer;
     vertexAnimationSamplingValuesSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     vertexAnimationSamplingText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
     vertexAnimationSamplingValuesSizer->Add( vertexAnimationSamplingText, 0, wxBOTTOM|wxLEFT, 5 );
-    
+
     wxArrayString vertexAnimationSamplingChoiceChoices;
     vertexAnimationSamplingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, vertexAnimationSamplingChoiceChoices, 0 );
     vertexAnimationSamplingChoice->SetSelection( 0 );
     vertexAnimationSamplingValuesSizer->Add( vertexAnimationSamplingChoice, 1, wxBOTTOM|wxLEFT, 5 );
-    
+
     vertexAnimationSamplingSizer->Add( vertexAnimationSamplingValuesSizer, 0, wxEXPAND, 5 );
-    
+
     morphSettingsSizer->Add( vertexAnimationSamplingSizer, 1, wxEXPAND, 0 );
-    
+
     topSizer->Add( morphSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* meshAnimationsSizer;
     meshAnimationsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Mesh Animations") ), wxVERTICAL );
-    
+
     wxGridSizer* meshAnimationsControlsSizer;
     meshAnimationsControlsSizer = new wxGridSizer( 1, 2, 0, 0 );
-    
+
     wxBoxSizer* meshAnimationsButtonsSizer;
     meshAnimationsButtonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     addMeshAnimationButton = new wxButton( this, wxID_ANY, wxT("Add..."), wxDefaultPosition, wxSize(65, -1), 0 );
     meshAnimationsButtonsSizer->Add( addMeshAnimationButton, 0, wxLEFT, 5 );
-    
+
     editMeshAnimationButton = new wxButton( this, wxID_ANY, wxT("Edit..."), wxDefaultPosition, wxSize(65, -1), 0 );
     meshAnimationsButtonsSizer->Add( editMeshAnimationButton, 0, 0, 5 );
 
@@ -276,17 +276,17 @@ ObjectSettingsDialog_MeshAnimationsPage::ObjectSettingsDialog_MeshAnimationsPage
 
     removeMeshAnimationButton = new wxButton( this, wxID_ANY, wxT("Remove"), wxDefaultPosition, wxSize(65, -1), 0 );
     meshAnimationsButtonsSizer->Add( removeMeshAnimationButton, 0, 0, 5 );
-    
+
     meshAnimationsControlsSizer->Add( meshAnimationsButtonsSizer, 1, wxEXPAND, 5 );
-    
+
     syncToBipedMixerButton = new wxButton( this, wxID_ANY, wxT("Sync to Mixer"), wxDefaultPosition, wxDefaultSize, 0 );
     meshAnimationsControlsSizer->Add( syncToBipedMixerButton, 0, wxALIGN_RIGHT|wxRIGHT|wxLEFT, 5 );
-    
+
     meshAnimationsSizer->Add( meshAnimationsControlsSizer, 0, wxEXPAND, 5 );
-    
+
     meshAnimationsList = new ApplicationListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_HRULES|wxLC_VRULES );
     meshAnimationsSizer->Add( meshAnimationsList, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( meshAnimationsSizer, 1, wxEXPAND|wxTOP, 5 );
 
     this->meshAnimationTypeChoice->SetId(MESH_ANIMATION_TYPE_CHOICE);
@@ -329,7 +329,7 @@ bool ObjectSettingsDialog_MeshAnimationsPage::GetGUIData(int ids)
         auto meshAnimationType = (MeshAnimationType*)this->meshAnimationTypeChoice->GetClientData(selectedTypeIndex);
         this->objectSettings.SetMeshAnimationType(meshAnimationType->name);
     }
-    
+
     //Skeleton name
     this->objectSettings.SetSkeletonName(this->skeletonNameText->GetValue());
 
@@ -360,7 +360,7 @@ bool ObjectSettingsDialog_MeshAnimationsPage::GetGUIData(int ids)
     if (ids & (SKELETON_ANIMATION_SAMPLING_TEXT | SKELETON_ANIMATION_SAMPLING_CHOICE))
     {
         int selectedSkeletonAnimationSampleTypeIndex = this->skeletonAnimationSamplingChoice->GetSelection();
-        auto skeletonAnimationSampleType = (SampleType)*(int*)this->skeletonAnimationSamplingChoice->GetClientData(selectedSkeletonAnimationSampleTypeIndex);    
+        auto skeletonAnimationSampleType = (SampleType)*(int*)this->skeletonAnimationSamplingChoice->GetClientData(selectedSkeletonAnimationSampleTypeIndex);
         auto skeletonAnimationSampling = StringUtilities::ToDouble(this->skeletonAnimationSamplingText->GetValue());
         if (skeletonAnimationSampling < 0)
             skeletonAnimationSampling = 0;
@@ -381,12 +381,12 @@ bool ObjectSettingsDialog_MeshAnimationsPage::GetGUIData(int ids)
     //Animated skeleton root
     if (ids & (ANIMATED_ROOT_TEXT | ANIMATED_ROOT_CHOOSE_BONE_BUTTON | ANIMATED_ROOT_CHOOSE_OBJECT_BUTTON))
         this->objectSettings.SetAnimatedRoot(this->animatedSkeletonRootObject);
-    
+
     return true;
 }
 
 bool ObjectSettingsDialog_MeshAnimationsPage::SetGUIData()
-{    
+{
     this->settingGuiData = true;
 
     auto showMixer = this->mixerControl.Initialize(this->object, this->objectSettings);
@@ -397,11 +397,11 @@ bool ObjectSettingsDialog_MeshAnimationsPage::SetGUIData()
     this->defaultMeshAnimationType.Detect(this->object, 0, true, this->objectSettings);
     this->meshAnimationType.Detect(this->object, &meshAnimationType, true, this->objectSettings);
     this->meshAnimationTypeChoice->Freeze();
-    this->meshAnimationTypeChoice->Append(Strings::DEFAULT);    
+    this->meshAnimationTypeChoice->Append(Strings::DEFAULT);
     this->meshAnimationTypeChoice->SetClientData(0, this->defaultMeshAnimationType.selectedType);
     for (int i = 0; i < (int)this->meshAnimationType.types.size(); i++)
     {
-        this->meshAnimationTypeChoice->Append(this->meshAnimationType.types[i].displayName);    
+        this->meshAnimationTypeChoice->Append(this->meshAnimationType.types[i].displayName);
         this->meshAnimationTypeChoice->SetClientData(i + 1, &this->meshAnimationType.types[i]);
     }
     this->meshAnimationTypeChoice->Thaw();
@@ -412,7 +412,7 @@ bool ObjectSettingsDialog_MeshAnimationsPage::SetGUIData()
 
     //Export skeleton
     this->exportSkeletonCheckbox->SetValue(this->objectSettings.GetExportSkeleton());
-    
+
     //Reference pose/time
     this->referencePoseChoice->Freeze();
     for (int i = 0; i < Strings::SKELETON_REFERENCE_POSE_COUNT; i++)
@@ -442,7 +442,7 @@ bool ObjectSettingsDialog_MeshAnimationsPage::SetGUIData()
 
     //Skeleton animation sampling value
     this->skeletonAnimationSamplingText->SetValue(this->objectSettings.GetSkeletonAnimationSampleValueText());
-    
+
     //Skeleton animation sampling combo
     this->skeletonAnimationSamplingChoice->Freeze();
     for (int i = 0; i < Strings::OBJECT_SAMPLE_TYPE_COUNT; i++)
@@ -485,11 +485,11 @@ bool ObjectSettingsDialog_MeshAnimationsPage::SetGUIData()
     this->meshAnimationsList->InsertColumn(0, Strings::NAME, wxLIST_FORMAT_LEFT, 185);
     this->meshAnimationsList->InsertColumn(1, Strings::TRACK, wxLIST_FORMAT_LEFT, 60);
     this->meshAnimationsList->InsertColumn(2, TimeAccessor::GetUIUnit(), wxLIST_FORMAT_LEFT, 65);
-    this->meshAnimationsList->InsertColumn(3, Strings::LENGTH, wxLIST_FORMAT_LEFT, 55);    
+    this->meshAnimationsList->InsertColumn(3, Strings::LENGTH, wxLIST_FORMAT_LEFT, 55);
     this->meshAnimationsList->InsertColumn(4, Strings::SAMPLE_INTERVAL_RATE, wxLIST_FORMAT_LEFT, 115);
     this->objectSettings.GetMeshAnimations(this->meshAnimations);
     UpdateMeshAnimationListGUIData();
-        
+
     //Final updates
     UpdateMeshAnimationTypeDefaultText();
     UpdateExportSkeletonControls();
@@ -498,16 +498,16 @@ bool ObjectSettingsDialog_MeshAnimationsPage::SetGUIData()
     UpdateVertexAnimationSamplingTypeEdit();
     UpdateAnimatedSkeletonRootEdit();
     UpdateMeshAnimationListButtons();
-    
+
     this->settingGuiData = false;
-    
+
     return true;
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::UpdateMeshAnimationTypeDefaultText()
 {
     //Get selected type
-    int animationTypeIndex = this->meshAnimationTypeChoice->GetSelection();    
+    int animationTypeIndex = this->meshAnimationTypeChoice->GetSelection();
     auto animationType = (MeshAnimationType*)this->meshAnimationTypeChoice->GetClientData(animationTypeIndex);
 
     //Show default text if necessary
@@ -572,14 +572,14 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnEditAnimation()
     {
         auto& anim = this->meshAnimations[this->meshAnimationsList->GetItemData(selection)];
         MeshAnimationSettingsDialog::Settings settings(anim);
-        
+
         //Get all the current animation names and remove the one being edited
         std::vector<wxString> animationNames;
         this->objectSettings.GetMeshAnimationNames(animationNames);
         StringUtilities::RemoveName(animationNames, settings.animationName);
 
         //Get valid track locations
-        int selectedTrack = this->trackDetector.FindTrackIndex(anim.GetTrack());        
+        int selectedTrack = this->trackDetector.FindTrackIndex(anim.GetTrack());
         SUSPEND_CUSTOM_CONTROLS;
         MeshAnimationSettingsDialog dialog(this, Strings::EDIT_MESH_ANIMATION, this->meshBones, animationNames, this->trackDetector.tracks, selectedTrack, settings);
         ModalDialogFix modalDialogFix(&dialog);
@@ -607,12 +607,12 @@ void ObjectSettingsDialog_MeshAnimationsPage::UpdateMeshAnimationListGUIData(int
         if (selectedIndex >= 0)
             selectedAnimationIndex = (int)this->meshAnimationsList->GetItemData(selectedIndex);
     }
-    
+
     while (this->meshAnimationsList->GetItemCount() < (int)this->meshAnimations.size())
         this->meshAnimationsList->InsertItem(this->meshAnimationsList->GetItemCount(), wxEmptyString);
     while (this->meshAnimationsList->GetItemCount() > (int)this->meshAnimations.size())
         this->meshAnimationsList->DeleteItem(this->meshAnimationsList->GetItemCount() - 1);
-    
+
     this->meshAnimationsList->SetSequentialItemData();
 
     for (int i = 0; i < (int)this->meshAnimations.size(); i++)
@@ -620,16 +620,16 @@ void ObjectSettingsDialog_MeshAnimationsPage::UpdateMeshAnimationListGUIData(int
 
     if (selectedAnimationIndex >= 0)
         this->meshAnimationsList->SetSelection(selectedAnimationIndex);
-    
+
     SortMeshAnimationsList();
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::UpdateMeshAnimationGUIData(int index)
 {
     auto& anim = this->meshAnimations[this->meshAnimationsList->GetItemData(index)];
-    
-    auto interval = anim.GetTimeInterval();    
-    auto framesText = interval.ToString(); 
+
+    auto interval = anim.GetTimeInterval();
+    auto framesText = interval.ToString();
 
     double length = interval.GetDuration().ToSecondsDouble() * anim.GetRealTimeScale();
     auto lengthText = wxString::Format(wxT("%.2fs"), length);
@@ -637,12 +637,12 @@ void ObjectSettingsDialog_MeshAnimationsPage::UpdateMeshAnimationGUIData(int ind
     auto sampling = GetAnimationSamplingText(anim);
 
     auto trackName = GetAnimationTrackText(anim);
-    
+
     this->meshAnimationsList->SetItem(index, 0, anim.GetAnimationName());
     this->meshAnimationsList->SetItem(index, 1, trackName);
-    this->meshAnimationsList->SetItem(index, 2, framesText);        
+    this->meshAnimationsList->SetItem(index, 2, framesText);
     this->meshAnimationsList->SetItem(index, 3, lengthText);
-    this->meshAnimationsList->SetItem(index, 4, sampling);    
+    this->meshAnimationsList->SetItem(index, 4, sampling);
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::SortMeshAnimationsList()
@@ -656,7 +656,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::SortMeshAnimationsList()
         CompareAnimationSampling
     };
 
-    this->meshAnimationsList->SortItems(compareFunctions[this->sortColumn], (long)this);    
+    this->meshAnimationsList->SortItems(compareFunctions[this->sortColumn], (long)this);
 }
 
 int wxCALLBACK ObjectSettingsDialog_MeshAnimationsPage::CompareAnimationNames(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData)
@@ -673,7 +673,7 @@ int wxCALLBACK ObjectSettingsDialog_MeshAnimationsPage::CompareAnimationNames(wx
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -691,7 +691,7 @@ int wxCALLBACK ObjectSettingsDialog_MeshAnimationsPage::CompareAnimationTrackNam
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -722,7 +722,7 @@ int wxCALLBACK ObjectSettingsDialog_MeshAnimationsPage::CompareAnimationLength(w
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -740,7 +740,7 @@ int wxCALLBACK ObjectSettingsDialog_MeshAnimationsPage::CompareAnimationSampling
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -772,7 +772,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnMeshAnimationTypeChoice(wxComman
     GetGUIData(MESH_ANIMATION_TYPE_CHOICE);
 
     UpdateMeshAnimationTypeDefaultText();
-    UpdateMeshAnimationListGUIData();    
+    UpdateMeshAnimationListGUIData();
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::OnExportSkeletonCheckBox(wxCommandEvent& event)
@@ -797,7 +797,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnSkeletonAnimationSamplingTextCha
 
     GetGUIData(SKELETON_ANIMATION_SAMPLING_TEXT);
 
-    UpdateMeshAnimationListGUIData();    
+    UpdateMeshAnimationListGUIData();
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::OnSkeletonAnimationSamplingChoice(wxCommandEvent& event)
@@ -808,7 +808,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnSkeletonAnimationSamplingChoice(
     GetGUIData(SKELETON_ANIMATION_SAMPLING_CHOICE);
 
     UpdateSkeletonAnimationSamplingTypeEdit();
-    UpdateMeshAnimationListGUIData();    
+    UpdateMeshAnimationListGUIData();
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::OnVertexAnimationSamplingTextChanged(wxCommandEvent& event)
@@ -818,7 +818,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnVertexAnimationSamplingTextChang
 
     GetGUIData(VERTEX_ANIMATION_SAMPLING_TEXT);
 
-    UpdateMeshAnimationListGUIData();    
+    UpdateMeshAnimationListGUIData();
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::OnVertexAnimationSamplingChoice(wxCommandEvent& event)
@@ -829,7 +829,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnVertexAnimationSamplingChoice(wx
     GetGUIData(VERTEX_ANIMATION_SAMPLING_CHOICE);
 
     UpdateVertexAnimationSamplingTypeEdit();
-    UpdateMeshAnimationListGUIData();    
+    UpdateMeshAnimationListGUIData();
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::OnAnimatedRootChooseBoneButton(wxCommandEvent& event)
@@ -838,7 +838,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnAnimatedRootChooseBoneButton(wxC
     if (choose.ShowPrompt())
     {
         this->animatedSkeletonRootObject = choose.GetObject();
-        UpdateAnimatedSkeletonRootEdit();            
+        UpdateAnimatedSkeletonRootEdit();
     }
 }
 
@@ -848,7 +848,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnAnimatedRootChooseObjectButton(w
     if (choose.ShowPrompt())
     {
         this->animatedSkeletonRootObject = choose.GetObject();
-        UpdateAnimatedSkeletonRootEdit();            
+        UpdateAnimatedSkeletonRootEdit();
     }
 }
 
@@ -867,7 +867,7 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnAddAnimationButton(wxCommandEven
     {
         auto anim = this->objectSettings.AddNewMeshAnimation();
         dialog.settings.GetSettings(anim);
-        
+
         this->meshAnimations.push_back(anim);
         UpdateMeshAnimationListGUIData((int)this->meshAnimations.size() - 1);
         UpdateMeshAnimationListButtons();
@@ -899,26 +899,26 @@ void ObjectSettingsDialog_MeshAnimationsPage::OnRemoveAnimationButton(wxCommandE
         selectedAnimations.resize(selectedItems.size());
         for (int i = 0; i < selectedItems.size(); i++)
             selectedAnimations[i] = this->meshAnimations[this->meshAnimationsList->GetItemData(selectedItems[i])];
-        
+
         for (int i = (int)selectedAnimations.size() - 1; i >= 0; i--)
         {
-            //Remove animation from array            
+            //Remove animation from array
             this->meshAnimations.erase(std::find(this->meshAnimations.begin(), this->meshAnimations.end(), selectedAnimations[i]));
-            
+
             //Remove animation from object
             this->objectSettings.RemoveMeshAnimation(selectedAnimations[i]);
-            
+
             //Remove animation from list
-            this->meshAnimationsList->DeleteItem(selectedItems[i]);            
+            this->meshAnimationsList->DeleteItem(selectedItems[i]);
         }
-        
+
         this->meshAnimationsList->SetSequentialItemData();
-        
+
         UpdateMeshAnimationListButtons();
 
         if (this->meshAnimationsList->GetItemCount() > 0)
             this->meshAnimationsList->SetSelection(std::max(selectedItems[0]-1, 0));
-    }    
+    }
 }
 
 void ObjectSettingsDialog_MeshAnimationsPage::OnSyncToBipedMixerButton(wxCommandEvent& event)

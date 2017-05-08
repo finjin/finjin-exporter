@@ -25,14 +25,14 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 Vertex::Vertex()
 {
     this->originalCornerIndex = -1;
     this->originalFaceVertexIndex = -1;
     this->originalFaceIndex = -1;
     this->smoothingGroups = 0;
-    
+
     this->pointSize = 0;
 
     this->colors[0].Set(1,1,1);
@@ -46,12 +46,12 @@ void Vertex::SetPosition(float x, float y, float z)
     this->position.Set(x, y, z);
 }
 
-void Vertex::SetNormal(float x, float y, float z) 
+void Vertex::SetNormal(float x, float y, float z)
 {
     this->normal.Set(x, y, z);
 }
 
-void Vertex::SetColor(float r, float g, float b, float a) 
+void Vertex::SetColor(float r, float g, float b, float a)
 {
     auto& color = this->colors[0];
     color.Set(r, g, b, a);
@@ -66,7 +66,7 @@ void Vertex::AddTexCoord(int mapIndex, const FinjinVector3& uvw)
     }
 }
 
-void Vertex::AddTexCoord(int mapIndex, float u, float v, float w) 
+void Vertex::AddTexCoord(int mapIndex, float u, float v, float w)
 {
     if (mapIndex >= 0 && mapIndex < this->uvwMap.size())
     {
@@ -75,8 +75,8 @@ void Vertex::AddTexCoord(int mapIndex, float u, float v, float w)
     }
 }
 
-const FinjinVector3& Vertex::GetTextureCoordinate(int mapIndex) const 
-{ 
+const FinjinVector3& Vertex::GetTextureCoordinate(int mapIndex) const
+{
     static const FinjinVector3 NULL_VECTOR(0, 0, 0);
 
     if (mapIndex >= 0 && mapIndex < this->uvwMap.size() && this->uvwMap[mapIndex].first >= 0)
@@ -121,7 +121,7 @@ bool Vertex::AlmostEquals(const Vertex& other, float tolerance) const
 }
 
 VertexList::VertexList()
-{    
+{
 }
 
 void VertexList::Reserve(size_t count)
@@ -129,7 +129,7 @@ void VertexList::Reserve(size_t count)
     this->items.reserve(count);
 }
 
-size_t VertexList::Add(Vertex& v, bool* isNew, bool fastAdd) 
+size_t VertexList::Add(Vertex& v, bool* isNew, bool fastAdd)
 {
     size_t index = 0;
 
@@ -140,7 +140,7 @@ size_t VertexList::Add(Vertex& v, bool* isNew, bool fastAdd)
         //Add the vertex without checking for duplicates
         index = this->items.size();
         this->items.push_back(v);
-                
+
         if (isNew != nullptr)
             *isNew = true;
     }
@@ -157,13 +157,13 @@ size_t VertexList::Add(Vertex& v, bool* isNew, bool fastAdd)
         else
         {
             index = this->items.size();
-            this->items.push_back(v);  
+            this->items.push_back(v);
 
             this->hashToIndex[hash] = index;
-            
+
             if (isNew != nullptr)
                 *isNew = true;
-        }        
+        }
     }
 
     return index;
@@ -172,7 +172,7 @@ size_t VertexList::Add(Vertex& v, bool* isNew, bool fastAdd)
 void VertexList::FastAppend(const VertexList& other)
 {
     for (auto& v : other)
-        this->items.push_back(v);  
+        this->items.push_back(v);
 }
 
 void VertexList::Clear()
@@ -185,7 +185,7 @@ bool VertexList::IsAlmostSame(const VertexList& other, size_t stride, float tole
 {
     if (size() != other.size())
         return false;
-    
+
     if (stride < 1)
         stride = 1;
 
@@ -198,7 +198,7 @@ bool VertexList::IsAlmostSame(const VertexList& other, size_t stride, float tole
             //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, wxT("Vertex %d check failed"), vertexIndex);
             return false;
         }
-        
+
         for (size_t i = 0; i < stride; i++)
         {
             if (++thisVertex == end())

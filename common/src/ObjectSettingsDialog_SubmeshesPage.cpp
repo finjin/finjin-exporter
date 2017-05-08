@@ -37,18 +37,18 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ObjectSettingsDialog_SubmeshesPage::TITLE(wxT("Submeshes"));
 
 
-//Implementation---------------------------------------------------------------
-BEGIN_EVENT_TABLE(ObjectSettingsDialog_SubmeshesPage, SettingsPage)    
+//Implementation----------------------------------------------------------------
+BEGIN_EVENT_TABLE(ObjectSettingsDialog_SubmeshesPage, SettingsPage)
     EVT_CHECKBOX(ObjectSettingsDialog_SubmeshesPage::CUSTOMIZE_SUBMESHES_CHECKBOX, ObjectSettingsDialog_SubmeshesPage::OnCustomizeSubmeshesCheckBox)
     EVT_CHOICE(ObjectSettingsDialog_SubmeshesPage::SUBMESH_TEXTURE_COORDINATE_SETS_CHOICE, ObjectSettingsDialog_SubmeshesPage::OnSubmeshTextureCoordinateSetsChoice)
     EVT_BUTTON(ObjectSettingsDialog_SubmeshesPage::REFRESH_TEXTURE_COORDINATE_SETS_BUTTON, ObjectSettingsDialog_SubmeshesPage::OnRefreshTextureCoordinateSetsButton)
     EVT_BUTTON(ObjectSettingsDialog_SubmeshesPage::CLEAR_TEXTURE_COORDINATE_SETS_BUTTON, ObjectSettingsDialog_SubmeshesPage::OnClearTextureCoordinateSetsButton)
     EVT_TEXT(ObjectSettingsDialog_SubmeshesPage::SUBMESH_NAME_TEXT, ObjectSettingsDialog_SubmeshesPage::OnSubmeshNameText)
-    EVT_TEXT(ObjectSettingsDialog_SubmeshesPage::SUBMESH_NAME_TEXT, ObjectSettingsDialog_SubmeshesPage::OnRenderQueueText)    
+    EVT_TEXT(ObjectSettingsDialog_SubmeshesPage::SUBMESH_NAME_TEXT, ObjectSettingsDialog_SubmeshesPage::OnRenderQueueText)
     EVT_SPINNER_VALUE_CHANGED(ObjectSettingsDialog_SubmeshesPage::RENDER_QUEUE_PRIORITY_SPINNER, ObjectSettingsDialog_SubmeshesPage::OnRenderQueuePriorityValueChanged)
     EVT_BUTTON(ObjectSettingsDialog_SubmeshesPage::MOVE_TEXTURE_COORDINATE_SET_UP_BUTTON, ObjectSettingsDialog_SubmeshesPage::OnMoveTextureCoordinateSetUpButton)
     EVT_BUTTON(ObjectSettingsDialog_SubmeshesPage::MOVE_TEXTURE_COORDINATE_SET_DOWN_BUTTON, ObjectSettingsDialog_SubmeshesPage::OnMoveTextureCoordinateSetDownButton)
@@ -65,75 +65,75 @@ ObjectSettingsDialog_SubmeshesPage::ObjectSettingsDialog_SubmeshesPage(wxWindow*
     GeometryStateFlags flags = GeometryStateFlags::NONE;
     if (!sceneSettings.GetCreateExtraMaterials())
         flags |= GeometryStateFlags::NO_EXTRA_MATERIALS;
-    GeometryState::GetSubmeshesSettings(this->object, this->detectedSubmeshesTextureCoordinateSets, flags);    
-    
+    GeometryState::GetSubmeshesSettings(this->object, this->detectedSubmeshesTextureCoordinateSets, flags);
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
 
     wxGridSizer* headerSizer;
     headerSizer = new wxGridSizer( 1, 2, 0, 0 );
-    
+
     useCustomTextureCoordinateCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Customize"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     headerSizer->Add( useCustomTextureCoordinateCheckbox, 0, wxALL|wxTOP, 5 );
-    
+
     topSizer->Add( headerSizer, 0, wxEXPAND, 5 );
 
-    
+
     wxStaticBoxSizer* textureCoordinateSetsSizer;
     textureCoordinateSetsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Submeshes/Subentities") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* textureCoordinateSetsGridSizer;
     textureCoordinateSetsGridSizer = new wxFlexGridSizer( 5, 3, 0, 0 );
     textureCoordinateSetsGridSizer->SetFlexibleDirection( wxBOTH );
     textureCoordinateSetsGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
     textureCoordinateSetsGridSizer->AddGrowableCol(2);
-    
-    
+
+
     textureCoordinateSetsGridSizer->Add( 0, 0, 0, wxEXPAND, 5 );
-    
+
     activeTextureCoordinateSetLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Submesh/Material"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
     activeTextureCoordinateSetLabel->Wrap( -1 );
     textureCoordinateSetsGridSizer->Add( activeTextureCoordinateSetLabel, 0, wxALL, 5 );
-    
+
     wxArrayString submeshTextureCoordinateSetChoiceChoices;
     submeshTextureCoordinateSetChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), submeshTextureCoordinateSetChoiceChoices, 0 );
     submeshTextureCoordinateSetChoice->SetSelection( 0 );
     submeshTextureCoordinateSetChoice->SetMinSize( wxSize( 140,-1 ) );
-    
+
     textureCoordinateSetsGridSizer->Add( submeshTextureCoordinateSetChoice, 0, wxLEFT|wxEXPAND, 5 );
-    
-    
+
+
     textureCoordinateSetsGridSizer->Add( 0, 0, 0, wxEXPAND, 5 );
-    
+
     submeshNameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Submesh Name"), wxDefaultPosition, wxDefaultSize, 0 );
     submeshNameLabel->Wrap( -1 );
     textureCoordinateSetsGridSizer->Add( submeshNameLabel, 0, wxALL, 5 );
-    
+
     submeshNameText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 140,-1 ), 0 );
     textureCoordinateSetsGridSizer->Add( submeshNameText, 0, wxLEFT|wxRIGHT, 5 );
-    
+
 
     textureCoordinateSetsGridSizer->Add( 0, 0, 1, wxEXPAND, 5 );
-    
+
     renderQueueLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Render Queue"), wxDefaultPosition, wxDefaultSize, 0 );
     renderQueueLabel->Wrap( -1 );
     textureCoordinateSetsGridSizer->Add( renderQueueLabel, 0, wxALL, 5 );
-    
+
     wxBoxSizer* renderQueueSizer;
     renderQueueSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     renderQueueText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 140,-1 ), 0 );
-    renderQueueText->SetMaxLength( 0 ); 
+    renderQueueText->SetMaxLength( 0 );
     renderQueueSizer->Add( renderQueueText, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     renderQueuePriorityLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Priority"), wxDefaultPosition, wxDefaultSize, 0 );
     renderQueuePriorityLabel->Wrap( -1 );
     renderQueueSizer->Add( renderQueuePriorityLabel, 0, wxALL, 5 );
-    
+
     renderQueuePrioritySpinner = new SpinnerControl(this, wxID_ANY, wxID_ANY, wxDefaultPosition, wxSize(50, -1), 0, 0, 65535, SpinnerControl::INT_UNIT);
     renderQueueSizer->Add( renderQueuePrioritySpinner, 0, wxRIGHT|wxLEFT, 5 );
-    
+
     textureCoordinateSetsGridSizer->Add( renderQueueSizer, 1, wxEXPAND, 5 );
 
     textureCoordinateSetsGridSizer->Add( 0, 0, 1, wxEXPAND, 5 );
@@ -142,52 +142,52 @@ ObjectSettingsDialog_SubmeshesPage::ObjectSettingsDialog_SubmeshesPage(wxWindow*
     textureCoordinateSetsLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Texture Coordinate Sets"), wxDefaultPosition, wxDefaultSize, 0 );
     textureCoordinateSetsLabel->Wrap( -1 );
     textureCoordinateSetsGridSizer->Add( textureCoordinateSetsLabel, 0, wxALL, 5 );
-    
+
     wxBoxSizer* refreshClearButtonsSizer;
     refreshClearButtonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     refreshTextureCoordinateSetsButton = new wxButton( this, wxID_ANY, wxT("Refresh"), wxDefaultPosition, wxSize( 70,-1 ), 0 );
     refreshClearButtonsSizer->Add( refreshTextureCoordinateSetsButton, 0, wxLEFT, 5 );
-    
+
     clearTextureCoordinateSetsButton = new wxButton( this, wxID_ANY, wxT("Clear"), wxDefaultPosition, wxSize( 70,-1 ), 0 );
     refreshClearButtonsSizer->Add( clearTextureCoordinateSetsButton, 0, 0, 5 );
-    
+
     textureCoordinateSetsGridSizer->Add( refreshClearButtonsSizer, 1, wxEXPAND, 5 );
     textureCoordinateSetsSizer->Add( textureCoordinateSetsGridSizer, 0, wxEXPAND, 5 );
-    
+
     wxBoxSizer* textureCoordinateSetsListSizer;
     textureCoordinateSetsListSizer = new wxBoxSizer( wxHORIZONTAL );
 
     textureCoordinateSetsListSizer->Add( 5, 0, 0, wxEXPAND, 5 );
-    
+
     textureCoordinateSetsList = new ApplicationListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_HRULES|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_VRULES );
     textureCoordinateSetsListSizer->Add( textureCoordinateSetsList, 1, wxBOTTOM|wxEXPAND, 5 );
-    
+
     wxBoxSizer* textureCoordinateSetsButtonsSizer;
     textureCoordinateSetsButtonsSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     moveTextureCoordinateSetUpButton = new wxButton( this, wxID_ANY, wxT("Move Up"), wxDefaultPosition, CONTROL_BUTTON_SIZE, 0 );
     textureCoordinateSetsButtonsSizer->Add( moveTextureCoordinateSetUpButton, 0, wxLEFT, 5 );
-    
+
     moveTextureCoordinateSetDownButton = new wxButton( this, wxID_ANY, wxT("Move Down"), wxDefaultPosition, CONTROL_BUTTON_SIZE, 0 );
     textureCoordinateSetsButtonsSizer->Add( moveTextureCoordinateSetDownButton, 0, wxLEFT, 5 );
-    
+
     removeTextureCoordinateSetButton = new wxButton( this, wxID_ANY, wxT("Remove"), wxDefaultPosition, CONTROL_BUTTON_SIZE, 0 );
     textureCoordinateSetsButtonsSizer->Add( removeTextureCoordinateSetButton, 0, wxLEFT|wxTOP, 5 );
 
     textureCoordinateSetUButton = new wxButton( this, wxID_ANY, wxT("U (1D)"), wxDefaultPosition, CONTROL_BUTTON_SIZE, 0 );
     textureCoordinateSetsButtonsSizer->Add( textureCoordinateSetUButton, 0, wxLEFT|wxTOP, 5 );
-    
+
     textureCoordinateSetUVButton = new wxButton( this, wxID_ANY, wxT("UV (2D)"), wxDefaultPosition, CONTROL_BUTTON_SIZE, 0 );
     textureCoordinateSetsButtonsSizer->Add( textureCoordinateSetUVButton, 0, wxLEFT, 5 );
-    
+
     textureCoordinateSetUVWButton = new wxButton( this, wxID_ANY, wxT("UVW (3D)"), wxDefaultPosition, CONTROL_BUTTON_SIZE, 0 );
     textureCoordinateSetsButtonsSizer->Add( textureCoordinateSetUVWButton, 0, wxLEFT, 5 );
-    
+
     textureCoordinateSetsListSizer->Add( textureCoordinateSetsButtonsSizer, 0, wxEXPAND, 5 );
-    
+
     textureCoordinateSetsSizer->Add( textureCoordinateSetsListSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( textureCoordinateSetsSizer, 1, wxEXPAND|wxTOP, 5 );
 
     SetSizer(topSizer);
@@ -205,7 +205,7 @@ ObjectSettingsDialog_SubmeshesPage::ObjectSettingsDialog_SubmeshesPage(wxWindow*
     this->textureCoordinateSetUButton->SetId(TEXTURE_COORDINATE_SET_U_BUTTON);
     this->textureCoordinateSetUVButton->SetId(TEXTURE_COORDINATE_SET_UV_BUTTON);
     this->textureCoordinateSetUVWButton->SetId(TEXTURE_COORDINATE_SET_UVW_BUTTON);
-    
+
     this->textureCoordinateSetUVWButton->Show(ApplicationAccessor::Supports3DTextureCoordinates());
 
     Layout();
@@ -256,13 +256,13 @@ bool ObjectSettingsDialog_SubmeshesPage::SetGUIData()
         this->submeshTextureCoordinateSetChoice->SetSelection(0);
     else
         this->submeshTextureCoordinateSetChoice->SetSelection(1);
-    
+
     //Texture coordinate sets list
     this->textureCoordinateSetsList->InsertColumn(0, wxT("Source ") + ApplicationAccessor::TEXTURE_COORDINATE_SET_NAME, wxLIST_FORMAT_LEFT, 225);
     this->textureCoordinateSetsList->InsertColumn(1, wxT("Destination Number"), wxLIST_FORMAT_LEFT, 120);
     this->textureCoordinateSetsList->InsertColumn(2, wxT("Type"), wxLIST_FORMAT_LEFT, 65);
     UpdateSubmeshControls();
-    
+
     return true;
 }
 
@@ -299,7 +299,7 @@ void ObjectSettingsDialog_SubmeshesPage::OnRefreshTextureCoordinateSetsButton(wx
         submeshSelection--;
         this->submeshes[submeshSelection].textureCoordinateSetMappings = this->detectedSubmeshesTextureCoordinateSets[submeshSelection].textureCoordinateSetMappings;
     }
-    
+
     UpdateSubmeshControls();
 }
 
@@ -313,17 +313,17 @@ void ObjectSettingsDialog_SubmeshesPage::OnClearTextureCoordinateSetsButton(wxCo
 void ObjectSettingsDialog_SubmeshesPage::OnSubmeshNameText(wxCommandEvent& event)
 {
     int submeshSelection = this->submeshTextureCoordinateSetChoice->GetSelection();
-    if (submeshSelection > 0)        
+    if (submeshSelection > 0)
     {
         submeshSelection--;
-        this->submeshes[submeshSelection].submeshName = this->submeshNameText->GetValue();        
+        this->submeshes[submeshSelection].submeshName = this->submeshNameText->GetValue();
     }
 }
 
 void ObjectSettingsDialog_SubmeshesPage::OnRenderQueueText(wxCommandEvent& event)
 {
     int submeshSelection = this->submeshTextureCoordinateSetChoice->GetSelection();
-    if (submeshSelection > 0)        
+    if (submeshSelection > 0)
     {
         submeshSelection--;
         this->submeshes[submeshSelection].renderQueueName = this->renderQueueText->GetValue();
@@ -333,13 +333,13 @@ void ObjectSettingsDialog_SubmeshesPage::OnRenderQueueText(wxCommandEvent& event
 void ObjectSettingsDialog_SubmeshesPage::OnRenderQueuePriorityValueChanged(SpinnerControlEvent& event)
 {
     int submeshSelection = this->submeshTextureCoordinateSetChoice->GetSelection();
-    if (submeshSelection > 0)        
+    if (submeshSelection > 0)
     {
         submeshSelection--;
         this->submeshes[submeshSelection].renderPriority = this->renderQueuePrioritySpinner->GetIntValue();
     }
 }
-    
+
 void ObjectSettingsDialog_SubmeshesPage::OnMoveTextureCoordinateSetUpButton(wxCommandEvent& event)
 {
     MoveTextureCoordinateSet(-1);
@@ -365,7 +365,7 @@ void ObjectSettingsDialog_SubmeshesPage::OnRemoveTextureCoordinateSetButton(wxCo
         {
             submeshSelection--;
             this->submeshes[submeshSelection].textureCoordinateSetMappings.Remove(textureCoordinateSetSelection);
-        }        
+        }
 
         UpdateSubmeshControls();
     }
@@ -373,17 +373,17 @@ void ObjectSettingsDialog_SubmeshesPage::OnRemoveTextureCoordinateSetButton(wxCo
 
 void ObjectSettingsDialog_SubmeshesPage::OnTextureCoordinateSetUButton(wxCommandEvent& event)
 {
-    SetTextureCoordinateType(TextureCoordinateFlags::U_TEXTURE_COORDS);    
+    SetTextureCoordinateType(TextureCoordinateFlags::U_TEXTURE_COORDS);
 }
 
 void ObjectSettingsDialog_SubmeshesPage::OnTextureCoordinateSetUVButton(wxCommandEvent& event)
 {
-    SetTextureCoordinateType(TextureCoordinateFlags::U_TEXTURE_COORDS | TextureCoordinateFlags::V_TEXTURE_COORDS);    
+    SetTextureCoordinateType(TextureCoordinateFlags::U_TEXTURE_COORDS | TextureCoordinateFlags::V_TEXTURE_COORDS);
 }
 
 void ObjectSettingsDialog_SubmeshesPage::OnTextureCoordinateSetUVWButton(wxCommandEvent& event)
 {
-    SetTextureCoordinateType(TextureCoordinateFlags::U_TEXTURE_COORDS | TextureCoordinateFlags::V_TEXTURE_COORDS | TextureCoordinateFlags::W_TEXTURE_COORDS);    
+    SetTextureCoordinateType(TextureCoordinateFlags::U_TEXTURE_COORDS | TextureCoordinateFlags::V_TEXTURE_COORDS | TextureCoordinateFlags::W_TEXTURE_COORDS);
 }
 
 void ObjectSettingsDialog_SubmeshesPage::UpdateSubmeshControls()
@@ -426,7 +426,7 @@ void ObjectSettingsDialog_SubmeshesPage::UpdateSubmeshControls()
             submeshSelection--;
             isSubmeshSelected = true;
         }
-        
+
         if (submeshSelection < (int)this->submeshes.size())
         {
             int textureCoordinateSetSelection = this->textureCoordinateSetsList->GetSelection();
@@ -438,14 +438,14 @@ void ObjectSettingsDialog_SubmeshesPage::UpdateSubmeshControls()
             this->submeshNameText->Enable(isSubmeshSelected);
 
             this->renderQueueLabel->Enable(isSubmeshSelected);
-                
+
             this->renderQueueText->Enable(isSubmeshSelected);
             this->renderQueueText->SetValue(this->submeshes[submeshSelection].renderQueueName);
 
             this->renderQueuePriorityLabel->Enable(isSubmeshSelected);
             this->renderQueuePrioritySpinner->Enable(isSubmeshSelected);
-                
-            this->renderQueuePriorityLabel->Enable(isSubmeshSelected);                
+
+            this->renderQueuePriorityLabel->Enable(isSubmeshSelected);
             this->renderQueuePrioritySpinner->Enable(isSubmeshSelected);
             this->renderQueuePrioritySpinner->SetValue(isSubmeshSelected ? this->submeshes[submeshSelection].renderPriority : 0);
 
@@ -456,7 +456,7 @@ void ObjectSettingsDialog_SubmeshesPage::UpdateSubmeshControls()
                 this->textureCoordinateSetsList->InsertItem((int)i, wxEmptyString);
                 UpdateTextureCoordinateSetGUIData((int)i);
             }
-            
+
             if (textureCoordinateSetSelection >= (int)this->submeshes[submeshSelection].textureCoordinateSetMappings.size())
                 textureCoordinateSetSelection = (int)this->submeshes[submeshSelection].textureCoordinateSetMappings.size() - 1;
             if (textureCoordinateSetSelection >= 0)
@@ -475,7 +475,7 @@ void ObjectSettingsDialog_SubmeshesPage::MoveTextureCoordinateSet(int direction)
         int submeshSelection = this->submeshTextureCoordinateSetChoice->GetSelection();
         int to = 0;
         if (submeshSelection == 0)
-        {   
+        {
             for (size_t i = 0; i < this->submeshes.size(); i++)
                 to = this->submeshes[i].textureCoordinateSetMappings.Move(from, direction);
             if (to >= 0)
@@ -488,7 +488,7 @@ void ObjectSettingsDialog_SubmeshesPage::MoveTextureCoordinateSet(int direction)
         else
         {
             submeshSelection--;
-            to = this->submeshes[submeshSelection].textureCoordinateSetMappings.Move(from, direction);            
+            to = this->submeshes[submeshSelection].textureCoordinateSetMappings.Move(from, direction);
         }
 
         if (to >= 0)
@@ -516,7 +516,7 @@ void ObjectSettingsDialog_SubmeshesPage::SetTextureCoordinateType(TextureCoordin
             submeshSelection--;
             this->submeshes[submeshSelection].textureCoordinateSetMappings[textureCoordinateSetSelection].textureCoordinatesFlags = flags;
         }
-        
+
         UpdateTextureCoordinateSetGUIData(textureCoordinateSetSelection);
     }
 }

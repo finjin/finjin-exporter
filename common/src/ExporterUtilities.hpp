@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialAccessor.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 #include "SceneExportSettings.hpp"
@@ -29,14 +29,14 @@
 #include "finjin/common/WxDataChunkWriter.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryState;
     class FinjinSceneDocument;
     class FinjinSceneDocument_Clipping;
     class FinjinSceneDocument_Shadows;
-    
+
     /**
      * Various utility functions used during export.
      * These methods are primarily used by the Finjin exporter handler and its associated classes.
@@ -46,7 +46,7 @@ namespace Finjin { namespace Exporter {
     public:
         static bool ConvertCopyImage(const wxString& sourceFileName, WxDataChunkWriter& writer, const WxChunkPropertyName& sizePropertyName, const WxChunkPropertyName& contentPropertyName, bool convertToTexture);
         static bool ConvertCopyImage(const wxString& sourceFileName, ByteOrder byteOrder, const wxString& destinationFileName, bool convertToTexture);
-        
+
         static wxString GetMaterialName(MaterialAccessor material, const wxString& defaultName, bool includeParentMaterialName);
 
         static void FixObjectName(wxString& fileName);
@@ -57,15 +57,15 @@ namespace Finjin { namespace Exporter {
 
         static std::unique_ptr<FinjinSceneDocument_Clipping> ExportEnvironmentRange
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneSettingsAccessor sceneSettings, 
+            FinjinSceneDocument& scene,
+            FinjinSceneSettingsAccessor sceneSettings,
             SceneExportSettings& sceneExportSettings
             );
 
         static std::unique_ptr<FinjinSceneDocument_Shadows> ExportShadows
             (
-            FinjinSceneDocument& scene, 
-            FinjinSceneSettingsAccessor sceneSettings, 
+            FinjinSceneDocument& scene,
+            FinjinSceneSettingsAccessor sceneSettings,
             SceneExportSettings& sceneExportSettings
             );
 
@@ -84,11 +84,11 @@ namespace Finjin { namespace Exporter {
                 for (int i = 0; i < flagCount; i++)
                 {
                     NamedFlag flag;
-            
+
                     settings.GetFlag(i, flag.name);
                     if (!flag.name.empty())
                     {
-                        auto bit = globalSettings.GetFlagBit(flag.name);                    
+                        auto bit = globalSettings.GetFlagBit(flag.name);
                         if (bit >= 0 && bit < FINJIN_EXPORTER_MAX_FLAG_BITS)
                         {
                             flag.bit = bit;
@@ -96,12 +96,12 @@ namespace Finjin { namespace Exporter {
                         }
                     }
                 }
-            }            
+            }
         }
 
         static FinjinSceneDocument_SceneNode::NodeVisibility GetNodeVisibility
             (
-            const wxString& visibility, 
+            const wxString& visibility,
             FinjinSceneDocument_SceneNode::NodeVisibility defaultValue = FinjinSceneDocument_SceneNode::NODE_VISIBILITY_DEFAULT
             );
 

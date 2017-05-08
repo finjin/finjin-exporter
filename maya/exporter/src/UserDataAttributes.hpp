@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class NodeAttributeAdder;
@@ -27,14 +27,14 @@ namespace Finjin { namespace Exporter {
     /** Creates user data Maya attributes. */
     struct UserDataAttributes
     {
-        /** 
+        /**
          * Creates the user data attributes.
          * @param adder [in] - Used to create the attributes.
          * @param attributeNamePrefix [in] - Prefix to prepend to attribute names.
          */
         void CreateUserDataAttributes(NodeAttributeAdder& adder, const MString& attributeNamePrefix = "");
 
-        /** 
+        /**
          * Creates the user data attributes and puts the created attributes into the specified list.
          * @param attributesList [out] - Receives the created attributes.
          * @param adder [in] - Used to create the attributes.
@@ -55,7 +55,7 @@ namespace Finjin { namespace Exporter {
 } }
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define IMPLEMENT_STATIC_ATTRIBUTE_USER_DATA_ACCESSOR_METHODS(className, member, attributes) \
     wxString className::GetUserID() {return ApplicationStringToWxString(MPlug(this->member, attributes.id).asString());}\
     wxString className::GetUserData() {return ApplicationStringToWxString(MPlug(this->member, attributes.userData).asString());}\

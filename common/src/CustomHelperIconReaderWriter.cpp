@@ -83,7 +83,7 @@ static bool WriteToConfig(CustomHelperIconWriter& iconWriter, WxConfigDocumentWr
             {
                 WriteVertex(writer, vertexIndex++, vertices[edges[i].v1]);
                 WriteVertex(writer, vertexIndex++, vertices[edges[i].v2]);
-            }        
+            }
         }
         else
         {
@@ -92,10 +92,10 @@ static bool WriteToConfig(CustomHelperIconWriter& iconWriter, WxConfigDocumentWr
             {
                 WriteVertex(writer, vertexIndex++, vertices[i]);
                 WriteVertex(writer, vertexIndex++, vertices[i + 1]);
-            }        
+            }
         }
     }
-    writer.WriteScopeEnd();    
+    writer.WriteScopeEnd();
 
     return true;
 }
@@ -115,16 +115,16 @@ bool WriteCodeToStream(CustomHelperIconWriter& iconWriter, T& out, const wxStrin
 
     out << "static const " << vector3Type << " ICON_EDGE_VERTICES[] = " << std::endl;
     out << "    {" << std::endl;
-        
+
     if (!edges.empty())
     {
         //Use edges
         for (size_t i = 0; i < edges.size(); i++)
         {
-            out 
+            out
                 << "    " << vector3Type << "(" << vertices[edges[i].v1].x << ", " << vertices[edges[i].v1].y << ", " << vertices[edges[i].v1].z << ", "
                 << vector3Type << "(" << vertices[edges[i].v2].x << ", " << vertices[edges[i].v2].y << ", " << vertices[edges[i].v2].z << "";
-                
+
             if (i < edges.size() - 1)
                 out << ",";
             out << std::endl;
@@ -135,10 +135,10 @@ bool WriteCodeToStream(CustomHelperIconWriter& iconWriter, T& out, const wxStrin
         //Use vertices
         for (size_t i = 0; i < vertices.size(); i += 2)
         {
-            out 
+            out
                 << "    " << vector3Type << "(" << vertices[i].x << ", " << vertices[i].y << ", " << vertices[i].z << ", "
                 << vector3Type << "(" << vertices[i + 1].x << ", " << vertices[i + 1].y << ", " << vertices[i + 1].z << "";
-                
+
             if (i < vertices.size() - 2)
                 out << ",";
             out << std::endl;
@@ -150,7 +150,7 @@ bool WriteCodeToStream(CustomHelperIconWriter& iconWriter, T& out, const wxStrin
     return true;
 }
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool CustomHelperIconWriter::IsValid() const
 {
     return !this->vertices.empty();
@@ -166,7 +166,7 @@ void CustomHelperIconWriter::Normalize()
         if (length > maxLength)
             maxLength = length;
     }
-    
+
     //Normalize
     if (maxLength > 0)
     {
@@ -199,18 +199,18 @@ bool CustomHelperIconWriter::Write(const wxString& fileName, const wxString& vec
 
         WxFileDataChunkWriterOutput output(outFile);
         WxConfigDocumentWriter writer;
-        writer.Create(output);    
-    
+        writer.Create(output);
+
         return WriteToConfig(*this, writer, vector3Type);
     }
     else
     {
-    #if wxUSE_UNICODE    
-        std::wofstream outFile;    
+    #if wxUSE_UNICODE
+        std::wofstream outFile;
     #else
-        std::ofstream outFile; 
+        std::ofstream outFile;
     #endif
-        
+
     #if defined(__WXMSW__)
         outFile.open(fileName.wx_str(), std::ios::out);
     #else
@@ -233,7 +233,7 @@ bool CustomHelperIconReader::Read(const wxString& fileName)
     std::vector<uint8_t> fileContent;
     if (!FileUtilities::ReadBinaryFile(fileName, fileContent))
         return false;
-    
+
     WxConfigDocumentReader reader;
     wxString currentSectionName;
     FinjinVector3 tempVertex;
@@ -241,7 +241,7 @@ bool CustomHelperIconReader::Read(const wxString& fileName)
     {
         switch (line->GetType())
         {
-            case WxConfigDocumentLine::Type::SECTION: 
+            case WxConfigDocumentLine::Type::SECTION:
             {
                 currentSectionName = line->GetSectionName();
                 break;
@@ -287,6 +287,6 @@ bool CustomHelperIconReader::Read(const wxString& fileName)
     //Clear out the vertices if there was a failure
     if (!result)
         this->vertices.clear();
-    
+
     return result;
 }

@@ -27,28 +27,28 @@
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static bool ObjectShouldHaveSettings(ObjectAccessor& object)
 {
     //This allows all objects, including bones, to have object settings and be exported
     return true;
 }
-              
 
-//Implementation---------------------------------------------------------------
+
+//Implementation----------------------------------------------------------------
 ExportableObject::ExportableObject()
-{    
+{
     this->startingInitialize = false;
     this->resolvingDependencies = false;
 }
 
 ExportableObject::~ExportableObject()
-{   
+{
 }
 
 void ExportableObject::Initialize
     (
-    ObjectAccessor object, 
+    ObjectAccessor object,
     ExporterContext& context
     )
 {
@@ -65,21 +65,21 @@ void ExportableObject::Initialize
         {
             ExportableObjectPtr newParent = newParentIterator->second;
             newParent->initializedChildObjects.push_back(changeParentIterator->first->GetSharedPtr());
-        
-            changeParentIterator->first->RemoveFromParent();        
+
+            changeParentIterator->first->RemoveFromParent();
             changeParentIterator->first->parent = newParent.get();
-        }        
+        }
     }
     this->changeParent.clear();
 
     //Finish initialization
-    InitializeEnd(context);    
+    InitializeEnd(context);
 }
 
 void ExportableObject::Initialize
     (
     ExportableObject* parent,
-    ObjectAccessor object, 
+    ObjectAccessor object,
     FinjinObjectSettingsAccessor objectSettings,
     ExporterContext& context
     )
@@ -90,18 +90,18 @@ void ExportableObject::Initialize
 void ExportableObject::InitializeStart
     (
     ExportableObject* parent,
-    ObjectAccessor object, 
+    ObjectAccessor object,
     FinjinObjectSettingsAccessor objectSettings,
     ExporterContext& context
     )
 {
     //FINJIN_EXPORTER_METHOD_ENTRY_FORMAT(wxT("ExportableObject::InitializeStart(%s)"), object.GetLocalName().wx_str());
-    
+
     this->startingInitialize = true;
 
     this->exportCount = 0;
     this->root = (parent != nullptr) ? parent->root : this;
-    this->parent = parent;    
+    this->parent = parent;
     this->object = object;
     context.EnsureUniqueExportableObjectName(this->object);
     this->objectSettings = objectSettings;
@@ -110,12 +110,12 @@ void ExportableObject::InitializeStart
         this->objectSettings.TouchReferences();
         this->objectExportSettings.Initialize(this->object, this->objectSettings, context.GetSceneSettings(), *context.GetSceneExportSettings());
     }
-    
+
     this->detectedObjectType = nullptr;
     if (this->object.IsValid())
     {
         ObjectTypeDetector typeDetector;
-        typeDetector.Detect(this->object, this->objectSettings);    
+        typeDetector.Detect(this->object, this->objectSettings);
         this->detectedObjectType = typeDetector.selectedType;
         if (this->detectedObjectType != nullptr)
             this->detectedObjectType->GetDependencies(this, context);
@@ -141,7 +141,7 @@ void ExportableObject::InitializeStart
                     childObjectSettings = context.GetSceneSettings().GetObjectSettings(childObject, true);
                 sortableChildObject.Set(childObject, childObjectSettings, 0, (int)i);
                 sortedChildObjects.push_back(sortableChildObject);
-            }        
+            }
         }
 
         //Sort children
@@ -156,11 +156,11 @@ void ExportableObject::InitializeStart
         {
             ExportableObjectPtr childExportableObject(NewInstance());
 
-            childExportableObject->InitializeStart(this, sortedChildObjects[i].object, sortedChildObjects[i].objectSettings, context);                
+            childExportableObject->InitializeStart(this, sortedChildObjects[i].object, sortedChildObjects[i].objectSettings, context);
             this->initializedChildObjects.push_back(childExportableObject);
 
             context.AddExportableObject(childExportableObject->object, childExportableObject);
-        }        
+        }
     }
 
     //If object has a different exported parent than the one in the current scene,
@@ -169,14 +169,14 @@ void ExportableObject::InitializeStart
     {
         ObjectAccessor exportedParent;
         if (!this->objectSettings.GetUseRootAsExportedParent())
-            exportedParent = this->objectSettings.GetExportedParent();        
-        if (exportedParent.IsValid() && 
-            exportedParent != this->object && 
-            exportedParent != this->object.GetParent() && 
+            exportedParent = this->objectSettings.GetExportedParent();
+        if (exportedParent.IsValid() &&
+            exportedParent != this->object &&
+            exportedParent != this->object.GetParent() &&
             !this->object.HasDescendant(exportedParent))
         {
             this->root->changeParent[this] = exportedParent;
-        }        
+        }
     }
 
     this->startingInitialize = false;
@@ -198,7 +198,7 @@ void ExportableObject::InitializeEnd(ExporterContext& context)
 
 ExportableObject* ExportableObject::NewInstance()
 {
-    return new ExportableObject;            
+    return new ExportableObject;
 }
 
 TransformAccessor ExportableObject::GetObjectOffsetTransformation(TimeAccessor time)
@@ -223,7 +223,7 @@ TransformAccessor ExportableObject::GetFullWorldTransformation(TimeAccessor time
 }
 
 TransformAccessor ExportableObject::GetLocalNodeTransformation(TimeAccessor time, const TransformAccessor* parentTransform)
-{   
+{
     auto transformation = GetNodeTransformation(time);
 
     if (parentTransform != nullptr)
@@ -244,7 +244,7 @@ TransformAccessor ExportableObject::GetConvertedNodeTransformation(TimeAccessor 
     if (objectRotation != nullptr)
     {
         objectRotation->Set(0, 0, 0, 1);
-        
+
         if (this->detectedObjectType->GetDescriptor().IsCamera())
             conversionManager.ConvertCameraRotation(*objectRotation);
         else if (this->detectedObjectType->GetDescriptor().IsLight())
@@ -276,27 +276,27 @@ void ExportableObject::ResolveDependencies(ExporterContext& context)
     {
         ExportableObjectPtr exportableObject = context.FindExportableObject(dependentObject);
         if (exportableObject != nullptr)
-            this->dependentObjectMap[dependentObject] = exportableObject;        
+            this->dependentObjectMap[dependentObject] = exportableObject;
     }
 
     //Perform type-specific dependency resolution
     if (this->detectedObjectType != nullptr)
         this->detectedObjectType->ResolveDependencies(this, context);
-    
+
     //Resolve dependencies for children
     for (auto childObject : this->childObjects)
     {
         childObject->ResolveDependencies(context);
-    }    
+    }
 
     //Remove objects from their parents
     //Only perform this step if we're at the root node, since by then all dependencies have been resolved
     if (this->root == this)
-    {        
+    {
         for (auto child : this->objectsForRemovalFromParent)
         {
             if (child->parent != nullptr)
-                child->parent->RemoveChild(child);            
+                child->parent->RemoveChild(child);
         }
         this->objectsForRemovalFromParent.clear();
     }
@@ -343,14 +343,14 @@ void ExportableObject::AddBestChild(ExportableObjectPtr child, ExporterContext& 
     }
     else
     {
-        if (child->detectedObjectType != nullptr && 
+        if (child->detectedObjectType != nullptr &&
             child->detectedObjectType->GetDescriptor().IsSky())
         {
             //Sky objects are always children of the "best" container, which is usually the root
             parent = GetBestContainer();
             childObjects = &parent->childObjects;
         }
-        if (child->detectedObjectType != nullptr && 
+        if (child->detectedObjectType != nullptr &&
             child->detectedObjectType->GetDescriptor().IsMerged())
         {
             //Object is to be merged into another object (typically the parent)
@@ -362,7 +362,7 @@ void ExportableObject::AddBestChild(ExportableObjectPtr child, ExporterContext& 
             childObjects = &this->siblingObjects;
         }
     }
-    
+
     child->parent = parent;
     childObjects->push_back(child);
 }
@@ -382,7 +382,7 @@ void ExportableObject::RemoveChild(ExportableObject* child)
     {
         this->initializedChildObjects.remove(childPtr);
         this->childObjects.remove(childPtr);
-    }    
+    }
 }
 
 void ExportableObject::RemoveChildren()
@@ -456,8 +456,8 @@ bool ExportableObject::AddDependency(ObjectAccessor object, const wxString& tag)
 
 bool ExportableObject::HasDependency(ObjectAccessor object) const
 {
-    return 
-        std::find(this->dependentObjects.begin(), this->dependentObjects.end(), object) != 
+    return
+        std::find(this->dependentObjects.begin(), this->dependentObjects.end(), object) !=
         this->dependentObjects.end();
 }
 

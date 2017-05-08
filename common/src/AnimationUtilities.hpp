@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinTimeInterval.hpp"
 #include "FinjinMeshAnimationSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     using namespace Finjin::Common;
@@ -46,7 +46,7 @@ namespace Finjin { namespace Exporter {
 
         /**
          * Gets the time scale associated for the specified parameters.
-         * @param scaleType [in] - The type of time scaling. Will be one of PropertyValues::TimeScale, 
+         * @param scaleType [in] - The type of time scaling. Will be one of PropertyValues::TimeScale,
          * or an empty string. This value typically comes directly from a mesh or node animation settings object.
          * @param scale [in] - An additional scaling value. The way it is interpreted depends on the scaleType.
          * @param animationInterval [in] - A time interval in consideration. Depending on scaleType, this may
@@ -64,7 +64,7 @@ namespace Finjin { namespace Exporter {
          */
         static wxString FormatSampling(SampleType sampleType, double sampleInterval);
 
-        /** 
+        /**
          * Determines if the specified collection has a particular animation.
          * @param animations [in] - A collection of animations.
          * @param animation [in] - An animation to look for.
@@ -94,7 +94,7 @@ namespace Finjin { namespace Exporter {
         {
             if (a.size() != b.size())
                 return false;
-            
+
             for (size_t i = 0; i < a.size(); i++)
             {
                 if (!HasAnimation(b, a[i]))

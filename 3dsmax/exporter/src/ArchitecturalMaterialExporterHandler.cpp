@@ -29,11 +29,11 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Constants--------------------------------------------------------------------
+//Constants---------------------------------------------------------------------
 #define ARCH_MTL_CLASSID Class_ID(332471230, 1763586103)
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ArchitecturalMaterialExporterHandler::ArchitecturalMaterialExporterHandler()
 {
     for (auto& item : this->texmaps)
@@ -51,7 +51,7 @@ void ArchitecturalMaterialExporterHandler::CalculateRequirements()
     for (auto& item : this->texmaps)
         item = nullptr;
     this->texmapCount = 0;
-    
+
     IParamBlock2* pblock;
     ParamID paramID;
     IParamBlock2* isOnPBlock;
@@ -71,7 +71,7 @@ void ArchitecturalMaterialExporterHandler::CalculateRequirements()
                 this->texmaps[TexMapIndex::DIFFUSE].texmap = diffuseMap;
                 this->texmapCount++;
             }
-        }            
+        }
     }
 
     //Intensity
@@ -106,7 +106,7 @@ void ArchitecturalMaterialExporterHandler::CalculateRequirements()
                 this->texmapCount++;
             }
         }
-    }        
+    }
 
     //Specular
     if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("shininessMap"), this->material.mtl))
@@ -133,7 +133,7 @@ void ArchitecturalMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxEr
     //Type
     writer.WriteString(StandardAssetDocumentPropertyNames::TYPE, StandardAssetDocumentPropertyValues::TypeName::MATERIAL_STANDARD, error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
-        
+
     //Name
     writer.WriteString(StandardAssetDocumentPropertyNames::NAME, writer.GetContextString(WxDataChunkWriter::ContextIndex::OBJECT_NAME), error);
     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -166,7 +166,7 @@ void ArchitecturalMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxEr
     if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("Diffuse"), this->material.mtl))
     {
         Color diffuse = pblock->GetColor(paramID);
-            
+
         float colorArray[4] = {diffuse.r, diffuse.g, diffuse.b, 1.0f};
         writer.WriteFloats(StandardAssetDocumentPropertyNames::DIFFUSE_COLOR, colorArray, 4, error);
         FINJIN_WX_DEFAULT_ERROR_CHECK(error)
@@ -176,7 +176,7 @@ void ArchitecturalMaterialExporterHandler::Write(WxDataChunkWriter& writer, WxEr
     if (MaxUtilities::GetParamIDByName(pblock, paramID, _M("transparency"), this->material.mtl))
     {
         float opacity = 1 - pblock->GetFloat(paramID);
-        auto transparencyEnabled = !MathUtilities::AlmostOne(opacity);            
+        auto transparencyEnabled = !MathUtilities::AlmostOne(opacity);
         if (transparencyEnabled)
         {
             writer.WriteFloat(StandardAssetDocumentPropertyNames::OPACITY, opacity, error);

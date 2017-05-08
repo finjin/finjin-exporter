@@ -19,26 +19,26 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectAccessor.hpp"
 #include "FinjinTimeInterval.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Extracts the animation clips from a Biped's mixer. */
     class BipedMixerAnimations
     {
     public:
-        /** 
-         * Gets all the animations from the mixer. 
+        /**
+         * Gets all the animations from the mixer.
          * @param object [in] - The object from which the animations are retrieved.
          * @return If there was at least one animation in the mixer, true is returned.
          * Otherwise, false is returned.
          */
         bool Initialize(ObjectAccessor object);
-        
+
         /** Gets the number of animations read from the mixer. */
         size_t size() const {return this->animations.size();}
 

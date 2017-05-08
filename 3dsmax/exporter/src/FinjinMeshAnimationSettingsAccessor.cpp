@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool FinjinMeshAnimationSettingsAccessor::operator == (const FinjinMeshAnimationSettingsAccessor& other) const
 {
     return this->object == other.object;
@@ -100,7 +100,7 @@ SampleType FinjinMeshAnimationSettingsAccessor::GetSampleType()
 FinjinTimeInterval FinjinMeshAnimationSettingsAccessor::GetTimeInterval()
 {
     Interval maxInterval = this->object->GetTimeInterval();
-    
+
     FinjinTimeInterval interval;
     interval.start.SetNativeTime(maxInterval.Start());
     interval.end.SetNativeTime(maxInterval.End());
@@ -126,7 +126,7 @@ void FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMask(int index, Obje
 {
     Point3 p3;
     this->object->GetBoneTranslationMask(index, object.node, p3);
-    mask = FinjinVector3(p3.x, p3.y, p3.z);    
+    mask = FinjinVector3(p3.x, p3.y, p3.z);
 }
 
 FinjinVector3 FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMask(ObjectAccessor object)
@@ -136,7 +136,7 @@ FinjinVector3 FinjinMeshAnimationSettingsAccessor::GetBoneTranslationMask(Object
 }
 
 int FinjinMeshAnimationSettingsAccessor::GetAllowExportBoneCount()
-{   
+{
     return this->object->GetAllowExportBoneCount();
 }
 
@@ -147,17 +147,17 @@ void FinjinMeshAnimationSettingsAccessor::GetAllowExportBone(int index, ObjectAc
 
 void FinjinMeshAnimationSettingsAccessor::SetTrack(wxString value)
 {
-    this->object->SetTrack(value);    
+    this->object->SetTrack(value);
 }
 
 void FinjinMeshAnimationSettingsAccessor::SetAnimationName(wxString value)
 {
-    this->object->SetAnimationName(value);    
+    this->object->SetAnimationName(value);
 }
 
 void FinjinMeshAnimationSettingsAccessor::SetTimeScaleType(wxString value)
 {
-    this->object->SetTimeScaleType(value);    
+    this->object->SetTimeScaleType(value);
 }
 
 void FinjinMeshAnimationSettingsAccessor::SetTimeScale(double value)
@@ -215,7 +215,7 @@ void FinjinMeshAnimationSettingsAccessor::SetTimeInterval(FinjinTimeInterval int
     Interval maxInterval;
     maxInterval.SetStart(interval.start.GetNativeTime());
     maxInterval.SetEnd(interval.end.GetNativeTime());
-    this->object->SetTimeInterval(maxInterval);    
+    this->object->SetTimeInterval(maxInterval);
 }
 
 void FinjinMeshAnimationSettingsAccessor::SetEmbedAnimation(bool value)
@@ -235,7 +235,7 @@ void FinjinMeshAnimationSettingsAccessor::ClearBoneTranslationMasks()
 
 void FinjinMeshAnimationSettingsAccessor::AddBoneTranslationMask(ObjectAccessor object, FinjinVector3 mask)
 {
-    this->object->AddBoneTranslationMask(object.node, Point3(mask.x, mask.y, mask.z));    
+    this->object->AddBoneTranslationMask(object.node, Point3(mask.x, mask.y, mask.z));
 }
 
 void FinjinMeshAnimationSettingsAccessor::ClearAllowExportBones()

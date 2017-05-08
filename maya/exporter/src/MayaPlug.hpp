@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinColor.hpp"
 #include "TimeAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Utility functions for dealing with Maya plugs. */
@@ -58,10 +58,10 @@ namespace Finjin { namespace Exporter {
         static void SetColor(MObject object, const MString& attributeName, const FinjinColor& color);
 
         static int FindLogicalIndexForAppend(MPlug plug);
-        
+
         static int AddAttributeElement(MPlug plug, const wxString& subattributeName = wxEmptyString);
         static int AddAttributeElement(MObject obj, MObject attribute, const wxString& subattributeName = wxEmptyString);
-        
+
         static int AddAttributeElementValue(MPlug plug, int value);
         static int AddAttributeElementValue(MPlug plug, float value);
         static int AddAttributeElementValue(MPlug plug, const wxString& value);
@@ -75,10 +75,10 @@ namespace Finjin { namespace Exporter {
         static void RemoveAttributeElement(const wxString& attributeName, int logicalParameterIndex);
         static void RemoveAttributeElement(const wxString& nodeName, const wxString& attributeName, int logicalParameterIndex);
         static void RemoveAttributeElement(MPlug plug);
-        
+
         static void RemoveAttributeElements(MPlug plug, const std::vector<int>* indices = nullptr);
         static void RemoveAttributeElements(MObject obj, MObject attribute, const std::vector<int>* indices = nullptr);
-        
+
         static MObject GetObjectReference(MPlug plug);
         static MObject GetObjectReference(MObject object, MObject& attribute);
         static MObject GetObjectReference(MObject object, MObject& attribute, int i);

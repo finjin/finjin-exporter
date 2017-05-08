@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 TimeAccessor::TimeAccessor()
 {
     this->ticks = 0;
@@ -110,7 +110,7 @@ double TimeAccessor::ConvertUIToInternalValue(double value)
 
 double TimeAccessor::ConvertInternalToUIValue(double value)
 {
-    return RoundToInt(value) / GetTicksPerFrame();            
+    return RoundToInt(value) / GetTicksPerFrame();
 }
 
 const wxString& TimeAccessor::GetUIUnit(bool plural)

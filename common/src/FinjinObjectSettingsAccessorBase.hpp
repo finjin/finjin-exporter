@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinNodeAnimationSettingsAccessor.hpp"
 #include "FinjinMeshAnimationSettingsAccessor.hpp"
 #include "FinjinNoteTrack.hpp"
@@ -31,7 +31,7 @@
 #include "SkeletonReferencePose.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class DetectableObjectType;
@@ -69,7 +69,7 @@ namespace Finjin { namespace Exporter {
             this->exportBinormals = false;
             this->animateBoundingVolumes = false;
             this->checkMeshInstance = false;
-            this->useCustomSubmeshes = false;            
+            this->useCustomSubmeshes = false;
         }
 
         struct NodeAnimation
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
                 this->enabled = false;
                 this->looped = false;
                 this->sampleInterval = 0;
-                this->sampleType = SampleType::USE_PARENT;                
+                this->sampleType = SampleType::USE_PARENT;
             }
 
             wxString animationName;
@@ -139,7 +139,7 @@ namespace Finjin { namespace Exporter {
 
         std::vector<ExtendedValue> extendedValues;
         std::vector<int> extendedValueIDs;
-    
+
         wxString type;
         wxString visibility;
         bool visibilityAffectObjectOnly;
@@ -156,10 +156,10 @@ namespace Finjin { namespace Exporter {
         wxString prefabName;
         std::vector<wxString> noteTrackNames;
         bool enableQueryFlags;
-        std::vector<NamedFlag> queryFlags;        
+        std::vector<NamedFlag> queryFlags;
         SampleType nodeAnimationSampleType;
         double nodeAnimationSampleInterval;
-        std::vector<NodeAnimation> nodeAnimations;        
+        std::vector<NodeAnimation> nodeAnimations;
         double pointSize;
         bool enableSky;
         bool embedSkeletonInMesh;
@@ -177,7 +177,7 @@ namespace Finjin { namespace Exporter {
         SampleType vertexAnimationSampleType;
         double vertexAnimationSampleInterval;
         ObjectAccessor animatedRoot;
-        std::vector<MeshAnimation> meshAnimations;        
+        std::vector<MeshAnimation> meshAnimations;
         bool exportMesh;
         wxString meshName;
         wxString skeletonName;
@@ -189,18 +189,18 @@ namespace Finjin { namespace Exporter {
         bool checkMeshInstance;
         bool useCustomSubmeshes;
         SubmeshesSettings submeshesSettings;
-        std::vector<ManualLod> manualLods;        
+        std::vector<ManualLod> manualLods;
     };
 
-    /** 
+    /**
      * FinjinObjectSettingsAccessorBase and the application-specific FinjinObjectSettingsAccessor
      * classes provide generic access to an Finjin object settings object.
      */
-    class FinjinObjectSettingsAccessorBase : 
-        public UserDataSettingsAccessor, 
+    class FinjinObjectSettingsAccessorBase :
+        public UserDataSettingsAccessor,
         public ExtendedValueAccessor
     {
-    public:    
+    public:
         virtual ~FinjinObjectSettingsAccessorBase() {}
 
         virtual wxString GetType() = 0;
@@ -260,7 +260,7 @@ namespace Finjin { namespace Exporter {
         virtual int GetManualLodCount() = 0;
         virtual void GetManualLod(int i, ObjectAccessor& object, float& distance) = 0;
         virtual bool GetCalculateManualLodDistances() = 0;
-        
+
         virtual void SetType(wxString value) = 0;
         virtual void SetVisibility(wxString value) = 0;
         virtual void SetVisibilityAffectObjectOnly(bool value) = 0;
@@ -282,7 +282,7 @@ namespace Finjin { namespace Exporter {
         virtual void ClearFlags() = 0;
         virtual void AddFlag(wxString name) = 0;
         virtual void SetNodeAnimationSampleType(SampleType value) = 0;
-        virtual void SetNodeAnimationSampleInterval(double value) = 0;        
+        virtual void SetNodeAnimationSampleInterval(double value) = 0;
         virtual FinjinNodeAnimationSettingsAccessor AddNewNodeAnimation() = 0;
         virtual FinjinNodeAnimationSettingsAccessor AddNodeAnimationCopy(int i) = 0;
         virtual void RemoveNodeAnimation(FinjinNodeAnimationSettingsAccessor value) = 0;
@@ -343,16 +343,16 @@ namespace Finjin { namespace Exporter {
         void GetNoteTracks(ObjectAccessor object, std::vector<FinjinNoteTrack>& noteTracks);
         FinjinMeshAnimationSettingsAccessor GetMeshAnimationByName(const wxString& name, int* foundAt = nullptr);
         void GetMeshAnimationsByTrack(std::vector<FinjinMeshAnimationSettingsAccessor>& animations, const wxString& track);
-        PrimitiveType GetPrimitiveTypeValue();        
-        DetectableObjectType* GetDetectedType(ObjectAccessor object);        
+        PrimitiveType GetPrimitiveTypeValue();
+        DetectableObjectType* GetDetectedType(ObjectAccessor object);
 
         void GetSkeletonReferencePose(SkeletonReferencePose& referencePose);
         void GetManualLods(ObjectAccessor object, ManualLods& manualLods);
-                
+
         void GetAllSettings(AllObjectSettings& objectSettings);
         void SetAllSettings(const AllObjectSettings& objectSettings);
 
-        static TimeAccessor GetAutoManualLodDistanceTime();        
+        static TimeAccessor GetAutoManualLodDistanceTime();
     };
 
 } }

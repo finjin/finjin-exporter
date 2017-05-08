@@ -27,7 +27,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 LightExportSettings::LightExportSettings(FinjinSceneDocument* scene) : FinjinSceneDocument_Light(scene)
 {
 }
@@ -48,9 +48,9 @@ void LightExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettings
         this->lightType = LightType::SPOT_LIGHT;
     else
         this->lightType = LightType::DIRECTIONAL_LIGHT;
-    
+
     //Shadows
-    this->castShadows = 
+    this->castShadows =
         MayaPlug::GetBoolAttribute(object.obj, "useDepthMapShadows", true, finjinExporterContext.GetSceneExportSettings()->time) ||
         MayaPlug::GetBoolAttribute(object.obj, "useRayTraceShadows", true, finjinExporterContext.GetSceneExportSettings()->time);
 
@@ -60,12 +60,12 @@ void LightExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettings
     //Color
     MColor color = light.color();
     this->color.Set(color.r, color.g, color.b, color.a);
-        
+
     //Range
     float range = MayaPlug::GetFloatAttribute(object.obj, "fogRadius", 0, finjinExporterContext.GetSceneExportSettings()->time) * finjinExporterContext.GetSceneExportSettings()->scale;
     if (range > 0)
         this->range[1] = range;
-    
+
     //Spotlight range
     if (this->lightType == LightType::SPOT_LIGHT)
     {
@@ -77,8 +77,8 @@ void LightExportSettings::Initialize(ObjectAccessor object, FinjinObjectSettings
     }
 
     //On?
-    this->isOn = 
-        HasEffect(false) && 
-        (MayaPlug::GetBoolAttribute(object.obj, "emitDiffuse", false, finjinExporterContext.GetSceneExportSettings()->time) || 
-         MayaPlug::GetBoolAttribute(object.obj, "emitSpecular", false, finjinExporterContext.GetSceneExportSettings()->time));    
+    this->isOn =
+        HasEffect(false) &&
+        (MayaPlug::GetBoolAttribute(object.obj, "emitDiffuse", false, finjinExporterContext.GetSceneExportSettings()->time) ||
+         MayaPlug::GetBoolAttribute(object.obj, "emitSpecular", false, finjinExporterContext.GetSceneExportSettings()->time));
 }

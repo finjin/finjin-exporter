@@ -31,14 +31,14 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString SceneSettingsDialog_MaterialsPage::TITLE(wxT("Materials"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(SceneSettingsDialog_MaterialsPage, SettingsPage)
     EVT_BUTTON(SceneSettingsDialog_MaterialsPage::ADDITIONAL_MATERIAL_BUTTON, SceneSettingsDialog_MaterialsPage::OnAdditionalMaterialButton)
-    EVT_BUTTON(SceneSettingsDialog_MaterialsPage::IGNORE_MATERIAL_BUTTON, SceneSettingsDialog_MaterialsPage::OnIgnoreMaterialButton)    
+    EVT_BUTTON(SceneSettingsDialog_MaterialsPage::IGNORE_MATERIAL_BUTTON, SceneSettingsDialog_MaterialsPage::OnIgnoreMaterialButton)
 END_EVENT_TABLE()
 
 SceneSettingsDialog_MaterialsPage::SceneSettingsDialog_MaterialsPage( wxWindow* parent, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
@@ -47,40 +47,40 @@ SceneSettingsDialog_MaterialsPage::SceneSettingsDialog_MaterialsPage( wxWindow* 
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxBoxSizer* additionalAndIgnoreSizer;
     additionalAndIgnoreSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxStaticBoxSizer* additionalMaterialsSizer;
     additionalMaterialsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Additional Materials") ), wxVERTICAL );
-    
+
     addAdditionalMaterialButton = new wxButton( this, wxID_ANY, wxT("Add..."), wxDefaultPosition, wxDefaultSize, 0 );
     additionalMaterialsSizer->Add( addAdditionalMaterialButton, 0, wxALIGN_LEFT|wxLEFT|wxRIGHT, 5 );
-    
+
     addAdditionalMaterialsText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE );
     additionalMaterialsSizer->Add( addAdditionalMaterialsText, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     additionalAndIgnoreSizer->Add( additionalMaterialsSizer, 1, wxEXPAND|wxRIGHT|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* ignoreMaterialsSizer;
     ignoreMaterialsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Ignore Materials") ), wxVERTICAL );
-    
+
     addIgnoreMaterialButton = new wxButton( this, wxID_ANY, wxT("Add..."), wxDefaultPosition, wxDefaultSize, 0 );
     ignoreMaterialsSizer->Add( addIgnoreMaterialButton, 0, wxALIGN_LEFT|wxLEFT|wxRIGHT, 5 );
-    
+
     ignoreMaterialsText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_DONTWRAP|wxTE_MULTILINE );
-    ignoreMaterialsText->SetMaxLength( 0 ); 
+    ignoreMaterialsText->SetMaxLength( 0 );
     ignoreMaterialsSizer->Add( ignoreMaterialsText, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
-    
+
+
     additionalAndIgnoreSizer->Add( ignoreMaterialsSizer, 1, wxEXPAND|wxTOP, 5 );
-    
-    
+
+
     topSizer->Add( additionalAndIgnoreSizer, 1, wxEXPAND, 5 );
 
     this->addAdditionalMaterialButton->SetId(ADDITIONAL_MATERIAL_BUTTON);
     this->addIgnoreMaterialButton->SetId(IGNORE_MATERIAL_BUTTON);
-    
+
     SetSizer(topSizer);
     Layout();
 }
@@ -89,7 +89,7 @@ SceneSettingsDialog_MaterialsPage::~SceneSettingsDialog_MaterialsPage()
 {
 }
 
-bool SceneSettingsDialog_MaterialsPage::GetGUIData() 
+bool SceneSettingsDialog_MaterialsPage::GetGUIData()
 {
     //Additional materials
     {
@@ -97,7 +97,7 @@ bool SceneSettingsDialog_MaterialsPage::GetGUIData()
 
         auto materialsText = this->addAdditionalMaterialsText->GetValue();
         StringSplitter materialNames(materialsText, wxT("\n"), StringSplitterFlags::TRIM | StringSplitterFlags::IGNORE_EMPTY);
-                
+
         MaterialAccessorSet addedAdditionalMaterials;
         for (size_t i = 0; i < materialNames.size(); i++)
         {
@@ -123,7 +123,7 @@ bool SceneSettingsDialog_MaterialsPage::GetGUIData()
 
         auto materialsText = this->ignoreMaterialsText->GetValue();
         StringSplitter materialNames(materialsText, wxT("\n"), StringSplitterFlags::TRIM | StringSplitterFlags::IGNORE_EMPTY);
-                    
+
         MaterialAccessorSet addedDisallowedMaterials;
         for (size_t i = 0; i < materialNames.size(); i++)
         {
@@ -146,7 +146,7 @@ bool SceneSettingsDialog_MaterialsPage::GetGUIData()
     return true;
 }
 
-bool SceneSettingsDialog_MaterialsPage::SetGUIData() 
+bool SceneSettingsDialog_MaterialsPage::SetGUIData()
 {
     wxString materialsText;
 
@@ -177,7 +177,7 @@ bool SceneSettingsDialog_MaterialsPage::SetGUIData()
         materialsText += wxT("\n");
     }
     this->ignoreMaterialsText->SetValue(materialsText);
-    
+
     return true;
 }
 
@@ -216,5 +216,5 @@ void SceneSettingsDialog_MaterialsPage::OnIgnoreMaterialButton(wxCommandEvent& e
             if (this->disallowedMaterials.find(materialName) == this->disallowedMaterials.end())
                 this->disallowedMaterials[materialName] = choose.GetMaterials()[i];
         }
-    }    
+    }
 }

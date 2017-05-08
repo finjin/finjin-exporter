@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SceneSettingsType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A global collection of scene settings types. */
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
 
         /** Gets the number of registered scene settings types. */
         static int GetTypeCount();
-        
+
         /** Gets the scene settings type at the specified index. */
         static SceneSettingsType* GetType(int i);
 

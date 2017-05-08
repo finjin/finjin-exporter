@@ -37,13 +37,13 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 MaterialExporter::FactoryList MaterialExporter::factories;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MaterialExporter::MaterialExporter()
-{    
+{
 }
 
 void MaterialExporter::SetProgressCalculator(std::shared_ptr<ProgressCalculator> progress)
@@ -60,9 +60,9 @@ bool MaterialExporter::Export
     (
     WxDataChunkWriter& writer,
     const MaterialAccessorMap<std::shared_ptr<MaterialExporterHandler> >& materials,
-    FinjinSceneSettingsAccessor sceneSettings, 
+    FinjinSceneSettingsAccessor sceneSettings,
     const SceneExportSettings& sceneExportSettings
-    ) 
+    )
 {
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("MaterialExporter::Export()"));
 
@@ -73,7 +73,7 @@ bool MaterialExporter::Export
     struct SortedMaterial
     {
         wxString materialName;
-        wxString sortName;        
+        wxString sortName;
         MaterialAccessor material;
         std::shared_ptr<MaterialExporterHandler> exporterHandler;
 
@@ -93,7 +93,7 @@ bool MaterialExporter::Export
         sorted.exporterHandler = item.second;
 
         sorted.materialName = sceneExportSettings.GetMaterialName(sorted.material);
-        
+
         sorted.sortName = sorted.materialName;
         sorted.sortName.MakeLower();
 
@@ -103,14 +103,14 @@ bool MaterialExporter::Export
 
     //Now export-----------------------------
     std::set<wxString> exportedMaterialNames;
-    
+
     if (!sortedMaterials.empty())
     {
         for (auto sorted : sortedMaterials)
         {
             //Don't write a material with the same name. This works because materials are written out in sorted order
             if (exportedMaterialNames.find(sorted.materialName) == exportedMaterialNames.end())
-            {        
+            {
                 exportedMaterialNames.insert(sorted.materialName);
             }
         }
@@ -131,7 +131,7 @@ bool MaterialExporter::Export
             {
                 //Don't write a material with the same name. This works because materials are written out in sorted order
                 if (exportedMaterialNames.find(sorted.materialName) == exportedMaterialNames.end())
-                {        
+                {
                     //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, wxT("Exporting material '%s'."), sorted.material.GetLocalName().wx_str());
 
                     writer.SetContextString(WxDataChunkWriter::ContextIndex::OBJECT_NAME, sceneExportSettings.GetMaterialName(sorted.material));
@@ -151,12 +151,12 @@ bool MaterialExporter::Export
 
                         break;
                     }
-                        
+
                     if (this->materialsProgress != nullptr)
                         this->materialsProgress->Update(1);
-                
+
                     sorted.exporterHandler->GetBitmapFileNames(this->bitmapFileNames);
-                    
+
                     exportedMaterialNames.insert(sorted.materialName);
                 }
                 else
@@ -179,8 +179,8 @@ bool MaterialExporter::Export
 void MaterialExporter::ExportBitmaps
     (
     WxDataChunkWriter& writer,
-    FinjinSceneSettingsAccessor sceneSettings, 
-    const SceneExportSettings& sceneExportSettings,            
+    FinjinSceneSettingsAccessor sceneSettings,
+    const SceneExportSettings& sceneExportSettings,
     WxError& error
     )
 {
@@ -200,10 +200,10 @@ void MaterialExporter::ExportBitmaps
 
     if (this->bitmapsProgress != nullptr)
         this->bitmapsProgress->SetRange(allBitmapSourceFileNames.size());
-                        
+
     //Textures
     writer.WriteChunk(StandardAssetDocumentChunkNames::TEXTURES, [this, &sceneExportSettings, &allBitmapSourceFileNames](WxDataChunkWriter& writer, WxError& error)
-    {    
+    {
         FINJIN_WX_ERROR_METHOD_START(error);
 
         //Count
@@ -221,20 +221,20 @@ void MaterialExporter::ExportBitmaps
             //Texture
             WxChunkName textureChunkName(StandardAssetDocumentChunkNames::TEXTURE, textureIndex);
             writer.WriteChunk(textureChunkName, [this, &sceneExportSettings, &sourceFilePath](WxDataChunkWriter& writer, WxError& error)
-            {    
+            {
                 FINJIN_WX_ERROR_METHOD_START(error);
 
                 //Get destination base file name and extension
                 auto destination = sceneExportSettings.ResolveAssetPaths(AssetClass::TEXTURE, sourceFilePath);
 
                 //Get path to the destination file if file name isn't absolute
-                auto foundFile = true;      
+                auto foundFile = true;
                 if (wxIsAbsolutePath(sourceFilePath))
                     foundFile = wxFileExists(sourceFilePath);
                 else
                 {
                     sourceFilePath = FileUtilities::JoinPath(ApplicationAccessor::GetCurrentProjectDirectory(), sourceFilePath);
-                    foundFile = wxFileExists(sourceFilePath);                                        
+                    foundFile = wxFileExists(sourceFilePath);
                 }
 
                 if (foundFile && sceneExportSettings.IsEmbeddedAssetType(AssetClass::TEXTURE))
@@ -248,7 +248,7 @@ void MaterialExporter::ExportBitmaps
                     }
                 }
                 else if (foundFile && sceneExportSettings.copyBitmaps)
-                {                                    
+                {
                     writer.WriteString(StandardAssetDocumentPropertyNames::TEXTURE_REF, sceneExportSettings.GetAssetFileReference(AssetClass::TEXTURE, destination).ToUriString(), error);
                     FINJIN_WX_DEFAULT_ERROR_CHECK(error)
 
@@ -304,7 +304,7 @@ void MaterialExporter::ExportMaterialsWithDialog(const MaterialAccessorVector& m
         //Create and show progress dialog
         auto progressDialog = new ProgressDialog(Strings::FINJIN_MATERIAL_EXPORTER, LogListener::DEFAULT_LOG_LEVEL, Strings::EXPORTING_MATERIALS);
         progressDialog->Show();
-        
+
         ApplicationAccessor::EnableExport();
 
         //Log start time
@@ -353,7 +353,7 @@ void MaterialExporter::ExportMaterialsWithDialog(const MaterialAccessorVector& m
 
         //Perform export
         MaterialExporter materialExporter;
-        materialExporter.InitializeWithDialog();                
+        materialExporter.InitializeWithDialog();
 
         WxDataChunkWriter::Settings writerSettings;
         writerSettings.byteOrder = sceneExportSettings.byteOrder;
@@ -366,7 +366,7 @@ void MaterialExporter::ExportMaterialsWithDialog(const MaterialAccessorVector& m
 
         for (; sceneExportSettings.HasCurrentFileFormat(); sceneExportSettings.NextFileFormat())
         {
-            auto currentFileFormat = sceneExportSettings.GetCurrentFileFormat();            
+            auto currentFileFormat = sceneExportSettings.GetCurrentFileFormat();
             FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, Strings::EXPORTING_FILE_FORMAT_FORMAT, WxStreamingFileFormatUtilities::ToString(currentFileFormat).wx_str());
 
             FINJIN_WX_DECLARE_ERROR(error);
@@ -385,7 +385,7 @@ void MaterialExporter::ExportMaterialsWithDialog(const MaterialAccessorVector& m
             materialExporter.Export(*writer.get(), materialHandlerMap, sceneSettings, sceneExportSettings);
 
             materialExporter.ExportBitmaps(*writer.get(), sceneSettings, sceneExportSettings, error);
-            FINJIN_WX_DEFAULT_ERROR_CHECK(error)            
+            FINJIN_WX_DEFAULT_ERROR_CHECK(error)
         }
 
         //Log end time
@@ -396,7 +396,7 @@ void MaterialExporter::ExportMaterialsWithDialog(const MaterialAccessorVector& m
             auto elapsedTimeText = Strings::FormatElapsedTime(endTime.Subtract(startTime));
             FINJIN_EXPORTER_LOG_MESSAGE
                 (
-                INFO_LOG_MESSAGE, 
+                INFO_LOG_MESSAGE,
                 Strings::FINISHED_EXPORT_ON_ELAPSED_TIME_FORMAT,
                 formattedEndTime.wx_str(),
                 elapsedTimeText.wx_str()
@@ -427,7 +427,7 @@ void MaterialExporter::ClearHandlerFactories()
 MaterialExporterHandlerFactory* MaterialExporter::GetFactoryForMaterial(MaterialAccessor material)
 {
     MaterialExporterHandlerFactory* foundFactory = nullptr;
-    
+
     //Find a factory that handles the specified extension
     for (auto factory : factories)
     {
@@ -436,7 +436,7 @@ MaterialExporterHandlerFactory* MaterialExporter::GetFactoryForMaterial(Material
             foundFactory = factory;
             break;
         }
-    }        
+    }
 
     //Get a default factory if necessary
     if (foundFactory == nullptr && !factories.empty())
@@ -456,19 +456,19 @@ void MaterialExporter::ProgressChanged(ProgressCalculator* progress)
 {
     int itemIndex = RoundToInt(progress->GetProgress() * progress->GetRange());
     int itemTotal = RoundToInt(progress->GetRange());
-    
+
     wxString message;
     if (!progress->GetName().empty())
     {
         message = wxString::Format
             (
-            wxT("Exporting %s %d of %d"), 
-            progress->GetName().wx_str(), 
-            itemIndex, 
+            wxT("Exporting %s %d of %d"),
+            progress->GetName().wx_str(),
+            itemIndex,
             itemTotal
             );
     }
-    
+
     if (ProgressDialog::GetInstance() != nullptr)
     {
         ProgressDialog::GetInstance()->UpdateProgress(this->withDialogProgress.GetProgress(), progress->GetProgress());
@@ -481,15 +481,15 @@ void MaterialExporter::ProgressChanged(ProgressCalculator* progress)
 
         /*ApplicationAccessor::LogMessage
             (
-            wxT("%s...progress: %f, total progress: %f"), 
+            wxT("%s...progress: %f, total progress: %f"),
             message.wx_str(),
-            progress->GetProgress(), 
+            progress->GetProgress(),
             this->withDialogProgress.GetProgress()
             );*/
     }
     else
     {
-        //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, wxT("Total progress: 1"));        
+        //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, wxT("Total progress: 1"));
     }
 }
 

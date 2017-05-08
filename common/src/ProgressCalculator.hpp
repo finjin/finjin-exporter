@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -41,7 +41,7 @@ namespace Finjin { namespace Exporter {
         /** Calculates and returns the total progress, on a scale of 0 to 1. */
         float GetProgress();
 
-        /** 
+        /**
          * Manually sets the progress.
          * This will not normally need to be called, but it is useful in circumstances
          * where there are multiple progress calculators virtually connected, and the
@@ -50,24 +50,24 @@ namespace Finjin { namespace Exporter {
          * @param progress [in] - The total progress, on a scale of 0 to 1
          */
         void UpdateProgress(float progress);
-        
-        /** 
-         * Updates the progress for this calculator. 
+
+        /**
+         * Updates the progress for this calculator.
          * Calling this is pointless if the calculator has child calculators.
-         * @param amount [in] - The amount of progress to add. The amount is 
+         * @param amount [in] - The amount of progress to add. The amount is
          * in the same units as those passed into SetRange(). The amount may
          * be positive or negative
          */
         void Update(float amount);
 
-        /** 
-         * Gets the current value range. 
+        /**
+         * Gets the current value range.
          * Calling this is pointless if the calculator has child calculators.
          */
         float GetRange() const;
 
-        /** 
-         * Sets the value range of this calculator. 
+        /**
+         * Sets the value range of this calculator.
          * Note that calling this method resets the progress to 0.
          * Also note that calling this is pointless if the calculator has child calculators
          * @param range [in] - The range is used to scale amounts passed to Update() and, in turn,
@@ -104,7 +104,7 @@ namespace Finjin { namespace Exporter {
     protected:
         ProgressCalculator* root;
         ProgressCalculator* parent;
-        
+
         /** The name of the calculator. This is provided for the user's benefit. */
         wxString name;
 
@@ -113,7 +113,7 @@ namespace Finjin { namespace Exporter {
 
         /** The range used to scale progress to [0,1]. */
         float range;
-        
+
         /** Child calculators. */
         std::list<std::shared_ptr<ProgressCalculator> > childCalculators;
 

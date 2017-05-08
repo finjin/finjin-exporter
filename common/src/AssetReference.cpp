@@ -73,7 +73,7 @@ AssetReference AssetReference::ForObjectInLocalFile(const wxString& filePath, co
     result.objectName = objectName;
     return result;
 }
-    
+
 wxString AssetReference::ToUriString() const
 {
     SimpleUri result;

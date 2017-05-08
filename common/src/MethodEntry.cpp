@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MethodEntry::MethodEntry(const wxChar* format, ...)
 {
     if (Logger::CanHandle(DEBUG_LOG_MESSAGE))
@@ -35,10 +35,10 @@ MethodEntry::MethodEntry(const wxChar* format, ...)
         {
             wxString logMessage = wxString::Format(wxT("%s %s"), Strings::ENTERING.wx_str(), this->message.wx_str());
             FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, logMessage);
-            
-            Logger::Indent(DEBUG_LOG_MESSAGE);            
+
+            Logger::Indent(DEBUG_LOG_MESSAGE);
         }
-    }    
+    }
 }
 
 MethodEntry::~MethodEntry()
@@ -46,7 +46,7 @@ MethodEntry::~MethodEntry()
     if (!this->message.empty())
     {
         Logger::Unindent(DEBUG_LOG_MESSAGE);
-        
+
         wxString logMessage = wxString::Format(wxT("%s %s"), Strings::LEAVING.wx_str(), this->message.wx_str());
         FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, logMessage);
     }

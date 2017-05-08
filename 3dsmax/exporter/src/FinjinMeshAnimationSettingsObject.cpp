@@ -29,7 +29,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinMeshAnimationSettingsObjectClassDesc : public ClassDesc2
 {
 public:
@@ -48,21 +48,21 @@ public:
 FinjinMeshAnimationSettingsObjectClassDesc FinjinMeshAnimationSettingsObjectClassDesc::instance;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {OBJECT_SETTINGS_PARAM_BLOCK_ID = 0};
 enum {OBJECT_SETTINGS_VERSION = 1};
 
 static ParamBlockDesc2 FinjinMeshAnimationSettingsObjectParamBlock
     (
-    OBJECT_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinMeshAnimationSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT, 
-    
+    OBJECT_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinMeshAnimationSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT,
+
     //Version
     OBJECT_SETTINGS_VERSION,
-    
+
     //Reference number
-    FinjinMeshAnimationSettingsObject::PARAM_BLOCK_REF, 
-    
-    //Parameters    
+    FinjinMeshAnimationSettingsObject::PARAM_BLOCK_REF,
+
+    //Parameters
     FinjinMeshAnimationSettingsObject::PB_TRACK, _M("TrackName"), TYPE_STRING, P_COMPUTED_NAME, IDS_TRACK_NAME,
         p_end,
     FinjinMeshAnimationSettingsObject::PB_ANIMATION_NAME, _M("AnimationName"), TYPE_STRING, 0, IDS_ANIMATION_NAME,
@@ -106,22 +106,22 @@ static ParamBlockDesc2 FinjinMeshAnimationSettingsObjectParamBlock
     FinjinMeshAnimationSettingsObject::PB_ALLOW_EXPORT_BONE_NODES, _M("AllowExportBones"), TYPE_INODE_TAB, 0, P_VARIABLE_SIZE, IDS_ALLOW_EXPORT_BONES,
         p_end,
     FinjinMeshAnimationSettingsObject::PB_ALLOW_EXPORT_BONE_ALLOWS, _M("AllowExportBoneAllows"), TYPE_BOOL_TAB, 0, P_VARIABLE_SIZE, IDS_ALLOW_EXPORT_BONE_ALLOWS,
-        p_end,    
+        p_end,
     FinjinMeshAnimationSettingsObject::PB_ALLOW_EXPORT_BONE_RECURSIVES, _M("AllowExportBoneRecursives"), TYPE_BOOL_TAB, 0, P_VARIABLE_SIZE, IDS_ALLOW_EXPORT_BONE_RECURSIVES,
         p_end,
     p_end
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinMeshAnimationSettingsObject::FinjinMeshAnimationSettingsObject()
 {
     this->pblock = nullptr;
-    FinjinMeshAnimationSettingsObjectClassDesc::instance.MakeAutoParamBlocks(this);    
+    FinjinMeshAnimationSettingsObjectClassDesc::instance.MakeAutoParamBlocks(this);
 }
 
 FinjinMeshAnimationSettingsObject::~FinjinMeshAnimationSettingsObject()
-{   
+{
 }
 
 CreateMouseCallBack* FinjinMeshAnimationSettingsObject::GetCreateMouseCallBack()
@@ -139,18 +139,18 @@ void FinjinMeshAnimationSettingsObject::InitNodeName(MSTR& s)
     s = _M("FinjinMeshAnimationSettings");
 }
 
-Class_ID FinjinMeshAnimationSettingsObject::ClassID() 
+Class_ID FinjinMeshAnimationSettingsObject::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinMeshAnimationSettingsObject::GetClassClassID()
 {
     return FinjinMaxClassID::MeshAnimationSettings;
 }
 
-SClass_ID FinjinMeshAnimationSettingsObject::SuperClassID() 
-{ 
+SClass_ID FinjinMeshAnimationSettingsObject::SuperClassID()
+{
     return REF_TARGET_CLASS_ID;
 }
 
@@ -165,9 +165,9 @@ RefTargetHandle FinjinMeshAnimationSettingsObject::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -178,10 +178,10 @@ RefResult FinjinMeshAnimationSettingsObject::NotifyRefChanged(const Interval& ch
     if (this->pblock != nullptr)
         lastNotifyID = this->pblock->LastNotifyParamID(tabIndex);
 
-    switch (message) 
+    switch (message)
     {
         case REFMSG_TARGET_DELETED:
-        {   
+        {
             if (lastNotifyID == PB_BONE_TRANSLATION_MASK_NODES)
             {
                 this->pblock->Delete(PB_BONE_TRANSLATION_MASK_NODES, tabIndex, 1);
@@ -201,34 +201,34 @@ RefResult FinjinMeshAnimationSettingsObject::NotifyRefChanged(const Interval& ch
     return REF_SUCCEED;
 }
 
-int FinjinMeshAnimationSettingsObject::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinMeshAnimationSettingsObject::SubAnimName(int i) 
+int FinjinMeshAnimationSettingsObject::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinMeshAnimationSettingsObject::SubAnim(int i) 
+MSTR FinjinMeshAnimationSettingsObject::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinMeshAnimationSettingsObject::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinMeshAnimationSettingsObject::GetReference(int i) 
+Animatable* FinjinMeshAnimationSettingsObject::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinMeshAnimationSettingsObject::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinMeshAnimationSettingsObject::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinMeshAnimationSettingsObject::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinMeshAnimationSettingsObject::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinMeshAnimationSettingsObject::GetClassDesc()
@@ -291,7 +291,7 @@ SampleType FinjinMeshAnimationSettingsObject::GetSampleType()
 
 Interval FinjinMeshAnimationSettingsObject::GetTimeInterval()
 {
-    return Interval(this->pblock->GetTimeValue(PB_TIME_START), this->pblock->GetTimeValue(PB_TIME_END));        
+    return Interval(this->pblock->GetTimeValue(PB_TIME_START), this->pblock->GetTimeValue(PB_TIME_END));
 }
 
 int FinjinMeshAnimationSettingsObject::GetBoneTranslationMaskCount()

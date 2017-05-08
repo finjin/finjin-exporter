@@ -25,24 +25,24 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool BipedMixerAnimations::Initialize(ObjectAccessor object)
 {
     //FINJIN_EXPORTER_METHOD_ENTRY_FORMAT("wxT(BipedMixerAnimations::Initialize(%s)"), object.GetLocalName().wx_str());
 
     this->skinningModifier = nullptr;
     this->animations.clear();
-                
+
     INode* rootBone = MaxUtilities::FindBipedRootBone(object.node, this->bipedAttachedWithPhysique);
     IBipMaster* bipedMaster = (rootBone != nullptr) ? GetBipMasterInterface(rootBone->GetTMController()) : nullptr;
-    
+
     std::vector<IMixer*> mixers;
     mixers.reserve(2);
-    IMixer* bipedMixer = (bipedMaster != nullptr) ? bipedMaster->GetMixer() : nullptr;    
+    IMixer* bipedMixer = (bipedMaster != nullptr) ? bipedMaster->GetMixer() : nullptr;
     if (bipedMixer != nullptr)
         mixers.push_back(bipedMixer);
     //FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Biped mixer: %p"), bipedMixer);
-    IMixer* maxMixer = TheMaxMixerManager.GetMaxMixer(object.node);    
+    IMixer* maxMixer = TheMaxMixerManager.GetMaxMixer(object.node);
     if (maxMixer != nullptr && maxMixer != bipedMixer)
         mixers.push_back(maxMixer);
     //FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Max mixer: %p"), maxMixer);
@@ -65,7 +65,7 @@ bool BipedMixerAnimations::Initialize(ObjectAccessor object)
             IMixer* mixer = mixers[mixerIndex];
             //FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("%d track groups"), mixer->NumTrackgroups());
             for (int trackGroupIndex = 0; trackGroupIndex < mixer->NumTrackgroups(); trackGroupIndex++)
-            {        
+            {
                 IMXtrackgroup* mixerTrackGroup = mixer->GetTrackgroup(trackGroupIndex);
                 //FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("  %d tracks for group %d"), mixerTrackGroup->NumTracks(), trackGroupIndex);
                 for (int trackIndex = 0; trackIndex < mixerTrackGroup->NumTracks(); trackIndex++)
@@ -85,7 +85,7 @@ bool BipedMixerAnimations::Initialize(ObjectAccessor object)
                                 auto fileName = ApplicationStringToWxString(clip->GetFile().GetFullFilePath());
 
                                 //Animation name
-                                Animation animation;                                
+                                Animation animation;
                                 animation.name = FileUtilities::GetFileName(fileName, false);
 
                                 //Animation interval
@@ -94,7 +94,7 @@ bool BipedMixerAnimations::Initialize(ObjectAccessor object)
                                 animation.interval.start.SetNativeTime(start);
                                 animation.interval.end.SetNativeTime(end);
 
-                                this->animations.push_back(animation);                    
+                                this->animations.push_back(animation);
                             }
                         }
                     }

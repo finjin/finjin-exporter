@@ -20,14 +20,14 @@
 #include "FinjinPrecompiled.hpp"
 #include "FileUtilities.hpp"
 #if !defined(FINJIN_EXPORTER_INSTALLER)
-    #include "FinjinGlobalSettings.hpp"    
+    #include "FinjinGlobalSettings.hpp"
     #include "finjin/common/WxByteBuffer.hpp"
 #endif
 
 using namespace Finjin::Exporter;
 
 
-//Local functions--------------------------------------------------------------
+//Local functions---------------------------------------------------------------
 static bool EndsWithNoCase(const wxString& s1, const wxString& s2)
 {
     auto s1Length = s1.length();
@@ -44,7 +44,7 @@ static bool EndsWithNoCase(const wxString& s1, const wxString& s2)
 }
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void FileUtilities::UnifySeparators(wxString& path)
 {
     path.Replace(wxT("\\"), wxT("/"));
@@ -95,7 +95,7 @@ void FileUtilities::EnsureTrailingPathSeparator(wxString& path, wxChar separator
             //Append the character
             path += bestSeparatorChar;
         }
-    }        
+    }
     else
         path = separatorChar;
 }
@@ -107,7 +107,7 @@ void FileUtilities::EnsureNoTrailingPathSeparator(wxString& path)
         auto lastIndex = path.length() - 1;
         if (IsSeparator(path[lastIndex]))
             path.Remove(lastIndex);
-    }    
+    }
 }
 
 wxString FileUtilities::WithTrailingPathSeparator(const wxString& path, wxChar separatorChar)
@@ -147,7 +147,7 @@ wxString FileUtilities::JoinPath(const wxString& path1, const wxString& path2)
     //Path2 is not absolute
     wxString joined(path1);
     EnsureTrailingPathSeparator(joined);
-    
+
     //Skip leading separators in path2
     size_t charIndex = 0;
     while (charIndex < path2.length() && IsSeparator(path2[charIndex]))
@@ -159,7 +159,7 @@ wxString FileUtilities::JoinPath(const wxString& path1, const wxString& path2)
 
     //Remove relative components
     joined = MakeFullPath(joined);
-    
+
     return joined;
 }
 
@@ -260,7 +260,7 @@ void FileUtilities::MakeExtensionLowercase(wxString& path)
 
 wxString FileUtilities::GetDirectoryPath(const wxString& path)
 {
-    wxFileName pathFileName(path);    
+    wxFileName pathFileName(path);
     return pathFileName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 }
 
@@ -299,9 +299,9 @@ bool FileUtilities::CopyDirectory(const wxString& sourceDirectory, const wxStrin
 {
     //Create the destination directory if necessary
     CreateDirectoryRecursive(destinationDirectory);
-                    
+
     //Copy files first
-    wxArrayString files;                    
+    wxArrayString files;
     wxDir::GetAllFiles(sourceDirectory, &files, wxEmptyString, wxDIR_FILES);
     for (size_t fileIndex = 0; fileIndex < files.size(); fileIndex++)
     {
@@ -334,7 +334,7 @@ void FileUtilities::GetSubdirectories(const wxString& directory, wxArrayString& 
     class Traverser : public wxDirTraverser
     {
     public:
-        Traverser(wxArrayString& sub, const wxString& dir, bool full, bool includeTrailing) : subdirs(sub), directory(dir) 
+        Traverser(wxArrayString& sub, const wxString& dir, bool full, bool includeTrailing) : subdirs(sub), directory(dir)
         {
             this->full = full;
             this->includeTrailing = includeTrailing;
@@ -344,7 +344,7 @@ void FileUtilities::GetSubdirectories(const wxString& directory, wxArrayString& 
         {
             wxString name;
             if (this->full)
-                name = foundDirectory; 
+                name = foundDirectory;
             else
                 name = foundDirectory.Mid(directory.size());
             if (this->includeTrailing)
@@ -499,7 +499,7 @@ bool FileUtilities::EnsureFileReplaceable(const wxString& fileName)
 
 #if defined(__WXMSW__)
     auto attributes = GetFileAttributesW(fileName.wchar_str());
-    if (attributes != INVALID_FILE_ATTRIBUTES)        
+    if (attributes != INVALID_FILE_ATTRIBUTES)
     {
         if (attributes & FILE_ATTRIBUTE_DIRECTORY)
         {

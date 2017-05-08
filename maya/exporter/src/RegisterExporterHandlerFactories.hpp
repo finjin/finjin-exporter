@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 /** Registers all the exporter handler factories. */
 void RegisterExporterHandlerFactories();

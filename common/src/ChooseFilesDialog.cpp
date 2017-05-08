@@ -28,24 +28,24 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ChooseFilesDialog, FinjinDialog)
-    EVT_BUTTON(wxID_OK, ChooseFilesDialog::OnOK)    
-    EVT_TEXT(ChooseFilesDialog::NAME_TEXT, ChooseFilesDialog::OnNameTextChanged)    
+    EVT_BUTTON(wxID_OK, ChooseFilesDialog::OnOK)
+    EVT_TEXT(ChooseFilesDialog::NAME_TEXT, ChooseFilesDialog::OnNameTextChanged)
     EVT_LISTBOX_DCLICK(ChooseFilesDialog::FILES_LIST, ChooseFilesDialog::OnFilesListDClick)
 END_EVENT_TABLE()
 
 ChooseFilesDialog::ChooseFilesDialog
     (
-    wxWindow* parent, 
-    bool singleSelection, 
+    wxWindow* parent,
+    bool singleSelection,
     const std::vector<FileName>* chooseFiles,
     const wxString* chooseDirectory,
     const std::vector<wxString>* chooseExtensions,
-    wxWindowID id, 
-    const wxString& title, 
+    wxWindowID id,
+    const wxString& title,
     const wxPoint& pos
-    ) 
+    )
     : FinjinDialog( parent, id, !title.empty() ? title : (singleSelection ? wxString(wxT("Choose a File")) : wxString(wxT("Choose Files"))), pos, wxSize( 380,456 ), wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER, wxT("ChooseFilesDialog"))
 {
     if (chooseFiles != nullptr)
@@ -70,7 +70,7 @@ ChooseFilesDialog::ChooseFilesDialog
                     }
                 }
             }
-            
+
             if (add)
             {
                 fileName.fullPath = FileUtilities::JoinPath(*chooseDirectory, fileName.baseName);
@@ -80,61 +80,61 @@ ChooseFilesDialog::ChooseFilesDialog
             cont = dir.GetNext(&fileName.baseName);
         }
     }
-    
+
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* nameSizer;
     nameSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     nameLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Name"), wxDefaultPosition, wxDefaultSize, 0 );
     nameLabel->Wrap( -1 );
     nameSizer->Add( nameLabel, 0, wxALL, 5 );
-    
+
     nameTextBox = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
     nameTextBox->SetMinSize( wxSize( 200,-1 ) );
-    
+
     nameSizer->Add( nameTextBox, 1, wxBOTTOM|wxEXPAND|wxLEFT, 5 );
-    
+
     topSizer->Add( nameSizer, 0, wxEXPAND|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* filesListSizer;
     filesListSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     wxBoxSizer* listBoxSizer;
     listBoxSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     long selectionStyle = singleSelection ? wxLB_SINGLE : wxLB_MULTIPLE;
-    filesListBox = new ApplicationListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_NEEDED_SB|selectionStyle); 
+    filesListBox = new ApplicationListBox( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0, nullptr, wxLB_NEEDED_SB|selectionStyle);
     filesListBox->SetMinSize( wxSize( 200,250 ) );
-    
+
     listBoxSizer->Add( filesListBox, 1, wxEXPAND, 5 );
-    
+
     filesListSizer->Add( listBoxSizer, 1, wxEXPAND, 5 );
-    
+
     topSizer->Add( filesListSizer, 1, wxEXPAND|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     cancelButton = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( cancelButton, 0, wxBOTTOM|wxRIGHT|wxTOP, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_RIGHT, 5 );
 
     this->nameTextBox->SetId(NAME_TEXT);
     this->filesListBox->SetId(FILES_LIST);
-    
+
     SetGUIData();
 
     this->SetSizer( topSizer );
     this->SetMinSize(wxSize(380, 456));
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         this->Layout();
@@ -147,7 +147,7 @@ ChooseFilesDialog::~ChooseFilesDialog()
 }
 
 void ChooseFilesDialog::SetGUIData()
-{   
+{
     FilterFiles();
 }
 
@@ -162,10 +162,10 @@ void ChooseFilesDialog::FilterFiles(bool saveSelection)
         else
             this->filesListBox->GetSelections(selections);
     }
-    
+
     //Clear list box
     this->filesListBox->Clear();
-    
+
     wxString nameFilter = this->nameTextBox->GetValue();
     nameFilter.MakeLower();
 
@@ -181,7 +181,7 @@ void ChooseFilesDialog::FilterFiles(bool saveSelection)
         {
             int insertedAt = this->filesListBox->Append(this->allFileNames[i].baseName);
             this->filesListBox->SetClientData(insertedAt, &this->allFileNames[i]);
-        }        
+        }
     }
 
     if (saveSelection)
@@ -235,7 +235,7 @@ void ChooseFilesDialog::OnNameTextChanged(wxCommandEvent& event)
 }
 
 void ChooseFilesDialog::OnFilesListDClick(wxCommandEvent& event)
-{    
+{
     HandleOK();
     EndModal(wxID_OK);
 }

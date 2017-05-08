@@ -27,12 +27,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 
 //InstallationContext::InstallationInfo---------
 InstallationContext::InstallationInfo::InstallationInfo()
 {
-    this->result = true;        
+    this->result = true;
 }
 
 InstallationContext::InstallationInfo::InstallationInfo(const wxString& message)
@@ -80,7 +80,7 @@ InstallationContext::~InstallationContext()
 }
 
 void InstallationContext::StartInstallationItem(const wxString& displayName)
-{   
+{
     auto newInfo = std::make_shared<InstallationInfo>(displayName);
 
     //Add info to current item
@@ -91,7 +91,7 @@ void InstallationContext::StartInstallationItem(const wxString& displayName)
 }
 
 void InstallationContext::FinishInstallationItem()
-{    
+{
     //Remove the current info item
     this->infoStack.pop_back();
 }
@@ -129,7 +129,7 @@ bool InstallationContext::LogDirectoryCopy(const wxString& source, const wxStrin
     if (result)
         LogSuccess(wxString::Format(wxT("Copied directory '%s' to '%s'."), FileUtilities::PrettyPath(source).wx_str(), FileUtilities::PrettyPath(destination).wx_str()));
     else
-        LogFailure(wxString::Format(wxT("Could not copy directory '%s'."), FileUtilities::PrettyPath(source).wx_str()));    
+        LogFailure(wxString::Format(wxT("Could not copy directory '%s'."), FileUtilities::PrettyPath(source).wx_str()));
     return result;
 }
 
@@ -139,7 +139,7 @@ bool InstallationContext::LogDirectoryCreate(const wxString& path)
     if (result)
         LogSuccess(wxString::Format(wxT("Created/verified directory '%s'."), FileUtilities::PrettyPath(path).wx_str()));
     else
-        LogFailure(wxString::Format(wxT("Could not create directory '%s'."), FileUtilities::PrettyPath(path).wx_str()));    
+        LogFailure(wxString::Format(wxT("Could not create directory '%s'."), FileUtilities::PrettyPath(path).wx_str()));
     return result;
 }
 
@@ -149,7 +149,7 @@ bool InstallationContext::LogDirectoryDelete(const wxString& path)
     if (result)
         LogSuccess(wxString::Format(wxT("Deleted directory '%s'."), FileUtilities::PrettyPath(path).wx_str()));
     else
-        LogFailure(wxString::Format(wxT("Could not delete directory '%s'."), FileUtilities::PrettyPath(path).wx_str()));    
+        LogFailure(wxString::Format(wxT("Could not delete directory '%s'."), FileUtilities::PrettyPath(path).wx_str()));
     return result;
 }
 
@@ -168,11 +168,11 @@ bool InstallationContext::LogOptionalDirectoryDelete(const wxString& path)
 bool InstallationContext::LogFileCopy(const wxString& source, const wxString& destination)
 {
     wxString sourceBaseName = wxFileName(source).GetFullName();
-    auto result = FileUtilities::CopyFileEnsureReplaceable(source, destination);    
+    auto result = FileUtilities::CopyFileEnsureReplaceable(source, destination);
     if (result)
         LogSuccess(wxString::Format(wxT("Copied '%s' to '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str(), FileUtilities::PrettyPath(destination).wx_str()));
     else
-        LogFailure(wxString::Format(wxT("Could not copy file '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str()));    
+        LogFailure(wxString::Format(wxT("Could not copy file '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str()));
     return result;
 }
 
@@ -265,7 +265,7 @@ bool InstallationContext::LogFileCopyVersioned(const wxString& source, const wxS
         DWORD sourceBinaryType;
         DWORD destinationBinaryType;
         bool bitsMatch = true; //Assume both are 32-bit or 64-bit since this is the most likely scenario
-        if (GetBinaryType(source.wx_str(), &sourceBinaryType) && 
+        if (GetBinaryType(source.wx_str(), &sourceBinaryType) &&
             GetBinaryType(destination.wx_str(), &destinationBinaryType) &&
             sourceBinaryType != destinationBinaryType)
         {
@@ -297,7 +297,7 @@ bool InstallationContext::LogFileDelete(const wxString& fileName)
     if (result)
         LogSuccess(wxString::Format(wxT("Deleted file '%s'."), FileUtilities::PrettyPath(fileName).wx_str()));
     else
-        LogFailure(wxString::Format(wxT("Could not delete file '%s'."), FileUtilities::PrettyPath(fileName).wx_str()));    
+        LogFailure(wxString::Format(wxT("Could not delete file '%s'."), FileUtilities::PrettyPath(fileName).wx_str()));
     return result;
 }
 
@@ -314,11 +314,11 @@ bool InstallationContext::LogOptionalFileDelete(const wxString& fileName)
 bool InstallationContext::LogFileMove(const wxString& source, const wxString& destination)
 {
     //Perform the copy and delete
-    bool copyResult = FileUtilities::CopyFileEnsureReplaceable(source, destination);    
+    bool copyResult = FileUtilities::CopyFileEnsureReplaceable(source, destination);
     bool deleteResult = false;
     if (copyResult)
         deleteResult = wxRemoveFile(source);
-    
+
     //Log results
     wxString sourceBaseName = wxFileName(source).GetFullName();
     if (copyResult)
@@ -326,7 +326,7 @@ bool InstallationContext::LogFileMove(const wxString& source, const wxString& de
         if (deleteResult)
             LogSuccess(wxString::Format(wxT("Moved file '%s' to '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str(), FileUtilities::PrettyPath(destination).wx_str()));
         else
-            LogFailure(wxString::Format(wxT("Could not move file '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str()));    
+            LogFailure(wxString::Format(wxT("Could not move file '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str()));
     }
     else
         LogFailure(wxString::Format(wxT("Could not copy file '%s' for move to '%s'."), PRETTY_SOURCE_FILE(sourceBaseName, source).wx_str(), FileUtilities::PrettyPath(destination).wx_str()));
@@ -355,11 +355,11 @@ bool InstallationContext::LogWriteTextFile(const wxString& destination, const wx
 bool InstallationContext::LogExec(const wxString& command, bool logOutput, bool ignoreErrors)
 {
     bool result;
-    
+
     //Execute command
     wxArrayString output, errors;
     if (logOutput)
-        result = wxExecute(command, output, errors) == 0;        
+        result = wxExecute(command, output, errors) == 0;
     else
         result = wxShell(command);
 
@@ -374,7 +374,7 @@ bool InstallationContext::LogExec(const wxString& command, bool logOutput, bool 
             {
                 message += wxT("\n");
                 message += output[i];
-            }            
+            }
         }
         if (!errors.empty())
         {
@@ -386,7 +386,7 @@ bool InstallationContext::LogExec(const wxString& command, bool logOutput, bool 
             {
                 message += wxT("\n");
                 message += errors[i];
-            }            
+            }
         }
 
         if (errors.empty() || ignoreErrors)

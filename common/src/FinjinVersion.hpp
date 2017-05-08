@@ -19,10 +19,10 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** The version of the Finjin exporter. */
@@ -30,7 +30,7 @@ namespace Finjin { namespace Exporter {
     {
     public:
         static const int NUMBER;
-        
+
         static const int MAJOR;
         static const int MINOR;
         static const int PATCH;

@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ColorPickerControl : public wxColourPickerCtrl
@@ -27,11 +27,11 @@ namespace Finjin { namespace Exporter {
     public:
         ColorPickerControl
             (
-            wxWindow *parent, 
+            wxWindow *parent,
             wxWindowID id,
-            const wxColour& col = *wxBLACK, 
+            const wxColour& col = *wxBLACK,
             const wxPoint& pos = wxDefaultPosition,
-            const wxSize& size = wxDefaultSize, 
+            const wxSize& size = wxDefaultSize,
             long style = wxCLRP_DEFAULT_STYLE,
             const wxValidator& validator = wxDefaultValidator,
             const wxString& name = wxColourPickerCtrlNameStr)
@@ -41,4 +41,3 @@ namespace Finjin { namespace Exporter {
     };
 
 } }
-

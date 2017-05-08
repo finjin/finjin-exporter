@@ -23,28 +23,28 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void SnapUtilities::DefaultSnap
     (
-    TimeValue t, 
-    INode* node, 
-    SnapInfo* snap, 
-    IPoint2* p, 
-    ViewExp* view, 
+    TimeValue t,
+    INode* node,
+    SnapInfo* snap,
+    IPoint2* p,
+    ViewExp* view,
     Matrix3 objectLocalTM
     )
 {
     //Get viewport graphics window
-    auto gw = view->getGW();    
+    auto gw = view->getGW();
 
     //Set node transform into graphics window
-    auto tm = objectLocalTM * node->GetObjectTM(t);            
+    auto tm = objectLocalTM * node->GetObjectTM(t);
     gw->setTransform(tm);
 
     auto invPlane = Inverse(snap->plane);
 
     //Make sure the vertex priority is active and at least as important as the best snap so far
-    if (snap->vertPriority > 0 && snap->vertPriority <= snap->priority) 
+    if (snap->vertPriority > 0 && snap->vertPriority <= snap->priority)
     {
         Point2 fp((float)p->x, (float)p->y);
         Point2 screen2;
@@ -53,7 +53,7 @@ void SnapUtilities::DefaultSnap
         Point3 thePoint(0,0,0);
 
         //If constrained to the plane, make sure this point is in it
-        if (snap->snapType == SNAP_2D || snap->flags & SNAP_IN_PLANE) 
+        if (snap->snapType == SNAP_2D || snap->flags & SNAP_IN_PLANE)
         {
             auto test = thePoint * tm * invPlane;
             if (fabs(test.z) > 0.0001)
@@ -65,17 +65,17 @@ void SnapUtilities::DefaultSnap
 
         //Are we within the snap radius?
         int len = (int)Length(screen2 - fp);
-        if (len <= snap->strength) 
+        if (len <= snap->strength)
         {
             //Is this priority better than the best so far?
-            if (snap->vertPriority < snap->priority) 
+            if (snap->vertPriority < snap->priority)
             {
                 snap->priority = snap->vertPriority;
                 snap->bestWorld = thePoint * tm;
                 snap->bestScreen = screen2;
                 snap->bestDist = len;
             }
-            else if (len < snap->bestDist) 
+            else if (len < snap->bestDist)
             {
                 snap->priority = snap->vertPriority;
                 snap->bestWorld = thePoint * tm;

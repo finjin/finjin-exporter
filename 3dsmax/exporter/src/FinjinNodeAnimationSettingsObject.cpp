@@ -29,7 +29,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class FinjinNodeAnimationSettingsObjectClassDesc : public ClassDesc2
 {
 public:
@@ -48,21 +48,21 @@ public:
 FinjinNodeAnimationSettingsObjectClassDesc FinjinNodeAnimationSettingsObjectClassDesc::instance;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 enum {OBJECT_SETTINGS_PARAM_BLOCK_ID = 0};
 enum {OBJECT_SETTINGS_VERSION = 1};
 
 static ParamBlockDesc2 FinjinNodeAnimationSettingsObjectParamBlock
     (
-    OBJECT_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinNodeAnimationSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT, 
-    
+    OBJECT_SETTINGS_PARAM_BLOCK_ID, _M("Parameters"),  0, &FinjinNodeAnimationSettingsObjectClassDesc::instance, P_VERSION | P_AUTO_CONSTRUCT,
+
     //Version
     OBJECT_SETTINGS_VERSION,
-    
+
     //Reference number
-    FinjinNodeAnimationSettingsObject::PARAM_BLOCK_REF, 
-    
-    //Parameters    
+    FinjinNodeAnimationSettingsObject::PARAM_BLOCK_REF,
+
+    //Parameters
     FinjinNodeAnimationSettingsObject::PB_ANIMATION_NAME, _M("AnimationName"), TYPE_STRING, 0, IDS_ANIMATION_NAME,
         p_end,
     FinjinNodeAnimationSettingsObject::PB_TIME_START, _M("TimeStart"), TYPE_TIMEVALUE, 0, IDS_TIME_START,
@@ -99,7 +99,7 @@ static ParamBlockDesc2 FinjinNodeAnimationSettingsObjectParamBlock
     );
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinNodeAnimationSettingsObject::FinjinNodeAnimationSettingsObject()
 {
     this->pblock = nullptr;
@@ -107,7 +107,7 @@ FinjinNodeAnimationSettingsObject::FinjinNodeAnimationSettingsObject()
 }
 
 FinjinNodeAnimationSettingsObject::~FinjinNodeAnimationSettingsObject()
-{    
+{
 }
 
 CreateMouseCallBack* FinjinNodeAnimationSettingsObject::GetCreateMouseCallBack()
@@ -125,18 +125,18 @@ void FinjinNodeAnimationSettingsObject::InitNodeName(MSTR& s)
     s = _M("FinjinNodeAnimationSettings");
 }
 
-Class_ID FinjinNodeAnimationSettingsObject::ClassID() 
+Class_ID FinjinNodeAnimationSettingsObject::ClassID()
 {
     return GetClassClassID();
-}        
+}
 
 Class_ID FinjinNodeAnimationSettingsObject::GetClassClassID()
 {
     return FinjinMaxClassID::NodeAnimationSettings;
 }
 
-SClass_ID FinjinNodeAnimationSettingsObject::SuperClassID() 
-{ 
+SClass_ID FinjinNodeAnimationSettingsObject::SuperClassID()
+{
     return REF_TARGET_CLASS_ID;
 }
 
@@ -151,9 +151,9 @@ RefTargetHandle FinjinNodeAnimationSettingsObject::Clone(RemapDir& remap)
 
     //Copy everything
     newHelper->ReplaceReference(PARAM_BLOCK_REF, remap.CloneRef(this->pblock));
-        
+
     BaseClone(this, newHelper, remap);
-    
+
     return newHelper;
 }
 
@@ -162,34 +162,34 @@ RefResult FinjinNodeAnimationSettingsObject::NotifyRefChanged(const Interval& ch
     return REF_SUCCEED;
 }
 
-int FinjinNodeAnimationSettingsObject::NumSubs() 
-{ 
-    return NUM_REFS; 
-}
-
-MSTR FinjinNodeAnimationSettingsObject::SubAnimName(int i) 
+int FinjinNodeAnimationSettingsObject::NumSubs()
 {
-    return MaxUtilities::GetString(IDS_PARAMETERS); 
-}                
+    return NUM_REFS;
+}
 
-Animatable* FinjinNodeAnimationSettingsObject::SubAnim(int i) 
+MSTR FinjinNodeAnimationSettingsObject::SubAnimName(int i)
 {
-    return this->pblock; 
+    return MaxUtilities::GetString(IDS_PARAMETERS);
 }
 
-int FinjinNodeAnimationSettingsObject::NumRefs() 
-{ 
-    return NUM_REFS; 
-}
-
-RefTargetHandle FinjinNodeAnimationSettingsObject::GetReference(int i) 
+Animatable* FinjinNodeAnimationSettingsObject::SubAnim(int i)
 {
-    return this->pblock; 
+    return this->pblock;
 }
 
-void FinjinNodeAnimationSettingsObject::SetReference(int i, RefTargetHandle rtarg) 
-{ 
-    this->pblock = (IParamBlock2*)rtarg; 
+int FinjinNodeAnimationSettingsObject::NumRefs()
+{
+    return NUM_REFS;
+}
+
+RefTargetHandle FinjinNodeAnimationSettingsObject::GetReference(int i)
+{
+    return this->pblock;
+}
+
+void FinjinNodeAnimationSettingsObject::SetReference(int i, RefTargetHandle rtarg)
+{
+    this->pblock = (IParamBlock2*)rtarg;
 }
 
 ClassDesc* FinjinNodeAnimationSettingsObject::GetClassDesc()
@@ -264,7 +264,7 @@ wxString FinjinNodeAnimationSettingsObject::GetRotationInterpolationType()
 
 Interval FinjinNodeAnimationSettingsObject::GetTimeInterval()
 {
-    return Interval(this->pblock->GetTimeValue(PB_TIME_START), this->pblock->GetTimeValue(PB_TIME_END));    
+    return Interval(this->pblock->GetTimeValue(PB_TIME_START), this->pblock->GetTimeValue(PB_TIME_END));
 }
 
 void FinjinNodeAnimationSettingsObject::SetAnimationName(wxString value)

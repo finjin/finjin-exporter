@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Meshes page for the scene settings dialog. */
-    class SceneSettingsDialog_MeshesPage : public SettingsPage 
+    class SceneSettingsDialog_MeshesPage : public SettingsPage
     {
     private:
         DECLARE_EVENT_TABLE()
@@ -43,7 +43,7 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* alwaysCreateNewSubmeshesWhenMergingCheckBox;
         wxCheckBox* exportTangentsCheckbox;
         wxCheckBox* exportBinormalsCheckbox;
-        
+
         FinjinSceneSettingsAccessor sceneSettings;
 
     public:

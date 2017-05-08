@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshBoneBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A single bone in a mesh skeleton. */
@@ -31,6 +31,6 @@ namespace Finjin { namespace Exporter {
     {
     public:
         MeshBone(ObjectAccessor object, bool isExplicit = true);
-    };    
+    };
 
 } }

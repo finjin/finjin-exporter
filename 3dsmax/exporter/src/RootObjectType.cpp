@@ -32,7 +32,7 @@ using namespace Finjin::Engine;
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class ExportedFinjinScene : public ExportedObject
 {
 public:
@@ -76,6 +76,6 @@ std::unique_ptr<ExportedObject> RootObjectType::Export(ExportableObjectPtr& expo
 
         ((FinjinSceneExporterHandler*)context.GetHandler())->ExportScene(exportableObject, exportedScene->scene, context);
     }
-    
+
     return exportedObject;
 }

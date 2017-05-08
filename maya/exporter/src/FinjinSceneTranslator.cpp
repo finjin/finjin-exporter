@@ -25,14 +25,14 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FINJIN_IMPLEMENT_TRANSLATOR(FinjinSceneTranslator_FSTD, "1.0", "fstd-scene", "*.fstd-scene", "Finjin Streaming Text Scene File");
 FINJIN_IMPLEMENT_TRANSLATOR(FinjinSceneTranslator_FSBD, "1.0", "fsbd-scene", "*.fsbd-scene", "Finjin Streaming Binary Scene File");
 FINJIN_IMPLEMENT_TRANSLATOR(FinjinSceneTranslator_JSON, "1.0", "json-scene", "*.json-scene", "Finjin Streaming JSON Scene File");
 FINJIN_IMPLEMENT_TRANSLATOR(FinjinSceneTranslator_CFG, "1.0", "cfg-scene", "*.cfg-scene", "Finjin Config Scene File");
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MStatus FinjinSceneTranslatorBase::writer
     (
     const MFileObject& file,
@@ -47,8 +47,8 @@ MStatus FinjinSceneTranslatorBase::writer
     {
         Exporter::ExportWithFileName
             (
-            ApplicationStringToWxString(file.fullName()), 
-            mode == MPxFileTranslator::kExportActiveAccessMode, 
+            ApplicationStringToWxString(file.fullName()),
+            mode == MPxFileTranslator::kExportActiveAccessMode,
             &FinjinSceneExporterHandlerFactory::GetInstance(),
             true
             );

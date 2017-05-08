@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool ObjectSettingsDialog_MeshAnimationsPage_MixerControl::Initialize(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings)
 {
     this->objectSettings = objectSettings;
@@ -46,20 +46,20 @@ bool ObjectSettingsDialog_MeshAnimationsPage_MixerControl::SyncSettingsToMixer()
         {
             //The animation name is now used
             animationNames.insert(animation.name);
-            
+
             wxString trackName;
             if (this->bipedMixerAnimations.bipedAttachedWithPhysique)
-                trackName = PropertyValues::MeshAnimationTrack::PHYSIQUE;                    
+                trackName = PropertyValues::MeshAnimationTrack::PHYSIQUE;
             else
                 trackName = PropertyValues::MeshAnimationTrack::SKIN;
-            
+
             //Synchronize
             int foundAt;
             auto existingAnimation = this->objectSettings.GetMeshAnimationByName(animation.name, &foundAt);
             if (foundAt >= 0)
             {
                 //The animation already exists. Update it
-                if (this->bipedMixerAnimations.skinningModifier != nullptr)                
+                if (this->bipedMixerAnimations.skinningModifier != nullptr)
                 {
                     existingAnimation.SetTrack(trackName);
                     existingAnimation.SetTimeInterval(animation.interval);
@@ -77,7 +77,7 @@ bool ObjectSettingsDialog_MeshAnimationsPage_MixerControl::SyncSettingsToMixer()
                     existingAnimation.SetTimeInterval(animation.interval);
                     existingAnimation.SetAnimationName(animation.name);
                 }
-            }                                    
+            }
         }
     }
 

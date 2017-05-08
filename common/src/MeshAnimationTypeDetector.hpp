@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "MeshAnimationType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * Detects the valid output mesh animation types for a mesh.
-     * 
+     *
      * When using the Finjin exporter, you can find the types on the mesh animations page
      * of the object settings dialog for a particular object.
      */
@@ -37,10 +37,10 @@ namespace Finjin { namespace Exporter {
     {
     public:
         MeshAnimationTypeDetector();
-        
+
         virtual ~MeshAnimationTypeDetector() {}
 
-        /** 
+        /**
          * Detects the output mesh animation types for the specified mesh object.
          * @param object [in] - The object.
          * @param objectSettings [in] - The object settings.
@@ -50,22 +50,22 @@ namespace Finjin { namespace Exporter {
         /**
          * Detects the output mesh animation types for the specified mesh object.
          * @param object [in] - The object.
-         * @param typeNamePtr [in] - The selected animation type name. This will be one 
+         * @param typeNamePtr [in] - The selected animation type name. This will be one
          * of the values in PropertyValues::MeshAnimationType or an empty string. This may be null.
-         * @param useTypeNamePtr [in] - Indicates whether the specified type name should be used. 
+         * @param useTypeNamePtr [in] - Indicates whether the specified type name should be used.
          * If false, the mesh animation type in the object settings is used. Setting this value to true
          * and passing null for typeNamePtr allows you to get the default mesh animation type.
          * @param objectSettings [in] - The object settings.
          */
         void Detect
             (
-            ObjectAccessor object, 
-            const wxString* typeNamePtr, 
-            bool useTypeNamePtr, 
+            ObjectAccessor object,
+            const wxString* typeNamePtr,
+            bool useTypeNamePtr,
             FinjinObjectSettingsAccessor objectSettings
             );
 
-        /** 
+        /**
          * Finds the index of the specified type.
          * @param name [in] - One of the values in PropertyValues::MeshAnimationType.
          * @return If found, the index of the type is returned. Otherwise, -1 is returned.
@@ -81,7 +81,7 @@ namespace Finjin { namespace Exporter {
         MeshAnimationType* FindType(MeshAnimationTypes type);
 
     private:
-        /** 
+        /**
          * Adds a single mesh animation type.
          * @param type [in] - The mesh animation type.
          * @param name [in] - The mesh animation type name. This will be one of the values in PropertyValues::MeshAnimationType.

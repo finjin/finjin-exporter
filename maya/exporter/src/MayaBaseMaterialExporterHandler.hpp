@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Base handler for exporting materials. */
@@ -97,6 +97,6 @@ namespace Finjin { namespace Exporter {
 
         static MObject FindFileTexture(MFnDependencyNode& shader, MString texturePlugName);
         static void FindFileTextures(std::vector<Texture>& textures, MFnDependencyNode& shader, MString texturePlugName);
-    };    
+    };
 
 } }

@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "UserDataSettingsAccessor.hpp"
 #include "UserDataTypes.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class UserDataSettingsPage;
@@ -34,17 +34,17 @@ namespace Finjin { namespace Exporter {
     /**
      * A modal dialog that allows user data settings to be modified for an object.
      * In most cases, the user data settings will be displayed as one tab among many
-     * in a dialog. However, some object types such as the Finjin material, don't have 
+     * in a dialog. However, some object types such as the Finjin material, don't have
      * a native settings dialog.
      */
     class UserDataSettingsDialog : public FinjinDialog
-    {    
+    {
     public:
         /** Default constructor. */
         UserDataSettingsDialog();
 
-        /** 
-         * Constructor. 
+        /**
+         * Constructor.
          * @param parent [in] - The parent window.
          * @param objectName [in] - The name of the object that owns the user data. This is used for
          * formatting the string shown in the dialog's title bar.
@@ -54,25 +54,25 @@ namespace Finjin { namespace Exporter {
          */
         UserDataSettingsDialog
             (
-            wxWindow* parent, 
+            wxWindow* parent,
             const wxString& objectName,
-            UserDataSettingsAccessor& userDataSettings, 
+            UserDataSettingsAccessor& userDataSettings,
             UserDataUsage classUsage,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
         bool Create
             (
-            wxWindow* parent, 
+            wxWindow* parent,
             const wxString& objectName,
-            UserDataSettingsAccessor& userDataSettings, 
+            UserDataSettingsAccessor& userDataSettings,
             UserDataUsage classUsage,
             FinjinSceneSettingsAccessor sceneSettings
             );
 
-        void OnCloseWindow(wxCloseEvent& event);    
+        void OnCloseWindow(wxCloseEvent& event);
         void OnOK(wxCommandEvent& event);
-        
+
     protected:
         void CreateControls();
 

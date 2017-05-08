@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #if FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_3DSMAX
     #include "MeshNormals-Max.hpp"
 #elif FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_MAYA

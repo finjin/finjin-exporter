@@ -26,14 +26,14 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ChooseMaterialsPrompt::ChooseMaterialsPrompt(wxWindow* parent, HowMany howMany)
 {
     this->parent = parent;
     this->howMany = howMany;
 }
 
-bool ChooseMaterialsPrompt::ShowPrompt() 
+bool ChooseMaterialsPrompt::ShowPrompt()
 {
     SUSPEND_CUSTOM_CONTROLS;
 

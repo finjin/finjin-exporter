@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 MeshBone::MeshBone(MObject object, bool isExplicit)
 {
     this->object = object;
@@ -40,7 +40,7 @@ TransformAccessor MeshBone::GetNodeTransformation(TimeAccessor time)
 
 TransformAccessor MeshBone::GetNodeTransformation()
 {
-    MMatrix transformation;    
+    MMatrix transformation;
     if (!MayaUtilities::GetFullWorldMatrix(this->object.obj, transformation))
         transformation.setToIdentity();
 

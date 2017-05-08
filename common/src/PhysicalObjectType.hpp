@@ -19,16 +19,16 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "DetectableObjectType.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * DetectableObjectType for an object that contains a few basic pieces of information
-     * but is contained within an external file. 
+     * but is contained within an external file.
      */
     class PhysicalObjectType : public DetectableObjectType
     {
@@ -40,7 +40,7 @@ namespace Finjin { namespace Exporter {
         public:
             const wxString& GetTypeName() const override {static const wxString name(wxT("physical")); return name;}
             const wxString& GetDisplayName() const override {static const wxString name(wxT("Physical")); return name;}
-            bool IsUniversal() const override {return true;}            
+            bool IsUniversal() const override {return true;}
             bool CanAttachToNode() const override {return true;}
         };
 

@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 GeometryStateSubmesh::GeometryStateSubmesh(MaterialAccessor material, const GeometryStateSubmeshProperties& submeshProperties)
 {
     this->material = material;
@@ -33,13 +33,13 @@ GeometryStateSubmesh::GeometryStateSubmesh(MaterialAccessor material, const Geom
     this->reindexingPrefixLength = 0;
     this->reindexedVertexCount = 0;
     this->primitiveCount = 0;
-    this->index = -1;        
+    this->index = -1;
     this->mappingIndex = -1;
 }
 
 void GeometryStateSubmesh::InitializeForMerge(int index, size_t reindexingPrefixLength)
 {
-    this->reindexingPrefixLength = reindexingPrefixLength;    
+    this->reindexingPrefixLength = reindexingPrefixLength;
     this->reindexedVertexCount += reindexingPrefixLength;
     this->index = index;
 }
@@ -54,7 +54,7 @@ void GeometryStateSubmesh::GetIndices(std::vector<uint16_t>& indices) const
 {
     indices.resize(this->indices.size());
     for (size_t i = 0; i < this->indices.size(); i++)
-        indices[i] = (uint16_t)this->indices[i];        
+        indices[i] = (uint16_t)this->indices[i];
 }
 
 bool GeometryStateSubmesh::ContainsVertex(int vertexIndex) const
@@ -70,13 +70,13 @@ size_t GeometryStateSubmesh::GetReindexedVertexCount() const
 void GeometryStateSubmesh::Reserve(size_t count)
 {
     this->vertexList.Reserve(count);
-    this->reindexedVertexCount = count;    
+    this->reindexedVertexCount = count;
 }
 
 ReindexedVertex& GeometryStateSubmesh::GetReindexedVertex(size_t i)
 {
     static ReindexedVertex nullReindex;
-    
+
     if (i >= this->reindexingPrefixLength && i < this->reindexedVertexCount)
     {
         size_t optimizedCount = this->reindexedVertexCount - this->reindexingPrefixLength;
@@ -116,28 +116,28 @@ void GeometryStateSubmesh::BuildVertexBoneAssignments(MeshSkeleton& meshSkeleton
     };
 
     //const size_t boneCount = geometryState->meshSkeleton.bones.size();
-                    
-    //This keeps track of the output vertex/bone assignments. 
+
+    //This keeps track of the output vertex/bone assignments.
     //This is necessary since removing vertex duplicates (done at an earlier stage) can result in output assignments mapping to the same vertex index/bone index pair.
     std::vector<OutputVBA> outputVbas;
     outputVbas.resize(this->vertexList.size());
 
     for (size_t vertexIndex = 0; vertexIndex < this->GetReindexedVertexCount(); vertexIndex++)
     {
-        if (ContainsVertex((int)vertexIndex))                        
+        if (ContainsVertex((int)vertexIndex))
         {
             auto& reindexedVertex = GetReindexedVertexConst(vertexIndex);
             auto& weightedVertex = reindexedVertex.weightedVertex;
             if (!weightedVertex.assignments.empty())
             {
-                for (size_t assignmentIndex = 0; assignmentIndex < weightedVertex.assignments.size(); assignmentIndex++) 
+                for (size_t assignmentIndex = 0; assignmentIndex < weightedVertex.assignments.size(); assignmentIndex++)
                 {
-                    auto& assignment = weightedVertex.assignments[assignmentIndex];                            
+                    auto& assignment = weightedVertex.assignments[assignmentIndex];
 
                     auto boneIndex = meshSkeleton.GetBoneIndex(assignment.bone);
                     for (size_t reindexed = 0; reindexed < reindexedVertex.size(); reindexed++)
                     {
-                        auto vertexIndex = reindexedVertex[reindexed];                                    
+                        auto vertexIndex = reindexedVertex[reindexed];
                         if (outputVbas[vertexIndex].boneIndices.find(boneIndex) == outputVbas[vertexIndex].boneIndices.end())
                         {
                             this->vertexBoneAssignments.push_back(VertexBoneAssignment(vertexIndex, boneIndex, assignment.weight));

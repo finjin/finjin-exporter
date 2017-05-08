@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MaxModifier.hpp"
 #include "MeshMorpherBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Extracts morph targets from the morpher modifier. */
@@ -35,7 +35,7 @@ namespace Finjin { namespace Exporter {
 
         void Clear();
 
-        /** 
+        /**
          * Initializes the morpher data.
          * @param maxNode [in] - The object that may contain a morpher modifier.
          * @param coordinateConverter [in] - The coordinate converter used to convert points.
@@ -43,8 +43,8 @@ namespace Finjin { namespace Exporter {
          */
         bool Initialize
             (
-            INode* maxNode, 
-            const CoordinateSystemConverter& coordinateConverter, 
+            INode* maxNode,
+            const CoordinateSystemConverter& coordinateConverter,
             float scale,
             PrimitiveType meshPrimitiveType
             );
@@ -52,15 +52,15 @@ namespace Finjin { namespace Exporter {
         /** Determines whether there are any morph targets. */
         bool IsValid() const;
 
-        /** 
-         * Enables/disables the morpher. 
+        /**
+         * Enables/disables the morpher.
          * Enabling it means that it has an effect on the target mesh object.
          * Disabling it means that the target mesh data appears as though there is no morpher.
          */
         void Enable(bool enable = true);
 
-        /** 
-         * Disables the morpher. 
+        /**
+         * Disables the morpher.
          * Disabling it means that the target mesh data appears as though there is no morpher.
          */
         void Disable() {Enable(false);}

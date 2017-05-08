@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 //#if FINJIN_EXPORTER_HOST == FINJIN_EXPORTER_HOST_3DSMAX
 //      Don't use the 3DS Max spinner. It doesn't let you customize the precision per spinner control, only as a global
 //    #include "SpinnerControl-Max.hpp"

@@ -19,17 +19,17 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * A collection of utility functions used to modify controls. 
+    /**
+     * A collection of utility functions used to modify controls.
      * Note: This class is currently empty, though it used to have quite a few functions.
      * It may end up getting more functionality in the future, so it has been left in place.
      */
     class ControlUtilities
     {
-    public:        
+    public:
     };
 
 } }

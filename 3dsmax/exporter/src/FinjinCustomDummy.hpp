@@ -19,9 +19,9 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** The Finjin custom dummy object. */
     class FinjinCustomDummy : public HelperObject
     {
@@ -45,13 +45,13 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         int CanConvertToType(Class_ID obtype) override        {return FALSE;}
-        Object* ConvertToType(TimeValue t, Class_ID obtype) override {return nullptr;}        
+        Object* ConvertToType(TimeValue t, Class_ID obtype) override {return nullptr;}
         void GetWorldBoundBox(TimeValue t, INode* inode, ViewExp* vpt, Box3& box) override;
         void GetLocalBoundBox(TimeValue t, INode* inode, ViewExp* vpt, Box3& box) override;
         int DoOwnSelectHilite() override                        {return TRUE;}
         IOResult Load(ILoad* iload) override;
         IOResult Save(ISave* isave) override;
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -71,7 +71,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         float GetIconSize(TimeValue t = 0);
         void SetIconSize(float value, TimeValue t = 0);
@@ -113,7 +113,7 @@ namespace Finjin { namespace Exporter {
         IObjParam* ip;
 
         bool suspendSnap;
-        
+
         std::vector<Point3> edgeVertices;
     };
 

@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
-     * Manipulates Maya Node menu. 
+    /**
+     * Manipulates Maya Node menu.
      * This is used when exporting skeletons, since IK constraints and other things
      * need to be disabled in order to put the skeleton back into its bind pose.
      */
@@ -55,7 +55,7 @@ namespace Finjin { namespace Exporter {
         }
 
         /** Disables the menu items. */
-        void Disable() 
+        void Disable()
         {
             Enable(false);
         }

@@ -26,21 +26,21 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(UserDataSettingsDialog, FinjinDialog)
-    EVT_CLOSE(UserDataSettingsDialog::OnCloseWindow)        
-    EVT_BUTTON(wxID_OK, UserDataSettingsDialog::OnOK)        
+    EVT_CLOSE(UserDataSettingsDialog::OnCloseWindow)
+    EVT_BUTTON(wxID_OK, UserDataSettingsDialog::OnOK)
 END_EVENT_TABLE()
 
 UserDataSettingsDialog::UserDataSettingsDialog()
-{   
+{
 }
 
 UserDataSettingsDialog::UserDataSettingsDialog
     (
-    wxWindow* parent, 
+    wxWindow* parent,
     const wxString& objectName,
-    UserDataSettingsAccessor& userDataSettings, 
+    UserDataSettingsAccessor& userDataSettings,
     UserDataUsage classUsage,
     FinjinSceneSettingsAccessor sceneSettings
     )
@@ -50,9 +50,9 @@ UserDataSettingsDialog::UserDataSettingsDialog
 
 bool UserDataSettingsDialog::Create
     (
-    wxWindow* parent, 
+    wxWindow* parent,
     const wxString& objectName,
-    UserDataSettingsAccessor& userDataSettings, 
+    UserDataSettingsAccessor& userDataSettings,
     UserDataUsage classUsage,
     FinjinSceneSettingsAccessor sceneSettings
     )
@@ -75,31 +75,31 @@ void UserDataSettingsDialog::CreateControls()
     wxButton* closeButton;
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
 
     wxBoxSizer* pageSizer = new wxBoxSizer(wxVERTICAL);
 
     pageSizer->AddSpacer(5); //Need a little extra space at the top
-    
+
     this->userDataPage = new UserDataSettingsPage(this, *this->userDataSettings, this->classUsage, this->sceneSettings);
-    pageSizer->Add(this->userDataPage, 1, wxEXPAND, 5);    
-    
+    pageSizer->Add(this->userDataPage, 1, wxEXPAND, 5);
+
     topSizer->Add( pageSizer, 1, wxEXPAND | wxDOWN | wxRIGHT | wxLEFT, 5);
-    
+
     wxGridSizer* bottomSizer;
     bottomSizer = new wxGridSizer( 1, 1, 0, 0 );
-    
+
     closeButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     bottomSizer->Add( closeButton, 0, wxALIGN_RIGHT|wxALL, 5 );
-    
+
     topSizer->Add( bottomSizer, 0, wxEXPAND, 5 );
-    
+
     this->userDataPage->SetGUIData();
 
     SetSizer(topSizer);
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -113,7 +113,7 @@ void UserDataSettingsDialog::CreateControls()
 void UserDataSettingsDialog::OnCloseWindow(wxCloseEvent& event)
 {
     WindowPlacementManager::SavePlacement(this);
-    EndModal(wxID_OK);    
+    EndModal(wxID_OK);
 }
 
 void UserDataSettingsDialog::OnOK(wxCommandEvent& event)

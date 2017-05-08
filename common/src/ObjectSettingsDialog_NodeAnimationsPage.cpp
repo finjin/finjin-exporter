@@ -30,12 +30,12 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ObjectSettingsDialog_NodeAnimationsPage::TITLE(wxT("Node Animations"));
 static ObjectSettingsDialog_NodeAnimationsPage* page = nullptr;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ObjectSettingsDialog_NodeAnimationsPage, SettingsPage)
     EVT_TEXT(ObjectSettingsDialog_NodeAnimationsPage::ANIMATION_SAMPLING_TEXT, ObjectSettingsDialog_NodeAnimationsPage::OnAnimationSamplingTextChanged)
     EVT_CHOICE(ObjectSettingsDialog_NodeAnimationsPage::ANIMATION_SAMPLING_CHOICE, ObjectSettingsDialog_NodeAnimationsPage::OnAnimationSamplingChoice)
@@ -43,22 +43,22 @@ BEGIN_EVENT_TABLE(ObjectSettingsDialog_NodeAnimationsPage, SettingsPage)
     EVT_BUTTON(ObjectSettingsDialog_NodeAnimationsPage::EDIT_ANIMATION_BUTTON, ObjectSettingsDialog_NodeAnimationsPage::OnEditAnimationButton)
     EVT_BUTTON(ObjectSettingsDialog_NodeAnimationsPage::COPY_ANIMATION_BUTTON, ObjectSettingsDialog_NodeAnimationsPage::OnCopyAnimationButton)
     EVT_BUTTON(ObjectSettingsDialog_NodeAnimationsPage::REMOVE_ANIMATION_BUTTON, ObjectSettingsDialog_NodeAnimationsPage::OnRemoveAnimationButton)
-    EVT_LIST_ITEM_ACTIVATED(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListActivate)    
-    EVT_LIST_COL_CLICK(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListColumnClick)    
-    EVT_LIST_ITEM_SELECTED(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListSelectionChange)    
-    EVT_LIST_ITEM_DESELECTED(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListSelectionChange)    
+    EVT_LIST_ITEM_ACTIVATED(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListActivate)
+    EVT_LIST_COL_CLICK(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListColumnClick)
+    EVT_LIST_ITEM_SELECTED(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListSelectionChange)
+    EVT_LIST_ITEM_DESELECTED(ObjectSettingsDialog_NodeAnimationsPage::NODE_ANIMATION_LIST, ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListSelectionChange)
 END_EVENT_TABLE()
 
 ObjectSettingsDialog_NodeAnimationsPage::ObjectSettingsDialog_NodeAnimationsPage
     (
-    wxWindow* parent, 
-    ObjectAccessor object, 
-    FinjinObjectSettingsAccessor objectSettings, 
-    FinjinSceneSettingsAccessor sceneSettings, 
-    wxWindowID id, 
-    const wxPoint& pos, 
-    const wxSize& size, 
-    long style 
+    wxWindow* parent,
+    ObjectAccessor object,
+    FinjinObjectSettingsAccessor objectSettings,
+    FinjinSceneSettingsAccessor sceneSettings,
+    wxWindowID id,
+    const wxPoint& pos,
+    const wxSize& size,
+    long style
     ) : SettingsPage( parent, id, pos, size, style )
 {
     page = this;
@@ -73,45 +73,45 @@ ObjectSettingsDialog_NodeAnimationsPage::ObjectSettingsDialog_NodeAnimationsPage
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* nodeAnimationDefaultsSizer;
     nodeAnimationDefaultsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Settings") ), wxVERTICAL );
-    
+
     wxFlexGridSizer* nodeAnimationsDefaultsGridSizer;
     nodeAnimationsDefaultsGridSizer = new wxFlexGridSizer( 1, 2, 0, 0 );
     nodeAnimationsDefaultsGridSizer->SetFlexibleDirection( wxBOTH );
     nodeAnimationsDefaultsGridSizer->SetNonFlexibleGrowMode( wxFLEX_GROWMODE_SPECIFIED );
-    
+
     defaultAnimationSamplingLabel = new ApplicationStaticTextCtrl( this, wxID_ANY, wxT("Animation Sampling"), wxDefaultPosition, wxDefaultSize, 0 );
     defaultAnimationSamplingLabel->Wrap( -1 );
     nodeAnimationsDefaultsGridSizer->Add( defaultAnimationSamplingLabel, 0, wxTOP|wxRIGHT|wxLEFT, 5 );
-    
+
     wxBoxSizer* animationSamplingSizer;
     animationSamplingSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     defaultAnimationSamplingText = new ApplicationTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
     animationSamplingSizer->Add( defaultAnimationSamplingText, 0, wxLEFT, 5 );
-    
+
     wxArrayString defaultAnimationSamplingChoiceChoices;
     defaultAnimationSamplingChoice = new ApplicationChoiceCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, defaultAnimationSamplingChoiceChoices, 0 );
     defaultAnimationSamplingChoice->SetSelection( 0 );
     animationSamplingSizer->Add( defaultAnimationSamplingChoice, 1, wxRIGHT|wxLEFT, 5 );
-    
+
     nodeAnimationsDefaultsGridSizer->Add( animationSamplingSizer, 1, wxEXPAND, 5 );
-    
+
     nodeAnimationDefaultsSizer->Add( nodeAnimationsDefaultsGridSizer, 0, wxEXPAND, 5 );
 
     topSizer->Add( nodeAnimationDefaultsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     wxStaticBoxSizer* nodeAnimationsSizer;
     nodeAnimationsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("Node Animations") ), wxVERTICAL );
-    
+
     wxBoxSizer* nodeAnimationsButtonsSizer;
     nodeAnimationsButtonsSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     addNodeAnimationButton = new wxButton( this, wxID_ANY, wxT("Add..."), wxDefaultPosition, wxSize(65, -1), 0 );
     nodeAnimationsButtonsSizer->Add( addNodeAnimationButton, 0, wxLEFT, 5 );
-    
+
     editNodeAnimationButton = new wxButton( this, wxID_ANY, wxT("Edit..."), wxDefaultPosition, wxSize(65, -1), 0 );
     nodeAnimationsButtonsSizer->Add( editNodeAnimationButton, 0, 0, 5 );
 
@@ -120,12 +120,12 @@ ObjectSettingsDialog_NodeAnimationsPage::ObjectSettingsDialog_NodeAnimationsPage
 
     removeNodeAnimationButton = new wxButton( this, wxID_ANY, wxT("Remove"), wxDefaultPosition, wxSize(65, -1), 0 );
     nodeAnimationsButtonsSizer->Add( removeNodeAnimationButton, 0, 0, 5 );
-    
+
     nodeAnimationsSizer->Add( nodeAnimationsButtonsSizer, 0, wxEXPAND, 5 );
-    
+
     nodeAnimationsList = new ApplicationListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_HRULES|wxLC_VRULES );
     nodeAnimationsSizer->Add( nodeAnimationsList, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
-    
+
     topSizer->Add( nodeAnimationsSizer, 1, wxEXPAND|wxTOP, 5 );
 
     this->defaultAnimationSamplingText->SetId(ANIMATION_SAMPLING_TEXT);
@@ -135,7 +135,7 @@ ObjectSettingsDialog_NodeAnimationsPage::ObjectSettingsDialog_NodeAnimationsPage
     this->copyNodeAnimationButton->SetId(COPY_ANIMATION_BUTTON);
     this->removeNodeAnimationButton->SetId(REMOVE_ANIMATION_BUTTON);
     this->nodeAnimationsList->SetId(NODE_ANIMATION_LIST);
-    
+
     SetSizer(topSizer);
     Layout();
 }
@@ -155,13 +155,13 @@ bool ObjectSettingsDialog_NodeAnimationsPage::GetGUIData(int ids)
     if (ids & (ANIMATION_SAMPLING_TEXT | ANIMATION_SAMPLING_CHOICE))
     {
         int selectedNodeAnimationSampleTypeIndex = this->defaultAnimationSamplingChoice->GetSelection();
-        auto nodeAnimationSampleType = (SampleType)*(int*)this->defaultAnimationSamplingChoice->GetClientData(selectedNodeAnimationSampleTypeIndex);    
+        auto nodeAnimationSampleType = (SampleType)*(int*)this->defaultAnimationSamplingChoice->GetClientData(selectedNodeAnimationSampleTypeIndex);
         auto nodeAnimationSampling = StringUtilities::ToDouble(this->defaultAnimationSamplingText->GetValue());
         if (nodeAnimationSampling < 0)
             nodeAnimationSampling = 0;
         this->objectSettings.SetNodeAnimationSampling(nodeAnimationSampling, nodeAnimationSampleType, nodeAnimationSampleType != SampleType::USE_PARENT);
     }
-    
+
     return true;
 }
 
@@ -171,7 +171,7 @@ bool ObjectSettingsDialog_NodeAnimationsPage::SetGUIData()
 
     //Node animation sampling value
     this->defaultAnimationSamplingText->SetValue(this->objectSettings.GetNodeAnimationSampleValueText());
-    
+
     //Node animation sampling combo
     this->defaultAnimationSamplingChoice->Freeze();
     for (int i = 0; i < Strings::OBJECT_SAMPLE_TYPE_COUNT; i++)
@@ -187,22 +187,22 @@ bool ObjectSettingsDialog_NodeAnimationsPage::SetGUIData()
     {
         this->defaultAnimationSamplingChoice->SetSelection(0);
     }
-    
+
     //Node animations
     this->nodeAnimationsList->InsertColumn(0, Strings::NAME, wxLIST_FORMAT_LEFT, 175);
     this->nodeAnimationsList->InsertColumn(1, TimeAccessor::GetUIUnit(), wxLIST_FORMAT_LEFT, 65);
     this->nodeAnimationsList->InsertColumn(2, Strings::LENGTH, wxLIST_FORMAT_LEFT, 55);
-    this->nodeAnimationsList->InsertColumn(3, Strings::SAMPLE_INTERVAL_RATE, wxLIST_FORMAT_LEFT, 115);    
+    this->nodeAnimationsList->InsertColumn(3, Strings::SAMPLE_INTERVAL_RATE, wxLIST_FORMAT_LEFT, 115);
     this->nodeAnimationsList->InsertColumn(4, Strings::LOOPED, wxLIST_FORMAT_LEFT, 60);
     this->objectSettings.GetNodeAnimations(this->nodeAnimations);
     UpdateNodeAnimationListGUIData();
 
     //Final updates
-    UpdateAnimationSamplingTypeEdit();    
+    UpdateAnimationSamplingTypeEdit();
     UpdateNodeAnimationListButtons();
 
     this->settingGuiData = false;
-    
+
     return true;
 }
 
@@ -230,12 +230,12 @@ void ObjectSettingsDialog_NodeAnimationsPage::UpdateNodeAnimationListGUIData(int
         if (selectedIndex >= 0)
             selectedAnimationIndex = (int)this->nodeAnimationsList->GetItemData(selectedIndex);
     }
-    
+
     while (this->nodeAnimationsList->GetItemCount() < (int)this->nodeAnimations.size())
         this->nodeAnimationsList->InsertItem(this->nodeAnimationsList->GetItemCount(), wxEmptyString);
     while (this->nodeAnimationsList->GetItemCount() > (int)this->nodeAnimations.size())
         this->nodeAnimationsList->DeleteItem(this->nodeAnimationsList->GetItemCount() - 1);
-    
+
     this->nodeAnimationsList->SetSequentialItemData();
 
     for (int i = 0; i < (int)this->nodeAnimations.size(); i++)
@@ -243,29 +243,29 @@ void ObjectSettingsDialog_NodeAnimationsPage::UpdateNodeAnimationListGUIData(int
 
     if (selectedAnimationIndex >= 0)
         this->nodeAnimationsList->SetSelection(selectedAnimationIndex);
-    
+
     SortNodeAnimationsList();
 }
 
 void ObjectSettingsDialog_NodeAnimationsPage::UpdateNodeAnimationGUIData(int index)
 {
     auto& anim = this->nodeAnimations[this->nodeAnimationsList->GetItemData(index)];
-    
-    auto interval = anim.GetTimeInterval();    
+
+    auto interval = anim.GetTimeInterval();
     auto framesText = interval.ToString();
 
     auto length = interval.GetDuration().ToSecondsDouble() * anim.GetRealTimeScale();
     auto lengthText = wxString::Format(wxT("%.2fs"), length);
 
     auto sampling = GetAnimationSamplingText(anim);
-    
+
     auto looped = GetAnimationLoopedText(anim);
-        
+
     this->nodeAnimationsList->SetItem(index, 0, anim.GetAnimationName());
-    this->nodeAnimationsList->SetItem(index, 1, framesText);        
+    this->nodeAnimationsList->SetItem(index, 1, framesText);
     this->nodeAnimationsList->SetItem(index, 2, lengthText);
     this->nodeAnimationsList->SetItem(index, 3, sampling);
-    this->nodeAnimationsList->SetItem(index, 4, looped);    
+    this->nodeAnimationsList->SetItem(index, 4, looped);
 }
 
 void ObjectSettingsDialog_NodeAnimationsPage::SortNodeAnimationsList()
@@ -279,7 +279,7 @@ void ObjectSettingsDialog_NodeAnimationsPage::SortNodeAnimationsList()
         CompareAnimationLooped,
     };
 
-    this->nodeAnimationsList->SortItems(compareFunctions[this->sortColumn], (long)this);    
+    this->nodeAnimationsList->SortItems(compareFunctions[this->sortColumn], (long)this);
 }
 
 int wxCALLBACK ObjectSettingsDialog_NodeAnimationsPage::CompareAnimationNames(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData)
@@ -296,7 +296,7 @@ int wxCALLBACK ObjectSettingsDialog_NodeAnimationsPage::CompareAnimationNames(wx
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -327,7 +327,7 @@ int wxCALLBACK ObjectSettingsDialog_NodeAnimationsPage::CompareAnimationLength(w
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -345,7 +345,7 @@ int wxCALLBACK ObjectSettingsDialog_NodeAnimationsPage::CompareAnimationSampling
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -363,7 +363,7 @@ int wxCALLBACK ObjectSettingsDialog_NodeAnimationsPage::CompareAnimationLooped(w
         result = -1;
     else if (value1 > value2)
         result = 1;
-    
+
     return result * page->invertSorting;
 }
 
@@ -387,7 +387,7 @@ void ObjectSettingsDialog_NodeAnimationsPage::OnEditAnimation()
     {
         auto anim = this->nodeAnimations[this->nodeAnimationsList->GetItemData(selection)];
         NodeAnimationSettingsDialog::Settings settings(anim);
-        
+
         //Get all the current animation names and remove the one being edited
         std::vector<wxString> animationNames;
         this->objectSettings.GetNodeAnimationNames(animationNames);
@@ -437,7 +437,7 @@ void ObjectSettingsDialog_NodeAnimationsPage::OnAddAnimationButton(wxCommandEven
     {
         auto anim = this->objectSettings.AddNewNodeAnimation();
         dialog.settings.GetSettings(anim);
-        
+
         this->nodeAnimations.push_back(anim);
         UpdateNodeAnimationListGUIData((int)this->nodeAnimations.size() - 1);
         UpdateNodeAnimationListButtons();
@@ -469,26 +469,26 @@ void ObjectSettingsDialog_NodeAnimationsPage::OnRemoveAnimationButton(wxCommandE
         selectedAnimations.resize(selectedItems.size());
         for (int i = 0; i < selectedItems.size(); i++)
             selectedAnimations[i] = this->nodeAnimations[this->nodeAnimationsList->GetItemData(selectedItems[i])];
-        
+
         for (int i = (int)selectedAnimations.size() - 1; i >= 0; i--)
         {
-            //Remove animation from array            
+            //Remove animation from array
             this->nodeAnimations.erase(std::find(this->nodeAnimations.begin(), this->nodeAnimations.end(), selectedAnimations[i]));
-            
+
             //Remove animation from object
             this->objectSettings.RemoveNodeAnimation(selectedAnimations[i]);
-            
+
             //Remove animation from list
-            this->nodeAnimationsList->DeleteItem(selectedItems[i]);            
+            this->nodeAnimationsList->DeleteItem(selectedItems[i]);
         }
-        
+
         this->nodeAnimationsList->SetSequentialItemData();
 
         UpdateNodeAnimationListButtons();
 
         if (this->nodeAnimationsList->GetItemCount() > 0)
             this->nodeAnimationsList->SetSelection(std::max(selectedItems[0]-1, 0));
-    }    
+    }
 }
 
 void ObjectSettingsDialog_NodeAnimationsPage::OnNodeAnimationListActivate(wxListEvent& event)

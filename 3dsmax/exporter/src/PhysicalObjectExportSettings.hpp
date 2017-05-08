@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinSceneDocument.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class FinjinSceneExporterContext;
@@ -32,7 +32,7 @@ namespace Finjin { namespace Exporter {
     /** Collects external object settings. */
     class PhysicalObjectExportSettings : public FinjinSceneDocument_Physical
     {
-    public:    
+    public:
         PhysicalObjectExportSettings(FinjinSceneDocument* scene = nullptr);
 
         void Initialize(ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneExporterContext& finjinExporterContext);

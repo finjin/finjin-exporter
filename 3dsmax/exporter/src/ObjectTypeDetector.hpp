@@ -19,20 +19,20 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectTypeDetectorBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     class ObjectTypeDetector : public ObjectTypeDetectorBase
     {
     public:
         void PrepareContext(ObjectTypeDetectionContext& context)
         {
             if (!context.object.node->IsRootNode())
-                context.maxObject = context.object.node->EvalWorldState(0).obj;         
+                context.maxObject = context.object.node->EvalWorldState(0).obj;
             else
                 context.maxObject = nullptr;
         }

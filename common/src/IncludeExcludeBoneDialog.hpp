@@ -19,15 +19,15 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinDialog.hpp"
 #include "ObjectAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
-    /** 
+    /**
      * A modal dialog used to edit the global settings.
      * This dialog can be seen within the application by clicking
      * 'Add Bone' from the mesh animation dialog, accessible through the object settings dialog.
@@ -36,7 +36,7 @@ namespace Finjin { namespace Exporter {
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxStaticText* boneLabel;
         ApplicationTextCtrl* boneEdit;
@@ -46,10 +46,10 @@ namespace Finjin { namespace Exporter {
         wxCheckBox* applyRecursiveCheckbox;
         wxButton* okButton;
         wxButton* cancelButton;
-    
+
     public:
         IncludeExcludeBoneDialog(wxWindow* parent, const ObjectAccessorSet& meshBones);
-        ~IncludeExcludeBoneDialog();        
+        ~IncludeExcludeBoneDialog();
 
         enum
         {

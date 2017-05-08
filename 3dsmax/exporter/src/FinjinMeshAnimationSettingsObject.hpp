@@ -19,13 +19,13 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsObject.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** The Finjin mesh animation settings object. */
     class FinjinMeshAnimationSettingsObject : public Object
     {
@@ -41,7 +41,7 @@ namespace Finjin { namespace Exporter {
         void InitNodeName(MSTR& s) override;
         Interval ObjectValidity(TimeValue t) override        {return FOREVER;}
         BOOL IsRenderable() override                          {return FALSE;}
-        
+
         Class_ID ClassID() override;
         SClass_ID SuperClassID() override;
         void GetClassName(MSTR& s) override;
@@ -61,7 +61,7 @@ namespace Finjin { namespace Exporter {
         IParamBlock2* GetParamBlock(int i) override { return this->pblock; }
         IParamBlock2* GetParamBlockByID(BlockID id) override { return (this->pblock->ID() == id) ? this->pblock : nullptr; }
 
-        void DeleteThis() override { delete this; }        
+        void DeleteThis() override { delete this; }
 
         static Class_ID GetClassClassID();
         static ClassDesc* GetClassDesc();
@@ -103,13 +103,13 @@ namespace Finjin { namespace Exporter {
         void SetTimeInterval(Interval interval);
         void AddBoneTranslationMask(INode* node, Point3 mask);
         void AddAllowExportBone(INode* node, bool allow, bool recursive);
-        void SetMorphWholeObject(InheritedBool value);        
+        void SetMorphWholeObject(InheritedBool value);
         void SetOverrideAnimatedRootStartTime(bool value);
         void SetAnimatedRootStartTime(TimeValue value);
         void SetTimeInterval(FinjinTimeInterval interval);
         void SetEmbedAnimation(bool value);
         void SetLinkToMainObject(bool value);
-                
+
     public:
         enum
         {
@@ -123,7 +123,7 @@ namespace Finjin { namespace Exporter {
             PB_TRACK,
             PB_ANIMATION_NAME,
             PB_TIME_START,
-            PB_TIME_END,            
+            PB_TIME_END,
             PB_TIME_SCALE_TYPE,
             PB_TIME_SCALE,
             PB_COPY_FIRST_KEY_TO_LAST,

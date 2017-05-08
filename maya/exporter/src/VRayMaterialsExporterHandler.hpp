@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MayaBaseMaterialExporterHandler.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Handler for exporting VRay materials. */
@@ -42,11 +42,11 @@ namespace Finjin { namespace Exporter {
         enum class TexMapIndex
         {
             DIFFUSE,
-            
+
             COUNT
         };
-        EnumValues<TexMapIndex, TexMapIndex::COUNT, TextureSlot> textures;
-        
+        EnumArray<TexMapIndex, TexMapIndex::COUNT, TextureSlot> textures;
+
         bool textureIsSpecular;
 
         size_t texmapCount;

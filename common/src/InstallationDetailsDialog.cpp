@@ -23,13 +23,13 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(InstallationDetailsDialog, wxDialog)
-    EVT_BUTTON(wxID_OK, InstallationDetailsDialog::OnOK)    
-    EVT_CLOSE(InstallationDetailsDialog::OnCloseWindow)        
+    EVT_BUTTON(wxID_OK, InstallationDetailsDialog::OnOK)
+    EVT_CLOSE(InstallationDetailsDialog::OnCloseWindow)
 END_EVENT_TABLE()
 
-InstallationDetailsDialog::InstallationDetailsDialog(wxWindow* parent, const wxString& results, InstallationMode mode) : 
+InstallationDetailsDialog::InstallationDetailsDialog(wxWindow* parent, const wxString& results, InstallationMode mode) :
     wxDialog(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 710,500 ), wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER, wxT("InstallationDetailsDialog"))
 {
     SetTitle((mode == InstallationMode::INSTALL) ? wxT("Finjin Installation Details") : wxT("Finjin Uninstallation Details"));
@@ -37,24 +37,24 @@ InstallationDetailsDialog::InstallationDetailsDialog(wxWindow* parent, const wxS
     SetIcon(wxIcon(wxT("IDI_FINJIN"), wxBITMAP_TYPE_ICO_RESOURCE));
 #endif
     SetSizeHints( wxDefaultSize, wxDefaultSize );
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     wxBoxSizer* resultsSizer;
     resultsSizer = new wxBoxSizer( wxVERTICAL );
-    
+
     resultsText = new wxTextCtrl( this, wxID_ANY, results, wxDefaultPosition, wxSize( 305,-1 ), wxTE_DONTWRAP|wxTE_MULTILINE|wxTE_READONLY );
     resultsSizer->Add( resultsText, 1, wxALL|wxBOTTOM|wxEXPAND|wxLEFT|wxRIGHT, 5 );
-    
+
     topSizer->Add( resultsSizer, 1, wxEXPAND|wxLEFT|wxRIGHT|wxTOP, 5 );
-    
+
     wxBoxSizer* okCancelSizer;
     okCancelSizer = new wxBoxSizer( wxHORIZONTAL );
-    
+
     okButton = new wxButton( this, wxID_OK, wxT("&Close"), wxDefaultPosition, wxDefaultSize, 0 );
     okCancelSizer->Add( okButton, 0, wxALL, 5 );
-    
+
     topSizer->Add( okCancelSizer, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 
     this->SetSizer( topSizer );

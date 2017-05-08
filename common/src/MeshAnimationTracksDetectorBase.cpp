@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 int MeshAnimationTracksDetectorBase::FindTrackIndex(const wxString& name) const
 {
     int index = 0; //The default, 0, will always be "object"
@@ -45,7 +45,7 @@ MeshAnimationTrack* MeshAnimationTracksDetectorBase::FindTrack(TrackType trackTy
         if (this->tracks[i].location == trackType)
             return &this->tracks[i];
     }
-    
+
     //The default will always be "object"
     return &this->tracks[0];
 }

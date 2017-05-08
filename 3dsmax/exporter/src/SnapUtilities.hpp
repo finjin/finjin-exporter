@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Various functions for performing snapping during an object's creation. */
@@ -38,11 +38,11 @@ namespace Finjin { namespace Exporter {
          */
         static void DefaultSnap
             (
-            TimeValue t, 
-            INode* node, 
-            SnapInfo* snap, 
-            IPoint2* p, 
-            ViewExp* view, 
+            TimeValue t,
+            INode* node,
+            SnapInfo* snap,
+            IPoint2* p,
+            ViewExp* view,
             Matrix3 objectLocalTM
             );
     };

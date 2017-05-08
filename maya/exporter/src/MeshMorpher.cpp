@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 MeshMorpher::MeshMorpher(GeometryStateBase* geometryState) : MeshMorpherBase(geometryState)
 {
 }
@@ -45,7 +45,7 @@ void MeshMorpher::Clear()
 bool MeshMorpher::Initialize(MObject object, const CoordinateSystemConverter& coordinateConverter, float scale, PrimitiveType meshPrimitiveType)
 {
     Clear();
-    
+
     MStatus status;
     MFnMesh mesh(object, &status);
     if (status != MStatus::kSuccess)
@@ -56,7 +56,7 @@ bool MeshMorpher::Initialize(MObject object, const CoordinateSystemConverter& co
         //Get the morph targets
         std::vector<MDagModifier*> weightConnectionDagModifiers;
         MIntArray weightIndexList;
-        std::vector<float> originalWeights;        
+        std::vector<float> originalWeights;
         StartMorphTargets(weightConnectionDagModifiers, weightIndexList, originalWeights);
 
         MObjectArray baseObjects;
@@ -87,10 +87,10 @@ bool MeshMorpher::Initialize(MObject object, const CoordinateSystemConverter& co
                         {
                             //Set weight to 1
                             this->blendShapeDeformer->setWeight(blendShapeIndex, 1);
-                            
+
                             //Positions
                             MPointArray meshPoints;
-                            mesh.getPoints(meshPoints, GET_POINTS_NORMALS_SPACE);            
+                            mesh.getPoints(meshPoints, GET_POINTS_NORMALS_SPACE);
                             morphTarget->creationPositions.resize(meshPoints.length());
                             for (unsigned int pointIndex = 0; pointIndex < meshPoints.length(); pointIndex++)
                             {
@@ -98,7 +98,7 @@ bool MeshMorpher::Initialize(MObject object, const CoordinateSystemConverter& co
                                 morphTarget->creationPositions[pointIndex].Set(point.x * scale, point.y * scale, point.z * scale);
                                 coordinateConverter.ConvertPoint(morphTarget->creationPositions[pointIndex]);
                             }
-                            
+
                             //Normals
                             morphTarget->creationNormals.Create(mesh, coordinateConverter);
 
@@ -135,7 +135,7 @@ void MeshMorpher::Enable(bool enable)
 
         //Set auto keyframing state
         this->autoKeyState.Enable(enable);
-    }    
+    }
 }
 
 void MeshMorpher::Restore()
@@ -150,14 +150,14 @@ void MeshMorpher::Restore()
 
         //Restore auto keyframing state
         this->autoKeyState.Restore();
-    }        
+    }
 }
 
 bool MeshMorpher::FindMeshBlendShapeDeformer(MFnMesh& mesh)
 {
     MItDependencyNodes blendShapeDepNodeIterator(MFn::kBlendShape);
-    for (; !blendShapeDepNodeIterator.isDone() && this->blendShapeDeformer == 0; blendShapeDepNodeIterator.next()) 
-    {   
+    for (; !blendShapeDepNodeIterator.isDone() && this->blendShapeDeformer == 0; blendShapeDepNodeIterator.next())
+    {
         MObject blendShapeObject = blendShapeDepNodeIterator.item();
         MItDependencyGraph itGraph(blendShapeObject, MFn::kMesh, MItDependencyGraph::kDownstream, MItDependencyGraph::kDepthFirst);
         for (; !itGraph.isDone() && this->blendShapeDeformer == nullptr; itGraph.next())
@@ -201,7 +201,7 @@ void MeshMorpher::StartMorphTargets
     for (unsigned int weightIndex = 0; weightIndex < weightCount; weightIndex++)
     {
         MPlug wPlug = weightsPlug.elementByPhysicalIndex(weightIndex);
-        
+
         MPlugArray sourceConnections;
         wPlug.connectedTo(sourceConnections, false, true);
         for (unsigned int connectionIndex = 0; connectionIndex < sourceConnections.length(); connectionIndex++)
@@ -210,8 +210,8 @@ void MeshMorpher::StartMorphTargets
             dagModifier->disconnect(wPlug, sourceConnections[connectionIndex]);
             dagModifier->doIt();
             weightConnectionDagModifiers.push_back(dagModifier);
-        }        
-        
+        }
+
         MPlugArray destinationConnections;
         wPlug.connectedTo(destinationConnections, true, false);
         for (unsigned int connectionIndex = 0; connectionIndex < destinationConnections.length(); connectionIndex++)
@@ -246,7 +246,7 @@ void MeshMorpher::FinishMorphTargets
     (
     const std::vector<MDagModifier*>& weightConnectionDagModifiers,
     const MIntArray& weightIndexList,
-    const std::vector<float>& originalWeights    
+    const std::vector<float>& originalWeights
     )
 {
     MDagModifier dagModifier;
@@ -259,7 +259,7 @@ void MeshMorpher::FinishMorphTargets
         weightConnectionDagModifiers[i]->undoIt();
         delete weightConnectionDagModifiers[i];
     }
-    
+
     for (unsigned int index = 0; index < weightIndexList.length(); index++)
         this->blendShapeDeformer->setWeight(weightIndexList[index], originalWeights[index]);
 

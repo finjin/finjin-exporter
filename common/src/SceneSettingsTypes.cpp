@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 SceneSettingsTypes::Types SceneSettingsTypes::types;
 
 

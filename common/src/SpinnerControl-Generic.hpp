@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SpinnerButton.hpp"
 #include "SpinnerControlEvent.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ApplicationTextCtrl;
@@ -38,7 +38,7 @@ namespace Finjin { namespace Exporter {
      */
     class SpinnerControl : public wxPanel
     {
-    public: 
+    public:
         enum {BUTTON_WIDTH = 13};
 
         enum UnitType
@@ -48,24 +48,24 @@ namespace Finjin { namespace Exporter {
             WORLD_UNIT,
             UI_TIME_UNIT
         };
-        
+
         SpinnerControl
             (
-            wxWindow* parent, 
+            wxWindow* parent,
             wxWindowID id = wxID_ANY,
             wxWindowID textCtrlId = wxID_ANY,
             const wxPoint& pos = wxDefaultPosition,
             const wxSize& size = wxDefaultSize,
-            double initial = 0, 
-            double minValue = 0, 
-            double maxValue = 1, 
+            double initial = 0,
+            double minValue = 0,
+            double maxValue = 1,
             UnitType unitType = FLOAT_UNIT,
             int precision = 5,
             const wxString& name = wxEmptyString
             );
 
         ~SpinnerControl();
-        
+
         int GetIntValue();
         double GetValue();
         void SetValue(double value, bool generateEvent = false);
@@ -78,17 +78,17 @@ namespace Finjin { namespace Exporter {
 
         double GetMin() const;
         double GetMax() const;
-        void SetRange(double a, double b);    
+        void SetRange(double a, double b);
 
         double GetAcceleration() const;
-        void SetAcceleration(double a);    
-        
+        void SetAcceleration(double a);
+
         bool IsEnabled() const;
         bool Enable(bool enable = true);
         void Disable();
 
         bool HasWindowID(wxWindowID id) const;
-          
+
     protected:
         double GetUIValue();
         void SetUIValue(double value, bool generateEvent = false);
@@ -111,13 +111,13 @@ namespace Finjin { namespace Exporter {
         wxString value;
         wxString unit;
         UnitType unitType;
-        
+
         ApplicationTextCtrl* textCtrl;
         SpinnerButton* spinnerButton;
-        
+
         double minValue;
         double maxValue;
-        
+
         bool pushed;
     };
 

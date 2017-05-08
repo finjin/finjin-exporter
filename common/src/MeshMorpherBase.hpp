@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshMorphTarget.hpp"
 #include "MatrixAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     using namespace Finjin::Common;
@@ -37,8 +37,8 @@ namespace Finjin { namespace Exporter {
 
     /**
      * Base class that collects the data and methods common to all the
-     * application-specific MeshMorpher classes. A morpher is a construct that 
-     * morphs/blends a mesh among many different meshes using blending factors. The name 
+     * application-specific MeshMorpher classes. A morpher is a construct that
+     * morphs/blends a mesh among many different meshes using blending factors. The name
      * 'morpher' is adopted from the 3DS Max Morpher modifier. Maya and XSI have similar
      * functionality.
      */
@@ -82,8 +82,8 @@ namespace Finjin { namespace Exporter {
          */
         void Merge(MeshMorpherBase& mergeMorpher, const MatrixAccessor& transformMatrix, const MatrixAccessor& normalTransformMatrix);
 
-        /** 
-         * Finishes the creation of the morpher data. 
+        /**
+         * Finishes the creation of the morpher data.
          * This is called by GeometryStateBase::FinishCreate().
          */
         void FinishCreate();
@@ -102,9 +102,9 @@ namespace Finjin { namespace Exporter {
          */
         struct MorphSubtargetInfluence
         {
-            MorphSubtargetInfluence() 
+            MorphSubtargetInfluence()
             {
-                this->subtarget = nullptr; 
+                this->subtarget = nullptr;
                 this->influence = 0;
             }
 
@@ -158,7 +158,7 @@ namespace Finjin { namespace Exporter {
             std::vector<Key> keys;
         };
         typedef std::shared_ptr<Subanimation> SubanimationPtr;
-        
+
         /** All the keys, for all submeshes, of a single animation. */
         struct Animation
         {
@@ -173,7 +173,7 @@ namespace Finjin { namespace Exporter {
             {
                 auto length = WxTimeDuration::Zero();
                 for (size_t i = 0; i < this->subanimations.size(); i++)
-                    length = std::max(length, this->subanimations[i]->GetDuration());                    
+                    length = std::max(length, this->subanimations[i]->GetDuration());
                 return length;
             }
 
@@ -191,9 +191,9 @@ namespace Finjin { namespace Exporter {
         /** A single morph target influence. */
         struct MorphTargetInfluence
         {
-            MorphTargetInfluence() 
+            MorphTargetInfluence()
             {
-                this->target = nullptr; 
+                this->target = nullptr;
                 this->influence = 0;
             }
 
@@ -201,11 +201,11 @@ namespace Finjin { namespace Exporter {
             MeshMorphTarget* target;
 
             /** The influence, from 0 to 1. */
-            float influence;            
+            float influence;
         };
         typedef std::vector<MorphTargetInfluence> MorphTargetInfluences;
-         
-        /** 
+
+        /**
          * Samples the morph target influences at the specified time.
          * @param targetInfluences [out] - Receives all the sampled morph targets.
          * @param sampleTime [in] - The time at which the sampling occurs.
@@ -215,12 +215,12 @@ namespace Finjin { namespace Exporter {
          */
         void SampleMorphTargetInfluences
             (
-            MorphTargetInfluences& targetInfluences, 
-            TimeAccessor sampleTime, 
+            MorphTargetInfluences& targetInfluences,
+            TimeAccessor sampleTime,
             bool forceAllTargets = false
             );
 
-        /** All the animations for all submeshes. */        
+        /** All the animations for all submeshes. */
         struct Animations
         {
             bool empty() const {return this->animations.empty();}
@@ -270,7 +270,7 @@ namespace Finjin { namespace Exporter {
         GeometryStateBase* geometryState;
 
         /** All the morph targets. */
-        MeshMorphTargets morphTargets;        
+        MeshMorphTargets morphTargets;
     };
 
 } }

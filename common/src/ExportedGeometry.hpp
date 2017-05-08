@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ExportableObject.hpp"
 #include "MaterialAccessor.hpp"
 #include "AssetReference.hpp"
@@ -27,11 +27,11 @@
 #include "SceneExportSettings.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class GeometryState;
-    
+
     struct ExportedGeometryManualLod
     {
         ExportableObject* exportableObject;
@@ -47,7 +47,7 @@ namespace Finjin { namespace Exporter {
     {
         ExportedGeometry
             (
-            ExportableObject* exportableObject, 
+            ExportableObject* exportableObject,
             GeometryState* geometryState,
             ExportedGeometryManualLods* manualLods,
             FinjinSceneSettingsAccessor sceneSettings,
@@ -85,7 +85,7 @@ namespace Finjin { namespace Exporter {
         bool exportPoses;
         bool exportAnimations;
         std::vector<wxString> alternateSubmeshMaterialNames;
-        bool allowNoMaterialAssignment;        
+        bool allowNoMaterialAssignment;
     };
 
 } }

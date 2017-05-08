@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 SimpleMeshInfoBase::SimpleMeshInfoBase()
 {
     ResetBounds();

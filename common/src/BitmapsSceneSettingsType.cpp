@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void BitmapsSceneSettingsType::CreateSettingsPages(TabControlPages& tabPages, FinjinSceneSettingsAccessor& sceneSettings)
 {
     //tabPages.AddPage(new SceneSettingsDialog_BitmapsPage(tabPages.GetTabParentWindow(), sceneSettings), SceneSettingsDialog_BitmapsPage::TITLE);

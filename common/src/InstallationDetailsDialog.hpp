@@ -19,22 +19,22 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class InstallationDetailsDialog : public wxDialog
     {
     private:
         DECLARE_EVENT_TABLE()
-    
+
     protected:
         wxTextCtrl* resultsText;
         wxButton* originalFileButton;
         wxButton* okButton;
-    
+
     public:
         InstallationDetailsDialog(wxWindow* parent, const wxString& results, InstallationMode mode);
-        ~InstallationDetailsDialog();        
+        ~InstallationDetailsDialog();
 
         void OnOK(wxCommandEvent& event);
         void OnCloseWindow(wxCloseEvent& event);

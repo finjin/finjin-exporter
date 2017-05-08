@@ -23,27 +23,27 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 const wxString ObjectSettingsDialog_SkyPage::TITLE(wxT("Sky"));
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 ObjectSettingsDialog_SkyPage::ObjectSettingsDialog_SkyPage(wxWindow* parent, FinjinObjectSettingsAccessor objectSettings, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : SettingsPage( parent, id, pos, size, style )
 {
     this->objectSettings = objectSettings;
 
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
+
     wxStaticBoxSizer* generalSettingsSizer;
     generalSettingsSizer = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, wxT("General Settings") ), wxVERTICAL );
-    
+
     enableCheckbox = new wxCheckBox( this, wxID_ANY, wxT("Enable"), wxDefaultPosition, wxDefaultSize, 0 );
-    
+
     generalSettingsSizer->Add( enableCheckbox, 0, wxALL, 5 );
-    
+
     topSizer->Add( generalSettingsSizer, 0, wxEXPAND|wxTOP, 5 );
-    
+
     SetSizer(topSizer);
     Layout();
 }

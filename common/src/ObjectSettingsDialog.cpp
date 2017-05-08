@@ -38,19 +38,19 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 wxString ObjectSettingsDialog::lastPageSelection;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 BEGIN_EVENT_TABLE(ObjectSettingsDialog, FinjinDialog)
-    EVT_CLOSE(ObjectSettingsDialog::OnCloseWindow)        
+    EVT_CLOSE(ObjectSettingsDialog::OnCloseWindow)
     EVT_BUTTON(wxID_OK, ObjectSettingsDialog::OnOK)
     EVT_NOTEBOOK_PAGE_CHANGED(wxID_ANY, ObjectSettingsDialog::OnNotebookPageChanged)
 END_EVENT_TABLE()
 
 ObjectSettingsDialog::ObjectSettingsDialog()
-{       
+{
 }
 
 ObjectSettingsDialog::ObjectSettingsDialog(wxWindow* parent, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneSettingsAccessor sceneSettings)
@@ -64,11 +64,11 @@ bool ObjectSettingsDialog::Create(wxWindow* parent, ObjectAccessor object, Finji
     this->objectSettings = objectSettings;
     this->sceneSettings = sceneSettings;
 
-    this->defaultObjectType.Detect(this->object, 0, true, this->objectSettings);        
-    this->objectType.Detect(this->object, this->objectSettings);    
-    
+    this->defaultObjectType.Detect(this->object, 0, true, this->objectSettings);
+    this->objectType.Detect(this->object, this->objectSettings);
+
     auto title = wxString::Format(Strings::OBJECT_SETTINGS_DIALOG_TITLE_FORMAT, object.GetLocalName().wx_str());
-    
+
     if (!FinjinDialog::Create(parent, wxID_ANY, title, wxDefaultPosition, wxSize(DIALOG_WIDTH, DIALOG_HEIGHT), wxCAPTION | wxRESIZE_BORDER | wxSYSTEM_MENU, wxT("FinjinObjectSettingsDialog")))
         return false;
 
@@ -82,12 +82,12 @@ void ObjectSettingsDialog::CreateControls()
     wxButton* closeButton;
 
     SetSizeHints(wxDefaultSize, wxDefaultSize);
-    
+
     wxBoxSizer* topSizer;
     topSizer = new wxBoxSizer(wxVERTICAL);
-    
-    wxBoxSizer* tabPagesSizer = nullptr;    
-    int tabControlProportion = 1;        
+
+    wxBoxSizer* tabPagesSizer = nullptr;
+    int tabControlProportion = 1;
 
     this->initializingPages = true;
     tabControl = new TabControl( this, wxID_ANY, wxDefaultPosition, DEFAULT_TAB_CONTROL_SIZE, 0);
@@ -101,21 +101,21 @@ void ObjectSettingsDialog::CreateControls()
 
     if (tabPagesSizer != nullptr)
         topSizer->Add( tabPagesSizer, 1, wxEXPAND | wxDOWN | wxRIGHT | wxLEFT, 5);
-    
+
     wxGridSizer* bottomSizer;
     bottomSizer = new wxGridSizer( 1, 1, 0, 0 );
-    
+
     closeButton = new wxButton( this, wxID_OK, wxT("&OK"), wxDefaultPosition, wxDefaultSize, 0 );
     bottomSizer->Add( closeButton, 0, wxALIGN_RIGHT|wxALL, 5 );
-    
+
     topSizer->Add( bottomSizer, 0, wxEXPAND, 5 );
 
     SetGUIData();
-    
+
     ChangeToDefaultPage();
-    
+
     SetSizer(topSizer);
-    
+
     if (!WindowPlacementManager::RestorePlacement(this))
     {
         Layout();
@@ -140,7 +140,7 @@ void ObjectSettingsDialog::ChangeToDefaultPage()
             }
         }
     }
-        
+
     //Set initial page
     this->pages.ChangeSelection(index);
 }
@@ -166,7 +166,7 @@ void ObjectSettingsDialog::OnNotebookPageChanged(wxNotebookEvent& event)
     this->pages.OnPageChanged();
     Layout();
     if (!this->initializingPages)
-        lastPageSelection = this->pages.GetPageText(this->pages.GetSelection());    
+        lastPageSelection = this->pages.GetPageText(this->pages.GetSelection());
 }
 
 void ObjectSettingsDialog::SelectedObjectType(DetectableObjectType* type)
@@ -178,18 +178,18 @@ void ObjectSettingsDialog::SelectedObjectType(DetectableObjectType* type)
         page->GetGUIData();
         this->pages.DeletePage((int)this->basicSettingsPageCount);
     }
-    
+
     //Create the new pages
     SUSPEND_CUSTOM_CONTROLS;
     type->CreateSettingsPages(this->pages, this->object, this->objectSettings, this->sceneSettings);
-    
+
     //Set data into new pages
     for (size_t pageIndex = this->basicSettingsPageCount; pageIndex < this->pages.GetPageCount(); pageIndex++)
     {
         auto page = static_cast<SettingsPage*>(this->pages.GetPage(pageIndex));
         page->SetGUIData();
     }
- 
+
     Refresh();
 }
 

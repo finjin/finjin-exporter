@@ -25,12 +25,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool SimpleMeshInfo::CanHandle(ObjectAccessor object, TimeAccessor time)
 {
     auto maxObject = object.node->EvalWorldState(time.GetNativeTime()).obj;
-    return 
-        maxObject!= nullptr && 
+    return
+        maxObject!= nullptr &&
         maxObject->CanConvertToType(Class_ID(TRIOBJ_CLASS_ID, 0));
 }
 
@@ -42,7 +42,7 @@ bool SimpleMeshInfo::Create(ObjectAccessor object, TimeAccessor time, TransformA
 
 bool SimpleMeshInfo::Create
     (
-    ObjectAccessor object, 
+    ObjectAccessor object,
     const CoordinateSystemConverter& coordinateConverter,
     float scale,
     TimeAccessor time,
@@ -58,7 +58,7 @@ bool SimpleMeshInfo::Create
     auto maxObject = object.node->EvalWorldState(time.GetNativeTime()).obj;
     auto triObject = static_cast<TriObject*>(maxObject->ConvertToType(time.GetNativeTime(), Class_ID(TRIOBJ_CLASS_ID, 0)));
     auto& mesh = triObject->GetMesh();
-    
+
     FinjinVector3 rawPlaneVertices[3];
     FinjinVector3 planeVertices[3];
     for (int faceIndex = 0; faceIndex < mesh.numFaces; faceIndex++)
@@ -70,16 +70,16 @@ bool SimpleMeshInfo::Create
             //Position
             auto& rawPosition = mesh.verts[face.v[i]];
             FinjinVector3 rawVertex(rawPosition.x, rawPosition.y, rawPosition.y);
-            
+
             //Convert position
             Point3 maxPosition(rawPosition);
             coordinateConverter.ConvertPoint(maxPosition);
             FinjinVector3 vertex(maxPosition.x * scale, maxPosition.y * scale, maxPosition.z * scale);
             if (transformation != nullptr)
-                transformation->TransformPoint(vertex);                
+                transformation->TransformPoint(vertex);
 
             //Update bounds
-            UpdateBounds(faceIndex == 0 && i == 0, rawVertex, vertex);            
+            UpdateBounds(faceIndex == 0 && i == 0, rawVertex, vertex);
 
             //Hold onto plane vertices
             if (faceIndex == 0)
@@ -91,7 +91,7 @@ bool SimpleMeshInfo::Create
     }
     FinishBounds();
     InitializePlanes(rawPlaneVertices, planeVertices);
-    
+
     //Clean up
     if (triObject != maxObject)
         triObject->DeleteThis();

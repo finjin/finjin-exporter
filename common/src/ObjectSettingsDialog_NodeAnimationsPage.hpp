@@ -19,14 +19,14 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "FinjinSceneSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Node animations page for the object settings dialog. */
@@ -48,7 +48,7 @@ namespace Finjin { namespace Exporter {
         ObjectAccessor object;
         FinjinObjectSettingsAccessor objectSettings;
         FinjinSceneSettingsAccessor sceneSettings;
-        std::vector<FinjinNodeAnimationSettingsAccessor> nodeAnimations;        
+        std::vector<FinjinNodeAnimationSettingsAccessor> nodeAnimations;
 
     public:
         ObjectSettingsDialog_NodeAnimationsPage(wxWindow* parent, ObjectAccessor object, FinjinObjectSettingsAccessor objectSettings, FinjinSceneSettingsAccessor sceneSettings, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,515 ), long style = wxTAB_TRAVERSAL );
@@ -71,7 +71,7 @@ namespace Finjin { namespace Exporter {
 
         bool GetGUIData(int ids);
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         void UpdateAnimationSamplingTypeEdit();
         void OnEditAnimation();

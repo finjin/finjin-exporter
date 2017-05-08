@@ -27,14 +27,14 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 FinjinSceneSettingsAccessor FinjinSceneSettingsAccessor::GetSceneSettings(bool createIfNecessary, bool* newInstance)
 {
     bool isNew;
     FinjinSceneSettingsAccessor sceneSettings = FinjinSceneSettingsObject::GetSceneSettings(createIfNecessary, &isNew);
     if (isNew)
         FinjinGlobalSettings::GetInstance().GetSceneSettingsDefaults(sceneSettings);
-    
+
     if (newInstance != nullptr)
         *newInstance = isNew;
 
@@ -77,7 +77,7 @@ FINJIN_EXPORTER_IMPLEMENT_EXTENDED_VALUE_ACCESSOR_METHODS(FinjinSceneSettingsAcc
 
 wxString FinjinSceneSettingsAccessor::GetSceneScaleUnit()
 {
-    return this->object->GetSceneScaleUnit();    
+    return this->object->GetSceneScaleUnit();
 }
 
 float FinjinSceneSettingsAccessor::GetSceneScaleDivide()
@@ -97,7 +97,7 @@ bool FinjinSceneSettingsAccessor::GetIgnoreHiddenObjects()
 
 wxString FinjinSceneSettingsAccessor::GetSceneManager()
 {
-    return this->object->GetSceneManager();    
+    return this->object->GetSceneManager();
 }
 
 bool FinjinSceneSettingsAccessor::GetExportFlags()
@@ -112,7 +112,7 @@ int FinjinSceneSettingsAccessor::GetFlagCount()
 
 void FinjinSceneSettingsAccessor::GetFlag(int i, wxString& name)
 {
-    this->object->GetFlag(i, name);    
+    this->object->GetFlag(i, name);
 }
 
 double FinjinSceneSettingsAccessor::GetNodeAnimationSampleInterval()
@@ -167,7 +167,7 @@ bool FinjinSceneSettingsAccessor::GetExportVertexColors()
 
 wxString FinjinSceneSettingsAccessor::GetVertexColorFormat()
 {
-    return this->object->GetVertexColorFormat();    
+    return this->object->GetVertexColorFormat();
 }
 
 bool FinjinSceneSettingsAccessor::GetUseExplicitVertexColor()
@@ -197,7 +197,7 @@ bool FinjinSceneSettingsAccessor::GetCheckMeshInstances()
 
 bool FinjinSceneSettingsAccessor::GetAlwaysCreateNewSubmeshesWhenMerging()
 {
-    return this->object->GetAlwaysCreateNewSubmeshesWhenMerging();    
+    return this->object->GetAlwaysCreateNewSubmeshesWhenMerging();
 }
 
 bool FinjinSceneSettingsAccessor::GetExportMeshes()
@@ -227,7 +227,7 @@ bool FinjinSceneSettingsAccessor::GetIncludeParentMaterialName()
 
 wxString FinjinSceneSettingsAccessor::GetNoMaterialName()
 {
-    return this->object->GetNoMaterialName();    
+    return this->object->GetNoMaterialName();
 }
 
 bool FinjinSceneSettingsAccessor::GetExportMaterials()
@@ -298,7 +298,7 @@ ValueSourceSync FinjinSceneSettingsAccessor::GetAmbientLightColorSync()
 
 FinjinColor FinjinSceneSettingsAccessor::GetBackgroundColor()
 {
-    Color color = this->object->GetBackgroundColor();    
+    Color color = this->object->GetBackgroundColor();
     return FinjinColor(color.r, color.g, color.b);
 }
 
@@ -321,7 +321,7 @@ ValueSourceSync FinjinSceneSettingsAccessor::GetFogSync()
 {
     return this->object->GetFogSync();
 }
-        
+
 wxString FinjinSceneSettingsAccessor::GetFogMode()
 {
     return this->object->GetFogMode();
@@ -366,12 +366,12 @@ float FinjinSceneSettingsAccessor::GetShadowFarDistance()
 
 void FinjinSceneSettingsAccessor::SetSceneScaleUnit(wxString value)
 {
-    this->object->SetSceneScaleUnit(value);    
+    this->object->SetSceneScaleUnit(value);
 }
 
 void FinjinSceneSettingsAccessor::SetSceneScaleDivide(float value)
 {
-    this->object->SetSceneScaleDivide(value);        
+    this->object->SetSceneScaleDivide(value);
 }
 
 void FinjinSceneSettingsAccessor::SetExportHierarchy(bool value)
@@ -381,12 +381,12 @@ void FinjinSceneSettingsAccessor::SetExportHierarchy(bool value)
 
 void FinjinSceneSettingsAccessor::SetIgnoreHiddenObjects(bool value)
 {
-    this->object->SetIgnoreHiddenObjects(value);    
+    this->object->SetIgnoreHiddenObjects(value);
 }
 
 void FinjinSceneSettingsAccessor::SetSceneManager(wxString value)
 {
-    this->object->SetSceneManager(value);    
+    this->object->SetSceneManager(value);
 }
 
 void FinjinSceneSettingsAccessor::SetExportFlags(bool value)
@@ -406,12 +406,12 @@ void FinjinSceneSettingsAccessor::AddFlag(wxString name)
 
 void FinjinSceneSettingsAccessor::SetNodeAnimationSampleInterval(double value)
 {
-    this->object->SetNodeAnimationSampleInterval(value);    
+    this->object->SetNodeAnimationSampleInterval(value);
 }
 
 void FinjinSceneSettingsAccessor::SetNodeAnimationSampleType(SampleType value)
 {
-    this->object->SetNodeAnimationSampleType(value);    
+    this->object->SetNodeAnimationSampleType(value);
 }
 
 void FinjinSceneSettingsAccessor::SetConfigurationTargetName(wxString value)
@@ -421,22 +421,22 @@ void FinjinSceneSettingsAccessor::SetConfigurationTargetName(wxString value)
 
 void FinjinSceneSettingsAccessor::SetSkeletonAnimationSampleInterval(double value)
 {
-    this->object->SetSkeletonAnimationSampleInterval(value);    
+    this->object->SetSkeletonAnimationSampleInterval(value);
 }
 
 void FinjinSceneSettingsAccessor::SetSkeletonAnimationSampleType(SampleType value)
 {
-    this->object->SetSkeletonAnimationSampleType(value);    
+    this->object->SetSkeletonAnimationSampleType(value);
 }
 
 void FinjinSceneSettingsAccessor::SetVertexAnimationSampleInterval(double value)
 {
-    this->object->SetVertexAnimationSampleInterval(value);    
+    this->object->SetVertexAnimationSampleInterval(value);
 }
 
 void FinjinSceneSettingsAccessor::SetVertexAnimationSampleType(SampleType value)
 {
-    this->object->SetVertexAnimationSampleType(value);    
+    this->object->SetVertexAnimationSampleType(value);
 }
 
 void FinjinSceneSettingsAccessor::SetSubmeshNaming(wxString value)
@@ -451,7 +451,7 @@ void FinjinSceneSettingsAccessor::SetSubmeshCustomName(wxString value)
 
 void FinjinSceneSettingsAccessor::SetExportVertexColors(bool value)
 {
-    this->object->SetExportVertexColors(value);    
+    this->object->SetExportVertexColors(value);
 }
 
 void FinjinSceneSettingsAccessor::SetVertexColorFormat(wxString value)
@@ -466,12 +466,12 @@ void FinjinSceneSettingsAccessor::SetUseExplicitVertexColor(bool value)
 
 void FinjinSceneSettingsAccessor::SetExportTangents(bool value)
 {
-    this->object->SetExportTangents(value);    
+    this->object->SetExportTangents(value);
 }
 
 void FinjinSceneSettingsAccessor::SetExportBinormals(bool value)
 {
-    this->object->SetExportBinormals(value);    
+    this->object->SetExportBinormals(value);
 }
 
 void FinjinSceneSettingsAccessor::SetAnimateBoundingVolumes(bool value)
@@ -481,17 +481,17 @@ void FinjinSceneSettingsAccessor::SetAnimateBoundingVolumes(bool value)
 
 void FinjinSceneSettingsAccessor::SetCheckMeshInstances(bool value)
 {
-    this->object->SetCheckMeshInstances(value);    
+    this->object->SetCheckMeshInstances(value);
 }
 
 void FinjinSceneSettingsAccessor::SetAlwaysCreateNewSubmeshesWhenMerging(bool value)
 {
-    this->object->SetAlwaysCreateNewSubmeshesWhenMerging(value);    
+    this->object->SetAlwaysCreateNewSubmeshesWhenMerging(value);
 }
 
 void FinjinSceneSettingsAccessor::SetExportMeshes(bool value)
 {
-    this->object->SetExportMeshes(value);    
+    this->object->SetExportMeshes(value);
 }
 
 void FinjinSceneSettingsAccessor::ClearDisallowedMeshes()
@@ -516,7 +516,7 @@ void FinjinSceneSettingsAccessor::SetIncludeParentMaterialName(bool value)
 
 void FinjinSceneSettingsAccessor::SetNoMaterialName(wxString value)
 {
-    this->object->SetNoMaterialName(value);    
+    this->object->SetNoMaterialName(value);
 }
 
 void FinjinSceneSettingsAccessor::SetExportMaterials(bool value)
@@ -601,14 +601,14 @@ void FinjinSceneSettingsAccessor::SetEnvironmentFar(float value)
 
 void FinjinSceneSettingsAccessor::SetEnvironmentFarObject(ObjectAccessor value)
 {
-    this->object->SetEnvironmentFarObject(value.node);    
+    this->object->SetEnvironmentFarObject(value.node);
 }
 
 void FinjinSceneSettingsAccessor::SetFogSync(ValueSourceSync value)
 {
     this->object->SetFogSync(value);
 }
-        
+
 void FinjinSceneSettingsAccessor::SetFogMode(wxString value)
 {
     this->object->SetFogMode(value);

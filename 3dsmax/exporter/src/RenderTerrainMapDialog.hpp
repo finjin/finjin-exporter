@@ -20,21 +20,21 @@
 
 #if defined(FINJIN_EXPORTER_ENABLE_D3D_FUNCTIONALITY)
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ResourceDialog.hpp"
 #include "TerrainMapRenderer.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
-    
+
     /** Dialog that lets users select the parameters for rendering terrain maps. */
     class RenderTerrainMapDialog : public ResourceDialog
     {
     public:
         typedef TerrainMapRenderer::Mode Mode;
 
-        /** Constructor that takes a rendering mode. */ 
+        /** Constructor that takes a rendering mode. */
         RenderTerrainMapDialog(Mode mode);
 
         int DoModal(HWND hWndParent = nullptr);
@@ -47,14 +47,14 @@ namespace Finjin { namespace Exporter {
         int width;
         int height;
         wxString destinationFileName;
-        int bytesPerPixel;      
+        int bytesPerPixel;
         bool rotate90DegreesClockwise;
-                
+
     protected:
         Mode mode;
 
         bool isSquare;
-        
+
         struct Settings
         {
             Settings(int width, int height)
@@ -76,11 +76,11 @@ namespace Finjin { namespace Exporter {
 
         static Settings lastTerrainMapSettings;
         static Settings lastHeightMapSettings;
-        
-        ISpinnerControl* widthSpin;    
+
+        ISpinnerControl* widthSpin;
         ISpinnerControl* heightSpin;
         ISpinnerControl* bytesPerPixelSpin;
-        
+
         Settings* lastActiveSettings;
         int useSelectedObjectsStringID;
         int useAllObjectsStringID;

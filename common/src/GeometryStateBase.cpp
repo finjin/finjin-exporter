@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Local classes----------------------------------------------------------------
+//Local types-------------------------------------------------------------------
 class BoneHierarchy
 {
     struct Entry
@@ -50,10 +50,10 @@ class BoneHierarchy
             {
                 if (child.meshBone == meshBone)
                     return child;
-            }   
+            }
 
             this->children.push_back(Entry(meshBone));
-            return this->children.back();            
+            return this->children.back();
         }
 
         void SortChildren()
@@ -74,10 +74,10 @@ class BoneHierarchy
         }
 
     public:
-        MeshBonePtr meshBone;        
+        MeshBonePtr meshBone;
         std::vector<Entry> children;
     };
-    
+
 public:
     BoneHierarchy(MeshSkeleton& meshSkeleton)
     {
@@ -103,15 +103,15 @@ private:
             return Add(meshSkeleton, foundBone).AddChild(meshBone);
         }
     }
-    
-private:    
+
+private:
     Entry superRoot;
 };
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 GeometryStateBase::GeometryStateBase() : meshSkeleton(this), meshMorpher(this)
-{    
+{
 }
 
 GeometryStateBase::~GeometryStateBase()
@@ -125,7 +125,7 @@ void GeometryStateBase::Clear()
 
     this->meshPositions.clear();
     this->meshNormals.Destroy();
-    
+
     this->meshSkeleton.Clear();
     this->meshSkeletonAnimations.clear();
 
@@ -162,11 +162,11 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
         geometryTransformMatrix.TransformPoint(newPoint);
         this->meshPositions[oldPointsSize + pointIndex] = newPoint;
     }
-    
+
     //Reallocate indexing-----------------------------------
     for (auto submesh : this->submeshes)
         submesh->Reserve(this->meshPositions.size());
-    
+
     //Merge submeshes-----------------------------------
     std::unordered_map<GeometryStateSubmesh*, GeometryStateSubmesh*> mergedSubmeshMap;
     for (auto& mergeSubmesh : mergeGeometry.submeshes)
@@ -174,7 +174,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
         auto compatibleSubmesh = alwaysCreateNewSubmeshes ? nullptr : FindSubmeshForMerge(mergeGeometry, mergeSubmesh.get());
         if (compatibleSubmesh == nullptr)
         {
-            //No existing submesh matches, so use the submesh to merge directly            
+            //No existing submesh matches, so use the submesh to merge directly
             mergeSubmesh->InitializeForMerge((int)this->submeshes.size(), oldPointsSize);
             this->submeshes.push_back(mergeSubmesh);
 
@@ -196,10 +196,10 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
             compatibleSubmesh->submeshProperties.Merge(mergeSubmesh->submeshProperties);
 
             mergedSubmeshMap[mergeSubmesh.get()] = compatibleSubmesh;
-            
+
             auto vertexOffset = (unsigned int)compatibleSubmesh->vertexList.GetSize(); //Save this for later
 
-            //Add vertices from the mergable submesh to the compatible submesh            
+            //Add vertices from the mergable submesh to the compatible submesh
             for (auto vertex : mergeSubmesh->vertexList)
             {
                 //Transform vertex
@@ -208,9 +208,9 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
 
                 //Add vertex and index
                 compatibleSubmesh->vertexList.Add(vertex, 0, true); //Always add vertices
-            }   
+            }
 
-            //Add indices from the mergable submesh to the compatible submesh            
+            //Add indices from the mergable submesh to the compatible submesh
             for (size_t i = 0; i < mergeSubmesh->indices.size(); i++)
                 compatibleSubmesh->indices.push_back(vertexOffset + mergeSubmesh->indices[i]);
 
@@ -220,7 +220,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
                 auto& sourceReindexed = mergeSubmesh->GetReindexedVertexConst(i);
                 auto& destinationReindexed = compatibleSubmesh->GetReindexedVertex(oldPointsSize + i);
 
-                destinationReindexed = sourceReindexed;                
+                destinationReindexed = sourceReindexed;
                 for (size_t j = 0; j < destinationReindexed.size(); j++)
                     destinationReindexed[j] += vertexOffset;
             }
@@ -239,7 +239,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
     //Merge bounding volumes-----------------------------------
     this->standardBounds.MergeFrom(mergeGeometry, geometryTransformMatrix);
     this->animatedBounds.MergeFrom(mergeGeometry, geometryTransformMatrix);
-    
+
     //Merge skeleton animations------------------------
     if (!mergeGeometry.meshSkeletonAnimations.empty())
     {
@@ -248,7 +248,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
         for (size_t animationIndex = 0; animationIndex < mergeGeometry.meshSkeletonAnimations.size(); animationIndex++)
         {
             auto& animation = this->meshSkeletonAnimations[oldSize + animationIndex];
-            animation = mergeGeometry.meshSkeletonAnimations[animationIndex]; 
+            animation = mergeGeometry.meshSkeletonAnimations[animationIndex];
 
             //Remap the bone pointer if possible
             for (size_t boneIndex = 0; boneIndex < animation->boneAnimations.size(); boneIndex++)
@@ -265,7 +265,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
     this->meshSkeleton.Merge(mergeGeometry.meshSkeleton);
 
     //Merge morpher-----------------------------------
-    this->meshMorpher.Merge(mergeGeometry.meshMorpher, geometryTransformMatrix, geometryNormalTransformMatrix);        
+    this->meshMorpher.Merge(mergeGeometry.meshMorpher, geometryTransformMatrix, geometryNormalTransformMatrix);
     for (auto& morphTarget : this->meshMorpher.morphTargets)
     {
         //Remap the submesh pointer for each subtarget
@@ -291,7 +291,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
             auto& animation = this->meshMorpherAnimations[oldSize + animationIndex];
             animation = mergeGeometry.meshMorpherAnimations[animationIndex];
             for (size_t subanimationIndex = 0; subanimationIndex < animation->subanimations.size(); subanimationIndex++)
-            {            
+            {
                 auto subanimation = animation->subanimations[subanimationIndex];
                 subanimation->submesh = mergedSubmeshMap[subanimation->submesh];
             }
@@ -308,7 +308,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
             auto& animation = this->meshMorphAnimations[oldSize + animationIndex];
             animation = mergeGeometry.meshMorphAnimations[animationIndex];
             for (size_t subanimationIndex = 0; subanimationIndex < animation->subanimations.size(); subanimationIndex++)
-            {            
+            {
                 auto subanimation = animation->subanimations[subanimationIndex];
                 subanimation->submesh = mergedSubmeshMap[subanimation->submesh];
                 for (size_t keyIndex = 0; keyIndex < subanimation->keys.size(); keyIndex++)
@@ -321,7 +321,7 @@ void GeometryStateBase::Merge(GeometryStateBase& mergeGeometry, bool alwaysCreat
                     }
                 }
             }
-        }        
+        }
     }
 
     mergeGeometry.Clear();
@@ -341,7 +341,7 @@ bool GeometryStateBase::IsMatchingInstance(const GeometryStateBase& other, float
 {
     //Check some high level settings first
     if (this->submeshes.size() != other.submeshes.size() ||
-        !MathUtilities::AlmostZero(this->standardBounds.radius - other.standardBounds.radius, tolerance) || 
+        !MathUtilities::AlmostZero(this->standardBounds.radius - other.standardBounds.radius, tolerance) ||
         !this->standardBounds.box.AlmostEquals(other.standardBounds.box, tolerance) ||
         this->meshSkeletonAnimations != other.meshSkeletonAnimations ||
         this->meshMorpherAnimations != other.meshMorpherAnimations ||
@@ -358,7 +358,7 @@ bool GeometryStateBase::IsMatchingInstance(const GeometryStateBase& other, float
     {
         auto thisSubmesh = submeshIterator->get();
         auto otherSubmesh = otherSubmeshIterator->get();
-        
+
         if (thisSubmesh->vertexList.size() != otherSubmesh->vertexList.size())
         {
             //FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, wxT("Submesh %d/%d vertex list size check failed"), thisSubmesh->index, otherSubmesh->index);
@@ -419,7 +419,7 @@ void GeometryStateBase::UpdateBounds(bool isFirst, bool isNew, const FinjinVecto
     {
         //Initialize bounds
         this->standardBounds.radius = point.LengthSquared();
-        this->standardBounds.box.min = this->standardBounds.box.max = point;                    
+        this->standardBounds.box.min = this->standardBounds.box.max = point;
     }
     else if (isNew)
     {
@@ -431,10 +431,10 @@ void GeometryStateBase::UpdateBounds(bool isFirst, bool isNew, const FinjinVecto
 
 void GeometryStateBase::UpdateAnimationData(bool forceSkeleton, bool forceMorpher)
 {
-    auto animationFlags = MeshAnimationFlags::NONE;    
+    auto animationFlags = MeshAnimationFlags::NONE;
     if (this->meshSkeleton.IsValid() && (forceSkeleton || !this->meshSkeletonAnimations.empty()))
     {
-        animationFlags |= MeshAnimationFlags::HAS_SKELETON;        
+        animationFlags |= MeshAnimationFlags::HAS_SKELETON;
         this->meshSkeleton.GetBones(this->submeshProperties.bones);
     }
     if (this->meshMorpher.IsValid() && (forceMorpher || !this->meshMorpherAnimations.empty()))
@@ -444,7 +444,7 @@ void GeometryStateBase::UpdateAnimationData(bool forceSkeleton, bool forceMorphe
     }
     if (!this->meshMorphAnimations.empty())
         animationFlags |= MeshAnimationFlags::HAS_MORPHS;
-    
+
     //Modify the geometry extra data
     for (auto submesh : this->submeshes)
     {
@@ -456,7 +456,7 @@ void GeometryStateBase::UpdateAnimationData(bool forceSkeleton, bool forceMorphe
 
 bool GeometryStateBase::SampleSubmeshPoints
     (
-    SubmeshesPoints& submeshesPoints, 
+    SubmeshesPoints& submeshesPoints,
     const CoordinateSystemConverter& coordinateConverter,
     float scale,
     TimeAccessor time,
@@ -478,7 +478,7 @@ bool GeometryStateBase::SampleSubmeshPoints
         for (auto submesh : this->submeshes)
         {
             auto& submeshPoints = submeshesPoints[submesh->index];
-            
+
             submeshPoints.points.resize(submesh->addedOriginalIndices.size());
             for (size_t pointIndex = 0; pointIndex < submesh->addedOriginalIndices.size(); pointIndex++)
             {
@@ -498,8 +498,8 @@ bool GeometryStateBase::SampleSubmeshPoints
 
 void GeometryStateBase::AnimateBoundingVolumes
     (
-    const std::vector<WxTimeDuration>& times, 
-    const CoordinateSystemConverter& coordinateConverter, 
+    const std::vector<WxTimeDuration>& times,
+    const CoordinateSystemConverter& coordinateConverter,
     float scale,
     const TransformAccessor* transform,
     ObjectAccessor rootObject
@@ -513,7 +513,7 @@ void GeometryStateBase::AnimateBoundingVolumes
         TimeAccessor sampleTime;
         sampleTime.SetSeconds(times[0].ToSecondsDouble());
         TransformAccessor rootTransform(rootObject.GetFullWorldTransformation(sampleTime), coordinateConverter, scale);
-        rootOrigin = rootTransform.GetTranslation();        
+        rootOrigin = rootTransform.GetTranslation();
     }
 
     this->animatedBounds = this->standardBounds;
@@ -564,7 +564,7 @@ bool GeometryStateBase::RequiresDummyBone() const
     {
         if (submesh->submeshProperties.requiresDummyBone)
             return true;
-        if ((animationFlags & MeshAnimationFlags::HAS_SKELETON) != 
+        if ((animationFlags & MeshAnimationFlags::HAS_SKELETON) !=
             (submesh->submeshProperties.animationFlags & MeshAnimationFlags::HAS_SKELETON))
             return true;
     }
@@ -615,7 +615,7 @@ void GeometryStateBase::TransformToWorldSpace()
             }
         }
     }
-    
+
     this->transform.SetIdentity();
     this->geometryTransform.SetIdentity();
 }
@@ -646,7 +646,7 @@ void GeometryStateBase::TransformVertices(const MatrixAccessor& transformMatrix,
     //Transform bounds
     this->standardBounds.Transform(transformMatrix);
     this->animatedBounds.Transform(transformMatrix);
-        
+
     //Transform morpher's vertices
     this->meshMorpher.TransformVertices(transformMatrix, normalTransformMatrix);
 
@@ -679,9 +679,9 @@ bool GeometryStateBase::RemoveEmptySubmeshes()
 void GeometryStateBase::StartCreate
     (
     const wxString& meshName,
-    ObjectAccessor object, 
-    const CoordinateSystemConverter& coordinateConverter, 
-    float scale, 
+    ObjectAccessor object,
+    const CoordinateSystemConverter& coordinateConverter,
+    float scale,
     TimeAccessor time,
     GeometryStateFlags flags,
     const SkeletonReferencePose* referencePose
@@ -692,11 +692,11 @@ void GeometryStateBase::StartCreate
     this->meshName = meshName;
     this->createObject = object;
     this->createFlags = flags;
-    
+
     this->transform.Set(object.GetNodeTransformation(time), coordinateConverter, scale);
-    
+
     this->geometryTransform.Set(object.GetFullWorldTransformation(time), coordinateConverter, scale);
-    
+
     if (NoneSet(flags & GeometryStateFlags::NO_SKELETON_CONTROL))
         this->meshSkeleton.Initialize(object, coordinateConverter, scale, referencePose);
     this->meshSkeleton.Enable(NoneSet(flags & GeometryStateFlags::NO_SKELETON_EFFECT));
@@ -750,7 +750,7 @@ bool GeometryStateBase::FinishCreate
                         )
                     );
             }
-                
+
             //Update reindex map
             auto& reindexedVertex = submesh->GetReindexedVertex(explodedVertex.originalFaceVertexIndex);
             if (std::find(reindexedVertex.begin(), reindexedVertex.end(), actualVertexIndex) == reindexedVertex.end())
@@ -769,15 +769,15 @@ bool GeometryStateBase::FinishCreate
                         submesh->visibleEdges.insert(edge);
                     }
                 }
-            }                
-            
+            }
+
             //Initialize/update bounds
             UpdateBounds(explodedVertexIndex == 0, isNewVertex, explodedVertex.position);
         }
     }
 
     this->standardBounds.radius = sqrtf(this->standardBounds.radius);
-    
+
     RemoveEmptySubmeshes();
 
     int submeshIndex = 0;
@@ -785,7 +785,7 @@ bool GeometryStateBase::FinishCreate
     {
         //Set index again in case empty submeshes were removed
         submesh->index = submeshIndex;
-        
+
         //Texture coordinate set dimensions
         if (!submeshesTextureCoordSetDimensions.empty())
             submesh->submeshProperties.SetTextureCoordinateSetDimensions(submeshesTextureCoordSetDimensions[submesh->index]);
@@ -796,14 +796,14 @@ bool GeometryStateBase::FinishCreate
             for (size_t vertexIndex = 0; vertexIndex < submesh->GetReindexedVertexCount(); vertexIndex++)
             {
                 if (vertexIndex < (int)this->meshSkeleton.weightedVertices.size())
-                    submesh->GetReindexedVertex(vertexIndex).weightedVertex = this->meshSkeleton.weightedVertices[vertexIndex];                
+                    submesh->GetReindexedVertex(vertexIndex).weightedVertex = this->meshSkeleton.weightedVertices[vertexIndex];
             }
         }
 
         submeshIndex++;
     }
 
-    this->meshSkeleton.Restore();        
+    this->meshSkeleton.Restore();
     this->meshMorpher.Restore();
 
     this->meshSkeleton.FinishCreate();
@@ -829,7 +829,7 @@ bool GeometryStateBase::FinishCreate
     this->animatedBounds = this->standardBounds;
 
     //Properly order the bones so that parent bones will be listed before their children
-    BoneHierarchy boneHierarchy(this->meshSkeleton);    
+    BoneHierarchy boneHierarchy(this->meshSkeleton);
     boneHierarchy.GetOrderedBones(this->meshSkeleton.bones);
 
     return !this->submeshes.empty();
@@ -844,7 +844,7 @@ void GeometryStateBase::FinalizeVertexAndIndexBuffersForWrite(bool buildShared)
     {
         switch (submesh->submeshProperties.primitiveType)
         {
-            case PrimitiveType::LINES: 
+            case PrimitiveType::LINES:
             {
                 if (submesh->geometryType == GeometryStateSubmesh::MESH)
                 {
@@ -855,7 +855,7 @@ void GeometryStateBase::FinalizeVertexAndIndexBuffersForWrite(bool buildShared)
                         submesh->indices.push_back(edge.e2);
                     }
                 }
-                        
+
                 break;
             }
             default: break;
@@ -869,7 +869,7 @@ void GeometryStateBase::FinalizeVertexAndIndexBuffersForWrite(bool buildShared)
 
         size_t sharedTotalIndexCount = 0;
         size_t sharedTotalVertexCount = 0;
-        
+
         for (auto submesh : this->submeshes)
         {
             sharedTotalIndexCount += submesh->indices.size();
@@ -889,7 +889,7 @@ void GeometryStateBase::FinalizeVertexAndIndexBuffersForWrite(bool buildShared)
             auto& vertexBuffer = this->vertexBuffers[submesh->vertexBufferRange.bufferIndex];
 
             //Handle vertices
-            submesh->vertexBufferRange.bufferIndex = bufferIndex;            
+            submesh->vertexBufferRange.bufferIndex = bufferIndex;
             submesh->vertexBufferRange.startIndex = vertexBuffer.vertices.size();
             submesh->vertexBufferRange.elementCount = submesh->vertexList.size();
 
@@ -927,8 +927,8 @@ void GeometryStateBase::FinalizeVertexAndIndexBuffersForWrite(bool buildShared)
 
 GeometryStateSubmesh* GeometryStateBase::GetMaterialSubmesh
     (
-    MaterialsToSubmeshes& materialsToSubmeshes, 
-    MaterialAccessor material, 
+    MaterialsToSubmeshes& materialsToSubmeshes,
+    MaterialAccessor material,
     bool* isNew
     )
 {

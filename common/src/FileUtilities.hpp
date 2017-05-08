@@ -19,10 +19,10 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Common {
     class WxByteBuffer;
 } }
@@ -92,8 +92,8 @@ namespace Finjin { namespace Exporter {
         /** Modifies the file path's extension, making it lower case. */
         static void MakeExtensionLowercase(wxString& path);
 
-        /** 
-         * Extracts the drive and directories from the file name. 
+        /**
+         * Extracts the drive and directories from the file name.
          * @return The directory path, with a trailing path separator.
          */
         static wxString GetDirectoryPath(const wxString& path);
@@ -115,16 +115,16 @@ namespace Finjin { namespace Exporter {
         /**
          * Creates an export directory.
          * @param outputPath [out] - The resultant output path.
-         * @param defaultExportPath [in] - The default export path. This path is assumed to exist 
+         * @param defaultExportPath [in] - The default export path. This path is assumed to exist
          * on the computer.
-         * @param subdirectory [in] - A subdirectory, which may be either absolute or 
+         * @param subdirectory [in] - A subdirectory, which may be either absolute or
          * relative to the defaultExportPath. If this is empty, the the default export path
-         * is returned. If the subdirectory is not empty, it is joined with the default export path, 
+         * is returned. If the subdirectory is not empty, it is joined with the default export path,
          * and the resultant directory is created recursively.
          */
         static wxString CreateExportDirectory(const wxString& defaultExportPath, const wxString& subdirectory);
 
-        /** 
+        /**
          * Gets all the subdirectories of the specified directory
          * @param directory [in] - The directory whose subdirectories are queried. This should include the trailing separator
          * @param subdirs [out] - The subdirectories
@@ -146,8 +146,8 @@ namespace Finjin { namespace Exporter {
         template <typename FileSet, typename DirectorySet>
         static bool FindDirectoriesContainingFiles
             (
-            const wxString& rootDirectory, 
-            FileSet& filenames, 
+            const wxString& rootDirectory,
+            FileSet& filenames,
             DirectorySet& directories
             )
         {
@@ -163,9 +163,9 @@ namespace Finjin { namespace Exporter {
 
                         auto next = filename;
                         ++next;
-                
+
                         filenames.erase(filename);
-                
+
                         filename = next;
                     }
                     else
@@ -186,8 +186,8 @@ namespace Finjin { namespace Exporter {
         }
 
 
-        /** 
-         * Ensures the specified file name has the specified extension. 
+        /**
+         * Ensures the specified file name has the specified extension.
          * @param fileName [in/out] - The file name to modify. If it has an extension, that extension is removed
          * and replaced with the specified extension.
          * @param extension [in] - The new file extension. This can be specified with or without a dot.
@@ -203,7 +203,7 @@ namespace Finjin { namespace Exporter {
         /** Ensures that all the separator characters in the specified path use native slashes. */
         static void MakeNativeSlashes(wxString& text);
 
-        /** 
+        /**
          * Reads the specified text file into a string.
          * @param fileName [in] - The text file to load.
          * @param text [out] - The string that receives the text from the file.
@@ -211,14 +211,14 @@ namespace Finjin { namespace Exporter {
          */
         static bool ReadTextFile(const wxString& fileName, wxString& text);
 
-        /** 
+        /**
          * Writes the specified text to a file.
          * @param fileName [in] - The text file to write.
          * @param text [in] - The string that is written to the file.
          * @return If the file was written, true is returned. Otherwise, false is returned.
          */
         static bool WriteTextFile(const wxString& fileName, const wxString& text);
-        
+
         static bool ReadBinaryFile(const wxString& fileName, WxByteBuffer& bytes);
 
         /**
@@ -228,11 +228,11 @@ namespace Finjin { namespace Exporter {
          * @return If the file existed, true is returned. Otherwise, false is returned.
          */
         static bool ReadBinaryFile(const wxString& fileName, std::vector<uint8_t>& bytes);
-        
+
         /**
          * Ensures that the specified file is replaceable by removing its read-only property.
          * @param fileName [in] - The file to modify.
-         * @return If the file is replaceable (either it doesn't exist or it is writable), true is returned. 
+         * @return If the file is replaceable (either it doesn't exist or it is writable), true is returned.
          * Otherwise, false is returned.
          */
         static bool EnsureFileReplaceable(const wxString& fileName);

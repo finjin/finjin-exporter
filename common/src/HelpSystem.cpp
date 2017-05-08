@@ -25,12 +25,12 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 HelpSystem::HelpSystem(const wxString& helpFileName)
 {
     //Create the help file controller
     this->helpFileName = helpFileName;
-    
+
 #if defined(__WXMSW__)
     this->appWindow = new wxApplicationWindow(false);
     this->helpController = new wxCHMHelpController(this->appWindow);
@@ -44,7 +44,7 @@ HelpSystem::~HelpSystem()
     //Delete the help file controller
     this->helpController->Quit();
     delete this->helpController;
-    
+
     delete this->appWindow;
 #endif
 }
@@ -62,7 +62,7 @@ void HelpSystem::Show()
             url = this->helpFileName;
         else
             url = wxT("http://finjin.com/support");
-        
+
         auto command = fileType->GetOpenCommand(url);
         if (!command.empty())
             wxExecute(command);

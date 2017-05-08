@@ -39,7 +39,7 @@
 #include <impexp.h>
 #include <iparamb2.h>
 #include <modstack.h>
-#include <CS/IMixer8.h> 
+#include <CS/IMixer8.h>
 #include <CS/BipedApi.h>
 #include <CS/KeyTrack.h>
 #include <CS/phyexp.h>
@@ -63,7 +63,7 @@
 #include <bmmlib.h>
 #include <mnmath.h>
 #include <decomp.h>
-#include <MeshNormalSpec.h> 
+#include <MeshNormalSpec.h>
 #include <simpmod.h>
 #undef min
 #undef PI
@@ -84,7 +84,7 @@ namespace Max
 #include "CommonTypes.hpp"
 
 
-//Macros-----------------------------------------------------------------------
+//Macros------------------------------------------------------------------------
 #define EXPAND_APP_XYZ(value) \
     (value).x,\
     (value).y,\
@@ -93,4 +93,3 @@ namespace Max
 #define APP_VERSION_NAME wxString::Format(wxT("3DSMax%d-%s"), MAX_PRODUCT_YEAR_NUMBER, APPLICATION_PLATFORM)
 
 #define APP_TIME_RESOLUTION_UNIT WxTimeDurationUnit::MILLISECONDS
-

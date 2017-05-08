@@ -19,11 +19,11 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "ObjectTypeDetectionContextBase.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     class ObjectTypeDetectionContext : public ObjectTypeDetectionContextBase
@@ -34,7 +34,7 @@ namespace Finjin { namespace Exporter {
             this->maxObject = nullptr;
         }
 
-        /** 
+        /**
          * Equivalent to calling this->object.node->EvalWorldState(0).obj
          */
         Object* maxObject;

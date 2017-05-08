@@ -25,21 +25,21 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinNodeAnimationSettingsAccessor::Attributes FinjinNodeAnimationSettingsAccessor::attributes;
 
 
-//Implementation---------------------------------------------------------------
-FinjinNodeAnimationSettingsAccessor::FinjinNodeAnimationSettingsAccessor() 
-{    
+//Implementation----------------------------------------------------------------
+FinjinNodeAnimationSettingsAccessor::FinjinNodeAnimationSettingsAccessor()
+{
 }
 
-FinjinNodeAnimationSettingsAccessor::FinjinNodeAnimationSettingsAccessor(MPlug rootPlug) 
+FinjinNodeAnimationSettingsAccessor::FinjinNodeAnimationSettingsAccessor(MPlug rootPlug)
 {
     this->rootPlug = rootPlug;
 }
 
-bool FinjinNodeAnimationSettingsAccessor::operator == (const FinjinNodeAnimationSettingsAccessor& other) const 
+bool FinjinNodeAnimationSettingsAccessor::operator == (const FinjinNodeAnimationSettingsAccessor& other) const
 {
     return this->rootPlug == other.rootPlug;
 }
@@ -192,7 +192,7 @@ MPlug FinjinNodeAnimationSettingsAccessor::Child(MObject attribute, const MStrin
 {
     MPlug result;
 
-    if (this->rootPlug.isDynamic())    
+    if (this->rootPlug.isDynamic())
     {
         MString plugName;
         unsigned int count = this->rootPlug.numChildren();
@@ -209,7 +209,7 @@ MPlug FinjinNodeAnimationSettingsAccessor::Child(MObject attribute, const MStrin
     }
     else
         result = this->rootPlug.child(attribute);
-    
+
     return result;
 }
 
@@ -270,6 +270,6 @@ MObject FinjinNodeAnimationSettingsAccessor::CreateSettingsArrayAttribute(NodeAt
     attributesList.push_back(attributes.sampleType = adder.AddInt("NodeAnimation_SampleType", (int)SampleType::USE_PARENT));
     attributesList.push_back(attributes.translationInterpolationType = adder.AddString("NodeAnimation_TranslationInterpolationType"));
     attributesList.push_back(attributes.rotationInterpolationType = adder.AddString("NodeAnimation_RotationInterpolationType"));
- 
+
     return adder.AddCompoundArray(name, attributesList);
 }

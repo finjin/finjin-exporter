@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /**
@@ -38,14 +38,14 @@ namespace Finjin { namespace Exporter {
             const wxSize& size = wxDefaultSize,
             const wxString& name = wxEmptyString
             );
-      
+
         double GetValue() const { return this->value; }
         void SetValue(double val);
-        
+
         double GetMin() const { return this->minValue; }
         double GetMax() const { return this->maxValue; }
-        
-        /** 
+
+        /**
          * Set the range of values through which the button can drag.
          * maxVal must be greater than minVal.
          */
@@ -56,15 +56,15 @@ namespace Finjin { namespace Exporter {
         /** Set the number digits precision. Least significant digit will be 10^(-decimal) */
         void SetPrecision(int precision);
 
-        bool AcceptsFocus() const {return false;}  
-        
+        bool AcceptsFocus() const {return false;}
+
         /** Set the maximum number of significant figures */
         void SetMaxSigFigs(int n);
 
         double GetAcceleration() const { return this->acceleration; }
 
-        /** 
-         * Set mouse acceleration. 1 <-> linear, > 1 accelerated. 
+        /**
+         * Set mouse acceleration. 1 <-> linear, > 1 accelerated.
          * The acceleration argument must be 1 or greater
          */
         void SetAcceleration(double acceleration);
@@ -82,7 +82,7 @@ namespace Finjin { namespace Exporter {
         void OnCaptureLost(wxMouseCaptureLostEvent& event);
 
         static wxString ToString(double value, int precision);
-        
+
         // Returns the magnitude of the argument in base 10.
         static int GetMagnitude(double x);
 
@@ -105,7 +105,7 @@ namespace Finjin { namespace Exporter {
 
         static wxBitmap RenderBitmap(const DragButtonStyle& style, int w, int h);
 
-        wxBitmap& GetStyledBitmap(wxBitmap& bitmap, const DragButtonStyle& style);    
+        wxBitmap& GetStyledBitmap(wxBitmap& bitmap, const DragButtonStyle& style);
 
         void LimitValue(double& value);
 
@@ -116,10 +116,10 @@ namespace Finjin { namespace Exporter {
         void Init();
 
         bool Hit(int x, int y) const;
-        
+
         int GetTotalDrag(const wxPoint& mousePosition) const;
         int GetLastDrag(const wxPoint& mousePosition) const;
-        
+
     protected:
         wxCursor lastCursor;
 
@@ -147,7 +147,7 @@ namespace Finjin { namespace Exporter {
         // Precision of this->value.  If mode is linear then precision is the
         // number of digits after the decimal point, if greater than 0. 0
         // precision indicates an integer. Precision < 0 indicates the
-        // number is a multiple of 10^(-this->precision).  
+        // number is a multiple of 10^(-this->precision).
         int precision;
 
         unsigned int logSteps;
@@ -164,7 +164,7 @@ namespace Finjin { namespace Exporter {
     /** Spinner button event */
     class SpinnerButtonEvent : public wxCommandEvent
     {
-    public:  
+    public:
         SpinnerButtonEvent(wxEventType commandType = wxEVT_NULL, int id = 0) : wxCommandEvent(commandType, id)
         {
             this->value = 0;
@@ -190,7 +190,7 @@ namespace Finjin { namespace Exporter {
     DECLARE_EVENT_TYPE(EVT_SPINNER_BUTTON_DRAG, 133001)
     DECLARE_EVENT_TYPE(EVT_SPINNER_BUTTON_UP, 133002)
     DECLARE_EVENT_TYPE(EVT_SPINNER_BUTTON_DOWN, 133003)
-    
+
     typedef void (wxEvtHandler::*wxDragButtonEventFunction)(SpinnerButtonEvent&);
 
     #define SpinnerButtonEventHandler(func) \

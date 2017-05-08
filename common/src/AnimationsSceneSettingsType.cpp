@@ -24,7 +24,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void AnimationsSceneSettingsType::CreateSettingsPages(TabControlPages& tabPages, FinjinSceneSettingsAccessor& sceneSettings)
 {
     tabPages.AddPage(new SceneSettingsDialog_AnimationsPage(tabPages.GetTabParentWindow(), sceneSettings), SceneSettingsDialog_AnimationsPage::TITLE);

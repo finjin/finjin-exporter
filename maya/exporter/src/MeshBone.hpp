@@ -19,12 +19,12 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "MeshBoneBase.hpp"
 #include "TimeChanger.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** A single bone in a mesh skeleton. */
@@ -38,6 +38,6 @@ namespace Finjin { namespace Exporter {
 
     public:
         bool hasBoneAncestorInScene;
-    };    
+    };
 
 } }

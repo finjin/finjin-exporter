@@ -23,7 +23,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 void* MacUtilities::GetViewWindow(void* view)
 {
     NSView* nsview = (NSView*)view;

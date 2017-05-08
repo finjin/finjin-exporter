@@ -19,7 +19,7 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "SettingsPage.hpp"
 #include "SpinnerControl.hpp"
 #include "FinjinObjectSettingsAccessor.hpp"
@@ -27,7 +27,7 @@
 #include "TextureCoordinateSetMappings.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Mesh page for the object settings dialog. */
@@ -84,7 +84,7 @@ namespace Finjin { namespace Exporter {
         };
 
         bool GetGUIData() override;
-        bool SetGUIData() override;    
+        bool SetGUIData() override;
 
         void OnCustomizeSubmeshesCheckBox(wxCommandEvent& event);
         void OnSubmeshTextureCoordinateSetsChoice(wxCommandEvent& event);

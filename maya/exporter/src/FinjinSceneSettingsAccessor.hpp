@@ -19,27 +19,27 @@
 #pragma once
 
 
-//Includes---------------------------------------------------------------------
+//Includes----------------------------------------------------------------------
 #include "FinjinObjectSettingsAccessor.hpp"
 #include "FinjinSceneSettingsAccessorBase.hpp"
 #include "BaseDirectory.hpp"
 #include "UserDataSettingsAccessor.hpp"
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 namespace Finjin { namespace Exporter {
 
     /** Access to a Finjin scene settings object. */
     class FinjinSceneSettingsAccessor : public FinjinSceneSettingsAccessorBase
     {
-    public:    
+    public:
         FinjinSceneSettingsAccessor() {}
         FinjinSceneSettingsAccessor(MObject obj) {this->obj = obj;}
-        
+
         bool IsValid() const {return !this->obj.isNull();}
 
         static FinjinSceneSettingsAccessor GetSceneSettings(bool createIfNecessary = true, bool* newInstance = nullptr);
-        
+
         void MergeObjectSettings(FinjinSceneSettingsAccessor& settings);
 
         static void MergeSceneSettings();
@@ -60,7 +60,7 @@ namespace Finjin { namespace Exporter {
         void GetFlag(int i, wxString& name) override;
         double GetNodeAnimationSampleInterval() override;
         SampleType GetNodeAnimationSampleType() override;
-        wxString GetConfigurationTargetName() override;        
+        wxString GetConfigurationTargetName() override;
         double GetSkeletonAnimationSampleInterval() override;
         SampleType GetSkeletonAnimationSampleType() override;
         double GetVertexAnimationSampleInterval() override;
@@ -107,7 +107,7 @@ namespace Finjin { namespace Exporter {
         wxString GetShadowTechnique() override;
         FinjinColor GetShadowColor() override;
         float GetShadowFarDistance() override;
-                
+
         void SetSceneScaleUnit(wxString value) override;
         void SetSceneScaleDivide(float value) override;
         void SetExportHierarchy(bool value) override;
@@ -132,7 +132,7 @@ namespace Finjin { namespace Exporter {
         void SetExportBinormals(bool value) override;
         void SetCheckMeshInstances(bool value) override;
         void SetAlwaysCreateNewSubmeshesWhenMerging(bool value) override;
-        void SetAnimateBoundingVolumes(bool value) override;        
+        void SetAnimateBoundingVolumes(bool value) override;
         void SetExportMeshes(bool value) override;
         void ClearDisallowedMeshes() override;
         void AddDisallowedMesh(ObjectAccessor value) override;
@@ -143,11 +143,11 @@ namespace Finjin { namespace Exporter {
         void ClearAdditionalMaterials() override;
         void AddAdditionalMaterial(MaterialAccessor value) override;
         void ClearDisallowedMaterials() override;
-        void AddDisallowedMaterial(MaterialAccessor value) override;        
+        void AddDisallowedMaterial(MaterialAccessor value) override;
         void ClearRenameBitmaps() override;
         void AddRenameBitmap(wxString from, wxString to) override;
         void ClearRenameBitmapExtensions() override;
-        void AddRenameBitmapExtension(wxString from, wxString to) override;        
+        void AddRenameBitmapExtension(wxString from, wxString to) override;
         void SetExportEnvironment(bool value) override;
         void SetAmbientLightColor(FinjinColor value) override;
         void SetAmbientLightColorSync(ValueSourceSync value) override;
@@ -165,7 +165,7 @@ namespace Finjin { namespace Exporter {
         void SetShadowTechnique(wxString value) override;
         void SetShadowColor(FinjinColor value) override;
         void SetShadowFarDistance(float value) override;
-        
+
         void RemoveObjectSettings(ObjectAccessor object);
 
         void Upgrade();

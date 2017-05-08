@@ -26,19 +26,19 @@
 using namespace Finjin::Exporter;
 
 
-//Static initialization--------------------------------------------------------
+//Static initialization---------------------------------------------------------
 FinjinStaticGeometry::Attributes FinjinStaticGeometry::attributes;
 
 const MString FinjinStaticGeometry::TYPE_NAME("FinjinStaticGeometry");
 const MTypeId FinjinStaticGeometry::TYPE_ID(FinjinMayaTypeID::STATIC_GEOMETRY_NODE);
 
 
-//Implementation---------------------------------------------------------------
-FinjinStaticGeometry::FinjinStaticGeometry() 
+//Implementation----------------------------------------------------------------
+FinjinStaticGeometry::FinjinStaticGeometry()
 {
 }
 
-FinjinStaticGeometry::~FinjinStaticGeometry() 
+FinjinStaticGeometry::~FinjinStaticGeometry()
 {
 }
 
@@ -54,7 +54,7 @@ void FinjinStaticGeometry::DrawLocator(M3dView& view, M3dView::DisplayStyle styl
     float width = MPlug(object, attributes.width).asMDistance().as(UI_UNIT_TYPE);
     float height = MPlug(object, attributes.height).asMDistance().as(UI_UNIT_TYPE);
     FinjinColor color = MayaPlug::GetColor(MPlug(object, attributes.color));
-    
+
     if (status == M3dView::kLead || status == M3dView::kActive)
         glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
     else
@@ -67,13 +67,13 @@ void FinjinStaticGeometry::DrawLocator(M3dView& view, M3dView::DisplayStyle styl
     DrawCube(width, height, length);
 }
 
-MBoundingBox FinjinStaticGeometry::boundingBox() const 
+MBoundingBox FinjinStaticGeometry::boundingBox() const
 {
     MObject object = thisMObject();
     float length = MPlug(object, attributes.length).asMDistance().as(UI_UNIT_TYPE);
     float width = MPlug(object, attributes.width).asMDistance().as(UI_UNIT_TYPE);
     float height = MPlug(object, attributes.height).asMDistance().as(UI_UNIT_TYPE);
-    
+
     MBoundingBox bbox;
 
     bbox.expand(MPoint(-0.5f * width, 0.0f, 0.0f));
@@ -100,13 +100,13 @@ void* FinjinStaticGeometry::Creator()
 
 MStatus FinjinStaticGeometry::AddAttributes()
 {
-    NodeAttributeAdder adder;        
-    
+    NodeAttributeAdder adder;
+
     attributes.length = adder.AddDistance("Length", MDistance(10, INTERNAL_UNIT_TYPE), 100);
     attributes.width = adder.AddDistance("Width", MDistance(10, INTERNAL_UNIT_TYPE), 100);
     attributes.height = adder.AddDistance("Height", MDistance(10, INTERNAL_UNIT_TYPE), 100);
     attributes.color = adder.AddColor("IconColor", MColor(0.0f, 1.0f, 0.0f, 0.5f));
     attributes.castShadows = adder.AddBool("CastShadows", true);
-    
+
     return MS::kSuccess;
 }

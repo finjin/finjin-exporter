@@ -24,9 +24,9 @@
 using namespace Finjin::Exporter;
 
 
-//Classes----------------------------------------------------------------------
+//Types-------------------------------------------------------------------------
 FilteredSceneObjects::FilteredSceneObjects(ObjectFilterType types) : FilteredSceneObjectsBase(types)
-{        
+{
 }
 
 void FilteredSceneObjects::Initialize(bool sortByFullName)
@@ -43,7 +43,7 @@ void FilteredSceneObjects::Initialize(bool sortByFullName)
         }
     }
     else
-    {    
+    {
         MItDag dagIterator(MItDag::kBreadthFirst, MFn::kInvalid);
         for (; !dagIterator.isDone(); dagIterator.next())
         {
@@ -51,7 +51,7 @@ void FilteredSceneObjects::Initialize(bool sortByFullName)
             dagIterator.getPath(object);
             MObject node = object.node();
             HandleObject(node);
-        }   
+        }
     }
 
     Sort(sortByFullName);

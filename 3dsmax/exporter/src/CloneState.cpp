@@ -25,7 +25,7 @@
 using namespace Finjin::Exporter;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 CloneState::CloneState()
 {
     Reset();
@@ -74,7 +74,7 @@ void CloneState::OnCloneNode()
             {
                 FinjinObjectSettingsAccessor sourceObjectSettings = sceneSettings.GetObjectSettings(*sourceNode);
                 FinjinObjectSettingsAccessor clonedObjectSettings = sceneSettings.GetObjectSettings(*clonedNode);
-                clonedObjectSettings.object->CopyFrom(sourceObjectSettings.object);                
+                clonedObjectSettings.object->CopyFrom(sourceObjectSettings.object);
             }
         }
 

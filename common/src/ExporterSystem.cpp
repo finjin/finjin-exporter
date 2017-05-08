@@ -58,16 +58,16 @@
 using namespace Finjin::Exporter;
 
 
-//Globals----------------------------------------------------------------------
+//Globals-----------------------------------------------------------------------
 //static ApplicationConsoleLogListener appConsoleLogListener(INFO_LOG_MESSAGE);
 static WxFileLogListener mainLogListener(INFO_LOG_MESSAGE, FINJIN_EXPORTER_LOG_FILE_NAME);
 static std::unique_ptr<HelpSystem> helpSystem;
 static WxRandomUuidCreator randomUuidCreator;
 
 
-//Implementation---------------------------------------------------------------
+//Implementation----------------------------------------------------------------
 bool ExporterSystem::IsInitialized()
-{    
+{
     return helpSystem != nullptr;
 }
 
@@ -76,7 +76,7 @@ void ExporterSystem::Initialize()
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("ExporterSystem::Initialize()"));
 
     if (!IsInitialized())
-    {        
+    {
         auto logFileName = FileUtilities::JoinPath(ApplicationAccessor::GetFinjinHomeDirectory(true), FINJIN_EXPORTER_LOG_FILE_NAME);
         if (wxFileExists(logFileName))
             wxRemoveFile(logFileName);
@@ -86,7 +86,7 @@ void ExporterSystem::Initialize()
         Logger::AddListener(&mainLogListener);
         if (FinjinGlobalSettings::GetInstance().detailedLogging || LogListener::DEFAULT_LOG_LEVEL == DEBUG_LOG_MESSAGE)
             EnableDetailedLogging(true, false);
-        
+
         //Create whatever initial dialogs are needed
         Dialogs::Initialize();
 
@@ -184,7 +184,7 @@ void ExporterSystem::RunExternalViewer(const wxString& fileName)
     //FinjinGlobalSettings& settings = FinjinGlobalSettings::GetInstance();
     wxArrayString commands;
     commands.reserve(50);
-    
+
     //Executable file name---------
     wxString executableBaseFileName;
     //if (settings.externalViewer == FinjinGlobalSettings::FINJIN_VIEWER)
@@ -197,24 +197,24 @@ void ExporterSystem::RunExternalViewer(const wxString& fileName)
     //The executable needs to be called directly to prevent the app framework from handling the command line arguments
     executableFileName += wxT("/Contents/MacOS/") + executableBaseFileName;
 #endif
-    
+
     commands.push_back(executableFileName);
 
     auto sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
-    
+
     if (!fileName.empty())
     {
         commands.push_back(wxT("-file"));
         commands.push_back(fileName);
-    }        
-    
+    }
+
     //Run viewer---------
     ArgsArray argsArray(commands);
-    
+
     wxString commandString;
     argsArray.ToCommandString(commandString);
     FINJIN_EXPORTER_LOG_MESSAGE(INFO_LOG_MESSAGE, Strings::RUNNING_EXTERNAL_VIEWER_FORMAT, executableBaseFileName.wx_str(), commandString.wx_str());
-    
+
     wxExecute(argsArray);
 }
 
@@ -222,7 +222,7 @@ void ExporterSystem::RefreshResources()
 {
     FINJIN_EXPORTER_LOG_METHOD_ENTRY(wxT("ExporterSystem::RefreshResources()"));
 
-    auto sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings(false);    
+    auto sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings(false);
     if (sceneSettings.IsValid())
     {
         //Validate resources
@@ -231,12 +231,12 @@ void ExporterSystem::RefreshResources()
         if (AnySet(validatedResources))
         {
             auto resourcesToRefresh = validatedResources;
-            
+
             //Some resources were validated
             FINJIN_EXPORTER_LOG_MESSAGE(DEBUG_LOG_MESSAGE, wxT("Refreshing scene resources"));
-            FinjinResourceManager::GetInstance().RefreshSceneResources(resourcesToRefresh, false, sceneSettings);        
-        }    
-        
+            FinjinResourceManager::GetInstance().RefreshSceneResources(resourcesToRefresh, false, sceneSettings);
+        }
+
         //Clear resources that failed to validate
         auto failedResources = ManagedResourceType(~(int)validatedResources);
         FinjinResourceManager::GetInstance().ClearSceneResources(failedResources);
@@ -251,7 +251,7 @@ void ExporterSystem::SyncSubmeshSettings(const std::vector<ObjectAccessor>& obje
     auto sceneSettings = FinjinSceneSettingsAccessor::GetSceneSettings();
     auto flags = GeometryStateFlags::NONE;
     if (!sceneSettings.GetCreateExtraMaterials())
-        flags |= GeometryStateFlags::NO_EXTRA_MATERIALS;                
+        flags |= GeometryStateFlags::NO_EXTRA_MATERIALS;
 
     for (size_t i = 0; i < objects.size(); i++)
     {
@@ -265,7 +265,7 @@ void ExporterSystem::SyncSubmeshSettings(const std::vector<ObjectAccessor>& obje
 
             SubmeshesSettings currentSubmeshesSettings;
             objectSettings.GetSubmeshesSettings(currentSubmeshesSettings);
-            
+
             currentSubmeshesSettings.SyncTo(defaultSubmeshesSettings);
 
             objectSettings.SetSubmeshesSettings(currentSubmeshesSettings);
