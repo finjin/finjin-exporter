@@ -18,7 +18,7 @@ The Finjin exporter plug-ins for 3DS Max and Maya generate 3D assets for use wit
 LICENSE.txt                 License file.
 README.md                   This file.
 configure.cfg               Source code configuration file. Modify this by hand when you start development for the very first time.
-configure.py                Configuration script. Run this once  when you start development for the very first time.
+configure.py                Configuration script. Run this once when you start development for the very first time.
 3dsmax/                     3DS Max-specific source tree.
   exporter/                 Exporter source tree.
   installer/                Installer source tree.
