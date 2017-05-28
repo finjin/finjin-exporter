@@ -699,7 +699,7 @@ bool MaxUtilities::GetBoxSize
     TimeValue time
     )
 {
-    size.Zero();
+    size.SetZero();
 
     auto object = node->GetObjectRef();
     if (object->ClassID() == Class_ID(BOXOBJ_CLASS_ID,0))

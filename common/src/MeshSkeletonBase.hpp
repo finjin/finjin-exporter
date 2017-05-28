@@ -148,7 +148,7 @@ namespace Finjin { namespace Exporter {
             /** Gets the length of the animation in seconds. */
             WxTimeDuration GetDuration() const
             {
-                auto length = WxTimeDuration::Zero();
+                auto length = WxTimeDuration::GetZero();
                 if (this->keys.size() > 0)
                     length = this->keys[this->keys.size() - 1].time - this->keys[0].time;
                 return length;
@@ -171,7 +171,7 @@ namespace Finjin { namespace Exporter {
             /** Gets the length of the animation in seconds. */
             WxTimeDuration GetDuration() const
             {
-                auto length = WxTimeDuration::Zero();
+                auto length = WxTimeDuration::GetZero();
                 for (size_t i = 0; i < this->boneAnimations.size(); i++)
                     length = std::max(length, this->boneAnimations[i]->GetDuration());
                 return length;

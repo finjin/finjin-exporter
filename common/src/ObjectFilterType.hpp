@@ -28,12 +28,14 @@ namespace Finjin { namespace Exporter {
     enum class ObjectFilterType
     {
         NONE = 0,
+        
         MESH = 1 << 0,
         PLANE = 1 << 1,
         CAMERA = 1 << 2,
         LIGHT = 1 << 3,
         OTHER = 1 << 4,
-        RENDERABLE = MESH | PLANE | OTHER,
+        
+        RENDERABLE = MESH | PLANE | OTHER,        
         ALL = MESH | PLANE | CAMERA | LIGHT | OTHER
     };
     FINJIN_ENUM_BITWISE_OPERATIONS(ObjectFilterType)

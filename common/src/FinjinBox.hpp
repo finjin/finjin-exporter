@@ -42,8 +42,8 @@ namespace Finjin { namespace Exporter {
 
         void Reset()
         {
-            this->min.Zero();
-            this->max.Zero();
+            this->min.SetZero();
+            this->max.SetZero();
         }
 
         /** Determines if the box is valid. */

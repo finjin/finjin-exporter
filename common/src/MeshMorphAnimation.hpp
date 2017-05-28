@@ -41,7 +41,7 @@ namespace Finjin { namespace Exporter {
 
         WxTimeDuration GetDuration() const
         {
-            auto length = WxTimeDuration::Zero();
+            auto length = WxTimeDuration::GetZero();
             for (size_t i = 0; i < this->subanimations.size(); i++)
                 length = std::max(length, this->subanimations[i]->GetDuration());
             return length;
@@ -52,7 +52,7 @@ namespace Finjin { namespace Exporter {
         {
             Key()
             {
-                this->time = WxTimeDuration::Zero();
+                this->time = WxTimeDuration::GetZero();
             }
 
             WxTimeDuration time;
@@ -73,7 +73,7 @@ namespace Finjin { namespace Exporter {
 
             WxTimeDuration GetDuration() const
             {
-                auto length = WxTimeDuration::Zero();
+                auto length = WxTimeDuration::GetZero();
                 if (this->keys.size() > 1)
                     length = this->keys[this->keys.size() - 1].time - this->keys[0].time;
                 return length;

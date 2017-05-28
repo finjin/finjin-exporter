@@ -381,7 +381,7 @@ namespace Finjin { namespace Exporter {
         {
             Key()
             {
-                this->time = WxTimeDuration::Zero();
+                this->time = WxTimeDuration::GetZero();
                 FINJIN_ZERO_ITEM(this->m44);
             }
 

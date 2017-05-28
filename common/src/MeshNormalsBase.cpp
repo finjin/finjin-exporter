@@ -103,7 +103,7 @@ void VertexNormal::Normalize()
 
     for (auto n = this; n != nullptr; n = n->next)
     {
-        n->norm.Zero();
+        n->norm.SetZero();
 
         for (auto& acc : n->accum)
             n->norm += acc;

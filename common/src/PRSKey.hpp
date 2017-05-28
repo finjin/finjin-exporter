@@ -34,7 +34,7 @@ namespace Finjin { namespace Exporter {
     public:
         PRSKey()
         {
-            this->time = WxTimeDuration::Zero();
+            this->time = WxTimeDuration::GetZero();
             FINJIN_ZERO_ITEM(this->m44);
         }
 

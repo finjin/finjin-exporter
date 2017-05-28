@@ -379,7 +379,7 @@ bool MayaUtilities::GetSphereRadiusAndSegmentCount(float& radius, FinjinIVector2
 
 bool MayaUtilities::GetBoxSize(FinjinVector3& size, MObject object)
 {
-    size.Zero();
+    size.SetZero();
 
     MObject inMeshAttribute = MFnDagNode(object).attribute("inMesh");
     if (!inMeshAttribute.isNull())

@@ -133,7 +133,7 @@ size_t VertexList::Add(Vertex& v, bool* isNew, bool fastAdd)
 {
     size_t index = 0;
 
-    auto hash = HashBytes(&v.pointSize, sizeof(v) - FINJIN_OFFSET_OF(Vertex, pointSize));
+    auto hash = HashBytes(&v.pointSize, sizeof(v) - offsetof(Vertex, pointSize));
 
     if (fastAdd)
     {

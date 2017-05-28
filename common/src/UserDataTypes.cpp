@@ -30,7 +30,7 @@ using namespace Finjin::Exporter;
 //Local functions---------------------------------------------------------------
 static bool IsValidNameChar(wxChar c)
 {
-    return c != wxT('\n') && c != wxT('\t');// isalpha(c) || isdigit(c) || c == wxT('_') || c == wxT('-');
+    return c != wxT('=') && c != wxT('\r') && c != wxT('\n') && c != wxT('\t');// isalpha(c) || isdigit(c) || c == wxT('_') || c == wxT('-');
 }
 
 static void FixName(wxString& name)

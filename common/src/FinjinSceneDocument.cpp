@@ -1662,7 +1662,7 @@ void FinjinSceneDocument_NodeAnimation::Write(WxDataChunkWriter& writer, WxError
     if (!this->keys.empty())
     {
         //Animation length
-        auto length = WxTimeDuration::Zero();
+        auto length = WxTimeDuration::GetZero();
         if (this->keys.size() > 1)
             length = this->keys[this->keys.size() - 1].time - this->keys[0].time;
         writer.WriteTimeDuration(StandardAssetDocumentPropertyNames::LENGTH, length, error);

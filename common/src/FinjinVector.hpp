@@ -27,7 +27,7 @@ namespace Finjin { namespace Exporter {
     {
         FinjinVector2()
         {
-            Zero();
+            SetZero();
         }
 
         explicit FinjinVector2(float value)
@@ -48,7 +48,7 @@ namespace Finjin { namespace Exporter {
             this->y = y;
         }
 
-        void Zero()
+        void SetZero()
         {
             this->x = this->y = 0;
         }
@@ -117,7 +117,7 @@ namespace Finjin { namespace Exporter {
 
         FinjinVector3()
         {
-            Zero();
+            SetZero();
         }
 
         explicit FinjinVector3(float value)
@@ -141,7 +141,7 @@ namespace Finjin { namespace Exporter {
             this->z = z;
         }
 
-        void Zero()
+        void SetZero()
         {
             this->x = this->y = this->z = 0;
         }
@@ -364,7 +364,7 @@ namespace Finjin { namespace Exporter {
     {
         FinjinVector4()
         {
-            Zero();
+            SetZero();
         }
 
         explicit FinjinVector4(float value)
@@ -407,7 +407,7 @@ namespace Finjin { namespace Exporter {
             this->w = w;
         }
 
-        void Zero()
+        void SetZero()
         {
             this->x = this->y = this->z = this->w = 0;
         }

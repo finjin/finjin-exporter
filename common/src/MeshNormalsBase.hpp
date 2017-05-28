@@ -112,7 +112,7 @@ namespace Finjin { namespace Exporter {
                 for (int i = 0; i < degree; i++)
                 {
                     this->v[i] = -1;
-                    this->normals[i].Zero();
+                    this->normals[i].SetZero();
                 }
             }
 
@@ -146,7 +146,7 @@ namespace Finjin { namespace Exporter {
                 for (int i = 0; i < degree; i++)
                 {
                     this->v[i] = -1;
-                    this->tangents[i].Zero();
+                    this->tangents[i].SetZero();
                 }
             }
 
