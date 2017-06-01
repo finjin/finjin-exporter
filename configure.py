@@ -1,26 +1,8 @@
 #!/usr/bin/env python3
 
-#Copyright (c) 2017 Finjin
-#
-#This file is part of Finjin Exporter (finjin-exporter).
-#
-#Finjin Exporter is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
-#
-#Finjin Exporter is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
-#
-#You should have received a copy of the GNU General Public License
-#along with Finjin Exporter.  If not, see <http://www.gnu.org/licenses/>.
-
-
-#------------------------------------------------------------------------------
+#------------------------------------------------
 #Before running this script, modify configure.cfg
-#Then run this script without arguments
+#Then run this script without arguments 
 
 import os
 import os.path
@@ -72,8 +54,10 @@ if __name__ == '__main__':
 
                     #Possibly override destination with environment variable defined by section
                     source_to_destination_values[1] = os.getenv(section, source_to_destination_values[1])
-
-                    lookup_by_section.get(section, OrderedDict())[platform] = source_to_destination_values
+                    
+                    temp_lookup = lookup_by_section.get(section, OrderedDict())
+                    temp_lookup[platform] = source_to_destination_values
+                    lookup_by_section[section] = temp_lookup
                 else:
                     lookup[platform] = platform_value
 
@@ -90,21 +74,18 @@ if __name__ == '__main__':
         for filename in files:
             file_path = normalize_path(os.path.join(root, filename))
             if file_path != this_file_path and file_path != config_file_path:
-                content = None
                 content_changed = False
 
-                with open(file_path, 'r') as content_file:
-                    content = content_file.read()
+                content = read_text_file(file_path)
+                if find_path is not None and find_path != replace_with_path and find_path in content:
+                    content = content.replace(find_path, replace_with_path)
+                    content_changed = True
 
-                    if find_path is not None and find_path != replace_with_path and find_path in content:
-                        content = content.replace(find_path, replace_with_path)
+                for section in lookup_by_section:
+                    section_platform_value = lookup_by_section[section].get(platform_name, None)
+                    if section_platform_value is not None and section_platform_value[0] != section_platform_value[1] and section_platform_value[0] in content:
+                        content = content.replace(section_platform_value[0], section_platform_value[1])
                         content_changed = True
-
-                    for section in lookup_by_section:
-                        section_platform_value = lookup_by_section[section].get(platform_name, None)
-                        if section_platform_value is not None and section_platform_value[0] != section_platform_value[1] and section_platform_value[0] in content:
-                            content = content.replace(section_platform_value[0], section_platform_value[1])
-                            content_changed = True
 
                 if content_changed:
                     if log_progress:
@@ -112,7 +93,7 @@ if __name__ == '__main__':
 
                     updated_count += 1
 
-                    with open(file_path, 'w') as content_file:
+                    with open(file_path, 'wb') as content_file:
                         content_file.write(to_utf8(content))
 
     #Rewrite configuration file
@@ -126,7 +107,7 @@ if __name__ == '__main__':
                 section_platform_value[0] = section_platform_value[1]
 
         #Write updated lookup values to file
-        with open(config_file_path, 'w') as config_file:
+        with open(config_file_path, 'wb') as config_file:
             if len(lookup) > 0:
                 config_file.write(to_utf8('#Do not modify these------------------------------\n'))
                 config_file.write(to_utf8('#Appropriate values will be used automatically when running configure.py\n'))
@@ -141,7 +122,7 @@ if __name__ == '__main__':
                 for section in lookup_by_section:
                     config_file.write(to_utf8('[' + section + ']\n'))
                     for section_platform_key in lookup_by_section[section]:
-                        section_platform_value = section_lookup[section_platform_key]
+                        section_platform_value = lookup_by_section[section][section_platform_key]
                         config_file.write(to_utf8(section_platform_key + '=' + section_platform_value[0] + '->' + section_platform_value[1] + '\n'))
                     config_file.write(to_utf8('\n'))
 

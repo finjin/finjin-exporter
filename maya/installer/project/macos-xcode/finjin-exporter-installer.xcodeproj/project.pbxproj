@@ -328,10 +328,10 @@
 				HEADER_SEARCH_PATHS = (
 					../../src,
 					../../../../common/src,
-					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/setup/cocoa/include",
-					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/include",
+					"/Users/derek/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/setup/cocoa/include",
+					"/Users/derek/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/include",
 				);
-				LIBRARY_SEARCH_PATHS = "~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug";
+				LIBRARY_SEARCH_PATHS = "/Users/derek/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_LDFLAGS = "";
@@ -355,10 +355,10 @@
 				HEADER_SEARCH_PATHS = (
 					../../src,
 					../../../../common/src,
-					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/setup/cocoa/include",
-					"~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/include",
+					"/Users/derek/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/setup/cocoa/include",
+					"/Users/derek/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/include",
 				);
-				LIBRARY_SEARCH_PATHS = "~/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug";
+				LIBRARY_SEARCH_PATHS = "/Users/derek/finjin-3rd-party/cpp-vs2012-exporter/wxWidgets/build/osx/DerivedData/wxcocoa/Build/Products/Debug";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_LDFLAGS = "";
