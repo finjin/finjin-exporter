@@ -31,10 +31,10 @@ namespace Finjin { namespace Exporter {
     enum class ManagedResourceType
     {
         NONE = 0,
-        
+
         VERTEX_FORMATS = 1 << 0,
         USER_DATA_TYPES = 1 << 1,
-        
+
         ALL = VERTEX_FORMATS | USER_DATA_TYPES
     };
     FINJIN_ENUM_BITWISE_OPERATIONS(ManagedResourceType)
