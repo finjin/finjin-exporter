@@ -94,6 +94,8 @@ void SceneExportSettings::Initialize(FinjinSceneSettingsAccessor sceneSettings, 
     auto& globalSettings = FinjinGlobalSettings::GetInstance();
 
     this->byteOrder = globalSettings.binaryByteOrder;
+    if (this->byteOrder == NATIVE)
+        this->byteOrder = ::GetByteOrder();
 
     this->copyBitmaps = globalSettings.copyBitmaps;
     this->convertBitmapsToTextures = globalSettings.convertBitmapsToTextures;
