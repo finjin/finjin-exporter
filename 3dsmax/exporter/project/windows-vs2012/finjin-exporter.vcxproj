@@ -126,7 +126,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.cpp">
+    <ClCompile Include="c:\finjin-3rd-party\cpp\tinyxml\tinyxml2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Max2015-Release|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Max2016-Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -364,7 +364,7 @@
     <ClCompile Include="..\..\src\TerrainMapRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.h" />
+    <ClInclude Include="c:\finjin-3rd-party\cpp\tinyxml\tinyxml2.h" />
     <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBase64.hpp" />
     <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxBinaryDataChunkWriter.hpp" />
     <ClInclude Include="..\..\..\..\..\finjin-common\wxcpp\library\src\finjin\common\WxByteBuffer.hpp" />

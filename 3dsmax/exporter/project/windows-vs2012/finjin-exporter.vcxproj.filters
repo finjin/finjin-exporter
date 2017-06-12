@@ -794,7 +794,7 @@
     <ClCompile Include="..\..\..\..\common\src\FinjinVector.cpp">
       <Filter>Source Files\common\utilities</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.cpp">
+    <ClCompile Include="c:\finjin-3rd-party\cpp\tinyxml\tinyxml2.cpp">
       <Filter>Source Files\common\documents\tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\common\src\ExporterSystem.cpp">
@@ -1633,7 +1633,7 @@
     <ClInclude Include="..\..\src\FinjinStaticGeometry.hpp">
       <Filter>Source Files\max\finjin-helpers</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\finjin-3rd-party\cpp\tinyxml\tinyxml2.h">
+    <ClInclude Include="c:\finjin-3rd-party\cpp\tinyxml\tinyxml2.h">
       <Filter>Source Files\common\documents\tinyxml</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\common\src\ExporterSystem.hpp">
